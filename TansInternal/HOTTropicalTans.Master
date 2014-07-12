@@ -1,0 +1,93 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="HOTTropicalTans.master.cs"
+    Inherits="HOTTropicalTans.InternalSite" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="masterHeader" runat="server">
+    <title>HOT Tropical Tans</title>
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.structure.min.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.theme.min.css" />
+    <script src="/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="/js/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="/css/HOTCSS.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(function () {
+            //Hide/Show the feedback messages if they contain data
+            if ($("#<%=errorMessage.ClientID%>").text() != "") {
+                $("#<%=errorMessagePanel.ClientID%>").css("display", "block");
+
+            }
+            else {
+                $("#<%=errorMessagePanel.ClientID%>").css("display", "none");
+            }
+            if ($("#<%=successMessage.ClientID%>").text() != "") {
+                $("#<%=successMessagePanel.ClientID%>").css("display", "block");
+            }
+            else {
+                $("#<%=successMessagePanel.ClientID%>").css("display", "none");
+            }
+        });
+    </script>
+    <asp:ContentPlaceHolder ID="headerPlaceHolder" runat="server" />
+</head>
+<body class="jquery-ui page">
+    <div id="container">
+        <div id="header">
+            <img src="/images/InternalSunLogo.gif" alt="HOT Tropical Tans" />
+        </div>
+        <div id="navigation">
+            <ul>
+                <li>
+                    <asp:HyperLink Text="Tanning Schedule" runat="server" ID="viewSchedule" /></li>
+                <li>
+                    <asp:HyperLink Text="Massage Schedule" runat="server" ID="viewMassageSchedule" /></li>
+                <li>
+                    <asp:HyperLink Text="Add Customer" runat="server" ID="addCustomer" /></li>
+                <li>
+                    <asp:HyperLink Text="Search" runat="server" ID="search" /></li>
+                <li>
+                    <asp:HyperLink Text="Gift Cards" runat="server" ID="giftCards" /></li>
+                <li>
+                    <asp:HyperLink Text="Tanning Point of Sale" runat="server" ID="pointOfSale" /></li>
+                <li>
+                    <asp:HyperLink Text="Martial Arts Point of Sale" runat="server" ID="maPointOfSale" /></li>
+                <li>
+                    <asp:HyperLink Text="Administration" runat="server" ID="adminSection" /></li>
+                <li>
+                    <asp:HyperLink Text="Employee Clock" runat="server" ID="employeeClock" /></li>
+                <li>
+                    <asp:HyperLink Text="Report A Problem" runat="server" ID="reportProblem" /></li>
+            </ul>
+            <div id="dates">
+                <b>Today's Date:</b>
+                <asp:Label ID="todayDate" runat="server" />
+                <b>Currently On:</b>
+                <asp:Label ID="currentDate" runat="server" />
+                <b>Two Week:</b>
+                <asp:Label ID="twoWeek" runat="server" />
+                <b>Month:</b>
+                <asp:Label ID="month" runat="server" />
+            </div>
+        </div>
+        <div id="content-container">
+            <div id="content">
+                <form id="hotTansForm" runat="server">
+                    <asp:Panel ID="errorMessagePanel" CssClass="message_error" runat="server">
+                        <asp:Label ID="errorMessage" runat="server" />
+                    </asp:Panel>
+                    <asp:Panel ID="successMessagePanel" CssClass="message_success" runat="server">
+                        <asp:Label ID="successMessage" runat="server" />
+                    </asp:Panel>
+                    <div>
+                        <asp:ContentPlaceHolder ID="Main" runat="server" />
+                    </div>
+                </form>
+            </div>
+            <div id="footer">
+                <%--Copyright © HOT Tropical Tans, 2014--%>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

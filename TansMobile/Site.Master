@@ -1,0 +1,59 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="MobileSite.SiteMaster" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="Head1" runat="server">
+    <title>HOT Tropical Tans</title>
+    <link rel="stylesheet" href="Styles/mobile.css" />
+    <link rel="stylesheet" href="Styles/hottans.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).bind("mobileinit", function () {
+            $.mobile.ajaxEnabled = false;
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            //Hide/Show the feedback messages if they contain data
+            if ($("#<%=errorMessage.ClientID%>").text() != "") {
+                 $("#<%=errorMessagePanel.ClientID%>").css("display", "block");
+             }
+             else {
+                 $("#<%=errorMessagePanel.ClientID%>").css("display", "none");
+             }
+         });
+    </script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="mobilePage" data-role="page" data-theme="a" data-title="HOT Tropical Tans">
+        <form id="frmMobile" runat="server" data-ajax="false" enableviewstate="true">
+            <div class="mobileHeader">
+                <a href="Default.aspx">
+                    <img src="images/mobileheader.jpg" alt="HOT Tropical Tans" height="78" width="320" /></a>
+            </div>
+            <div data-ajax="false">
+                <asp:Panel ID="errorMessagePanel" CssClass="message_error" runat="server">
+                    <asp:Label ID="errorMessage" runat="server" />
+                </asp:Panel>
+                <br />
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </div>
+        </form>
+        <!-- JavaScript at the bottom for fast page loading -->
+        <!-- Asynchronous Google Analytics snippet.
+       mathiasbynens.be/notes/async-analytics-snippet -->
+        <script>
+            var _gaq = [['_setAccount', 'UA-33784496-1'], ['_trackPageview']];
+            (function (d, t) {
+                var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+                g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+                s.parentNode.insertBefore(g, s)
+            }(document, 'script'));
+        </script>
+    </div>
+</body>
+</html>

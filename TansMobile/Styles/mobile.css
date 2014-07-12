@@ -1,0 +1,210 @@
+﻿body
+{
+    background-color: #3399CC;
+    font-family: Sans-Serif;
+}
+
+.mobileHeader
+{
+    background-image: url(../images/headerbg.jpg);
+    width: 100%;
+    font-size: 1em;
+    font-family: Sans-Serif;
+    margin: 0px;
+}
+
+#main
+{
+    text-align: left;
+    font-size: 120%;
+    font-family: Sans-Serif;
+    margin: auto;
+    padding: 10px;
+}
+
+#about
+{
+    text-align: center;
+    font-size: 1em;
+    font-family: Sans-Serif;
+    margin: auto;
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    background-color: #C3A865;
+    border: 1px solid #000000;
+    width: 300px;
+    padding: 4px;
+}
+
+#hours
+{
+    margin: auto;
+    padding: 10px
+}
+
+#login
+{
+    text-align: center;
+    font-size: 1em;
+    font-family: Sans-Serif;
+    margin: auto;
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    background-color: #C3A865;
+    border: 1px solid #000000;
+    width: 250px;
+    padding: 4px;
+}
+
+#forgotPassword{
+    text-align: left;
+    font-size: 1em;
+    font-family: Sans-Serif;
+    margin: auto;
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    background-color: #C3A865;
+    border: 1px solid #000000;
+    width: 300px;
+    padding: 4px;
+}
+
+#forgotPasswordResponse{
+    text-align: center;
+    font-size: 1em;
+    font-family: Sans-Serif;
+    margin: auto;
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    background-color: #C3A865;
+    border: 1px solid #000000;
+    width: 300px;
+    padding: 4px;
+}
+
+#memberTanning
+{
+    color: #000000;
+    width: 360px;
+    margin: auto;
+    padding: 3px;
+}
+
+a#memberTanning
+{
+    color: #008000;
+}
+
+#memberInformation{
+    margin: auto;
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    background-color: #C3A865;
+    border: 1px solid #000000;
+    width: 300px;
+    padding: 5px;
+}
+
+#appointment{
+    margin: auto;
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    background-color: #C3A865;
+    border: 1px solid #000000;
+    width: 300px;
+    padding: 5px;
+}
+
+.table
+{
+    text-align: left;
+    border: solid 2px #000000;
+    border-collapse: collapse;
+}
+
+.tableHeader
+{
+    background-color: #CC9900;
+    text-align: center;
+    font-size: 1.5em;
+    border: solid 2px #000000;
+    border-collapse: collapse;
+}
+
+.tableCellHeader
+{
+    background-color: #C3A865;
+    text-align: center;
+    border: solid 2px #000000;
+    border-collapse: collapse;
+}
+
+.tableCellHeaderRight
+{
+    background-color: #C3A865;
+    text-align: right;
+    border: solid 2px #000000;
+    border-collapse: collapse;
+}
+
+.tableCell
+{
+    background-color: #F0F8FF;
+    border: solid 2px #000000;
+    border-collapse: collapse;
+}
+
+.tableCellNoBorder
+{
+    background-color: #F0F8FF;
+}
+
+.label{
+    text-align: right; 
+    font-weight: bold; 
+}
+
+.message_info, .message_success, .message_warning, .message_error
+{
+    display: none;
+    font-weight: bold;
+    border: 1px solid;
+    margin: 10px auto 10px auto;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    width: 300px;
+}
+
+.message_info
+{
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+
+.message_success
+{
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+
+.message_warning
+{
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+
+.message_error
+{
+    color: #D8000C;
+    background-color: #FFBABA;
+}

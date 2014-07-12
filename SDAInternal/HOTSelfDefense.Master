@@ -1,0 +1,111 @@
+﻿<%@ Master Language="C#" AutoEventWireup="True" CodeBehind="HOTSelfDefense.Master.cs" Inherits="HOTSelfDefense.SDAInternal" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8">
+    <title>HOT Self Defense</title>
+    <!-- Get the needed JavaScript/jQuery -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // Does the errorMessage have a value?
+            if ($("#<%=errorMessage.ClientID%>").text() != "") {
+                // Display the error panel
+                $("#<%=errorMessagePanel.ClientID%>").css("display", "block");
+            }
+            else {
+                // Hide the error panel
+                $("#<%=errorMessagePanel.ClientID%>").css("display", "none");
+            }
+
+            // Does the successMessage have a value?
+            if ($("#<%=successMessage.ClientID%>").text() != "") {
+                // Display the success panel
+                $("#<%=successMessagePanel.ClientID%>").css("display", "block");
+            }
+            else {
+                // Hide the success panel
+                $("#<%=successMessagePanel.ClientID%>").css("display", "none");
+            }
+        });
+    </script>
+    <asp:ContentPlaceHolder ID="headerPlaceHolder" runat="server" />
+    <!-- Get the needed CSS files -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/base/jquery.ui.all.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/eggplant/jquery-ui.css" />
+    <link href="/css/HOTSDA.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="container">
+        <!-- Build the header -->
+        <div id="header">
+            <img src="http://www.hotselfdefense.net/HOTSDA/images/InternalKickLogo.gif" alt="HOT Self Defense" />
+        </div>
+        <!-- Build the default navigation -->
+        <div id="navigation">
+            <ul>
+                <li>
+                    <!-- Build the link to the given day's schedule -->
+                    <asp:HyperLink Text="Schedule" runat="server" ID="dailySchedule" /></li>
+                <li>
+                    <!-- Build the link to add a new class/lesson -->
+                    <asp:HyperLink Text="Add A Class" runat="server" ID="addClass" /></li>
+                <li>
+                    <!-- Build the link to add a new student -->
+                    <asp:HyperLink Text="Add A Student" runat="server" ID="addStudent" /></li>
+                <li>
+                    <!-- Build the link to search -->
+                    <asp:HyperLink Text="Search" runat="server" ID="searchSDA" /></li>
+                <li>
+                    <!-- Build the link to the SDA Point of Sale -->
+                    <asp:HyperLink Text="Point of Sale" runat="server" ID="sdaPOS" /></li>
+                <li>
+                    <!-- Build the link to the Administration section -->
+                    <asp:HyperLink Text="Admin" runat="server" ID="sdaAdministration" /></li>
+                <li>
+                    <!-- Build the link to report a problem -->
+                    <asp:HyperLink Text="Report A Problem" runat="server" ID="reportProblem" /></li>
+            </ul>
+            <!-- Output the schedule date and current date -->
+            <div id="dates">
+                <b>Today's Date:</b>
+                <asp:Label ID="displayToday" runat="server" />
+                <b>Currently On:</b>
+                <asp:Label ID="displayCurrent" runat="server" />
+            </div>
+        </div>
+        <!-- Build the main content -->
+        <div id="content-container">
+            <!-- Build the main content details -->
+            <div id="content">
+                <form name="sdaForm" id="sdaForm" runat="server">
+                    <p style="margin: auto;">
+                        <!-- Build the error message panel -->
+                        <asp:Panel ID="errorMessagePanel" CssClass="ui-state-error message_error" runat="server">
+                            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                            <!-- Output the error message -->
+                            <asp:Label ID="errorMessage" runat="server" />
+                        </asp:Panel>
+                        <!-- Build the success message panel -->
+                        <asp:Panel ID="successMessagePanel" CssClass="ui-state-highlight message_success" runat="server">
+                            <span class="ui-icon ui-icon-circle-check" style="float: left; margin-right: .3em;"></span>
+                            <!-- Output the success message -->
+                            <asp:Label ID="successMessage" runat="server" />
+                        </asp:Panel>
+                    </p>
+                    <div>
+                        <!-- Output the main content -->
+                        <asp:ContentPlaceHolder ID="placeholderMain" runat="server" />
+                    </div>
+                </form>
+            </div>
+            <!-- Build the footer -->
+            <div id="footer">
+                <!-- Copyright © HOT Self Defense, 2011-2014 -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PublicWebsite.master.cs" Inherits="PublicWebsite.PublicWebsiteMaster" %>
+
+<%@ Register TagPrefix="uc" TagName="MemberInfo" Src="~/ucMember.ascx" %>
+
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head runat="server">
+    <title>HOT Tropical Tans</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="keywords" content="Waco, tanning, Mystic, HOT Tropical, HOT Tropical Tans, Texas, spray tan, sunless tanning, Mystic tan, tanning lotion, tanning accessories, UV-Free Tanning" />
+    <meta name="description" content="Waco's ONLY official Mystic Tan provider as well as a provider of superior regular tanning. We offer single sessions, multiple sessions, and several unlimited packages at a variety of tanning levels.  Check out our member benefits and tanning accessories!" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/css/jquery-ui.min.tanspublic.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.structure.min.tanspublic.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.theme.min.tanspublic.css" />
+    <link href="/css/HOTSiteCSS.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <asp:ContentPlaceHolder ID="headerPlaceHolder" runat="server" />
+</head>
+<body style="background-color: #3399CC">
+    <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+    <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+
+    <div class="container-fluid">
+        <div id="container">
+            <div id="header">
+                <a href="<%= HOTBAL.TansConstants.HOME_PUBLIC_URL %>">
+                    <img src="/images/HOTTansExternalHeader.jpg" alt="HOT Tropical Tans" border="0" /></a>
+                <div id="header-login">
+                    <span>Already a Member?<br />
+                        <a href="<%= HOTBAL.TansConstants.CUSTOMER_LOGON_PUBLIC_URL %>">Log in here!</a>
+                    </span>
+                </div>
+                <div id="navigation">
+                    <ul>
+                        <li>
+                            <asp:HyperLink Text="About" runat="server" ID="lnkAbout" /></li>
+                        <li>
+                            <asp:HyperLink Text="Packages" runat="server" ID="lnkPackages" /></li>
+                        <li>
+                            <asp:HyperLink Text="Accessories" runat="server" ID="lnkAccessories" /></li>
+                        <li>
+                            <asp:HyperLink Text="Specials" runat="server" ID="lnkSpecials" /></li>
+                        <li>
+                            <asp:HyperLink Text="Tips" runat="server" ID="lnkTips" /></li>
+                        <li>
+                            <asp:HyperLink Text="Membership" runat="server" ID="lnkMembership" /></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="content">
+                <form id="publicForm" runat="server">
+                    <uc:MemberInfo ID="MemberList" runat="server" />
+                    <asp:Panel ID="errorMessagePanel" CssClass="message_error" runat="server">
+                        <asp:Label ID="errorMessage" runat="server" />
+                    </asp:Panel>
+                    <asp:Panel ID="successMessagePanel" CssClass="message_success" runat="server">
+                        <asp:Label ID="successMessage" runat="server" />
+                    </asp:Panel>
+                    <br />
+                    <asp:ContentPlaceHolder ID="contentPlaceHolder" runat="server" />
+                </form>
+            </div>
+            <div id="footer">
+                <a href="http://mystictan.com/">
+                    <img src="/images/MysticTan Logo small.gif" alt="Authentic Mystic Tan Partner" border="0" /></a><br />
+                <a href="<%= HOTBAL.TansConstants.HOME_PUBLIC_URL %>">Home</a> | <a href="<%= HOTBAL.TansConstants.ABOUT_PUBLIC_URL %>">About</a> | <a href="<%= HOTBAL.TansConstants.PACKAGES_PUBLIC_URL %>">Packages</a>
+                | <a href="<%= HOTBAL.TansConstants.ACCESSORIES_PUBLIC_URL %>">Accessories</a> | <a href="<%= HOTBAL.TansConstants.SPECIALS_PUBLIC_URL %>">Specials</a>
+                | <a href="<%= HOTBAL.TansConstants.TIPS_PUBLIC_URL %>">Tips</a> | <a href="<%= HOTBAL.TansConstants.MEMBERS_PUBLIC_URL %>">Members</a><br />
+                <b>H.O.T. Tropical Tans</b><br />
+                Waco, Texas<br />
+
+                Site developed by <a href="http://www.blueeyedweb.com">The
+                    Blue Eyed Web - Web Services for Small Business</a> and <a href="http://www.lowlysacker.net">LowlySacker Designs</a>.
+                    <br />
+                Please report any problems to <a href="<%= HOTBAL.TansConstants.CONTACT_PUBLIC_URL %>">contact@hottropicaltans.net</a>.
+                    <br />
+                <a href="<%= HOTBAL.TansConstants.PRIVACY_PUBLIC_URL %>">Privacy Policy</a> | <a href="<%= HOTBAL.TansConstants.TOS_PUBLIC_URL %>">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript at the bottom for fast page loading -->
+
+    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+    <script src="/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="/js/jquery-ui.min.js" type="text/javascript"></script>
+    <script>      window.jQuery || document.write('<script src="js/libs/jquery-1.9.0.min.js"><\/script>')</script>
+    <!-- scripts concatenated and minified via build script -->
+    <script src="js/plugins.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/libs/modernizr-2.5.3.min.js"></script>
+    <!-- end scripts -->
+
+    <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
+       mathiasbynens.be/notes/async-analytics-snippet -->
+    <script>
+        var _gaq = [['_setAccount', 'UA-33784496-1'], ['_trackPageview']];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s)
+        }(document, 'script'));
+    </script>
+
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    <script type="text/javascript">
+        $(function () {
+            //Hide/Show the feedback messages if they contain data
+            if ($("#<%=errorMessage.ClientID%>").text() != "") {
+                $("#<%=errorMessagePanel.ClientID%>").css("display", "block");
+            }
+            else {
+                $("#<%=errorMessagePanel.ClientID%>").css("display", "none");
+            }
+            if ($("#<%=successMessage.ClientID%>").text() != "") {
+                $("#<%=successMessagePanel.ClientID%>").css("display", "block");
+            }
+            else {
+                $("#<%=successMessagePanel.ClientID%>").css("display", "none");
+            }
+        });
+    </script>
+</body>
+</html>

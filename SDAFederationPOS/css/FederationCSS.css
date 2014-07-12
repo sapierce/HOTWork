@@ -1,0 +1,235 @@
+﻿body
+{
+    font-family: arial,helvetica,sans-serif;
+    font-size: 11px;
+    margin: 0;
+    background-color: #aeaeae;
+}
+
+#navigation
+{
+    float: left;
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+    #navigation ul
+    {
+        margin: 0;
+        padding: 0;
+    }
+
+        #navigation ul li
+        {
+            list-style-type: none;
+            display: inline;
+        }
+
+    #navigation li a
+    {
+        display: block;
+        float: left;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+        #navigation li a:hover
+        {
+            color: #aeaeae;
+        }
+
+#content
+{
+    clear: left;
+    padding: 20px;
+}
+
+    #content h2
+    {
+        font-size: 160%;
+        margin: 0 0 .5em;
+    }
+
+#footer
+{
+    text-align: right;
+    padding: 20px;
+    height: 1%;
+}
+
+a:link
+{
+    color: #000000;
+}
+
+a:visited
+{
+    color: #aeaeae;
+}
+
+.standardTable
+{
+    border: 1px solid #000000;
+    border-style: solid;
+    font-family: arial,helvetica,sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.standardTableNoBorder
+{
+    border: 0px solid #000000;
+    border-style: solid;
+    font-family: arial,helvetica,sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.standardHeader
+{
+    font-family: arial,helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: top;
+    border: 1px solid #000000;
+    border-style: solid;
+    padding: 2px;
+}
+
+.rightAlignHeader
+{
+    font-family: arial,helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+    border: 1px solid #000000;
+    border-style: solid;
+    padding: 2px;
+}
+
+.leftAlignHeader
+{
+    font-family: arial,helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid #000000;
+    border-style: solid;
+    padding: 2px;
+}
+
+.standardField
+{
+    font-family: arial,helvetica,sans-serif;
+    border: 1px solid #000000;
+    border-style: solid;
+    padding: 2px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.standardHeaderLabel
+{
+    font-family: arial,helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: top;
+    padding: 2px;
+}
+
+.rightAlignHeaderLabel
+{
+    font-family: arial,helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+    padding: 2px;
+}
+
+.leftAlignHeaderLabel
+{
+    font-family: arial,helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    vertical-align: top;
+    padding: 2px;
+}
+
+.message_info, .message_success, .message_warning, .message_error
+{
+    display: none;
+    font-weight: bold;
+    border: 1px solid;
+    margin: 10px auto 10px auto;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    width: 300px;
+}
+
+.message_info
+{
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+
+.message_success
+{
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+
+.message_warning
+{
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+
+.message_error
+{
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+
+.centerRoundedDiv{
+    clear: both;
+    font-weight: bold;
+    border: 1px solid;
+    margin: 10px auto 10px auto;
+    padding: 15px 10px 15px 50px;
+    color: #000000;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    width: 350px;
+}
+
+.centerRoundedDiv a:link
+{
+    color: #000000;
+}
+
+.centerRoundedDiv a:hover
+{
+    color: #000000;
+    text-decoration: none;
+}
+
+.centerRoundedDiv a:visited
+{
+    color: #aeaeae;
+}

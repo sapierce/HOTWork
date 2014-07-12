@@ -1,0 +1,5 @@
+Modify POS to update info when PF paid
+Transaction log update
+report - students passing/paying
+report - students promoted from xx/xx/xxxx
+report - students on last tip

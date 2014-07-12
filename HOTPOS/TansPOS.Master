@@ -1,0 +1,65 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="TansPOS.Master.cs" Inherits="HOTPOS.SiteMaster" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.structure.min.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.theme.min.css" />
+    <script src="/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="/js/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="/css/HOTCSS.css" rel="stylesheet" type="text/css" />
+     <script type="text/javascript">
+         $(function () {
+             //Hide/Show the feedback messages if they contain data
+             if ($("#<%=errorMessage.ClientID%>").text().trim() != "") {
+                $("#<%=errorMessagePanel.ClientID%>").css("display", "block");
+
+            }
+            else {
+                $("#<%=errorMessagePanel.ClientID%>").css("display", "none");
+            }
+            if ($("#<%=successMessage.ClientID%>").text().trim() != "") {
+                $("#<%=successMessagePanel.ClientID%>").css("display", "block");
+            }
+            else {
+                $("#<%=successMessagePanel.ClientID%>").css("display", "none");
+            }
+        });
+    </script>
+    <asp:ContentPlaceHolder ID="placeholderHeader" runat="server" />
+    <title>HOT Tropical Tans Point of Sale</title>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <img src="/images/InternalSunLogo.gif" alt="HOT Tropical Tans Point of Sale" />
+        </div>
+        <div id="navigation">
+            <ul>
+                <li><asp:HyperLink Text="Back to Tanning" runat="server" ID="backTanning" /></li>
+            </ul>
+        </div>
+        <div id="content-container">
+            <div id="content">
+                <form id="form1" runat="server">
+                    <p style="margin: auto;">
+                        <asp:Panel ID="errorMessagePanel" CssClass="message_error" runat="server">
+                            <asp:Label ID="errorMessage" runat="server" />
+                        </asp:Panel>
+                        <asp:Panel ID="successMessagePanel" CssClass="message_success" runat="server">
+                            <asp:Label ID="successMessage" runat="server" />
+                        </asp:Panel>
+                    </p>
+                <div>
+                    <asp:ContentPlaceHolder ID="placeholderMain" runat="server" />
+                </div>
+                </form>
+            </div>
+            <div id="footer">
+                <%--Copyright © HOT Tropical Tans POS, 2013--%>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

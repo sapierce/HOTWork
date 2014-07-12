@@ -1,0 +1,826 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{59FDD982-5BB7-401D-AAFE-CEA1CD83D6AF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PublicWebsite</RootNamespace>
+    <AssemblyName>PublicWebsite</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <UseIISExpress>false</UseIISExpress>
+    <TargetFrameworkProfile />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PublishDatabases>false</PublishDatabases>
+    <PackageAsSingleFile>false</PackageAsSingleFile>
+    <DeployIisAppPath>Default Web Site</DeployIisAppPath>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>TansPublic.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.5.4\Assemblies\v2.0\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net35\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPalCoreSDK">
+      <HintPath>..\packages\PayPalCoreSDK.1.4.2\lib\net35\PayPalCoreSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal_Core_SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\merchant-sdk-dotnet-2.1.96_0\Samples\PayPalAPISample\bin\PayPal_Core_SDK.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal_Merchant_SDK, Version=2.1.96.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\merchant-sdk-dotnet-2.1.96_0\Samples\PayPalAPISample\bin\PayPal_Merchant_SDK.dll</HintPath>
+    </Reference>
+    <Reference Include="Recaptcha, Version=1.0.5.0, Culture=neutral, PublicKeyToken=9afc4d65b28c38c2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Recaptcha.dll</HintPath>
+    </Reference>
+    <Reference Include="RestApiSDK">
+      <HintPath>..\packages\RestApiSDK.0.7.6\lib\net35\RestApiSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\images\animated-overlay.gif" />
+    <Content Include="css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="css\images\ui-bg_flat_100_FFFFFF_40x100.png" />
+    <Content Include="css\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="css\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="css\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="css\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="css\images\ui-bg_gloss-wave_55_4682B4_500x100.png" />
+    <Content Include="css\images\ui-bg_inset-hard_100_F0F8FF_1x100.png" />
+    <Content Include="css\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="css\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="css\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="css\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="css\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="css\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="css\jquery-ui.min.tanspublic.css" />
+    <Content Include="css\jquery-ui.structure.min.tanspublic.css" />
+    <Content Include="css\jquery-ui.theme.min.tanspublic.css" />
+    <Content Include="products\ag-acceleratorsamp-lg.gif" />
+    <Content Include="products\ag-acceleratorsamp-sm.gif" />
+    <Content Include="products\ag-darkdlight-lg.gif" />
+    <Content Include="products\ag-darkdlight-sm.gif" />
+    <Content Include="products\ag-darkdlightsamp-lg.gif" />
+    <Content Include="products\ag-darkdlightsamp-sm.gif" />
+    <Content Include="products\ag-deviouslyblack-lg.gif" />
+    <Content Include="products\ag-deviouslyblack-sm.gif" />
+    <Content Include="products\ag-deviouslyblacksamp-lg.gif" />
+    <Content Include="products\ag-deviouslyblacksamp-sm.gif" />
+    <Content Include="products\ag-heated-lg.gif" />
+    <Content Include="products\ag-heated-sm.gif" />
+    <Content Include="products\ag-heatedsamp-lg.gif" />
+    <Content Include="products\ag-heatedsamp-sm.gif" />
+    <Content Include="products\ag-kissessamp-lg.gif" />
+    <Content Include="products\ag-kissessamp-sm.gif" />
+    <Content Include="products\ag-legallydark-lg.gif" />
+    <Content Include="products\ag-legallydark-sm.gif" />
+    <Content Include="products\ag-sinfulblacksamp-lg.gif" />
+    <Content Include="products\ag-sinfulblacksamp-sm.gif" />
+    <Content Include="products\ag-tribute-lg.gif" />
+    <Content Include="products\ag-tribute-sm.gif" />
+    <Content Include="products\ag-tributesamp-lg.gif" />
+    <Content Include="products\ag-tributesamp-sm.gif" />
+    <Content Include="products\bs-delectable-lg.gif" />
+    <Content Include="products\bs-delectable-sm.gif" />
+    <Content Include="products\bt-hotgreentease-lg.gif" />
+    <Content Include="products\bt-hotgreentease-sm.gif" />
+    <Content Include="products\bt-hotgreenteasesamp-lg.gif" />
+    <Content Include="products\bt-hotgreenteasesamp-sm.gif" />
+    <Content Include="products\dc-believeinpink-lg.gif" />
+    <Content Include="products\dc-believeinpink-sm.gif" />
+    <Content Include="products\dc-believeinpinksamp-lg.gif" />
+    <Content Include="products\dc-believeinpinksamp-sm.gif" />
+    <Content Include="products\dc-sonaughtynudebronzingpowder-lg.gif" />
+    <Content Include="products\dc-sonaughtynudebronzingpowder-sm.gif" />
+    <Content Include="products\eb-chocolattalove-lg.gif" />
+    <Content Include="products\eb-chocolattalove-sm.gif" />
+    <Content Include="products\eb-chocolattalovesamp-lg.gif" />
+    <Content Include="products\eb-chocolattalovesamp-sm.gif" />
+    <Content Include="products\eb-definitelyblack-lg.gif" />
+    <Content Include="products\eb-definitelyblack-sm.gif" />
+    <Content Include="products\eb-definitelyblacksamp-lg.gif" />
+    <Content Include="products\eb-definitelyblacksamp-sm.gif" />
+    <Content Include="products\eb-definitelydark-lg.gif" />
+    <Content Include="products\eb-definitelydark-sm.gif" />
+    <Content Include="products\eb-definitelydarksamp-lg.gif" />
+    <Content Include="products\eb-definitelydarksamp-sm.gif" />
+    <Content Include="products\eb-mangotango-lg.gif" />
+    <Content Include="products\eb-mangotango-sm.gif" />
+    <Content Include="products\eb-mangotangosamp-lg.gif" />
+    <Content Include="products\eb-mangotangosamp-sm.gif" />
+    <Content Include="products\eh-blackink-lg.gif" />
+    <Content Include="products\eh-blackink-sm.gif" />
+    <Content Include="products\eh-blackinkpkt-lg.gif" />
+    <Content Include="products\eh-blackinkpkt-sm.gif" />
+    <Content Include="products\eh-blowout-lg.gif" />
+    <Content Include="products\eh-blowout-sm.gif" />
+    <Content Include="products\eh-blowoutsamp-lg.gif" />
+    <Content Include="products\eh-blowoutsamp-sm.gif" />
+    <Content Include="products\eh-bodyshots-lg.gif" />
+    <Content Include="products\eh-bodyshots-sm.gif" />
+    <Content Include="products\eh-bodyshotssamp-lg.gif" />
+    <Content Include="products\eh-bodyshotssamp-sm.gif" />
+    <Content Include="products\eh-crossmyheart-lg.gif" />
+    <Content Include="products\eh-crossmyheart-sm.gif" />
+    <Content Include="products\eh-crossmyheartsamp-lg.gif" />
+    <Content Include="products\eh-crossmyheartsamp-sm.gif" />
+    <Content Include="products\eh-downrightdark-lg.gif" />
+    <Content Include="products\eh-downrightdark-sm.gif" />
+    <Content Include="products\eh-downrightdarksamp-lg.gif" />
+    <Content Include="products\eh-downrightdarksamp-sm.gif" />
+    <Content Include="products\eh-fauxsizzle-lg.gif" />
+    <Content Include="products\eh-fauxsizzle-sm.gif" />
+    <Content Include="products\eh-fauxsizzlesamp-lg.gif" />
+    <Content Include="products\eh-fauxsizzlesamp-sm.gif" />
+    <Content Include="products\eh-hollywoodbronzesamp-lg.gif" />
+    <Content Include="products\eh-hollywoodbronzesamp-sm.gif" />
+    <Content Include="products\eh-jetsetter-lg.gif" />
+    <Content Include="products\eh-jetsetter-sm.gif" />
+    <Content Include="products\eh-jetsettersamp-lg.gif" />
+    <Content Include="products\eh-jetsettersamp-sm.gif" />
+    <Content Include="products\eh-oohlaluxelegs-lg.gif" />
+    <Content Include="products\eh-oohlaluxelegs-sm.gif" />
+    <Content Include="products\eh-sunswept-lg.gif" />
+    <Content Include="products\eh-sunswept-sm.gif" />
+    <Content Include="products\eh-sunsweptsamp-lg.gif" />
+    <Content Include="products\eh-sunsweptsamp-sm.gif" />
+    <Content Include="products\fs-raspberryrush-lg.gif" />
+    <Content Include="products\fs-raspberryrush-sm.gif" />
+    <Content Include="products\fs-raspberryrushsamp-lg.gif" />
+    <Content Include="products\fs-raspberryrushsamp-sm.gif" />
+    <Content Include="products\hp-hempzlotionsamp-lg.gif" />
+    <Content Include="products\hp-hempzlotionsamp-sm.gif" />
+    <Content Include="products\jw-blackbronzer-lg.gif" />
+    <Content Include="products\jw-blackbronzer-sm.gif" />
+    <Content Include="products\jw-blackbronzersamp-lg.gif" />
+    <Content Include="products\jw-blackbronzersamp-sm.gif" />
+    <Content Include="products\jw-oneanddonesamp-lg.gif" />
+    <Content Include="products\jw-oneanddonesamp-sm.gif" />
+    <Content Include="products\jw-weddingwhite-lg.gif" />
+    <Content Include="products\jw-weddingwhite-sm.gif" />
+    <Content Include="products\lt-cinnabronze-lg.gif" />
+    <Content Include="products\lt-cinnabronze-sm.gif" />
+    <Content Include="products\lt-cinnabronzesamp-lg.gif" />
+    <Content Include="products\lt-cinnabronzesamp-sm.gif" />
+    <Content Include="products\pb-boostblackm-lg.gif" />
+    <Content Include="products\pb-boostblackm-sm.gif" />
+    <Content Include="products\pb-boostblacksamp-lg.gif" />
+    <Content Include="products\pb-boostblacksamp-sm.gif" />
+    <Content Include="products\pb-boostcarbon-lg.gif" />
+    <Content Include="products\pb-boostcarbon-sm.gif" />
+    <Content Include="products\pb-boostcarbonsamp-lg.gif" />
+    <Content Include="products\pb-boostcarbonsamp-sm.gif" />
+    <Content Include="products\pb-boostforface-lg.gif" />
+    <Content Include="products\pb-boostforface-sm.gif" />
+    <Content Include="products\pb-boostpinkm-lg.gif" />
+    <Content Include="products\pb-boostpinkm-sm.gif" />
+    <Content Include="products\pb-boostpinkpkt-lg.gif" />
+    <Content Include="products\pb-boostpinkpkt-sm.gif" />
+    <Content Include="products\pt-diamondsarepx-lg.gif" />
+    <Content Include="products\pt-diamondsarepx-sm.gif" />
+    <Content Include="products\pt-itscomplicatedsamp-lg.gif" />
+    <Content Include="products\pt-itscomplicatedsamp-sm.gif" />
+    <Content Include="products\pt-perfectlypink-lg.gif" />
+    <Content Include="products\pt-perfectlypink-sm.gif" />
+    <Content Include="products\st-blackcandy-lg.gif" />
+    <Content Include="products\st-blackcandy-sm.gif" />
+    <Content Include="products\st-blackcandysamp-lg.gif" />
+    <Content Include="products\st-blackcandysamp-sm.gif" />
+    <Content Include="products\st-blackraspberry-lg.gif" />
+    <Content Include="products\st-blackraspberry-sm.gif" />
+    <Content Include="products\st-blackraspberrysamp-lg.gif" />
+    <Content Include="products\st-blackraspberrysamp-sm.gif" />
+    <Content Include="products\st-blazinbananas-lg.gif" />
+    <Content Include="products\st-blazinbananas-sm.gif" />
+    <Content Include="products\st-blazinbananaspx-lg.gif" />
+    <Content Include="products\st-blazinbananaspx-sm.gif" />
+    <Content Include="products\st-cherrybombsamp-lg.gif" />
+    <Content Include="products\st-cherrybombsamp-sm.gif" />
+    <Content Include="products\st-citrusburst-lg.gif" />
+    <Content Include="products\st-citrusburst-sm.gif" />
+    <Content Include="products\st-citrusburstsamp-lg.gif" />
+    <Content Include="products\st-citrusburstsamp-sm.gif" />
+    <Content Include="products\st-hotromance-lg.gif" />
+    <Content Include="products\st-hotromance-sm.gif" />
+    <Content Include="products\st-hotromancesamp-lg.gif" />
+    <Content Include="products\st-hotromancesamp-sm.gif" />
+    <Content Include="products\st-rain-lg.gif" />
+    <Content Include="products\st-rain-sm.gif" />
+    <Content Include="products\st-rainsamp-lg.gif" />
+    <Content Include="products\st-rainsamp-sm.gif" />
+    <Content Include="products\st-simplyblack-lg.gif" />
+    <Content Include="products\st-simplyblack-sm.gif" />
+    <Content Include="products\st-simplyblacksamp-lg.gif" />
+    <Content Include="products\st-simplyblacksamp-sm.gif" />
+    <Content Include="products\st-watermelonwow-lg.gif" />
+    <Content Include="products\st-watermelonwow-sm.gif" />
+    <Content Include="products\st-watermelonwowsamp-lg.gif" />
+    <Content Include="products\st-watermelonwowsamp-sm.gif" />
+    <Content Include="products\ta-sexified-lg.gif" />
+    <Content Include="products\ta-sexified-sm.gif" />
+    <Content Include="products\tannie-lg.gif" />
+    <Content Include="products\tannie-sm.gif" />
+    <Content Include="products\tanshot-lg.gif" />
+    <Content Include="products\tanshot-sm.gif" />
+    <Content Include="products\tanshotenergy-lg.gif" />
+    <Content Include="products\tanshotenergy-sm.gif" />
+    <Content Include="products\tini-coconuttytinisamp-lg.gif" />
+    <Content Include="products\tini-coconuttytinisamp-sm.gif" />
+    <Content Include="products\tini-darkchocolatetinisamp-lg.gif" />
+    <Content Include="products\tini-darkchocolatetinisamp-sm.gif" />
+    <Content Include="products\tini-passionfruittinisamp-lg.gif" />
+    <Content Include="products\tini-passionfruittinisamp-sm.gif" />
+    <Content Include="products\tini-pinkpineappletinisamp-lg.gif" />
+    <Content Include="products\tini-pinkpineappletinisamp-sm.gif" />
+    <Content Include="products\toesavers-lg.gif" />
+    <Content Include="products\toesavers-sm.gif" />
+    <Content Include="products\twilightteeth-home-lg.gif" />
+    <Content Include="products\twilightteeth-home-sm.gif" />
+    <Content Include="products\twilightteeth-salon-lg.gif" />
+    <Content Include="products\twilightteeth-salon-sm.gif" />
+    <Content Include="ShoppingCartPayPal.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Error.aspx" />
+    <Content Include="Error403.aspx" />
+    <Content Include="Error404.aspx" />
+    <Content Include="Error500.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="GiftBags.aspx" />
+    <Content Include="googleeaaef3659d503d53.html" />
+    <Content Include="images\mystic-bed.gif" />
+    <Content Include="images\mystic.gif" />
+    <Content Include="images\mystic1.jpg" />
+    <Content Include="images\mystic2.jpg" />
+    <Content Include="images\mystic3.jpg" />
+    <Content Include="images\online-only.gif" />
+    <Content Include="images\verified.gif" />
+    <Content Include="IPNHandler.aspx" />
+    <Content Include="js\libs\jquery-1.7.1.js" />
+    <Content Include="js\libs\jquery-1.7.1.min.js" />
+    <Content Include="js\libs\jquery-1.9.0.js" />
+    <Content Include="js\libs\modernizr-2.5.3.min.js" />
+    <Content Include="js\plugins.js" />
+    <Content Include="js\script.js" />
+    <Content Include="LipBalms.aspx" />
+    <Content Include="Lotions.aspx" />
+    <Content Include="LotionsList.aspx" />
+    <Content Include="Members\ForgotPassword.aspx" />
+    <Content Include="Members\MemberVerify.aspx" />
+    <Content Include="Members\Verification.aspx" />
+    <Content Include="Misc.aspx" />
+    <Content Include="ContactUs.aspx" />
+    <Content Include="Product.aspx" />
+    <Content Include="products\ag-accelerator-lg.gif" />
+    <Content Include="products\ag-accelerator-sm.gif" />
+    <Content Include="products\ag-foreverafter-lg.gif" />
+    <Content Include="products\ag-foreverafter-sm.gif" />
+    <Content Include="products\ag-hardcore-lg.gif" />
+    <Content Include="products\ag-hardcore-sm.gif" />
+    <Content Include="products\ag-hardcorepx-lg.gif" />
+    <Content Include="products\ag-hardcorepx-sm.gif" />
+    <Content Include="products\ag-kisses-lg.gif" />
+    <Content Include="products\ag-kisses-sm.gif" />
+    <Content Include="products\ag-peaceloveandcupcakes-lg.gif" />
+    <Content Include="products\ag-peaceloveandcupcakes-sm.gif" />
+    <Content Include="products\ag-peaceloveandcupcakespx-lg.gif" />
+    <Content Include="products\ag-peaceloveandcupcakespx-sm.gif" />
+    <Content Include="products\ag-sinfullyblack-lg.gif" />
+    <Content Include="products\ag-sinfullyblack-sm.gif" />
+    <Content Include="products\ds-angelmoisturizer-lg.gif" />
+    <Content Include="products\ds-angelmoisturizer-sm.gif" />
+    <Content Include="products\ds-taintedlove-lg.gif" />
+    <Content Include="products\ds-taintedlove-sm.gif" />
+    <Content Include="products\ds-vanishingact-lg.gif" />
+    <Content Include="products\ds-vanishingact-sm.gif" />
+    <Content Include="products\EB-darkanddazed-lg.gif" />
+    <Content Include="products\EB-darkanddazed-sm.gif" />
+    <Content Include="products\eb-darkndazedsamp-lg.gif" />
+    <Content Include="products\eb-darkndazedsamp-sm.gif" />
+    <Content Include="products\eh-babygotblack-lg.gif" />
+    <Content Include="products\eh-babygotblack-sm.gif" />
+    <Content Include="products\eh-babygotblackpx-lg.gif" />
+    <Content Include="products\eh-babygotblackpx-sm.gif" />
+    <Content Include="products\eh-buttermebrown-lg.gif" />
+    <Content Include="products\eh-buttermebrown-sm.gif" />
+    <Content Include="products\eh-buttermebrownpx-lg.gif" />
+    <Content Include="products\eh-buttermebrownpx-sm.gif" />
+    <Content Include="products\eh-hollywoodbronze-lg.gif" />
+    <Content Include="products\eh-hollywoodbronze-sm.gif" />
+    <Content Include="products\eh-obnoxious-lg.gif" />
+    <Content Include="products\eh-obnoxious-sm.gif" />
+    <Content Include="products\eh-obnoxiouspx-lg.gif" />
+    <Content Include="products\eh-obnoxiouspx-sm.gif" />
+    <Content Include="products\eh-peaceandharmony-lg.gif" />
+    <Content Include="products\eh-peaceandharmony-sm.gif" />
+    <Content Include="products\eh-peaceandharmonypx-lg.gif" />
+    <Content Include="products\eh-peaceandharmonypx-sm.gif" />
+    <Content Include="products\fs-blackberryblastmoisturizer-lg.gif" />
+    <Content Include="products\fs-blackberryblastmoisturizer-sm.gif" />
+    <Content Include="products\fs-coconutdream-lg.gif" />
+    <Content Include="products\fs-coconutdream-sm.gif" />
+    <Content Include="products\fs-coconutdreammoisturizer-lg.gif" />
+    <Content Include="products\fs-coconutdreammoisturizer-sm.gif" />
+    <Content Include="products\fs-coconutdreampx-lg.gif" />
+    <Content Include="products\fs-coconutdreampx-sm.gif" />
+    <Content Include="products\goggles-lg.gif" />
+    <Content Include="products\goggles-sm.gif" />
+    <Content Include="products\jw-oneanddone-lg.gif" />
+    <Content Include="products\jw-oneanddone-sm.gif" />
+    <Content Include="products\lt-theory-lg.gif" />
+    <Content Include="products\lt-theory-sm.gif" />
+    <Content Include="products\lx-expose-lg.gif" />
+    <Content Include="products\lx-expose-sm.gif" />
+    <Content Include="products\mi-lipbalm-lg.gif" />
+    <Content Include="products\mi-lipbalm-sm.gif" />
+    <Content Include="products\mi-sunscreen-lg.gif" />
+    <Content Include="products\mi-sunscreen-sm.gif" />
+    <Content Include="products\mi-tattoofadeshield-lg.gif" />
+    <Content Include="products\mi-tattoofadeshield-sm.gif" />
+    <Content Include="products\mystic-bed.gif" />
+    <Content Include="products\nailsavers-lg.gif" />
+    <Content Include="products\nailsavers-sm.gif" />
+    <Content Include="products\nogb-lg.gif" />
+    <Content Include="products\nogb-sm.gif" />
+    <Content Include="products\nolb-lg.gif" />
+    <Content Include="products\nolb-sm.gif" />
+    <Content Include="products\noltn-lg.gif" />
+    <Content Include="products\noltn-sm.gif" />
+    <Content Include="products\nooth-lg.gif" />
+    <Content Include="products\nooth-sm.gif" />
+    <Content Include="products\pb-boost-lg.gif" />
+    <Content Include="products\pb-boost-sm.gif" />
+    <Content Include="products\pb-boostblack-lg.gif" />
+    <Content Include="products\pb-boostblack-sm.gif" />
+    <Content Include="products\pb-boostpink-lg.gif" />
+    <Content Include="products\pb-boostpink-sm.gif" />
+    <Content Include="products\power-house.gif" />
+    <Content Include="products\pt-diamondsare-lg.gif" />
+    <Content Include="products\pt-diamondsare-sm.gif" />
+    <Content Include="products\pt-itscomplicated-lg.gif" />
+    <Content Include="products\pt-itscomplicated-sm.gif" />
+    <Content Include="products\pt-truelove-lg.gif" />
+    <Content Include="products\pt-truelove-sm.gif" />
+    <Content Include="products\pt-truelovepx-lg.gif" />
+    <Content Include="products\pt-truelovepx-sm.gif" />
+    <Content Include="products\sb-endlessmoisturizer-lg.gif" />
+    <Content Include="products\sb-endlessmoisturizer-sm.gif" />
+    <Content Include="products\sb-pinkdiamond-lg.gif" />
+    <Content Include="products\sb-pinkdiamond-sm.gif" />
+    <Content Include="products\single-bed.gif" />
+    <Content Include="products\sl-kimonosilk-lg.gif" />
+    <Content Include="products\sl-kimonosilk-sm.gif" />
+    <Content Include="products\st-berrylicious-lg.gif" />
+    <Content Include="products\st-berrylicious-sm.gif" />
+    <Content Include="products\st-blackplumyum-lg.gif" />
+    <Content Include="products\st-blackplumyum-sm.gif" />
+    <Content Include="products\st-blackplumyumpx-lg.gif" />
+    <Content Include="products\st-blackplumyumpx-sm.gif" />
+    <Content Include="products\st-bronzeillusions-lg.gif" />
+    <Content Include="products\st-bronzeillusions-sm.gif" />
+    <Content Include="products\st-cherrybomb-lg.gif" />
+    <Content Include="products\st-cherrybomb-sm.gif" />
+    <Content Include="products\st-coconutz-lg.gif" />
+    <Content Include="products\st-coconutz-sm.gif" />
+    <Content Include="products\st-coconutzpx-lg.gif" />
+    <Content Include="products\st-coconutzpx-sm.gif" />
+    <Content Include="products\st-goinggojiberry-lg.gif" />
+    <Content Include="products\st-goinggojiberry-sm.gif" />
+    <Content Include="products\st-ohlaluxeface-lg.gif" />
+    <Content Include="products\st-ohlaluxeface-sm.gif" />
+    <Content Include="products\super-bed.gif" />
+    <Content Include="products\super-bedH.gif" />
+    <Content Include="ShoppingCart.aspx" />
+    <Content Include="ShoppingCartDone.aspx" />
+    <Content Include="ShoppingCartRedirect.aspx" />
+    <Content Include="ucMember.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Accessories.aspx.cs">
+      <DependentUpon>Accessories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Accessories.aspx.designer.cs">
+      <DependentUpon>Accessories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShoppingCartPayPal.aspx.cs">
+      <DependentUpon>ShoppingCartPayPal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShoppingCartPayPal.aspx.designer.cs">
+      <DependentUpon>ShoppingCartPayPal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error403.aspx.cs">
+      <DependentUpon>Error403.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error403.aspx.designer.cs">
+      <DependentUpon>Error403.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error404.aspx.cs">
+      <DependentUpon>Error404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error404.aspx.designer.cs">
+      <DependentUpon>Error404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error500.aspx.cs">
+      <DependentUpon>Error500.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error500.aspx.designer.cs">
+      <DependentUpon>Error500.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GiftBags.aspx.cs">
+      <DependentUpon>GiftBags.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GiftBags.aspx.designer.cs">
+      <DependentUpon>GiftBags.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="IPNHandler.aspx.cs">
+      <DependentUpon>IPNHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IPNHandler.aspx.designer.cs">
+      <DependentUpon>IPNHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LipBalms.aspx.cs">
+      <DependentUpon>LipBalms.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LipBalms.aspx.designer.cs">
+      <DependentUpon>LipBalms.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Lotions.aspx.cs">
+      <DependentUpon>Lotions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Lotions.aspx.designer.cs">
+      <DependentUpon>Lotions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LotionsList.aspx.cs">
+      <DependentUpon>LotionsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LotionsList.aspx.designer.cs">
+      <DependentUpon>LotionsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members.aspx.cs">
+      <DependentUpon>Members.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members.aspx.designer.cs">
+      <DependentUpon>Members.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\AddAppointment.aspx.cs">
+      <DependentUpon>AddAppointment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\AddAppointment.aspx.designer.cs">
+      <DependentUpon>AddAppointment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\CurrentRegister.aspx.cs">
+      <DependentUpon>CurrentRegister.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\CurrentRegister.aspx.designer.cs">
+      <DependentUpon>CurrentRegister.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\DeleteAppointment.aspx.cs">
+      <DependentUpon>DeleteAppointment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\DeleteAppointment.aspx.designer.cs">
+      <DependentUpon>DeleteAppointment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\Logon.aspx.cs">
+      <DependentUpon>Logon.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\Logon.aspx.designer.cs">
+      <DependentUpon>Logon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\MemberInfo.aspx.cs">
+      <DependentUpon>MemberInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\MemberInfo.aspx.designer.cs">
+      <DependentUpon>MemberInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\MemberUpdate.aspx.cs">
+      <DependentUpon>MemberUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\MemberUpdate.aspx.designer.cs">
+      <DependentUpon>MemberUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\MemberVerify.aspx.cs">
+      <DependentUpon>MemberVerify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\MemberVerify.aspx.designer.cs">
+      <DependentUpon>MemberVerify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\NewRegister.aspx.cs">
+      <DependentUpon>NewRegister.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\NewRegister.aspx.designer.cs">
+      <DependentUpon>NewRegister.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\RegisterAgree.aspx.cs">
+      <DependentUpon>RegisterAgree.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\RegisterAgree.aspx.designer.cs">
+      <DependentUpon>RegisterAgree.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Members\Verification.aspx.cs">
+      <DependentUpon>Verification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Members\Verification.aspx.designer.cs">
+      <DependentUpon>Verification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Misc.aspx.cs">
+      <DependentUpon>Misc.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Misc.aspx.designer.cs">
+      <DependentUpon>Misc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PackageDetails.aspx.cs">
+      <DependentUpon>PackageDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PackageDetails.aspx.designer.cs">
+      <DependentUpon>PackageDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Packages.aspx.cs">
+      <DependentUpon>Packages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Packages.aspx.designer.cs">
+      <DependentUpon>Packages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrivacyPolicy.aspx.cs">
+      <DependentUpon>PrivacyPolicy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrivacyPolicy.aspx.designer.cs">
+      <DependentUpon>PrivacyPolicy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContactUs.aspx.cs">
+      <DependentUpon>ContactUs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContactUs.aspx.designer.cs">
+      <DependentUpon>ContactUs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Product.aspx.cs">
+      <DependentUpon>Product.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Product.aspx.designer.cs">
+      <DependentUpon>Product.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicWebsite.Master.cs">
+      <DependentUpon>PublicWebsite.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PublicWebsite.Master.designer.cs">
+      <DependentUpon>PublicWebsite.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ShoppingCart.aspx.cs">
+      <DependentUpon>ShoppingCart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShoppingCart.aspx.designer.cs">
+      <DependentUpon>ShoppingCart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShoppingCartDone.aspx.cs">
+      <DependentUpon>ShoppingCartDone.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShoppingCartDone.aspx.designer.cs">
+      <DependentUpon>ShoppingCartDone.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ShoppingCartRedirect.aspx.cs">
+      <DependentUpon>ShoppingCartRedirect.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ShoppingCartRedirect.aspx.designer.cs">
+      <DependentUpon>ShoppingCartRedirect.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Specials.aspx.cs">
+      <DependentUpon>Specials.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Specials.aspx.designer.cs">
+      <DependentUpon>Specials.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TermsOfService.aspx.cs">
+      <DependentUpon>TermsOfService.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TermsOfService.aspx.designer.cs">
+      <DependentUpon>TermsOfService.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tips.aspx.cs">
+      <DependentUpon>Tips.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tips.aspx.designer.cs">
+      <DependentUpon>Tips.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ucMember.ascx.cs">
+      <DependentUpon>ucMember.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucMember.ascx.designer.cs">
+      <DependentUpon>ucMember.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="Accessories.aspx" />
+    <Content Include="css\HOTSiteCSS.css" />
+    <Content Include="images\buddypackage.gif" />
+    <Content Include="images\giftbags.gif" />
+    <Content Include="images\HOTTansExternalHeader.jpg" />
+    <Content Include="images\lipbalms.gif" />
+    <Content Include="images\lotions.gif" />
+    <Content Include="images\misc.gif" />
+    <Content Include="images\moisturizer.gif" />
+    <Content Include="images\mystics.gif" />
+    <Content Include="images\MysticTan Logo small.gif" />
+    <Content Include="images\nontingle.gif" />
+    <Content Include="images\sample.gif" />
+    <Content Include="images\single-bed.gif" />
+    <Content Include="images\single-beds.gif" />
+    <Content Include="images\super-bed.gif" />
+    <Content Include="images\super-beds.gif" />
+    <Content Include="images\tingle.gif" />
+    <Content Include="Members.aspx" />
+    <Content Include="Members\AddAppointment.aspx" />
+    <Content Include="Members\CurrentRegister.aspx" />
+    <Content Include="Members\DeleteAppointment.aspx" />
+    <Content Include="Members\Logon.aspx" />
+    <Content Include="Members\MemberInfo.aspx" />
+    <Content Include="Members\MemberUpdate.aspx" />
+    <Content Include="Members\NewRegister.aspx" />
+    <Content Include="Members\RegisterAgree.aspx" />
+    <Content Include="PackageDetails.aspx" />
+    <Content Include="Packages.aspx" />
+    <Content Include="PrivacyPolicy.aspx" />
+    <Content Include="PublicWebsite.Master" />
+    <Content Include="Specials.aspx" />
+    <Content Include="TermsOfService.aspx" />
+    <Content Include="Tips.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\918279_67168210Header.xcf" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
+    <None Include="TansPublic.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HOTBAL\HOTBAL.csproj">
+      <Project>{2b008b03-fdaf-486c-81b4-a398ed4d5cd7}</Project>
+      <Name>HOTBAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HOTDAL\HOTDAL.csproj">
+      <Project>{EAF329CE-61D5-467A-A3CD-4184D7965591}</Project>
+      <Name>HOTDAL</Name>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55683</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,62 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SDAPOS.Master.cs" Inherits="SDAPOS.SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <style type='text/css'>
+        @import 'http://www.hotselfdefense.net/HOTSDA/includes/HOTSDA.css';
+        @import 'http://www.hotselfdefense.net/HOTSDA/includes/HOTCSS.css';
+    </style>
+    <script type="text/javascript">
+        function popupCalendar() {
+            var dateField = document.getElementById('dateField');
+
+            // toggle the div
+            if (dateField.style.display == 'none')
+                dateField.style.display = 'block';
+            else
+                dateField.style.display = 'none';
+        }
+ </script>
+</head>
+<body bgcolor="#FFE4B5">
+    <div id="container">
+        <div id="header">
+            <img src="http://www.hotselfdefense.net/HOTSDA/images/InternalKickLogo.gif" alt="HOT Self Defense" />
+        </div>
+        <div id="navigation">
+            <ul>
+                <li><asp:HyperLink Text="Schedule" runat="server" ID="lnkSchedule" /></li>
+                <li><asp:HyperLink Text="Add A Class" runat="server" ID="lnkAddClass" /></li>
+                <li><asp:HyperLink Text="Add A Student" runat="server" ID="lnkAddStudent" /></li>
+                <li><asp:HyperLink Text="Search" runat="server" ID="lnkSearch" /></li>
+                <li><asp:HyperLink Text="Point of Sale" runat="server" ID="lnkPOS" /></li>
+                <li><asp:HyperLink Text="Admin" runat="server" ID="lnkAdmin" /></li>
+                <li><asp:HyperLink Text="Report A Problem" runat="server" ID="lnkProblem" /></li>
+            </ul>
+            <div id="dates">
+            <b>Today's Date:</b>
+            <asp:Label ID="lblToday" runat="server" />
+            <b>Currently On:</b>
+            <asp:Label ID="lblCurrent" runat="server" />
+            </div>
+        </div>
+        <div id="content-container">
+            <div id="content">
+                <div id="dates">
+                    
+                </div>
+                
+                <form id="form1" runat="server">
+                <div>
+                    <asp:ContentPlaceHolder ID="placeholderMain" runat="server" />
+                </div>
+                </form>
+            </div>
+            <div id="footer">
+                <%--Copyright © HOT Self Defense, 2012--%>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

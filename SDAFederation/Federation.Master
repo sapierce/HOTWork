@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Federation.master.cs" Inherits="SDAFederation.Federation" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Federation</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //Hide/Show the feedback messages if they contain data
+            if ($("#<%=errorMessage.ClientID%>").text() != "") {
+                $("#<%=errorMessagePanel.ClientID%>").css("display", "block");
+
+            }
+            else {
+                $("#<%=errorMessagePanel.ClientID%>").css("display", "none");
+            }
+            if ($("#<%=successMessage.ClientID%>").text() != "") {
+                $("#<%=successMessagePanel.ClientID%>").css("display", "block");
+            }
+            else {
+                $("#<%=successMessagePanel.ClientID%>").css("display", "none");
+            }
+        });
+    </script>
+    <link href="css/FederationCSS.css" type="text/css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <br />
+        </div>
+        <div id="navigation">
+            <ul>
+                <li><asp:HyperLink Text="Main Page" runat="server" ID="mainPage" /></li>
+                <li><asp:HyperLink Text="Student List" runat="server" ID="viewStudents" /></li>
+                <li><asp:HyperLink Text="Add Student" runat="server" ID="addStudent" /></li>
+                <li><asp:HyperLink Text="Search" runat="server" ID="search" /></li>
+                <li><asp:HyperLink Text="Point of Sale" runat="server" ID="pointOfSale" /></li>
+                <li><asp:HyperLink Text="Administration" runat="server" ID="adminSection" /></li>
+                <li><asp:HyperLink Text="Report A Problem" runat="server" ID="reportProblem" /></li>
+            </ul>
+        </div>
+        <div id="content-container">
+            <div id="content">
+                <form id="form1" runat="server">
+                    <p style="margin: auto;">
+                        <asp:Panel ID="errorMessagePanel" CssClass="message_error" runat="server">
+                            <asp:Label ID="errorMessage" runat="server" />
+                        </asp:Panel>
+                        <asp:Panel ID="successMessagePanel" CssClass="message_success" runat="server">
+                            <asp:Label ID="successMessage" runat="server" />
+                        </asp:Panel>
+                    </p>
+                    <div>
+                        <asp:ContentPlaceHolder ID="MainPlaceHolder" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </form>
+            </div>
+            <div id="footer">
+                <%--Copyright © Federation, 2013--%>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

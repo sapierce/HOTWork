@@ -1,0 +1,66 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="FederationPOS.master.cs" Inherits="SDAFederationPOS.FederationPOS" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+    <link rel="Stylesheet" href="Styles/hotpos.css" />
+    <link href="css/FederationCSS.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+     <script type="text/javascript">
+         $(function () {
+             //Hide/Show the feedback messages if they contain data
+             if ($("#<%=errorMessage.ClientID%>").text() != "") {
+                 $("#<%=errorMessagePanel.ClientID%>").css("display", "block");
+
+             }
+             else {
+                 $("#<%=errorMessagePanel.ClientID%>").css("display", "none");
+             }
+             if ($("#<%=successMessage.ClientID%>").text() != "") {
+                 $("#<%=successMessagePanel.ClientID%>").css("display", "block");
+            }
+            else {
+                $("#<%=successMessagePanel.ClientID%>").css("display", "none");
+            }
+         });
+    </script>
+    <title>Federation Point of Sale</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <img src="http://www.hottropicaltans.net/Federation/images/FederationLogo.gif" alt="Federation Point of Sale" />
+        </div>
+        <div id="navigation">
+            <ul>
+                <li><asp:HyperLink Text="Back to Federation" runat="server" ID="backFederation" /></li>
+            </ul>
+        </div>
+        <div id="content-container">
+            <div id="content">
+                <form id="form1" runat="server">
+                    <p style="margin: auto;">
+                        <asp:Panel ID="errorMessagePanel" CssClass="message_error" runat="server">
+                            <asp:Label ID="errorMessage" runat="server" />
+                        </asp:Panel>
+                        <asp:Panel ID="successMessagePanel" CssClass="message_success" runat="server">
+                            <asp:Label ID="successMessage" runat="server" />
+                        </asp:Panel>
+                    </p>
+                <div>
+                    <asp:ContentPlaceHolder ID="placeholderMain" runat="server" />
+                </div>
+                </form>
+            </div>
+            <div id="footer">
+                <%--Copyright © Federation POS, 2013--%>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

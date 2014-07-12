@@ -1,0 +1,88 @@
+﻿/* Default CSS Stylesheet for a new Web Application project */
+body
+{
+	background: "#FFE4B5";
+	font-family: arial,helvetica,sans-serif;
+	font-size: 10px;
+}
+
+a.link
+{
+	color: "#000099";
+}
+
+a.vlink
+{
+	color: "#000099";
+}
+
+.rheader 
+{
+	background-color: #4682B4;
+	text-align: right;
+	font-family: arial,helvetica,sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	border: 1px solid #000000;
+	border-style: solid;
+	padding: 2px;
+}
+
+.header
+{
+	background-color: #4682B4;
+	text-align: center;
+	font-family: arial,helvetica,sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	border: 1px solid #000000;
+	border-style: solid;
+	padding: 2px;
+}
+
+.lheader
+{
+	background-color: #4682B4;
+	text-align: left;
+	font-family: arial,helvetica,sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	border: 1px solid #000000;
+	border-style: solid;
+	padding: 2px;
+}
+
+.bcc
+{
+	border: 1px solid #000000;
+	border-style: solid;
+	font-family: arial,helvetica,sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td {
+	font-family: arial,helvetica,sans-serif;
+}
+
+.reg {
+	font-family: arial,helvetica,sans-serif;
+	font-size: 11px;
+	border: 1px solid #000000;
+	border-style: solid;
+	padding: 2px;
+}
+
+.owes 
+{
+	background-color: #228B22;
+	font-family: arial,helvetica,sans-serif;
+	font-size: 11px;
+	border: 1px solid #000000;
+	border-style: solid;
+	padding: 2px
+}
+
+.error {
+	color: red;
+}
