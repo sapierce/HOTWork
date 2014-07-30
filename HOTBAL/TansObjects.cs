@@ -781,13 +781,17 @@ namespace HOTBAL
     {
         private int _bedID = 0;
 
-        private string _bedLong = "No beds available";
+        private string _bedLong = "";
 
         private string _bedShort = "0";
 
         private string _bedType = "";
 
         private string _bedLocation = "W";
+
+        private bool _bedDisplayInternal = false;
+
+        private bool _bedDisplayExternal = false;
 
         private bool _bedActive = false;
 
@@ -849,6 +853,30 @@ namespace HOTBAL
             set
             {
                 this._bedLocation = value;
+            }
+        }
+
+        public bool BedDisplayInternal
+        {
+            get
+            {
+                return this._bedDisplayInternal;
+            }
+            set
+            {
+                this._bedDisplayInternal = value;
+            }
+        }
+
+        public bool BedDisplayExternal
+        {
+            get
+            {
+                return this._bedDisplayExternal;
+            }
+            set
+            {
+                this._bedDisplayExternal = value;
             }
         }
 
