@@ -36,7 +36,8 @@ namespace HOTPOS
                 customerID = sqlClass.InsertNewCustomer(toFirstName.Text,
                     toLastName.Text,
                     DateTime.Now, 0, "Other",
-                    DateTime.Now, "Start First Tan", false, false);
+                    DateTime.Now, "Start First Tan", 
+                    false, false, false, 0, Convert.ToDateTime("2001-01-01"));
 
                 AddGiftCard(customerID);
             }

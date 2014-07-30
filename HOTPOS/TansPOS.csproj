@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="HOTPOS.pfx" />
+    <Content Include="HOTPOS.snk" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
   </ItemGroup>
   <PropertyGroup>
@@ -172,7 +173,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>HOTPOS.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>HOTPOS.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
