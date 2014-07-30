@@ -126,14 +126,14 @@ namespace HOTBAL
         /// Get all of the beds
         /// </summary>
         /// <returns></returns>
-        public List<Bed> GetAllBeds()
+        public List<Bed> GetAllActiveBeds()
         {
             List<Bed> returnBeds = new List<Bed>();
 
             try
             {
                 // Get the beds
-                DataTable bedTable = tansDataAccess.ExecuteGET_ALL_BEDS();
+                DataTable bedTable = tansDataAccess.ExecuteGET_ALL_ACTIVE_BEDS();
 
                 // Do we have records?
                 if (bedTable.Rows.Count > 0)
@@ -147,24 +147,28 @@ namespace HOTBAL
                         bedList.BedShort = bedReader["BED_SHORT"].ToString().Trim();
                         bedList.BedType = bedReader["BED_TYPE"].ToString().Trim(); ;
                         bedList.BedID = Convert.ToInt32(bedReader["BED_ID"].ToString().Trim());
-                        bedList.BedActive = (bedReader["BED_DISP"].ToString().Trim() == "True" ? true : false);
+                        bedList.BedDisplayInternal = (bedReader["BED_DISP_INT"].ToString().Trim() == "True" ? true : false);
+                        bedList.BedDisplayExternal = (bedReader["BED_DISP_EXT"].ToString().Trim() == "True" ? true : false);
+                        bedList.BedActive = (bedReader["BED_ACTV"].ToString().Trim() == "True" ? true : false);
                         bedList.BedLocation = bedReader["BED_LOC"].ToString().Trim();
                         returnBeds.Add(bedList);
                     }
                 }
                 else
                 {
-                    // No active beds of that type
-                    Bed bedList = new Bed();
-                    returnBeds.Add(bedList);
+                    // No active beds found
+                    // Log error
+                    LogErrorMessage(new Exception("No Beds Found"), "", "Methods: GetAllActiveBeds");
+                //    Bed bedList = new Bed();
+                //    returnBeds.Add(bedList);
                 }
             }
             catch (Exception ex)
             {
                 // Log error
-                LogErrorMessage(ex, "", "Methods: GetAllBeds");
-                Bed bedList = new Bed();
-                returnBeds.Add(bedList);
+                LogErrorMessage(ex, "", "Methods: GetAllActiveBeds");
+                //Bed bedList = new Bed();
+                //returnBeds.Add(bedList);
             }
 
             return returnBeds;
@@ -182,7 +186,7 @@ namespace HOTBAL
             try
             {
                 // Get the beds based on the passed in bed type
-                DataTable bedTable = tansDataAccess.ExecuteBEDS_BY_BED_TYPE(bedType);
+                DataTable bedTable = tansDataAccess.ExecuteEXTERNAL_ACTIVE_BEDS_BY_BED_TYPE(bedType);
 
                 // Do we have records?
                 if (bedTable.Rows.Count > 0)
@@ -196,7 +200,9 @@ namespace HOTBAL
                         bedList.BedShort = bedReader["BED_SHORT"].ToString().Trim();
                         bedList.BedType = bedType;
                         bedList.BedID = Convert.ToInt32(bedReader["BED_ID"].ToString().Trim());
-                        bedList.BedActive = (bedReader["BED_DISP"].ToString().Trim() == "True" ? true : false);
+                        bedList.BedActive = (bedReader["BED_ACTV"].ToString().Trim() == "True" ? true : false);
+                        bedList.BedDisplayInternal = (bedReader["BED_DISP_INT"].ToString().Trim() == "True" ? true : false);
+                        bedList.BedDisplayExternal = (bedReader["BED_DISP_EXT"].ToString().Trim() == "True" ? true : false);
                         bedList.BedLocation = bedReader["BED_LOC"].ToString().Trim();
                         returnBeds.Add(bedList);
                     }
@@ -226,7 +232,7 @@ namespace HOTBAL
         /// </summary>
         /// <param name="bedLocation">Bed location</param>
         /// <returns></returns>
-        public List<Bed> GetLocationBeds(string bedLocation)
+        public List<Bed> GetLocationActiveBeds(string bedLocation)
         {
             List<Bed> returnBeds = new List<Bed>();
 
@@ -244,7 +250,9 @@ namespace HOTBAL
                         bedList.BedLong = bedReader["BED_LONG"].ToString();
                         bedList.BedShort = bedReader["BED_SHORT"].ToString();
                         bedList.BedType = bedReader["BED_TYPE"].ToString();
-                        bedList.BedActive = (bedReader["BED_DISP"].ToString() == "True" ? true : false);
+                        bedList.BedActive = (bedReader["BED_ACTV"].ToString() == "True" ? true : false);
+                        bedList.BedDisplayInternal = (bedReader["BED_DISP_INT"].ToString() == "True" ? true : false);
+                        bedList.BedDisplayExternal = (bedReader["BED_DISP_EXT"].ToString() == "True" ? true : false);
                         bedList.BedLocation = functionsClass.CleanUp(bedLocation);
                         returnBeds.Add(bedList);
                     }
@@ -292,7 +300,9 @@ namespace HOTBAL
                         returnBed.BedLong = bedReader["BED_LONG"].ToString().Trim();
                         returnBed.BedShort = bedReader["BED_SHORT"].ToString().Trim();
                         returnBed.BedType = bedReader["BED_TYPE"].ToString().Trim();
-                        returnBed.BedActive = (bedReader["BED_DISP"].ToString().Trim() == "True" ? true : false);
+                        returnBed.BedActive = (bedReader["BED_ACTV"].ToString().Trim() == "True" ? true : false);
+                        returnBed.BedDisplayInternal = (bedReader["BED_DISP_INT"].ToString().Trim() == "True" ? true : false);
+                        returnBed.BedDisplayExternal = (bedReader["BED_DISP_EXT"].ToString().Trim() == "True" ? true : false);
                         returnBed.BedLocation = bedReader["BED_LOC"].ToString().Trim();
                         returnBed.BedID = Convert.ToInt32(bedReader["BED_ID"].ToString().Trim());
                     }
@@ -322,12 +332,12 @@ namespace HOTBAL
         /// <param name="bedType">Type of bed</param>
         /// <param name="bedDisplay">Is this bed active</param>
         /// <returns></returns>
-        public bool AddNewBed(string bedDescription, string shortDescription, string bedLocation, string bedType, bool bedDisplay)
+        public bool AddNewBed(string bedDescription, string shortDescription, string bedLocation, string bedType, bool bedDisplayInternal, bool bedDisplayExternal)
         {
             try
             {
                 return tansDataAccess.ExecuteINSERT_BED(functionsClass.CleanUp(bedDescription), functionsClass.CleanUp(shortDescription),
-                    functionsClass.CleanUp(bedLocation), functionsClass.CleanUp(bedType), (bedDisplay == true ? 1 : 0));
+                    functionsClass.CleanUp(bedLocation), functionsClass.CleanUp(bedType), (bedDisplayInternal == true ? 1 : 0), (bedDisplayExternal == true ? 1 : 0));
             }
             catch (Exception ex)
             {
@@ -347,12 +357,12 @@ namespace HOTBAL
         /// <param name="bedType">Type of bed</param>
         /// <param name="bedDisplay">Is the bed active</param>
         /// <returns></returns>
-        public bool UpdateBed(int bedID, string bedDescription, string shortDescription, string bedLocation, string bedType, bool bedDisplay)
+        public bool UpdateBed(int bedID, string bedDescription, string shortDescription, string bedLocation, string bedType, bool bedDisplayInternal, bool bedDisplayExternal)
         {
             try
             {
                 return tansDataAccess.ExecuteUPDATE_BED_BY_BED_ID(bedID, functionsClass.CleanUp(bedDescription), functionsClass.CleanUp(shortDescription),
-                    functionsClass.CleanUp(bedLocation), functionsClass.CleanUp(bedType), (bedDisplay == true ? 1 : 0));
+                    functionsClass.CleanUp(bedLocation), functionsClass.CleanUp(bedType), (bedDisplayInternal == true ? 1 : 0), (bedDisplayExternal == true ? 1 : 0));
             }
             catch (Exception ex)
             {
@@ -412,8 +422,6 @@ namespace HOTBAL
                         customerResponse.RenewalDate = Convert.ToDateTime(infoReader["CUST_RENEWAL"].ToString().Trim());
                         customerResponse.Remarks = infoReader["CUST_REMARK"].ToString().Trim();
                         customerResponse.FitzPatrickNumber = Convert.ToInt32(infoReader["CUST_FPS"].ToString().Trim());
-                        customerResponse.PlanId = PlanInformation(infoReader["CUST_PLAN"].ToString().Trim().ToUpper()).PackageID;
-                        customerResponse.Plan = PlanTranslation(infoReader["CUST_PLAN"].ToString().Trim().ToUpper());
                         customerResponse.Email = infoReader["USER_MAIL"].ToString().Trim();
                         customerResponse.ReceiveSpecials = (infoReader["USER_SPECIAL"].ToString().Trim() == "True" ? true : false);
                         customerResponse.OnlineName = infoReader["USER_NAME"].ToString().Trim();
@@ -421,14 +429,20 @@ namespace HOTBAL
                         customerResponse.NewOnlineCustomer = (infoReader["CUST_NEW_ONLINE"].ToString().Trim() == "True" ? true : false);
                         customerResponse.VerifiedEmail = (infoReader["VERIFY_IND"].ToString().Trim() == "True" ? true : false);
                         customerResponse.LotionWarning = (infoReader["CUST_LOTION"].ToString().Trim() == "True" ? true : false);
-                        customerResponse.SpecialDate = Convert.ToDateTime(infoReader["SPECIAL_DATE"].ToString().Trim());
-                        customerResponse.SpecialFlag = (infoReader["SPECIAL_FLAG"].ToString().Trim() == "True" ? true : false);
-                        customerResponse.SpecialID = (infoReader["SPECIAL_ID"].ToString() == String.Empty ? 0 : Convert.ToInt32(infoReader["SPECIAL_ID"].ToString().Trim()));
                         customerResponse.AcknowledgeWarning = (infoReader["CUST_WARN"].ToString().Trim() == "True" ? true : false);
                         customerResponse.AcknowledgeWarningText = infoReader["CUST_WARN_TXT"].ToString().Trim();
                         customerResponse.FamilyHistory = (infoReader["CUST_FHIST"].ToString().Trim() == "True" ? true : false);
                         customerResponse.PersonalHistory = (infoReader["CUST_HIST"].ToString().Trim() == "True" ? true : false);
                         customerResponse.OnlineRestriction = (infoReader["CUST_RESTRICT"].ToString().Trim() == "True" ? true : false);
+
+                        // 
+                        customerResponse = GetCustomerPlanDetails(customerResponse, infoReader["CUST_PLAN"].ToString().Trim().ToUpper());
+                        
+                        //
+                        customerResponse.SpecialDate = Convert.ToDateTime(infoReader["SPECIAL_DATE"].ToString().Trim());
+                        customerResponse.SpecialFlag = (infoReader["SPECIAL_FLAG"].ToString().Trim() == "True" ? true : false);
+                        customerResponse.SpecialID = (infoReader["SPECIAL_ID"].ToString() == String.Empty ? 0 : Convert.ToInt32(infoReader["SPECIAL_ID"].ToString().Trim()));
+                        
                     }
                 }
                 else
@@ -738,6 +752,35 @@ namespace HOTBAL
             return customerResponse;
         }
 
+        public List<Customer> GetAllOnlineCustomers(bool onlyNewOnline)
+        {
+            List<Customer> onlineCustomerList = new List<Customer>();
+            DataTable onlineCustomers = tansDataAccess.ExecuteONLINE_CUSTOMERS(onlyNewOnline);
+
+            if (onlineCustomers.Rows.Count > 0)
+            {
+                foreach (DataRow customer in onlineCustomers.Rows)
+                {
+                    HOTBAL.Customer selectedCustomer = GetCustomerInformationByID(Convert.ToInt64(customer["USER_ID"]));
+
+                    if (!String.IsNullOrEmpty(selectedCustomer.Error))
+                    {
+                        if (selectedCustomer.Error == "We're sorry, but we are currently unable to access customer information.<br>")
+                        {
+                            bool success = tansDataAccess.ExecuteDELETE_CUSTOMER_ONLINE(Convert.ToInt64(customer["USER_ID"]));
+                            bool success2 = tansDataAccess.ExecuteDELETE_CUSTOMER_NEW_ONLINE(Convert.ToInt64(customer["USER_ID"]));
+                        }
+                    }
+                    else
+                    {
+                        onlineCustomerList.Add(selectedCustomer);
+                    }
+                }
+            }
+
+            return onlineCustomerList;
+        }
+
         /// <summary>
         /// Gets note information by a given note ID
         /// </summary>
@@ -811,7 +854,8 @@ namespace HOTBAL
         {
             try
             {
-                return tansDataAccess.ExecuteUPDATE_NOTE_BY_NOTE_ID(noteID, functionsClass.CleanUp(noteText), (owesMoney == true ? 1 : 0), (owedProduct == true ? 1 : 0), (checkTransactions == true ? 1 : 0));
+                return tansDataAccess.ExecuteUPDATE_NOTE_BY_NOTE_ID(noteID, functionsClass.LightCleanUp(noteText), 
+                    (owesMoney == true ? 1 : 0), (owedProduct == true ? 1 : 0), (checkTransactions == true ? 1 : 0));
             }
             catch (Exception ex)
             {
@@ -881,6 +925,46 @@ namespace HOTBAL
                 // Log error
                 LogErrorMessage(ex, customerID.ToString(), "Methods: DeleteCustomerOnlineAccount");
                 return false;
+            }
+        }
+
+        public List<long> DeleteInvalidOnlineAccounts()
+        {
+            try
+            {
+                List<long> deletedCustomers = new List<long>();
+
+                // Get everyone who has signed up online
+                DataTable newOnlineTable = tansDataAccess.ExecuteNEW_ONLINE_CUSTOMERS();
+
+                // Loop through
+                foreach (DataRow newOnline in newOnlineTable.Rows)
+                {
+                    long customerId = Convert.ToInt64(newOnline["CUST_TAN_ID"]);
+                    // Get the customer information
+                    HOTBAL.Customer customer = GetCustomerInformationByID(customerId);
+
+                    // Was there an error?
+                    if (!String.IsNullOrEmpty(customer.Error))
+                    {
+                        // Does the customer no longer exist?
+                        if (customer.Error == "We're sorry, but we are currently unable to access customer information.<br>")
+                        {
+                            deletedCustomers.Add(customerId);
+                            bool success = tansDataAccess.ExecuteDELETE_CUSTOMER_ONLINE(customerId);
+                            bool success2 = tansDataAccess.ExecuteDELETE_CUSTOMER_NEW_ONLINE(customerId);
+                        }
+                    }
+                }
+
+                return deletedCustomers;
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                LogErrorMessage(ex, "", "Methods: DeleteInvalidOnlineAccounts");
+                List<long> deletedCustomers = new List<long>();
+                return deletedCustomers;
             }
         }
 
@@ -1098,16 +1182,21 @@ namespace HOTBAL
         /// <param name="remark">Remarks on customer</param>
         /// <param name="onlineUser">Is the customer an online user</param>
         /// <param name="newOnline">Did this customer originate online</param>
+        /// <param name="specialFlag">Is this customer on a special</param>
+        /// <param name="specialId">Id of the special</param>
+        /// <param name="specialDate">Start date of the special</param>
         /// <returns></returns>
-        public long InsertNewCustomer(string firstName, string lastName, DateTime joinDate, int fitzNumber, string plan, DateTime renewalDate, string remark, bool onlineUser, bool newOnline)
+        public long InsertNewCustomer(string firstName, string lastName, DateTime joinDate, int fitzNumber, string plan, DateTime renewalDate, string remark, 
+            bool onlineUser, bool newOnline, bool specialFlag, int specialId, DateTime specialDate)
         {
             long response = 0;
 
             try
             {
-                response = tansDataAccess.ExecuteINSERT_CUSTOMER(functionsClass.CleanUp(firstName), functionsClass.CleanUp(lastName), 
-                    functionsClass.FormatDash(joinDate), fitzNumber, functionsClass.CleanUp(plan), functionsClass.FormatDash(renewalDate), 
-                    functionsClass.CleanUp(remark), (onlineUser == true ? 1 : 0), (newOnline == true ? 1 :0));
+                response = tansDataAccess.ExecuteINSERT_CUSTOMER(functionsClass.LightCleanUp(firstName), functionsClass.LightCleanUp(lastName),
+                    functionsClass.FormatDash(joinDate), fitzNumber, functionsClass.LightCleanUp(plan), functionsClass.FormatDash(renewalDate), 
+                    functionsClass.CleanUp(remark), (onlineUser == true ? 1 : 0), (newOnline == true ? 1 :0), (specialFlag == true ? 1 :0),
+                    specialId, functionsClass.FormatDash(specialDate));
             }
             catch (Exception ex)
             {
@@ -1171,7 +1260,7 @@ namespace HOTBAL
         /// <param name="warned">Customer accepted warning</param>
         /// <param name="userID">Customer ID</param>
         /// <returns></returns>
-        public bool UpdateCustomerAgreement(string agreementName, bool warned, int userID)
+        public bool UpdateCustomerAgreement(string agreementName, bool warned, long userID)
         {
             try
             {
@@ -1185,6 +1274,19 @@ namespace HOTBAL
             }
         }
 
+        public bool UpdateCustomerDetailInformation(long userID, string phoneNumber, string birthDate)
+        {
+            try
+            {
+                return tansDataAccess.ExecuteUPDATE_CUSTOMER_DETAIL_INFO_BY_CUSTOMER_ID(userID, phoneNumber, birthDate);
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                LogErrorMessage(ex, userID.ToString(), "Methods: UpdateCustomerDetailInformation");
+                return false;
+            }
+        }
         /// <summary>
         /// Updates customer information
         /// </summary>
@@ -1689,6 +1791,38 @@ namespace HOTBAL
             }
 
             return planInformation;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="customerInformation"></param>
+        /// <returns></returns>
+        public HOTBAL.Customer GetCustomerPlanDetails(HOTBAL.Customer customerInformation, string planName)
+        {
+            HOTBAL.Package planInformation = new Package();
+            customerInformation.PlanId = 0;
+            customerInformation.Plan = functionsClass.CleanUp(planName).ToUpper().Trim();
+
+            if (functionsClass.CleanUp(planName).ToUpper().Trim() != "OTHER")
+            {
+                DataTable planTable = tansDataAccess.ExecutePLAN_BY_PLAN_NAME(functionsClass.CleanUp(planName).ToUpper().Trim());
+
+                try
+                {
+                    if (planTable.Rows.Count > 0)
+                    {
+                        customerInformation.PlanId = Convert.ToInt32(planTable.Rows[0]["PLAN_ID"].ToString().Trim());
+                        customerInformation.Plan = PlanTranslation(planName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogErrorMessage(ex, functionsClass.CleanUp(planName).ToUpper().Trim(), "Methods: GetCustomerPlanDetails (string)");
+                }
+            }
+
+            return customerInformation;
         }
 
         /// <summary>
@@ -3724,12 +3858,12 @@ namespace HOTBAL
                                     Customer transactionBuyer = GetCustomerInformationByID(Convert.ToInt32(Purchaser));
                                     DateTime newPlanRenewalDate = DateTime.Now.AddDays(packageLength);
                                     DateTime newSpecialRenewalDate = DateTime.Now.AddDays(levelLength);
-
+                                    string[] splitPackageName = packageName.Split(Convert.ToChar(" "));
+                                        
                                     // Is the current renewal date further out than the new renewal date?
                                     if (transactionBuyer.RenewalDate > newPlanRenewalDate)
                                     {
                                         // Check if this is an upgrade or a single
-                                        string[] splitPackageName = packageName.Split(Convert.ToChar(" "));
                                         if (splitPackageName.Length > 1)
                                         {
                                             if ((splitPackageName[1] == "SINGLE") || 
@@ -3738,7 +3872,26 @@ namespace HOTBAL
                                                 (splitPackageName[1] == "SINGLE-L3") ||
                                                 (splitPackageName[1] == "UPGRADE"))
                                             {
+                                                // They're just buying a single or an upgrade while their current
+                                                //  package is active; don't change the renewal.
                                                 updateRenewal = false;
+                                            }
+                                        }
+                                    }
+
+                                    if (updateRenewal)
+                                    {
+                                        // Check if this is a single
+                                        if (splitPackageName.Length > 1)
+                                        {
+                                            if ((splitPackageName[1] == "SINGLE") ||
+                                                (splitPackageName[1] == "SINGLE-L1") ||
+                                                (splitPackageName[1] == "SINGLE-L2") ||
+                                                (splitPackageName[1] == "SINGLE-L3"))
+                                            {
+                                                // This person is on singles; set the renewal to current date.
+                                                newPlanRenewalDate = DateTime.Now;
+                                                newSpecialRenewalDate = Convert.ToDateTime("2001-01-01");
                                             }
                                         }
                                     }
@@ -3750,25 +3903,25 @@ namespace HOTBAL
                                             transactionBuyer.LotionWarning, transactionBuyer.OnlineRestriction, Convert.ToInt32(Purchaser));
 
                                         if (!customerUpdate)
-                                            LogErrorMessage(new Exception("CustomerNotUpdated"), Purchaser.ToString(), "Methods: InsertTransaction: UpdateExpiration");
-                                        else
-                                            LogErrorMessage(new Exception("CustomerUpdated"), Purchaser.ToString(), "Methods: InsertTransaction: UpdateExpiration");
+                                            LogErrorMessage(new Exception("CustomerNotUpdated"), Purchaser.ToString() + "-" + transactionID.ToString() + "-" + item.ItemID.ToString(), "Methods: InsertTransaction: UpdateExpiration");
+                                        //else
+                                        //    LogErrorMessage(new Exception("CustomerUpdated"), Purchaser.ToString(), "Methods: InsertTransaction: UpdateExpiration");
 
                                         bool customerHistory = UpdateCustomerHistory(transactionBuyer.ID, transactionID, functionsClass.FormatDash(Convert.ToDateTime(Date)),
                                             functionsClass.FormatDash(newPlanRenewalDate), packageLongName);
 
                                         if (!customerUpdate)
-                                            LogErrorMessage(new Exception("CustomerHistoryNotUpdated"), Purchaser.ToString(), "Methods: InsertTransaction: UpdateHistory");
-                                        else
-                                            LogErrorMessage(new Exception("CustomerHistoryUpdated"), Purchaser.ToString(), "Methods: InsertTransaction: UpdateHistory");
+                                            LogErrorMessage(new Exception("CustomerHistoryNotUpdated"), Purchaser.ToString() + "-" + transactionID.ToString() + "-" + item.ItemID.ToString(), "Methods: InsertTransaction: UpdateHistory");
+                                        //else
+                                        //    LogErrorMessage(new Exception("CustomerHistoryUpdated"), Purchaser.ToString(), "Methods: InsertTransaction: UpdateHistory");
                                     }
                                 }
                             }
-                            else
-                                LogErrorMessage(new Exception("TransactionNotPackage"), item.ItemType, "Methods: InsertTransaction: UpdateExpiration");
+                            //else
+                            //    LogErrorMessage(new Exception("TransactionNotPackage"), item.ItemType, "Methods: InsertTransaction: UpdateExpiration");
                         }
                         else
-                            LogErrorMessage(new Exception("TransactionItemNotSaved"), transactionID.ToString(), "Methods: InsertTransaction: InsertTransactionItem");
+                            LogErrorMessage(new Exception("TransactionItemNotSaved"), transactionID.ToString() + "-" + item.ItemID.ToString(), "Methods: InsertTransaction: InsertTransactionItem");
                     }
                 }
                 else
