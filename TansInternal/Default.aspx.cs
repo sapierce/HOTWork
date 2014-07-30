@@ -35,16 +35,26 @@ namespace HOTTropicalTans
             try
             {
                 List<HOTBAL.Time> scheduleTimes = sqlClass.GetLocationTimes("W", "T");
-                List<HOTBAL.Bed> scheduleBeds = sqlClass.GetLocationBeds("W");
+                List<HOTBAL.Bed> scheduleBeds = sqlClass.GetLocationActiveBeds("W");
 
                 if ((scheduleTimes != null) && (scheduleBeds != null) && (!String.IsNullOrEmpty(inDate)) && (!String.IsNullOrEmpty(dayOfDate.Trim())))
                 {
-                    scheduleTable = scheduleTable + "<thead><tr><th><br /></th>";
+                    int bedCount = 0;
                     foreach (HOTBAL.Bed b in scheduleBeds)
                     {
-                        scheduleTable = scheduleTable + "<th>BED " + b.BedShort + "</th>";
+                        if (b.BedDisplayInternal)
+                            bedCount++;
                     }
-                    scheduleTable = scheduleTable + "<th><br /></th></tr></thead><tbody>";
+
+
+                    scheduleTable = "<thead><tr><th colspan='" + (bedCount + 2).ToString() + "'>Schedule for "
+                        + functionsClass.FormatSlash(Convert.ToDateTime(inDate)) + "</th></tr><tr><td class='centerAlignHeader'><br /></td>";
+                    foreach (HOTBAL.Bed b in scheduleBeds)
+                    {
+                        if (b.BedDisplayInternal)
+                            scheduleTable = scheduleTable + "<td class='centerAlignHeader'>BED " + b.BedShort + "</td>";
+                    }
+                    scheduleTable = scheduleTable + "<td class='centerAlignHeader'><br /></td></tr></thead><tbody>";
 
                     DateTime beginTime = DateTime.MinValue;
                     DateTime endTime = DateTime.MaxValue;
@@ -57,7 +67,7 @@ namespace HOTTropicalTans
                             {
                                 if (t.BeginTime == "CLOSED")
                                 {
-                                    scheduleTable = scheduleTable + "<tr><td class='centerAlignHeader' colspan='" + (scheduleBeds.Count + 2).ToString() + "'>" + t.BeginTime + "</td></tr>";
+                                    scheduleTable = scheduleTable + "<tr><td class='centerAlignHeader' colspan='" + (bedCount + 2).ToString() + "'>" + t.BeginTime + "</td></tr>";
                                     isClosed = true;
                                 }
                                 else
@@ -81,7 +91,8 @@ namespace HOTTropicalTans
                                 scheduleTable = scheduleTable + "<tr><td class='centerAlignHeader'><br /></td>";
                                 foreach (HOTBAL.Bed b in scheduleBeds)
                                 {
-                                    scheduleTable = scheduleTable + "<td class='centerAlignHeader'>BED " + b.BedShort + "</td>";
+                                    if (b.BedDisplayInternal)
+                                        scheduleTable = scheduleTable + "<td class='centerAlignHeader'>BED " + b.BedShort + "</td>";
                                 }
                                 scheduleTable = scheduleTable + "<td class='centerAlignHeader'><br /></td></tr>";
                                 hourCount = 0;
@@ -91,118 +102,124 @@ namespace HOTTropicalTans
                                 scheduleTable = scheduleTable + "<tr><td class='rightAlignHeader'>" + currentTime.ToShortTimeString() + "</td>";
                                 foreach (HOTBAL.Bed b in scheduleBeds)
                                 {
-                                    HOTBAL.Tan tanInformation = sqlClass.GetTanInformationByData(b.BedShort, inDate, currentTime.ToShortTimeString(), "W");
-
-                                    if ((tanInformation != null) && (tanInformation.TanID != 0))
+                                    if (b.BedDisplayInternal)
                                     {
-                                        bool needsProduct = false, needsRenewal = false, needsUpgrade = false, owesMoney = false;
-                                        string noteText = String.Empty;
+                                        HOTBAL.Tan tanInformation = sqlClass.GetTanInformationByData(b.BedShort, inDate, currentTime.ToShortTimeString(), "W");
 
-                                        if (!tanInformation.DeletedIndicator)
+                                        if ((tanInformation != null) && (tanInformation.TanID != 0))
                                         {
-                                            // Taken tan, look up the user information
-                                            HOTBAL.Customer tanCustomer = sqlClass.GetCustomerInformationByID(tanInformation.CustomerID);
+                                            bool needsProduct = false, needsRenewal = false, needsUpgrade = false, owesMoney = false;
+                                            string noteText = String.Empty;
 
-                                            // Build the tan cell
-                                            if (String.IsNullOrEmpty(tanCustomer.Error))
+                                            if (!tanInformation.DeletedIndicator)
                                             {
-                                                if (tanCustomer.RenewalDate <= Convert.ToDateTime(inDate))
-                                                {
-                                                    needsRenewal = true;
-                                                }
-                                                else
-                                                {
-                                                    if (tanCustomer.Notes != null)
-                                                    {
-                                                        if (tanCustomer.Notes.Count > 0)
-                                                        {
-                                                            foreach (HOTBAL.CustomerNote n in tanCustomer.Notes)
-                                                            {
-                                                                if (n.NeedsUpgrade)
-                                                                {
-                                                                    needsUpgrade = true;
-                                                                }
-                                                                else if (n.OwesMoney)
-                                                                {
-                                                                    owesMoney = true;
-                                                                }
-                                                                else if (n.OwedProduct)
-                                                                {
-                                                                    needsProduct = true;
-                                                                }
+                                                // Taken tan, look up the user information
+                                                HOTBAL.Customer tanCustomer = sqlClass.GetCustomerInformationByID(tanInformation.CustomerID);
 
-                                                                noteText += n.NoteText.Replace(Convert.ToChar("'"), Convert.ToChar("\'")) + " \n";
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-                                                if (tanInformation.Length > 0)
+                                                // Build the tan cell
+                                                if (String.IsNullOrEmpty(tanCustomer.Error))
                                                 {
-                                                    scheduleTable = scheduleTable + "<td class='tanned'>";
-                                                }
-                                                else
-                                                {
-                                                    if ((needsProduct) || (needsRenewal) || (tanCustomer.LotionWarning) || (owesMoney) || (needsUpgrade))
+                                                    if (tanCustomer.RenewalDate <= Convert.ToDateTime(inDate))
                                                     {
-                                                        if (needsRenewal)
-                                                        {
-                                                            scheduleTable = scheduleTable + "<td class='expired'>";
-                                                        }
-                                                        else if (tanCustomer.LotionWarning)
-                                                        {
-                                                            scheduleTable = scheduleTable + "<td class='lotion'>";
-                                                        }
-                                                        else if (owesMoney)
-                                                        {
-                                                            scheduleTable = scheduleTable + "<td class='owes'>";
-                                                        }
-                                                        else if (needsUpgrade)
-                                                        {
-                                                            scheduleTable = scheduleTable + "<td class='check'>";
-                                                        }
-                                                        else if (needsProduct)
-                                                        {
-                                                            scheduleTable = scheduleTable + "<td class='owed'>";
-                                                        }
+                                                        needsRenewal = true;
                                                     }
                                                     else
                                                     {
-                                                        scheduleTable = scheduleTable + "<td>";
+                                                        if (tanCustomer.Notes != null)
+                                                        {
+                                                            if (tanCustomer.Notes.Count > 0)
+                                                            {
+                                                                foreach (HOTBAL.CustomerNote n in tanCustomer.Notes)
+                                                                {
+                                                                    if (n.NeedsUpgrade)
+                                                                    {
+                                                                        needsUpgrade = true;
+                                                                    }
+                                                                    else if (n.OwesMoney)
+                                                                    {
+                                                                        owesMoney = true;
+                                                                    }
+                                                                    else if (n.OwedProduct)
+                                                                    {
+                                                                        needsProduct = true;
+                                                                    }
+
+                                                                    noteText += n.NoteText.Replace(Convert.ToChar("'"), Convert.ToChar("\'")) + "<br />";
+                                                                }
+                                                            }
+                                                        }
                                                     }
+
+                                                    if (tanInformation.Length > 0)
+                                                    {
+                                                        scheduleTable = scheduleTable + "<td class='tanned'>";
+                                                    }
+                                                    else
+                                                    {
+                                                        if ((needsProduct) || (needsRenewal) || (tanCustomer.LotionWarning) || (owesMoney) || (needsUpgrade))
+                                                        {
+                                                            if (needsRenewal)
+                                                            {
+                                                                scheduleTable = scheduleTable + "<td class='expired'>";
+                                                            }
+                                                            else if (tanCustomer.LotionWarning)
+                                                            {
+                                                                scheduleTable = scheduleTable + "<td class='lotion'>";
+                                                            }
+                                                            else if (owesMoney)
+                                                            {
+                                                                scheduleTable = scheduleTable + "<td class='owes'>";
+                                                            }
+                                                            else if (needsUpgrade)
+                                                            {
+                                                                scheduleTable = scheduleTable + "<td class='check'>";
+                                                            }
+                                                            else if (needsProduct)
+                                                            {
+                                                                scheduleTable = scheduleTable + "<td class='owed'>";
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            scheduleTable = scheduleTable + "<td>";
+                                                        }
+                                                    }
+
+                                                    scheduleTable = scheduleTable + "<a href=\"" + HOTBAL.TansConstants.CUSTOMER_INFO_INTERNAL_URL + "?ID="
+                                                    + tanInformation.CustomerID.ToString()
+                                                    + "\" title=\"" + tanCustomer.FirstName.Replace(Convert.ToChar("'"), Convert.ToChar("\'")) + " "
+                                                    + tanCustomer.LastName.Replace(Convert.ToChar("'"), Convert.ToChar("\'")) + "<br/>"
+                                                    + "<strong>Package: </strong>" + tanCustomer.Plan + "<br/>"
+                                                    + "<strong>Expiration: </strong>" + functionsClass.FormatSlash(tanCustomer.RenewalDate)
+                                                    + "\" class=\"taken\">"
+                                                    + tanCustomer.LastName + ", "
+                                                    + tanCustomer.FirstName.Substring(0, 1) + "</a>";
+
+                                                    if (!String.IsNullOrEmpty(noteText))
+                                                    {
+                                                        scheduleTable = scheduleTable + "&nbsp;<a href='#' title=\"" + noteText.Trim() + "\" class=\"note\">*</a>";
+                                                    }
+                                                    scheduleTable = scheduleTable + "</td>";
                                                 }
-
-                                                scheduleTable = scheduleTable + "<a href='" + HOTBAL.TansConstants.CUSTOMER_INFO_INTERNAL_URL + "?ID="
-                                                + tanInformation.CustomerID.ToString()
-                                                + "' title=\"" + tanCustomer.FirstName.Replace(Convert.ToChar("'"), Convert.ToChar("\'")) + " "
-                                                + tanCustomer.LastName.Replace(Convert.ToChar("'"), Convert.ToChar("\'")) + "\">"
-                                                + tanCustomer.LastName + ", "
-                                                + tanCustomer.FirstName.Substring(0, 1) + "</a>";
-
-                                                if (!String.IsNullOrEmpty(noteText))
+                                                else
                                                 {
-                                                    scheduleTable = scheduleTable + "&nbsp;<a href='#' title=\"" + noteText.Trim() + "\">*</a>";
+                                                    scheduleTable = scheduleTable + "<td><a href=\"" + HOTBAL.TansConstants.CUSTOMER_INFO_INTERNAL_URL + "?ID="
+                                                   + tanInformation.CustomerID.ToString()
+                                                   + "\" title=\"Unknown Customer\" class=\"taken\">Unknown</a></td>";
                                                 }
-                                                scheduleTable = scheduleTable + "</td>";
-                                            }
-                                            else
-                                            {
-                                                scheduleTable = scheduleTable + "<td><a href='" + HOTBAL.TansConstants.CUSTOMER_INFO_INTERNAL_URL + "?ID="
-                                               + tanInformation.CustomerID.ToString()
-                                               + "' title='Unknown Customer'>Unknown</a></td>";
                                             }
                                         }
-                                    }
-                                    else
-                                    {
-                                        // Available tan spot
-                                        scheduleTable = scheduleTable + "<td><a href='" + HOTBAL.TansConstants.ADD_APPT_INTERNAL_URL + "?Date="
-                                               + inDate
-                                               + "&Time="
-                                               + currentTime.ToShortTimeString()
-                                               + "&Bed="
-                                               + b.BedShort
-                                               + "'>------</a></td>";
+                                        else
+                                        {
+                                            // Available tan spot
+                                            scheduleTable = scheduleTable + "<td><a href=\"" + HOTBAL.TansConstants.ADD_APPT_INTERNAL_URL + "?Date="
+                                                   + inDate
+                                                   + "&Time="
+                                                   + currentTime.ToShortTimeString()
+                                                   + "&Bed="
+                                                   + b.BedShort
+                                                   + "\">------</a></td>";
+                                        }
                                     }
                                 }
                                 scheduleTable = scheduleTable + "<td class='leftAlignHeader'>" + currentTime.ToShortTimeString() + "</td></tr>";

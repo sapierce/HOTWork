@@ -88,7 +88,7 @@ namespace HOTTropicalTans
 
         private void PopulateBeds()
         {
-            List<HOTBAL.Bed> bedList = sqlClass.GetLocationBeds("W");
+            List<HOTBAL.Bed> bedList = sqlClass.GetLocationActiveBeds("W");
 
             if (bedList.Count > 0)
             {
@@ -97,7 +97,8 @@ namespace HOTTropicalTans
 
                 foreach (HOTBAL.Bed b in bedList)
                 {
-                    appointmentBed.Items.Add(new ListItem(b.BedShort, b.BedShort));
+                    if (b.BedDisplayInternal)
+                        appointmentBed.Items.Add(new ListItem(b.BedShort, b.BedShort));
                 }
             }
         }

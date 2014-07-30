@@ -1,44 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="HOTTropicalTans.Master" AutoEventWireup="true" CodeBehind="AppointmentAdd.aspx.cs" Inherits="HOTTropicalTans.AppointmentAdd" %>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="headerPlaceHolder" runat="server">
+<asp:Content ID="addAppointmentHeader" ContentPlaceHolderID="headerPlaceHolder" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
             // Allow the appointmentDate to use the datepicker
             $("#<%=appointmentDate.ClientID%>").datepicker();
-
-            // When the addClass button is pressed
-            $("#<%= this.addAppointment.ClientID %>").click(function () {
-                // Is the page valid?
-                if (!Page_IsValid) {
-                    // Display the error messages
-                    $("#<%= this.panError.ClientID %>").dialog({
-                        resizable: false,
-                        width: 420,
-                        modal: true
-                    });
-                }
-            });
         });
     </script>
 </asp:Content>
-<asp:Content ID="Content1" ContentPlaceHolderID="Main" runat="server">
-    <!-- Display errors associated with validating Appointment information -->
-    <asp:Panel ID="panError" runat="server" CssClass="ui-state-error" Style="display: none">
-        <p>
-            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-            <strong>The following errors were found:</strong>
-            <asp:ValidationSummary ID="apptValidation" runat="server" CssClass="ui-state-error-text"
-                ShowSummary="true" ValidationGroup="addAppt" ShowMessageBox="false" EnableClientScript="true" Style="text-align: left" ForeColor="" />
-        </p>
-        <span></span>
-    </asp:Panel>
-    <!-- Appointment Validation -->
-    <asp:RequiredFieldValidator ID="lastNameRequired" Display="None" runat="server" ControlToValidate="lastName" ErrorMessage="Please enter a last name." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addAppt" InitialValue="" />
-    <asp:RequiredFieldValidator ID="firstNameRequired" Display="None" runat="server" ControlToValidate="firstName" ErrorMessage="Please enter a first name." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addAppt" />
-    <asp:RequiredFieldValidator ID="dateRequired" Display="None" runat="server" ControlToValidate="appointmentDate" ErrorMessage="Please enter an appointment date." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addAppt" InitialValue="" />
-    <asp:RequiredFieldValidator ID="bedRequired" Display="None" runat="server" ControlToValidate="appointmentBed" ErrorMessage="Please select a bed." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addAppt" InitialValue="" />
-    <asp:RequiredFieldValidator ID="timeRequired" Display="None" runat="server" ControlToValidate="appointmentTime" ErrorMessage="Please select a time." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addAppt" />
-   
+<asp:Content ID="addAppointmentContent" ContentPlaceHolderID="Main" runat="server">
     <table class='tanning'>
         <thead>
             <tr>
@@ -49,45 +19,120 @@
             <tr>
                 <td class='rightAlignHeader'>Last Name:</td>
                 <td>
-                    <asp:TextBox ID="lastName" runat="server" ValidationGroup="addAppt" TabIndex="1" AutoCompleteType="LastName" MaxLength="50" />
+                    <asp:TextBox ID="lastName" runat="server" TabIndex="1" AutoCompleteType="LastName" MaxLength="50" class="lastName" />
                 </td>
             </tr>
             <tr>
                 <td class='rightAlignHeader'>First Name:</td>
                 <td>
-                    <asp:TextBox ID="firstName" runat="server" ValidationGroup="addAppt" TabIndex="2" AutoCompleteType="FirstName" MaxLength="50" />
+                    <asp:TextBox ID="firstName" runat="server" TabIndex="2" AutoCompleteType="FirstName" MaxLength="50" class="lastName" />
                 </td>
             </tr>
             <tr>
                 <td class='rightAlignHeader'>Date:</td>
                 <td>
-                    <asp:TextBox ID="appointmentDate" Style="width: 105px;" runat="server" OnTextChanged="appointmentDate_TextChanged" AutoPostBack="true" ValidationGroup="addAppt" MaxLength="10" />
+                    <asp:TextBox ID="appointmentDate" Style="width: 105px;" runat="server" OnTextChanged="appointmentDate_TextChanged" AutoPostBack="true" MaxLength="10" />
                 </td>
             </tr>
             <tr>
                 <td class='rightAlignHeader'>Bed:</td>
                 <td>
-                    <asp:DropDownList ID='appointmentBed' runat="server" ValidationGroup="addAppt" />
+                    <asp:DropDownList ID='appointmentBed' runat="server" />
                 </td>
             </tr>
             <tr>
                 <td class='rightAlignHeader'>Time:</td>
                 <td>
-                    <asp:DropDownList ID="appointmentTime" runat="server" ValidationGroup="addAppt" />
+                    <asp:DropDownList ID="appointmentTime" runat="server" />
                 </td>
             </tr>
             <tr>
                 <td class='rightAlignHeader'>Length:</td>
                 <td>
-                    <asp:TextBox ID="appointmentLength" Text="0" Style="width: 35px;" runat="server" ValidationGroup="addAppt" MaxLength="2" />
+                    <asp:TextBox ID="appointmentLength" Text="0" Style="width: 35px;" runat="server" MaxLength="2" />
                 </td>
             </tr>
             <tr>
-                <td colspan="2" align="center">
+                <td colspan="2" style="align-content:center;">
                     <asp:HiddenField ID="customerID" runat="server" />
-                    <asp:Button ID="addAppointment" Text="Add Appointment" OnClick="addAppointment_Click" runat="server" ValidationGroup="addAppt" CausesValidation="true" />
+                    <asp:Button ID="addAppointment" Text="Add Appointment" OnClick="addAppointment_Click" runat="server" />
                 </td>
             </tr>
         </tbody>
     </table>
+    <script>
+        // initialize tooltipster on text input elements
+        $('#aspnetForm input[type="text"]').tooltipster({
+            trigger: 'custom',
+            onlyOne: false,
+            position: 'right',
+            theme: 'tooltipster-light'
+        });
+
+        // initialize tooltipster on select input elements
+        $('#aspnetForm select').tooltipster({
+            trigger: 'custom',
+            onlyOne: false,
+            position: 'right',
+            theme: 'tooltipster-light'
+        });
+
+        $("#aspnetForm").validate({
+            errorPlacement: function (error, element) {
+                $(element).tooltipster('update', $(error).text());
+                $(element).tooltipster('show');
+            },
+            success: function (label, element) {
+                $(element).tooltipster('hide');
+            }
+        });
+
+        $(".lastName").rules("add", {
+            required: true,
+            messages: {
+                required: "Please enter in a last name.",
+                maxlength: 50
+            }
+        });
+        $(".firstName").rules("add", {
+            required: true,
+            messages: {
+                required: "Please enter in a first name.",
+                maxlength: 50
+            }
+        });
+        $(".fitzNumber").rules("add", {
+            required: true,
+            messages: {
+                required: "Please select a Fitzpatrick number.",
+                range: [0, 6],
+                maxlength: 1,
+                digits: true
+            }
+        });
+        $(".joinDate").rules("add", {
+            required: true,
+            date: true,
+            messages: {
+                required: "Please enter in a join date.",
+                maxlength: 10,
+                date: "Entered information must be in date format."
+            }
+        });
+        $(".package").rules("add", {
+            required: true,
+            messages: {
+                required: "Please select a tanning package."
+            }
+        });
+        $(".renewalDate").rules("add", {
+            required: true,
+            date: true,
+            messages: {
+                required: "Please enter in a renewal date.",
+                maxlength: 10,
+                date: "Entered information must be in date format."
+            }
+        });
+    </script>
 </asp:Content>
