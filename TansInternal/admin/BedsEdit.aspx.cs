@@ -28,7 +28,8 @@ namespace HOTTropicalTans.admin
                     bedDescription.Text = returnBed.BedLong;
                     bedNumber.Text = returnBed.BedShort;
                     bedType.Items.FindByValue(returnBed.BedType).Selected = true;
-                    bedDisplay.Checked = returnBed.BedActive;
+                    bedDisplayInternal.Checked = returnBed.BedDisplayInternal;
+                    bedDisplayExternal.Checked = returnBed.BedDisplayExternal;
                 }
             }
         }
@@ -45,8 +46,9 @@ namespace HOTTropicalTans.admin
                     bool response = sqlClass.UpdateBed(Convert.ToInt32(functionsClass.CleanUp(Request.QueryString["ID"].ToString())), 
                         functionsClass.LightCleanUp(bedDescription.Text), 
                         functionsClass.CleanUp(bedNumber.Text), "W", 
-                        functionsClass.CleanUp(bedType.SelectedValue), 
-                        bedDisplay.Checked);
+                        functionsClass.CleanUp(bedType.SelectedValue),
+                        bedDisplayInternal.Checked,
+                        bedDisplayExternal.Checked);
 
                     if (response)
                     {

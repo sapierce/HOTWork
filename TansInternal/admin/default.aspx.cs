@@ -61,121 +61,140 @@ namespace HOTTropicalTans.admin
 
         public void BedLoad()
         {
-            List<HOTBAL.Bed> bedList = sqlClass.GetAllBeds();
+            List<HOTBAL.Bed> bedList = sqlClass.GetAllActiveBeds();
 
-            foreach (HOTBAL.Bed b in bedList)
+            if (bedList.Count > 0)
             {
-                editBedList.Items.Add(new ListItem(b.BedType + " - " + b.BedLong, b.BedID.ToString()));
+                foreach (HOTBAL.Bed b in bedList)
+                {
+                    editBedList.Items.Add(new ListItem(b.BedType + " - " + b.BedLong, b.BedID.ToString()));
+                }
             }
+            else
+                editBedList.Items.Add(new ListItem("-No Beds Available-", "0"));
         }
 
         public void ProductLoad()
         {
             List<HOTBAL.Product> productList = sqlClass.GetAllProducts();
 
-            foreach (HOTBAL.Product p in productList)
+            if (productList.Count > 0)
             {
-                string prodCategory = "Unknown";
-                string prodType = "Unknown";
-
-                switch (p.ProductType)
+                foreach (HOTBAL.Product p in productList)
                 {
-                    case "ACC":
-                        prodCategory = "Accessories";
-                        break;
+                    string prodCategory = "Unknown";
+                    string prodType = "Unknown";
 
-                    case "LTN":
-                        prodCategory = "Lotions";
-                        break;
+                    switch (p.ProductType)
+                    {
+                        case "ACC":
+                            prodCategory = "Accessories";
+                            break;
 
-                    case "DIS":
-                        prodCategory = "Discounts";
-                        break;
+                        case "LTN":
+                            prodCategory = "Lotions";
+                            break;
 
-                    case "PKG":
-                        prodCategory = "Packages";
-                        break;
+                        case "DIS":
+                            prodCategory = "Discounts";
+                            break;
 
-                    case "SPC":
-                        prodCategory = "Specials";
-                        break;
+                        case "PKG":
+                            prodCategory = "Packages";
+                            break;
 
-                    case "OTH":
-                        prodCategory = "Other";
-                        break;
-                }
+                        case "SPC":
+                            prodCategory = "Specials";
+                            break;
 
-                switch (p.ProductSubType)
-                {
-                    case "BB":
-                        prodType = "BigBed";
-                        break;
+                        case "OTH":
+                            prodCategory = "Other";
+                            break;
+                    }
 
-                    case "DS":
-                        prodType = "Discount";
-                        break;
+                    switch (p.ProductSubType)
+                    {
+                        case "BB":
+                            prodType = "BigBed";
+                            break;
 
-                    case "GB":
-                        prodType = "Gift Bag";
-                        break;
+                        case "DS":
+                            prodType = "Discount";
+                            break;
 
-                    case "LB":
-                        prodType = "Lip Balm";
-                        break;
+                        case "GB":
+                            prodType = "Gift Bag";
+                            break;
 
-                    case "LO":
-                        prodType = "Moisturizer";
-                        break;
+                        case "LB":
+                            prodType = "Lip Balm";
+                            break;
 
-                    case "LM":
-                        prodType = "Mystic";
-                        break;
+                        case "LO":
+                            prodType = "Moisturizer";
+                            break;
 
-                    case "LN":
-                        prodType = "Non-Tingle";
-                        break;
+                        case "LM":
+                            prodType = "Mystic";
+                            break;
 
-                    case "LS":
-                        prodType = "Sample";
-                        break;
+                        case "LN":
+                            prodType = "Non-Tingle";
+                            break;
 
-                    case "LT":
-                        prodType = "Tingle";
-                        break;
+                        case "LS":
+                            prodType = "Sample";
+                            break;
 
-                    case "MY":
-                        prodType = "Mystic";
-                        break;
+                        case "LT":
+                            prodType = "Tingle";
+                            break;
 
-                    case "OT":
-                        prodType = "Other";
-                        break;
+                        case "MY":
+                            prodType = "Mystic";
+                            break;
 
-                    case "PH":
-                        prodType = "PowerHouse";
-                        break;
+                        case "OT":
+                            prodType = "Other";
+                            break;
 
-                    case "SB":
-                        prodType = "SmallBed";
-                        break;
-                }
+                        case "PH":
+                            prodType = "PowerHouse";
+                            break;
 
-                if ((prodCategory != "Packages") && (prodCategory != "Specials"))
-                {
-                    editItemList.Items.Add(new ListItem(prodCategory + " - " + prodType + " - " + p.ProductName, p.ProductID.ToString()));
+                        case "SB":
+                            prodType = "SmallBed";
+                            break;
+                    }
+
+                    if ((prodCategory != "Packages") && (prodCategory != "Specials"))
+                    {
+                        editItemList.Items.Add(new ListItem(prodCategory + " - " + prodType + " - " + p.ProductName, p.ProductID.ToString()));
+                    }
                 }
             }
+            else
+                editItemList.Items.Add(new ListItem("-No Products Available-", "0"));
         }
 
         public void EmployeeLoad()
         {
             List<HOTBAL.Employee> employeeList = sqlClass.GetAllEmployees();
 
-            foreach (HOTBAL.Employee e in employeeList)
+            if (employeeList.Count > 0)
             {
-                employeeWorkedList.Items.Add(new ListItem(e.LastName + ", " + e.FirstName, e.EmployeeID.ToString()));
-                employeeScheduleList.Items.Add(new ListItem(e.LastName + ", " + e.FirstName, e.EmployeeID.ToString()));
-                editEmployeeList.Items.Add(new ListItem(e.LastName + ", " + e.FirstName, e.EmployeeID.ToString()));
+                foreach (HOTBAL.Employee e in employeeList)
+                {
+                    employeeWorkedList.Items.Add(new ListItem(e.LastName + ", " + e.FirstName, e.EmployeeID.ToString()));
+                    employeeScheduleList.Items.Add(new ListItem(e.LastName + ", " + e.FirstName, e.EmployeeID.ToString()));
+                    editEmployeeList.Items.Add(new ListItem(e.LastName + ", " + e.FirstName, e.EmployeeID.ToString()));
+                }
+            }
+            else
+            {
+                employeeWorkedList.Items.Add(new ListItem("-No Employees Found-", "0"));
+                employeeScheduleList.Items.Add(new ListItem("-No Employees Found-", "0"));
+                editEmployeeList.Items.Add(new ListItem("-No Employees Found-", "0"));
             }
         }
 

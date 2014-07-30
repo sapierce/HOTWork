@@ -37,9 +37,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class='rightAlignHeader'>Allow scheduling?</td>
+                        <td class='rightAlignHeader'>Allow scheduling on website?</td>
                         <td class='standardField'>
-                            <asp:CheckBox ID="bedDisplay" runat="server" /></td>
+                            <asp:CheckBox ID="bedDisplayExternal" runat="server" /></td>
+                    </tr>
+                    <tr>
+                        <td class='rightAlignHeader'>Show on internal schedule?</td>
+                        <td class='standardField'>
+                            <asp:CheckBox ID="bedDisplayInternal" runat="server" /></td>
                     </tr>
                 </table>
             </td>

@@ -49,13 +49,22 @@ namespace HOTTropicalTans.admin {
         protected global::System.Web.UI.WebControls.DropDownList bedType;
         
         /// <summary>
-        /// bedDisplay control.
+        /// bedDisplayExternal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox bedDisplay;
+        protected global::System.Web.UI.WebControls.CheckBox bedDisplayExternal;
+        
+        /// <summary>
+        /// bedDisplayInternal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox bedDisplayInternal;
         
         /// <summary>
         /// addBed control.

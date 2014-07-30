@@ -30,7 +30,8 @@ namespace HOTTropicalTans.admin
                     bool response = sqlClass.AddNewBed(functionsClass.LightCleanUp(bedDescription.Text), 
                         functionsClass.CleanUp(bedNumber.Text), "W", 
                         functionsClass.CleanUp(bedType.SelectedValue), 
-                        bedDisplay.Checked);
+                        bedDisplayInternal.Checked,
+                        bedDisplayExternal.Checked);
 
                     if (response)
                     {
