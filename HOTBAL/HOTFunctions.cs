@@ -87,7 +87,6 @@ namespace HOTBAL
             inputString = inputString.Replace("+", "");
             inputString = inputString.Replace("%", "");
             inputString = inputString.Replace("1=1", "");
-            inputString = inputString.Replace("$", "");
             inputString = inputString.Replace("&", "");
 
             return inputString;
@@ -307,7 +306,7 @@ namespace HOTBAL
         public Customer PlanRenewalCheck(Customer customerInfo)
         {
             TansMethods sqlClass = new TansMethods();
-            if (customerInfo.Plan.ToUpper() != "OTHER")
+            if (customerInfo.Plan.Trim().ToUpper() != "OTHER")
             {
                 if (customerInfo.SpecialFlag)
                 {
@@ -381,7 +380,7 @@ namespace HOTBAL
                         {
                             customerInfo.RenewalDate = DateTime.Now;
                             sqlClass.UpdateCustomerInformation(customerInfo.FirstName, customerInfo.LastName, customerInfo.FitzPatrickNumber, customerInfo.JoinDate, DateTime.Now,
-                                customerInfo.Plan, false, customerInfo.SpecialID, customerInfo.SpecialDate, customerInfo.Remarks, customerInfo.LotionWarning, customerInfo.OnlineRestriction, customerInfo.ID);
+                                customerPlan.PackageNameShort, false, customerInfo.SpecialID, customerInfo.SpecialDate, customerInfo.Remarks, customerInfo.LotionWarning, customerInfo.OnlineRestriction, customerInfo.ID);
                         }
                         else
                             customerInfo.Plan = customerInfo.Plan + " (" + (customerPlan.PackageTanCount - tanCount).ToString() + " tans left)";
