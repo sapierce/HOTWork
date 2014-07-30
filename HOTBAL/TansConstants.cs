@@ -55,7 +55,7 @@ namespace HOTBAL
 
         public const string CUSTOMER_TRANS_INTERNAL_URL = "/Schedule/CustomerTransactions.aspx";
 
-        public const string TRANS_DETAILS_INTERNAL_URL = "/HOTPOS/TransactionDetail.aspx";
+        public const string TRANS_DETAILS_INTERNAL_URL = "/HOTPOS/TransactionDetails.aspx";
 
         public const string POS_INTERNAL_URL = "/HOTPOS/Default.aspx";
 
