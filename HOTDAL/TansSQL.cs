@@ -36,12 +36,33 @@ namespace HOTDAL
 
         public DataTable ExecuteCUSTOMER_INFO_BY_CUSTOMER_NAME(string customerFirstName, string customerLastName)
         {
-            const string SPName = "SELECT USER_ID, CUST_LNAME, CUST_FNAME, CUST_JOIN, CUST_PLAN, CUST_ONLINE FROM CUSTOMER WHERE CUST_LNAME LIKE @P_LAST_NAME AND CUST_FNAME LIKE @P_FIRST_NAME AND CUST_ACTIVE = '1' ORDER BY CUST_LNAME, CUST_FNAME";
+            const string SPName = "SELECT USER_ID, CUST_LNAME, CUST_FNAME, CUST_JOIN, CUST_PLAN, CUST_ONLINE FROM CUSTOMER WHERE CUST_LNAME LIKE @P_LAST_NAME AND " + 
+                "CUST_FNAME LIKE @P_FIRST_NAME AND CUST_ACTIVE = '1' ORDER BY CUST_LNAME, CUST_FNAME";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
             parameters.Add(makeInputParameter("P_LAST_NAME", MySqlDbType.VarChar, customerLastName + "%"));
             parameters.Add(makeInputParameter("P_FIRST_NAME", MySqlDbType.VarChar, customerFirstName + "%"));
+
+            return getDataSet(parameters, SPName);
+        }
+
+        public DataTable ExecuteONLINE_CUSTOMERS(bool newOnlineOnly)
+        {
+            string SPName = "SELECT USER_ID FROM CUSTOMER WHERE CUST_ONLINE = '1' " +
+                (newOnlineOnly ? " AND CUST_NEW_ONLINE = '1'" : "") +
+                "ORDER BY USER_ID";
+
+            List<MySqlParameter> parameters = new List<MySqlParameter>();
+
+            return getDataSet(parameters, SPName);
+        }
+
+        public DataTable ExecuteNEW_ONLINE_CUSTOMERS()
+        {
+            string SPName = "SELECT CUST_TAN_ID FROM CUST_NEW ORDER BY CUST_TAN_ID";
+
+            List<MySqlParameter> parameters = new List<MySqlParameter>();
 
             return getDataSet(parameters, SPName);
         }
@@ -345,7 +366,7 @@ namespace HOTDAL
 
         public DataTable ExecuteBEDS_BY_BED_ID(int bedID)
         {
-            const string SPName = "SELECT BED_ID, BED_SHORT, BED_LONG, BED_TYPE, BED_DISP, BED_LOC FROM TAN_BED WHERE BED_ID = @P_BED_ID";
+            const string SPName = "SELECT BED_ID, BED_SHORT, BED_LONG, BED_TYPE, BED_DISP_INT, BED_DISP_EXT, BED_LOC, BED_ACTV FROM TAN_BED WHERE BED_ID = @P_BED_ID";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -354,9 +375,9 @@ namespace HOTDAL
             return getDataSet(parameters, SPName);
         }
 
-        public DataTable ExecuteBEDS_BY_BED_TYPE(string bedType)
+        public DataTable ExecuteEXTERNAL_ACTIVE_BEDS_BY_BED_TYPE(string bedType)
         {
-            const string SPName = "SELECT BED_ID, BED_SHORT, BED_LONG, BED_TYPE, BED_DISP, BED_LOC FROM TAN_BED WHERE BED_TYPE = @P_BED_TYPE AND BED_DISP = 1";
+            const string SPName = "SELECT BED_ID, BED_SHORT, BED_LONG, BED_TYPE, BED_DISP_INT, BED_DISP_EXT, BED_LOC, BED_ACTV FROM TAN_BED WHERE BED_TYPE = @P_BED_TYPE AND BED_DISP_EXT = 1 AND BED_ACTV = 1 ";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -365,9 +386,9 @@ namespace HOTDAL
             return getDataSet(parameters, SPName);
         }
 
-        public DataTable ExecuteGET_ALL_BEDS()
+        public DataTable ExecuteGET_ALL_ACTIVE_BEDS()
         {
-            const string SPName = "SELECT BED_ID, BED_SHORT, BED_LONG, BED_TYPE, BED_DISP, BED_LOC FROM TAN_BED ORDER BY BED_ORDER";
+            const string SPName = "SELECT BED_ID, BED_SHORT, BED_LONG, BED_TYPE, BED_DISP_INT, BED_DISP_EXT, BED_LOC, BED_ACTV FROM TAN_BED WHERE BED_ACTV = 1 ORDER BY BED_ORDER";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -376,7 +397,7 @@ namespace HOTDAL
 
         public DataTable ExecuteBEDS_BY_LOCATION(string bedLocation)
         {
-            const string SPName = "SELECT BED_ID, BED_SHORT, BED_LONG, BED_TYPE, BED_DISP, BED_LOC FROM TAN_BED WHERE BED_LOC = @P_LOCATION ORDER BY BED_ORDER";
+            const string SPName = "SELECT BED_ID, BED_SHORT, BED_LONG, BED_TYPE, BED_DISP_INT, BED_DISP_EXT, BED_LOC, BED_ACTV FROM TAN_BED WHERE BED_LOC = @P_LOCATION AND BED_ACTV = 1 ORDER BY BED_ORDER";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -581,9 +602,10 @@ namespace HOTDAL
             return modifyData(parameters, SPName);
         }
 
-        public bool ExecuteUPDATE_BED_BY_BED_ID(int bedID, string bedDescription, string shortDescription, string bedLocation, string bedType, int bedDisplay)
+        public bool ExecuteUPDATE_BED_BY_BED_ID(int bedID, string bedDescription, string shortDescription, string bedLocation, string bedType, int bedDisplayInternal, int bedDisplayExternal)
         {
-            const string SPName = "UPDATE TAN_BED SET BED_LONG = @P_BED_DESC, BED_SHORT = @P_BED_SHORT, BED_LOC = @P_BED_LOC, BED_TYPE = @P_BED_TYPE, BED_DISP = @P_BED_ACTIVE WHERE BED_ID = @P_BED_ID";
+            const string SPName = "UPDATE TAN_BED SET BED_LONG = @P_BED_DESC, BED_SHORT = @P_BED_SHORT, BED_LOC = @P_BED_LOC, BED_TYPE = @P_BED_TYPE, " + 
+                "BED_DISP_INT = @P_BED_DISP_IN, BED_DISP_EXT = @P_BED_DISP_EX WHERE BED_ID = @P_BED_ID";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -591,7 +613,8 @@ namespace HOTDAL
             parameters.Add(makeInputParameter("P_BED_SHORT", MySqlDbType.VarChar, shortDescription));
             parameters.Add(makeInputParameter("P_BED_LOC", MySqlDbType.VarChar, bedLocation));
             parameters.Add(makeInputParameter("P_BED_TYPE", MySqlDbType.VarChar, bedType));
-            parameters.Add(makeInputParameter("P_BED_ACTIVE", MySqlDbType.Int32, bedDisplay));
+            parameters.Add(makeInputParameter("P_BED_DISP_IN", MySqlDbType.Int32, bedDisplayInternal));
+            parameters.Add(makeInputParameter("P_BED_DISP_EX", MySqlDbType.Int32, bedDisplayExternal));
             parameters.Add(makeInputParameter("P_BED_ID", MySqlDbType.Int32, bedID));
 
             return modifyData(parameters, SPName);
@@ -716,28 +739,41 @@ namespace HOTDAL
             return modifyData(parameters, SPName);
         }
 
-        public bool ExecuteUPDATE_CUSTOMER_ONLINE_INFO_BY_CUSTOMER_ID(Int64 customerID, string emailAddress, int specialsFlag)
+        public bool ExecuteUPDATE_CUSTOMER_DETAIL_INFO_BY_CUSTOMER_ID(long customerID, string phoneNumber, string birthdate)
+        {
+            const string SPName = "UPDATE CUST_NEW SET CUST_DOB = @P_USER_BIRTH, CUST_PHONE = @P_USER_PHONE WHERE CUST_TAN_ID = @P_USER_ID";
+
+            List<MySqlParameter> parameters = new List<MySqlParameter>();
+
+            parameters.Add(makeInputParameter("P_USER_ID", MySqlDbType.Int64, customerID));
+            parameters.Add(makeInputParameter("P_USER_BIRTH", MySqlDbType.VarChar, birthdate));
+            parameters.Add(makeInputParameter("P_USER_PHONE", MySqlDbType.VarChar, phoneNumber));
+
+            return modifyData(parameters, SPName);
+        }
+
+        public bool ExecuteUPDATE_CUSTOMER_ONLINE_INFO_BY_CUSTOMER_ID(long customerID, string emailAddress, int specialsFlag)
         {
             const string SPName = "UPDATE USERS SET USER_MAIL = @P_USER_EMAIL, USER_SPECIAL = @P_SPECIALS WHERE TAN_UID = @P_USER_ID";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
-            parameters.Add(makeInputParameter("P_USER_ID", MySqlDbType.Int32, customerID));
+            parameters.Add(makeInputParameter("P_USER_ID", MySqlDbType.Int64, customerID));
             parameters.Add(makeInputParameter("P_SPECIALS", MySqlDbType.Int32, specialsFlag));
             parameters.Add(makeInputParameter("P_USER_EMAIL", MySqlDbType.VarChar, emailAddress));
 
             return modifyData(parameters, SPName);
         }
 
-        public bool ExecuteUPDATE_CUSTOMER_AGREEMENT(string AgreementName, int Warned, int UserID)
+        public bool ExecuteUPDATE_CUSTOMER_AGREEMENT(string AgreementName, int Warned, long UserID)
         {
             const string SPName = "UPDATE CUST_NEW SET CUST_WARN = @P_WARNED, CUST_WARN_TXT = @P_AGREEMENT_NAME WHERE CUST_TAN_ID = @P_USER_ID";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
-            parameters.Add(makeInputParameter("P_WARNED", MySqlDbType.VarChar, Warned));
-            parameters.Add(makeInputParameter("P_AGREEMENT_NAME", MySqlDbType.Int32, AgreementName));
-            parameters.Add(makeInputParameter("P_USER_ID", MySqlDbType.Int32, UserID));
+            parameters.Add(makeInputParameter("P_WARNED", MySqlDbType.Int32, Warned));
+            parameters.Add(makeInputParameter("P_AGREEMENT_NAME", MySqlDbType.VarChar, AgreementName));
+            parameters.Add(makeInputParameter("P_USER_ID", MySqlDbType.Int64, UserID));
 
             return modifyData(parameters, SPName);
         }
@@ -1044,9 +1080,10 @@ namespace HOTDAL
             return modifyData(parameters, SPName);
         }
 
-        public bool ExecuteINSERT_BED(string bedDescription, string shortDescription, string bedLocation, string bedType, int bedDisplay)
+        public bool ExecuteINSERT_BED(string bedDescription, string shortDescription, string bedLocation, string bedType, int bedDisplayInternal, int bedDisplayExternal)
         {
-            const string SPName = "INSERT INTO TAN_BED (BED_LONG, BED_SHORT, BED_LOC, BED_TYPE, BED_DISP) VALUES (@P_BED_DESC, @P_BED_SHORT, @P_BED_LOC, @P_BED_TYPE, @P_BED_ACTIVE)";
+            const string SPName = "INSERT INTO TAN_BED (BED_LONG, BED_SHORT, BED_LOC, BED_TYPE, BED_DISP_INT, BED_DISP_EXT, BED_ACTV) VALUES " + 
+                "(@P_BED_DESC, @P_BED_SHORT, @P_BED_LOC, @P_BED_TYPE, @P_BED_DISP_INT, @P_BED_DISP_EXT, 1)";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -1054,7 +1091,8 @@ namespace HOTDAL
             parameters.Add(makeInputParameter("P_BED_SHORT", MySqlDbType.VarChar, shortDescription));
             parameters.Add(makeInputParameter("P_BED_LOC", MySqlDbType.VarChar, bedLocation));
             parameters.Add(makeInputParameter("P_BED_TYPE", MySqlDbType.VarChar, bedType));
-            parameters.Add(makeInputParameter("P_BED_ACTIVE", MySqlDbType.Int32, bedDisplay));
+            parameters.Add(makeInputParameter("P_BED_DISP_INT", MySqlDbType.Int32, bedDisplayInternal));
+            parameters.Add(makeInputParameter("P_BED_DISP_EXT", MySqlDbType.Int32, bedDisplayExternal));
 
             return modifyData(parameters, SPName);
         }
@@ -1077,10 +1115,13 @@ namespace HOTDAL
             return modifyData(parameters, SPName);
         }
 
-        public long ExecuteINSERT_CUSTOMER(string FirstName, string LastName, string JoinDate, int FitzNumber, string Plan, string RenewalDate, string Remark, int OnlineUser, int NewOnline)
+        public long ExecuteINSERT_CUSTOMER(string FirstName, string LastName, string JoinDate, int FitzNumber, string Plan, string RenewalDate, string Remark, 
+            int OnlineUser, int NewOnline, int SpecialFlag, int SpecialId, string SpecialDate)
         {
-            const string SPName = "INSERT INTO CUSTOMER (CUST_LNAME, CUST_FNAME, CUST_JOIN, CUST_RENEWAL, CUST_PLAN, CUST_REMARK, CUST_FPS, CUST_ONLINE, CUST_NEW_ONLINE) "
-            + "VALUES (@P_LAST_NAME, @P_FIRST_NAME, @P_JOIN_DATE, @P_RENEWAL_DATE, @P_PLAN, @P_REMARK, @P_FITZ, @P_ONLINE, @P_NEW_ONLINE)";
+            const string SPName = "INSERT INTO CUSTOMER (CUST_LNAME, CUST_FNAME, CUST_JOIN, CUST_RENEWAL, CUST_PLAN, CUST_REMARK, CUST_FPS, "
+            + "CUST_ONLINE, CUST_NEW_ONLINE, SPECIAL_FLAG, SPECIAL_ID, SPECIAL_DATE) "
+            + "VALUES (@P_LAST_NAME, @P_FIRST_NAME, @P_JOIN_DATE, @P_RENEWAL_DATE, @P_PLAN, @P_REMARK, @P_FITZ, @P_ONLINE, @P_NEW_ONLINE, "
+            + "@P_SPECIAL_FLAG, @P_SPECIAL_ID, @P_SPECIAL_DATE)";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -1093,13 +1134,18 @@ namespace HOTDAL
             parameters.Add(makeInputParameter("P_REMARK", MySqlDbType.VarChar, Remark));
             parameters.Add(makeInputParameter("P_ONLINE", MySqlDbType.VarChar, OnlineUser));
             parameters.Add(makeInputParameter("P_NEW_ONLINE", MySqlDbType.VarChar, NewOnline));
+            parameters.Add(makeInputParameter("P_SPECIAL_FLAG", MySqlDbType.VarChar, SpecialFlag));
+            parameters.Add(makeInputParameter("P_SPECIAL_ID", MySqlDbType.Int32, SpecialId));
+            parameters.Add(makeInputParameter("P_SPECIAL_DATE", MySqlDbType.VarChar, SpecialDate));
 
             return returnLastInsert(parameters, SPName);
         }
 
-        public bool ExecuteINSERT_CUSTOMER_NEW(string FirstName, string LastName, string Address, string City, string State, string ZipCode, string PhoneNumber, string DateOfBirth, int FitzNumber, int FamilyHistory, int SelfHistory, int WarningChecked, string WarningSignature, Int64 TanID)
+        public bool ExecuteINSERT_CUSTOMER_NEW(string FirstName, string LastName, string Address, string City, string State, string ZipCode, string PhoneNumber, 
+            string DateOfBirth, int FitzNumber, int FamilyHistory, int SelfHistory, int WarningChecked, string WarningSignature, Int64 TanID)
         {
-            const string SPName = "INSERT INTO CUST_NEW (CUST_LNAME, CUST_FNAME, CUST_DOB, CUST_ADDR, CUST_CITY, CUST_ST, CUST_PHONE, CUST_ZIP, CUST_FHIST, CUST_HIST, CUST_FITZ, CUST_WARN, CUST_WARN_TXT, CUST_TAN_ID) "
+            const string SPName = "INSERT INTO CUST_NEW (CUST_LNAME, CUST_FNAME, CUST_DOB, CUST_ADDR, CUST_CITY, CUST_ST, CUST_PHONE, CUST_ZIP, CUST_FHIST, "
+            + "CUST_HIST, CUST_FITZ, CUST_WARN, CUST_WARN_TXT, CUST_TAN_ID) "
             + "VALUES (@P_LAST_NAME, @P_FIRST_NAME, @P_DATE_OF_BIRTH, @P_ADDRESS, @P_CITY, @P_STATE, @P_PHONE, @P_ZIP, @P_FAM_HIST, @P_SELF_HIST, @P_FITZ, @P_WARN_CHECK, @P_WARN_SIGN, @P_USER_ID)";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
@@ -1256,6 +1302,17 @@ namespace HOTDAL
             return modifyData(parameters, SPName);
         }
 
+        public bool ExecuteDELETE_CUSTOMER_NEW_ONLINE(Int64 userID)
+        {
+            const string SPName = "DELETE FROM CUST_NEW WHERE CUST_TAN_ID = @P_USER_ID";
+
+            List<MySqlParameter> parameters = new List<MySqlParameter>();
+
+            parameters.Add(makeInputParameter("P_USER_ID", MySqlDbType.Int64, userID));
+
+            return modifyData(parameters, SPName);
+        }
+
         public bool ExecuteDELETE_CUSTOMER_ONLINE(Int64 userID)
         {
             const string SPName = "DELETE FROM USERS WHERE TAN_UID = @P_USER_ID";
@@ -1324,7 +1381,7 @@ namespace HOTDAL
 
         public bool ExecuteDELETE_BED_BY_BED_ID(int bedID)
         {
-            const string SPName = "DELETE FROM TAN_BED WHERE BED_ID = @P_BED_ID";
+            const string SPName = "UPDATE TAN_BED SET BED_ACTV = 0 WHERE BED_ID = @P_BED_ID";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
