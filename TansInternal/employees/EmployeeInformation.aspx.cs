@@ -24,7 +24,10 @@ namespace HOTTropicalTans
                 if (Request.QueryString["Admin"] != null)
                 {
                     if (Request.QueryString["Admin"] == "Yes")
-                        isAdministrator = true;
+                        if (!functionsClass.isAdmin())
+                            Response.Redirect(HOTBAL.TansConstants.ADMIN_INTERNAL_URL); 
+                        else
+                            isAdministrator = true;
                 }
 
                 if (!Page.IsPostBack)
@@ -224,7 +227,7 @@ namespace HOTTropicalTans
                 foreach (DataRow row in employeeSalesTable.Rows)
                 {
                     employeeSales.Text += "<tr><td>" + functionsClass.FormatSlash(Convert.ToDateTime(row["TRNS_DATE"])) + "</td><td>" +
-                        row["TotalSales"] + "</td>";
+                        String.Format("{0:C}", Convert.ToDouble(row["TotalSales"].ToString())) + "</td>";
                 }
             }
             else

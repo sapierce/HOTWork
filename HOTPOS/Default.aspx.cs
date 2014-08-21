@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -13,6 +14,10 @@ namespace HOTPOS
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.Header.Title = HOTBAL.POSConstants.INTERNAL_NAME;
+
+            HttpContext.Current.Session["Cart"] = null;
+            HttpContext.Current.Session["cartTotal"] = null;
+            HttpContext.Current.Session["cartTax"] = null;
 
             if (!Page.IsPostBack)
             {

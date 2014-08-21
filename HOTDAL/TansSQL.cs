@@ -406,6 +406,18 @@ namespace HOTDAL
             return getDataSet(parameters, SPName);
         }
 
+        public DataTable ExecuteBED_SUMMARY_BY_DATE(int bedId, string summaryDate)
+        {
+            const string SPName = "SELECT TAN_BED, SUM(TAN_LENGTH) AS TOTAL_TIME, COUNT(TAN_ID) AS TANNER_COUNT FROM TAN_LOG WHERE TAN_DATE = @P_SUMMARY_DT AND TAN_LENGTH <> 0 AND TAN_BED = @P_BED_ID GROUP BY TAN_BED DESC";
+
+            List<MySqlParameter> parameters = new List<MySqlParameter>();
+
+            parameters.Add(makeInputParameter("P_BED_ID", MySqlDbType.Int32, bedId));
+            parameters.Add(makeInputParameter("P_SUMMARY_DT", MySqlDbType.String, summaryDate));
+
+            return getDataSet(parameters, SPName);
+        }
+
         public DataTable ExecuteALL_ACTIVE_EMPLOYEES()
         {
             const string SPName = "SELECT EMPL_ID, EMPL_FNAME, EMPL_LNAME FROM EMPL_DOMN WHERE EMPL_ID <> '1234' AND EMPL_DISP <> 0 ORDER BY EMPL_LNAME, EMPL_FNAME";

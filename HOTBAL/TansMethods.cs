@@ -324,6 +324,43 @@ namespace HOTBAL
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="summaryDate"></param>
+        /// <returns></returns>
+        public string[] GetBedSummaryByDate(DateTime summaryDate)
+        {
+            List<Bed> bedListing = GetAllActiveBeds();
+            string[] bedSummary = new string[bedListing.Count];
+            int count = 0;
+
+            try
+            {
+                foreach (Bed bed in bedListing)
+                {
+                    DataTable tanSummary = tansDataAccess.ExecuteBED_SUMMARY_BY_DATE(bed.BedID, functionsClass.FormatDash(summaryDate));
+
+                    if (tanSummary.Rows.Count > 0)
+                    {
+                        bedSummary[count] = bed.BedShort + "," + tanSummary.Rows[0]["TOTAL_TIME"].ToString().Trim() + "," + tanSummary.Rows[0]["TANNER_COUNT"].ToString().Trim();
+                    }
+                    else
+                    {
+                        bedSummary[count] = bed.BedShort + ",0,0";
+                    }
+                    count++;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogErrorMessage(ex, summaryDate.ToString(), "GetBedSummaryByDate");
+                bedSummary[0] = TansMessages.ERROR_GENERIC_INTERNAL;
+            }
+
+            return bedSummary;
+        }
+
+        /// <summary>
         /// Adds a new bed
         /// </summary>
         /// <param name="bedDescription">Long description of bed</param>
@@ -336,8 +373,8 @@ namespace HOTBAL
         {
             try
             {
-                return tansDataAccess.ExecuteINSERT_BED(functionsClass.CleanUp(bedDescription), functionsClass.CleanUp(shortDescription),
-                    functionsClass.CleanUp(bedLocation), functionsClass.CleanUp(bedType), (bedDisplayInternal == true ? 1 : 0), (bedDisplayExternal == true ? 1 : 0));
+                return tansDataAccess.ExecuteINSERT_BED(functionsClass.LightCleanUp(bedDescription), functionsClass.CleanUp(shortDescription).Substring(0, 1),
+                    functionsClass.CleanUp(bedLocation).Substring(0, 1), functionsClass.CleanUp(bedType).Substring(0, 2), (bedDisplayInternal == true ? 1 : 0), (bedDisplayExternal == true ? 1 : 0));
             }
             catch (Exception ex)
             {
@@ -361,8 +398,8 @@ namespace HOTBAL
         {
             try
             {
-                return tansDataAccess.ExecuteUPDATE_BED_BY_BED_ID(bedID, functionsClass.CleanUp(bedDescription), functionsClass.CleanUp(shortDescription),
-                    functionsClass.CleanUp(bedLocation), functionsClass.CleanUp(bedType), (bedDisplayInternal == true ? 1 : 0), (bedDisplayExternal == true ? 1 : 0));
+                return tansDataAccess.ExecuteUPDATE_BED_BY_BED_ID(bedID, functionsClass.LightCleanUp(bedDescription), functionsClass.CleanUp(shortDescription).Substring(0, 2),
+                    functionsClass.CleanUp(bedLocation).Substring(0, 1), functionsClass.CleanUp(bedType).Substring(0, 2), (bedDisplayInternal == true ? 1 : 0), (bedDisplayExternal == true ? 1 : 0));
             }
             catch (Exception ex)
             {
@@ -372,6 +409,11 @@ namespace HOTBAL
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bedID"></param>
+        /// <returns></returns>
         public bool DeleteBed(int bedID)
         {
             try

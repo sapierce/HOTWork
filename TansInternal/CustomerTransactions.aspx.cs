@@ -16,6 +16,10 @@ namespace HOTTropicalTans
             HOTBAL.Customer customerInfo = sqlClass.GetCustomerInformationByID(Convert.ToInt32(functionsClass.CleanUp(Request.QueryString["ID"])));
             int transactionCount = 0;
 
+            HttpContext.Current.Session["Cart"] = null;
+            HttpContext.Current.Session["cartTotal"] = null;
+            HttpContext.Current.Session["cartTax"] = null;
+
             if (customerInfo != null)
             { 
                 if (String.IsNullOrEmpty(customerInfo.Error))

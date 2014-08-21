@@ -190,8 +190,22 @@ namespace HOTTropicalTans
                                                     + "\" title=\"" + tanCustomer.FirstName.Replace(Convert.ToChar("'"), Convert.ToChar("\'")) + " "
                                                     + tanCustomer.LastName.Replace(Convert.ToChar("'"), Convert.ToChar("\'")) + "<br/>"
                                                     + "<strong>Package: </strong>" + tanCustomer.Plan + "<br/>"
-                                                    + "<strong>Expiration: </strong>" + functionsClass.FormatSlash(tanCustomer.RenewalDate)
-                                                    + "\" class=\"taken\">"
+                                                    + "<strong>Expiration: </strong>" + functionsClass.FormatSlash(tanCustomer.RenewalDate);
+
+                                                    if (tanCustomer.Tans != null)
+                                                        if (tanCustomer.Tans.Count >= 1)
+                                                        {
+                                                            foreach (HOTBAL.Tan t in tanCustomer.Tans)
+                                                            {
+                                                                if (Convert.ToDateTime(t.Date) < DateTime.Now)
+                                                                    if (t.Length > 0)
+                                                                    {
+                                                                        scheduleTable = scheduleTable + "<br/>" + "<strong>Last Tan: </strong>" + t.Date + " " + t.Time;
+                                                                        break;
+                                                                    }
+                                                            }
+                                                        }
+                                                    scheduleTable = scheduleTable + "\" class=\"taken\">"
                                                     + tanCustomer.LastName + ", "
                                                     + tanCustomer.FirstName.Substring(0, 1) + "</a>";
 
@@ -232,7 +246,8 @@ namespace HOTTropicalTans
                     scheduleTable = scheduleTable + "</tbody><tfoot><tr><td><br /></td>";
                     foreach (HOTBAL.Bed b in scheduleBeds)
                     {
-                        scheduleTable = scheduleTable + "<td>BED " + b.BedShort + "</td>";
+                        if (b.BedDisplayInternal)
+                            scheduleTable = scheduleTable + "<td>BED " + b.BedShort + "</td>";
                     }
                     scheduleTable = scheduleTable + "<td><br /></td></tr></tfoot>";
                 }

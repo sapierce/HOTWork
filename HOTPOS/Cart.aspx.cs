@@ -153,7 +153,7 @@ namespace HOTPOS
                         }
                     }
 
-                    Int64 response = TansSqlClass.InsertTransaction(((List<HOTBAL.CartItem>)HttpContext.Current.Session["cart"]), 
+                    Int64 response = TansSqlClass.InsertTransaction(((List<HOTBAL.CartItem>)HttpContext.Current.Session["Cart"]), 
                         Convert.ToInt32(employeeID.Text), 
                         HttpContext.Current.Session["cartTotal"].ToString(), 
                         Convert.ToInt64(Request.QueryString["ID"].ToString()), 
@@ -168,6 +168,12 @@ namespace HOTPOS
                     {
                         pnlCart.Style.Add("display", "none");
                         pnlComplete.Style.Remove("display");
+                        clearFields();
+                        customerName.Text = String.Empty;
+                        shoppingCartOutput.Text = String.Empty;
+                        HttpContext.Current.Session["Cart"] = null;
+                        HttpContext.Current.Session["cartTotal"] = null;
+                        HttpContext.Current.Session["cartTax"] = null;
                         receiptView.NavigateUrl = HOTBAL.POSConstants.RECEIPT_URL + "?ID=" + response;
                         backToPOS.NavigateUrl = HOTBAL.POSConstants.DEFAULT_URL;
                         backToSchedule.NavigateUrl = HOTBAL.TansConstants.MAIN_INTERNAL_URL;

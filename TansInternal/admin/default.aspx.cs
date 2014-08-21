@@ -24,6 +24,7 @@ namespace HOTTropicalTans.admin
                 else
                 {
                     loginPanel.Visible = true;
+                    adminLoginPassword.Focus();
                     adminPanel.Visible = false;
                 }
 
