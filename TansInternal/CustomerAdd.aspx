@@ -152,12 +152,20 @@ label.valid {
                 date: "Entered information must be in date format."
             }
         });
-        //$(".package").rules("add", {
-        //    required: true,
-        //    messages: {
-        //        required: "Please select a tanning package."
-        //    }
-        //});
+        var planSelection = document.getElementById("<% =plans.ClientID %>");
+        var specialSelection = document.getElementById("<% =specials.ClientID %>");
+        var planValue = planSelection.options[planSelection.selectedIndex].value;
+        var specialValue = specialSelection.options[specialSelection.selectedIndex].value;
+        if (planValue == "") {
+            if (specialValue == "") {
+                $(".package").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Please select a tanning package."
+                    }
+                });
+            }
+        }
         $(".renewalDate").rules("add", {
             required: true,
             date: true,
