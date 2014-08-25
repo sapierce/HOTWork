@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="HOTTropicalTans.Master" AutoEventWireup="true" CodeBehind="CustomerNotes.aspx.cs" Inherits="HOTTropicalTans.CustomerNotes" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="HOTTropicalTans.Master" AutoEventWireup="true" CodeBehind="CustomerNotes.aspx.cs" Inherits="HOTTropicalTans.CustomerNotes" validateRequest="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Main" runat="server">
     <asp:Panel ID='addNote' runat="server">
@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td style="width: 300px;">
-                    <asp:TextBox ID="editNoteText" runat="server" Width="300px" TextMode="MultiLine"  /></td>
+                    <asp:TextBox ID="editNoteText" runat="server" Width="300px" TextMode="MultiLine" /></td>
                 <td class="owes" style="width: 50px;">
                     <asp:CheckBox ID="editOwesMoney" runat="server" /></td>
                 <td class="owed" style="width: 50px;">

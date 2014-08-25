@@ -58,15 +58,15 @@ namespace HOTTropicalTans
 
         protected void addNoteSubmit_OnClick(object sender, EventArgs e)
         {
-            bool response = sqlClass.AddCustomerNote(Convert.ToInt32(Request.QueryString["ID"].ToString()), noteText.Text, owedProduct.Checked, owesMoney.Checked, checkTransactions.Checked);
+            bool response = sqlClass.AddCustomerNote(Convert.ToInt32(Request.QueryString["ID"].ToString()), Server.HtmlEncode(noteText.Text), 
+                owedProduct.Checked, owesMoney.Checked, checkTransactions.Checked);
+
             if (response)
             {
                 Response.Redirect(HOTBAL.TansConstants.CUSTOMER_INFO_INTERNAL_URL + "?ID=" + Request.QueryString["ID"], false);
             }
             else
             {
-                addNote.Visible = false;
-                editNote.Visible = false;
                 Label errorLabel = (Label)this.Master.FindControl("errorMessage");
                 errorLabel.Text = HOTBAL.TansMessages.ERROR_GENERIC_INTERNAL;
             }
@@ -74,7 +74,9 @@ namespace HOTTropicalTans
 
         protected void editNoteSubmit_OnClick(object sender, EventArgs e)
         {
-            bool response = sqlClass.EditCustomerNote(Convert.ToInt32(Request.QueryString["NID"].ToString()), editNoteText.Text, editOwedProduct.Checked, editOwesMoney.Checked, editCheckTransactions.Checked);
+            bool response = sqlClass.EditCustomerNote(Convert.ToInt32(Request.QueryString["NID"].ToString()), Server.HtmlEncode(editNoteText.Text), 
+                editOwedProduct.Checked, editOwesMoney.Checked, editCheckTransactions.Checked);
+
             if (response)
             {
                 Response.Redirect(HOTBAL.TansConstants.CUSTOMER_INFO_INTERNAL_URL + "?ID=" + Request.QueryString["ID"], false);
