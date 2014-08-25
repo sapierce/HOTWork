@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Misc.aspx.cs" Inherits="PublicWebsite.Misc"
     MasterPageFile="PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
     <table style="text-align: center;">
         <tr>
             <td style="text-align: center;">

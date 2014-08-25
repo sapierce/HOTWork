@@ -36,16 +36,16 @@ namespace PublicWebsite
                     else
                     {
                         // Output the header
-                        lipBalms.Text = "<tr><td class='centerAlignHeader'><br /></td>" +
-                            "<td class='centerAlignHeader'>Item</td>" +
-                            "<td class='centerAlignHeader'>Price</td>" +
-                            "<td class='centerAlignHeader'><br /></td></tr>";
+                        lipBalms.Text = "<tr><td class='centerAlignHeaderNoBorder'><br /></td>" +
+                            "<td class='centerAlignHeaderNoBorder'>Item</td>" +
+                            "<td class='centerAlignHeaderNoBorder'>Price</td>" +
+                            "<td class='centerAlignHeaderNoBorder'><br /></td></tr>";
 
                         // Loop through the returned products
                         foreach (HOTBAL.Product p in productListing)
                         {
                             // Output the returned product information
-                            lipBalms.Text += "<tr><td rowspan='2' style='text-align:center;vertical-align:top;'><a href='" +
+                            lipBalms.Text += "<tr><td rowspan='2' class='productImage'><a href='" +
                                 HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
                                 p.ProductID + "'><img src='products/";
 
@@ -62,25 +62,25 @@ namespace PublicWebsite
                             }
 
                             // Build the product information
-                            lipBalms.Text += "' alt='" + p.ProductName + "' border=0></a></td><td style='vertical-align:top;'><b><a href='" +
+                            lipBalms.Text += "' alt='" + p.ProductName + "' border='0'></a></td><td class='productInformation'><b><a href='" +
                                 HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
                                 p.ProductID + "'>" +
-                                p.ProductName + "</a></b></td><td style='vertical-align:top;text-align:center;'>";
+                                p.ProductName + "</a></b></td><td class='productInformation' style='text-align:center !important;'>";
 
                             // Is this product on sale?
                             if (p.ProductSaleOnline)
                             {
                                 // Output the sale price with the regular price underneath
-                                lipBalms.Text += "<span style='color:red;'>$" +
-                                    p.ProductSalePrice + "</span><br><span style='font-size: 9px'>Reg - $" +
-                                    p.ProductPrice + "</span>";
+                                lipBalms.Text += "<span style='color:red;'>" +
+                                    p.ProductSalePrice.ToString("C") + "</span><br><span style='font-size: 9px'>Reg - " +
+                                    p.ProductPrice.ToString("C") + "</span>";
                             }
                             else
                             {
-                                lipBalms.Text += "$" + p.ProductPrice;
+                                lipBalms.Text += p.ProductPrice.ToString("C");
                             }
 
-                            lipBalms.Text += "</td><td style='vertical-align:top;'>";
+                            lipBalms.Text += "</td><td class='productInformation'>";
 
                             // Are there at least two of this product in stock?
                             if (p.ProductCount > 1)
@@ -100,7 +100,7 @@ namespace PublicWebsite
                             if (p.ProductDescription.Length > 150)
                             {
                                 // Output an abbreviated description
-                                lipBalms.Text += "<tr><td colspan='3' style='vertical-align:top;height:100px;'><i>" +
+                                lipBalms.Text += "<tr><td colspan='3' class='productDetail' style='height:100px;'><i>" +
                                     p.ProductDescription.Substring(0, 150) + "<a href='" +
                                     HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
                                     p.ProductID + "'>...</a></i></td></tr>";
@@ -108,7 +108,7 @@ namespace PublicWebsite
                             else
                             {
                                 // Output the full description
-                                lipBalms.Text += "<tr><td colspan='3' style='vertical-align:top;height:100px;'><i>" +
+                                lipBalms.Text += "<tr><td colspan='3' class='productDetail' style='height:100px;'><i>" +
                                     p.ProductDescription + "</i></td></tr>";
                             }
                         }

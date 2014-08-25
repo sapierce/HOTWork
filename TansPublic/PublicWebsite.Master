@@ -35,7 +35,7 @@
         <div id="container">
             <div id="header">
                 <a href="<%= HOTBAL.TansConstants.HOME_PUBLIC_URL %>">
-                    <img src="/images/HOTTansExternalHeader.jpg" alt="HOT Tropical Tans" border="0" /></a>
+                    <img src="/images/HOTTansExternalHeader.jpg" alt="HOT Tropical Tans" border="0" width="1026" height="300" /></a>
                 <div id="header-login">
                     <span>Already a Member?<br />
                         <a href="<%= HOTBAL.TansConstants.CUSTOMER_LOGON_PUBLIC_URL %>">Log in here!</a>

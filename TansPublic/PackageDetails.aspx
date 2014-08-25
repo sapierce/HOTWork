@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PackageDetails.aspx.cs"
     Inherits="PublicWebsite.PackageDetails" MasterPageFile="PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
     <div id="packages">
         <table cellpadding='5' align='center'>
             <tr>

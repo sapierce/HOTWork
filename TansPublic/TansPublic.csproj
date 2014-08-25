@@ -318,12 +318,6 @@
     <Content Include="images\online-only.gif" />
     <Content Include="images\verified.gif" />
     <Content Include="IPNHandler.aspx" />
-    <Content Include="js\libs\jquery-1.7.1.js" />
-    <Content Include="js\libs\jquery-1.7.1.min.js" />
-    <Content Include="js\libs\jquery-1.9.0.js" />
-    <Content Include="js\libs\modernizr-2.5.3.min.js" />
-    <Content Include="js\plugins.js" />
-    <Content Include="js\script.js" />
     <Content Include="LipBalms.aspx" />
     <Content Include="Lotions.aspx" />
     <Content Include="LotionsList.aspx" />
@@ -775,9 +769,17 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="TansPublic.pfx" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="js\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOTBAL\HOTBAL.csproj">

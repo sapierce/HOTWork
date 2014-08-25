@@ -13,6 +13,15 @@ namespace PublicWebsite {
     public partial class PublicWebsiteMaster {
         
         /// <summary>
+        /// headerPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder headerPlaceHolder;
+        
+        /// <summary>
         /// lnkAbout control.
         /// </summary>
         /// <remarks>
@@ -67,13 +76,13 @@ namespace PublicWebsite {
         protected global::System.Web.UI.WebControls.HyperLink lnkMembership;
         
         /// <summary>
-        /// form1 control.
+        /// publicForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm publicForm;
         
         /// <summary>
         /// MemberList control.
@@ -121,12 +130,12 @@ namespace PublicWebsite {
         protected global::System.Web.UI.WebControls.Label successMessage;
         
         /// <summary>
-        /// SiteContent control.
+        /// contentPlaceHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder SiteContent;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder contentPlaceHolder;
     }
 }

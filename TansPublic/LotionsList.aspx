@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LotionsList.aspx.cs" Inherits="PublicWebsite.LotionsList"
     MasterPageFile="PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
     <div class="product">
     <table style="text-align: center;">
         <tr>

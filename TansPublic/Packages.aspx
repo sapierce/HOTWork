@@ -1,13 +1,13 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Packages.aspx.cs" Inherits="PublicWebsite.Packages"
     MasterPageFile="PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
     <div id='about'>
         <table style="text-align:center;">
             <tr>
                 <td style="text-align:right;">
                     <a href="PackageDetails.aspx?Type=MY">
-                        <img src="images/mystics.gif" border="0" alt="Mystic Tanning Packages" /></a>
+                        <img src="images/mystics.gif" border="0" alt="Mystic Tanning Packages" width="200" height="181" /></a>
                 </td>
                 <td>
                     <br />

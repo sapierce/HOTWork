@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PublicWebsite.Master" AutoEventWireup="true"
     CodeBehind="ShoppingCartDone.aspx.cs" Inherits="PublicWebsite.ShoppingCartDone" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="SiteContent" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="contentPlaceHolder" runat="server">
     <table>
         <tr>
             <td style="text-align:center;">
