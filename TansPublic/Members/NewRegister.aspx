@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NewRegister.aspx.cs" Inherits="PublicWebsite.MembersArea.NewRegister"
 	MasterPageFile="..\PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
 	<div id="newMember">
 		<table>
 			<tr>

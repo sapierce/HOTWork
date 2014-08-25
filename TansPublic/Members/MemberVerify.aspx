@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MemberVerify.aspx.cs" Inherits="PublicWebsite.MembersArea.MemberVerify"
     MasterPageFile="..\PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
     <asp:Label ID="errorMessage" class="error" runat="server" />
     <div id="memberInfo">
         <table>

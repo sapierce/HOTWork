@@ -41,7 +41,7 @@ namespace PublicWebsite.MembersArea
                 {
                     if (!String.IsNullOrEmpty(Session["userID"].ToString()))
                     {
-                        bool agreement = sqlClass.UpdateCustomerAgreement(functionsClass.CleanUp(customerSignature.Text), readWarnings.Checked, Convert.ToInt32(Session["userID"].ToString()));
+                        bool agreement = sqlClass.UpdateCustomerAgreement(functionsClass.CleanUp(customerSignature.Text), readWarnings.Checked, Convert.ToInt64(Session["userID"].ToString()));
 
                         if (agreement)
                         {

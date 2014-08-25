@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddAppointment.aspx.cs"
     Inherits="PublicWebsite.MembersArea.AddAppointment" MasterPageFile="..\PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
     <asp:Panel ID="appointment" runat="server">
         <table>
             <tr>

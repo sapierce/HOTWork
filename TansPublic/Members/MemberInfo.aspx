@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MemberInfo.aspx.cs" Inherits="PublicWebsite.MembersArea.MemberInfo"
     MasterPageFile="..\PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
     <asp:Label ID="errorMessage" CssClass="errorLabel" runat="server" />
     <div id="memberInfo">
         <table>

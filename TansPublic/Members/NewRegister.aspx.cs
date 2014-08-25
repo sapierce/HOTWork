@@ -126,7 +126,7 @@ namespace PublicWebsite.MembersArea
                     lastName.Text,
                     DateTime.Now,
                     Convert.ToInt32(fitzpatrickNumber.SelectedValue), "Other", 
-                    DateTime.Now, "", true, true);
+                    DateTime.Now, "", true, true, false, 0, Convert.ToDateTime("2001-01-01"));
 
                 if (addCustomer != 0)
                 {

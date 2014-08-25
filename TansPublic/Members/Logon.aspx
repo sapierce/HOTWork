@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Logon.aspx.cs" Inherits="PublicWebsite.MembersArea.LogOn"
 	MasterPageFile="..\PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
 
 	<asp:ValidationSummary ID="loginSummary" runat="server" DisplayMode="BulletList" EnableClientScript="true" CssClass="errorLabel" HeaderText="The following problems were found:" ShowSummary="true" ValidationGroup="login" />
 	<asp:RequiredFieldValidator ID="nameRequired" runat="server" ControlToValidate="userName" EnableClientScript="true" ErrorMessage="Please enter a user name." ValidationGroup="login" />

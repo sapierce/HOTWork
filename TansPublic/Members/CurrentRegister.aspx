@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CurrentRegister.aspx.cs"
     Inherits="PublicWebsite.MembersArea.CurrentRegister" MasterPageFile="..\PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
     <div id="existingMember">
         <asp:Label ID="errorMessage" runat="server" CssClass="errorLabel" /><br />
         <asp:ValidationSummary ID="lookupValidation" runat="server" ValidationGroup="lookupUser" ShowSummary="true" /><br />

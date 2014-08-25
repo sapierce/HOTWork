@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MemberUpdate.aspx.cs" Inherits="PublicWebsite.MembersArea.MemberUpdate"
     MasterPageFile="..\PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
     <asp:ValidationSummary ID="newRegistrationSummary" runat="server" ShowSummary="true"
         ValidationGroup="update" CssClass="errorLabel" />
     <asp:CompareValidator ID="passwordCompare" runat="server" ErrorMessage="The entered passwords do not match."

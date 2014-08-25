@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ForgotPassword.aspx.cs"
     Inherits="PublicWebsite.MembersArea.ForgotPassword" MasterPageFile="..\PublicWebsite.master" %>
 
-<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="SiteContent">
+<asp:Content ID="defaultContent" runat="server" ContentPlaceHolderID="contentPlaceHolder">
     <asp:ValidationSummary ID="vsPassword" runat="server" ShowSummary="true" ValidationGroup="password" />
     <asp:RequiredFieldValidator ID="rfvEmail" ValidationGroup="password" ControlToValidate="emailAddress"
         runat="server" ErrorMessage="Please enter an e-mail address."  />
