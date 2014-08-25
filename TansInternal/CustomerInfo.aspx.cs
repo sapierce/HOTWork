@@ -47,7 +47,7 @@ namespace HOTTropicalTans
                     remarks.Text = customerInfo.Remarks;
                     emailAddress.Text = customerInfo.Email;
 
-                    if (customerInfo.SpecialFlag)
+                    if (customerInfo.SpecialID > 0)
                     {
                         HOTBAL.SpecialLevel levelInfo = sqlClass.GetSpecialLevelByLevelID(customerInfo.SpecialID);
 
