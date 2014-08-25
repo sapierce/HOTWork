@@ -896,8 +896,7 @@ namespace HOTBAL
         {
             try
             {
-                return tansDataAccess.ExecuteUPDATE_NOTE_BY_NOTE_ID(noteID, functionsClass.LightCleanUp(noteText), 
-                    (owesMoney == true ? 1 : 0), (owedProduct == true ? 1 : 0), (checkTransactions == true ? 1 : 0));
+                return tansDataAccess.ExecuteUPDATE_NOTE_BY_NOTE_ID(noteID, noteText, (owesMoney == true ? 1 : 0), (owedProduct == true ? 1 : 0), (checkTransactions == true ? 1 : 0));
             }
             catch (Exception ex)
             {
