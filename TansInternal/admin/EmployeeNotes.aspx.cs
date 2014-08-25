@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace HOTTropicalTans
 {
@@ -18,18 +19,24 @@ namespace HOTTropicalTans
 
             try
             {
+                employeeNoteList.Text = "<table align='center' class='tanning' width='500'>";
                 List<HOTBAL.EmployeeNote> employeeNotes;
                 if (functionsClass.CleanUp(Request.QueryString["From"]) == "F")
                 {
-                    employeeNotes = sqlClass.GetNotesToEmployees();
+                    employeeNotes = sqlClass.GetNotesFromEmployees();
+                    employeeNoteList.Text += "<thead><tr><th colspan='5'>Notes From Employees</th></tr></thead>";
                 }
                 else
                 {
-                    employeeNotes = sqlClass.GetNotesFromEmployees();
+                    employeeNotes = sqlClass.GetNotesToEmployees();
+                    employeeNoteList.Text += "<thead><tr><th colspan='5'>Notes To Employees</th></tr></thead>";
                 }
 
-                employeeNoteList.Text = "<table align='center' class='standardTable' width='500'>";
-                employeeNoteList.Text += "<tr><td class='standardHeader'>Date</td><td class='standardHeader'>To</td><td class='standardHeader'>From</td><td class='standardHeader'>Note</td><td class='standardHeader'><br /></td></tr>";
+                employeeNoteList.Text += "<tr><td class='centerAlignHeader'>Date</td>" + 
+                    "<td class='centerAlignHeader'>To</td>" + 
+                    "<td class='centerAlignHeader'>From</td>" +
+                    "<td class='centerAlignHeader'>Note</td>" + 
+                    "<td class='centerAlignHeader'><br /></td></tr>";
 
                 if (employeeNotes != null)
                 {
@@ -38,29 +45,35 @@ namespace HOTTropicalTans
                         List<HOTBAL.Employee> employeeTo = sqlClass.GetEmployeeByID(n.NoteTo);
                         List<HOTBAL.Employee> employeeFrom = sqlClass.GetEmployeeByID(n.NoteFrom);
 
-                        employeeNoteList.Text = "<tr><td class='standardField' valign='top'>" +
+                        employeeNoteList.Text += "<tr><td style='vertical-align: top;'>" +
                             functionsClass.FormatSlash(n.NoteTime) +
-                            "</td><td class='standardField' valign='top'>" +
+                            "</td><td style='vertical-align: top;'>" +
                             employeeTo[0].FirstName + " " + employeeTo[0].LastName +
-                            "</td><td class='standardField' valign='top'>" +
+                            "</td><td style='vertical-align: top;'>" +
                             employeeFrom[0].FirstName + " " + employeeFrom[0].LastName +
-                            "</td><td class='standardField' valign='top'>" +
+                            "</td><td style='vertical-align: top;'>" +
                             n.NoteText +
-                            "</td><td class='standardField' valign='top'><a href='EmployeeNotesDelete.aspx?ID=" +
+                            "</td><td style='vertical-align: top;'><a href='EmployeeNotesDelete.aspx?ID=" +
                             n.NoteID + "'>Delete</a></td></tr>";
                     }
                 }
                 else
                 {
-                    employeeNoteList.Text = "<tr><td colspan=4'>No notes</td></tr>";
+                    employeeNoteList.Text += "<tr><td colspan=4'>No notes</td></tr>";
                 }
                 employeeNoteList.Text += "</table>";
             }
             catch (Exception ex)
             {
-                errorMessage.Text = HOTBAL.TansMessages.ERROR_GENERIC_INTERNAL;
-                sqlClass.LogErrorMessage(ex, "", "EmployeeEdit: resetPassword_OnClick");
+                Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+                errorLabel.Text = HOTBAL.TansMessages.ERROR_GENERIC_INTERNAL;
+                sqlClass.LogErrorMessage(ex, "", "EmployeeNotes: PageLoad");
             }
+        }
+
+        protected void addNote_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EmployeeNotesAdd.aspx");
         }
     }
 }
