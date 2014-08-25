@@ -64,7 +64,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="admin\BedInformation.aspx" />
+    <Content Include="admin\Reports\BedInformation.aspx" />
     <Content Include="admin\BedsAdd.aspx" />
     <Content Include="admin\BedsEdit.aspx" />
     <Content Include="admin\CustomerCombine.aspx" />
@@ -76,6 +76,7 @@
     <Content Include="admin\EmployeeNotes.aspx" />
     <Content Include="admin\EmployeeNotesAdd.aspx" />
     <Content Include="admin\EmployeeNotesDelete.aspx" />
+    <Content Include="admin\Reports\EmployeeClockedHours.aspx" />
     <Content Include="AppointmentMassageAdd.aspx" />
     <Content Include="AppointmentMassageEdit.aspx" />
     <Content Include="css\HOTCSS.css" />
@@ -99,6 +100,8 @@
     <Content Include="css\jquery-ui.min.css" />
     <Content Include="css\jquery-ui.structure.min.css" />
     <Content Include="css\jquery-ui.theme.min.css" />
+    <Content Include="css\tooltipster-light.css" />
+    <Content Include="css\tooltipster.css" />
     <Content Include="employees\EmployeeHours.aspx" />
     <Content Include="employees\EmployeeInformation.aspx" />
     <Content Include="employees\EmployeeNotes.aspx" />
@@ -135,19 +138,18 @@
     <Content Include="images\6.gif" />
     <Content Include="images\7.gif" />
     <Content Include="images\InternalSunLogo.gif" />
+    <Content Include="js\jquery.tooltipster.min.js" />
     <Content Include="Problems.aspx" />
     <Content Include="ProductInformation.aspx" />
     <Content Include="ScheduleMassage.aspx" />
-    <Content Include="js\jquery-1.11.1.min.js" />
-    <Content Include="js\jquery-ui.min.js" />
     <Content Include="Search.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="admin\BedInformation.aspx.cs">
+    <Compile Include="admin\Reports\BedInformation.aspx.cs">
       <DependentUpon>BedInformation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="admin\BedInformation.aspx.designer.cs">
+    <Compile Include="admin\Reports\BedInformation.aspx.designer.cs">
       <DependentUpon>BedInformation.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\BedsAdd.aspx.cs">
@@ -226,6 +228,13 @@
     </Compile>
     <Compile Include="admin\EmployeeNotesDelete.aspx.designer.cs">
       <DependentUpon>EmployeeNotesDelete.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Reports\EmployeeClockedHours.aspx.cs">
+      <DependentUpon>EmployeeClockedHours.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Reports\EmployeeClockedHours.aspx.designer.cs">
+      <DependentUpon>EmployeeClockedHours.aspx</DependentUpon>
     </Compile>
     <Compile Include="AppointmentMassageAdd.aspx.cs">
       <DependentUpon>AppointmentMassageAdd.aspx</DependentUpon>
@@ -477,19 +486,10 @@
   <ItemGroup>
     <Content Include="HOTTropicalTans.Master" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="admin\Reports\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Properties\PublishProfiles\Profile2.pubxml" />
-    <Content Include="web.config" />
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HOTBAL\HOTBAL.csproj">
