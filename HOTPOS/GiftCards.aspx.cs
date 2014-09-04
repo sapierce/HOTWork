@@ -15,25 +15,28 @@ namespace HOTPOS
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.Header.Title = HOTBAL.POSConstants.INTERNAL_NAME + " - Gift Cards";
+
             if (Request.QueryString["Confirm"] != null)
             {
-                fromName.Text = functionsClass.LightCleanUp(Request.QueryString["F"].ToString());
-                giftAmount.Text = functionsClass.CleanUp(Request.QueryString["A"].ToString());
-                giftDescription.Text = functionsClass.LightCleanUp(Request.QueryString["D"].ToString());
-                employeeNumber.Text = functionsClass.CleanUp(Request.QueryString["E"].ToString());
-                paymentMethod.Items.FindByValue(Request.QueryString["P"].ToString()).Selected = true;
-                AddGiftCard(Convert.ToInt32(Request.QueryString["ID"]));
+                if (!String.IsNullOrEmpty(Request.QueryString["Confirm"]))
+                {
+                    fromName.Text = functionsClass.LightCleanUp(Request.QueryString["F"].ToString());
+                    giftAmount.Text = functionsClass.CleanUp(Request.QueryString["A"].ToString());
+                    giftDescription.Text = functionsClass.LightCleanUp(Request.QueryString["D"].ToString());
+                    employeeNumber.Text = functionsClass.CleanUp(Request.QueryString["E"].ToString());
+                    paymentMethod.Items.FindByValue(Request.QueryString["P"].ToString()).Selected = true;
+                    AddGiftCard(Convert.ToInt32(Request.QueryString["ID"]));
+                }
             }
         }
 
         public void submitGift_Click(Object sender, EventArgs e)
         {
-            List<HOTBAL.Customer> customer = new List<HOTBAL.Customer>();
-            Int64 customerID = 0;
-
+            Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+            
             if (newCustomer.Checked)
             {
-                customerID = sqlClass.InsertNewCustomer(toFirstName.Text,
+                long customerID = sqlClass.InsertNewCustomer(toFirstName.Text,
                     toLastName.Text,
                     DateTime.Now, 0, "Other",
                     DateTime.Now, "Start First Tan", 
@@ -43,12 +46,16 @@ namespace HOTPOS
             }
             else
             {
-                customer = sqlClass.GetCustomerByName(toFirstName.Text, toLastName.Text, true);
+                List<HOTBAL.Customer> customer = sqlClass.GetCustomerByName(toFirstName.Text, toLastName.Text, true);
 
-                if (customer.Count == 0)
+                if (customer.Count == 1)
                 {
-                    Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text += "No users named " + functionsClass.LightCleanUp(toFirstName.Text.Trim()) + " " + functionsClass.LightCleanUp(toLastName.Text.Trim()) + ".  Try again or <a href='" + HOTBAL.TansConstants.CUSTOMER_ADD_INTERNAL_URL + "'>add a new user</a>.";
+                    if (String.IsNullOrEmpty(customer[0].Error))
+                        AddGiftCard(customer[0].ID);
+                    else
+                    {
+                        errorLabel.Text += customer[0].Error + " Please try again.";
+                    }
                 }
                 else if (customer.Count > 1)
                 {
@@ -69,62 +76,66 @@ namespace HOTPOS
                 }
                 else
                 {
-                    AddGiftCard(customer[0].ID);
+                    errorLabel.Text += "No users named " + functionsClass.LightCleanUp(toFirstName.Text.Trim()) + " " + 
+                        functionsClass.LightCleanUp(toLastName.Text.Trim()) + ".  Try again or select that this is a new customer.";
                 }
             }
         }
 
-        public void AddGiftCard(Int64 userID)
+        public void AddGiftCard(long userID)
         {
-            try
-            {
-                bool response = sqlClass.AddGiftCard(userID, functionsClass.LightCleanUp(fromName.Text), Convert.ToInt32(employeeNumber.Text), Convert.ToDouble(giftAmount.Text), DateTime.Now, functionsClass.LightCleanUp(giftDescription.Text));
-            }
-            catch (Exception ex)
-            {
-                Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                errorLabel.Text += HOTBAL.TansMessages.ERROR_GENERIC_INTERNAL;
-                sqlClass.LogErrorMessage(ex, "", "AddGiftCard: Add Card");
-            }
+            Label errorLabel = (Label)this.Master.FindControl("errorMessage");
             
             try
             {
-                List<HOTBAL.CartItem> giftCardCart = new List<HOTBAL.CartItem>();
-                HOTBAL.CartItem giftCardItem = new HOTBAL.CartItem();
-                giftCardItem = new HOTBAL.CartItem();
-                giftCardItem.ItemID = 69;
-                giftCardItem.ItemName = "Gift Card";
-                giftCardItem.ItemPrice = Convert.ToDouble(giftAmount.Text);
-                giftCardItem.ItemQuantity = 1;
-                giftCardItem.ItemTaxed = false;
-                giftCardItem.ItemType = "";
-                giftCardCart.Add(giftCardItem);
+                bool response = sqlClass.AddGiftCard(userID, functionsClass.LightCleanUp(fromName.Text), Convert.ToInt32(employeeNumber.Text),
+                    Convert.ToDouble(giftAmount.Text), DateTime.Now, functionsClass.LightCleanUp(giftDescription.Text));
 
-                Int64 response = sqlClass.InsertTransaction(giftCardCart, 
-                    Convert.ToInt32(employeeNumber.Text), 
-                    giftAmount.Text, 
-                    userID, 
-                    "W", 
-                    paymentMethod.SelectedValue, 
-                    functionsClass.FormatDash(DateTime.Now), 
-                    "0", "1", "");
-
-                if (response > 0)
+                try
                 {
-                    Response.Redirect(HOTBAL.POSConstants.DEFAULT_URL);
+                    if (!response)
+                    {
+                        List<HOTBAL.CartItem> giftCardCart = new List<HOTBAL.CartItem>();
+                        HOTBAL.CartItem giftCardItem = new HOTBAL.CartItem();
+                        giftCardItem = new HOTBAL.CartItem();
+                        giftCardItem.ItemID = 69;
+                        giftCardItem.ItemName = "Gift Card";
+                        giftCardItem.ItemPrice = Convert.ToDouble(giftAmount.Text);
+                        giftCardItem.ItemQuantity = 1;
+                        giftCardItem.ItemTaxed = false;
+                        giftCardItem.ItemType = "";
+                        giftCardCart.Add(giftCardItem);
+
+                        long transactionId = sqlClass.InsertTransaction(giftCardCart,
+                            Convert.ToInt32(employeeNumber.Text),
+                            giftAmount.Text,
+                            userID,
+                            "W",
+                            paymentMethod.SelectedValue,
+                            functionsClass.FormatDash(DateTime.Now),
+                            "0", "1", "");
+
+                        if (transactionId > 0)
+                        {
+                            Response.Redirect(HOTBAL.POSConstants.RECEIPT_URL + "?ID=" + transactionId.ToString());
+                        }
+                        else
+                        {
+                            errorLabel.Text += HOTBAL.TansMessages.ERROR_GENERIC_INTERNAL;
+                            sqlClass.LogErrorMessage(new Exception("ErrorAddingTransaction"), "", "AddGiftCard: Add Transaction");
+                        }
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Label errorLabel = (Label)this.Master.FindControl("errorMessage");
                     errorLabel.Text += HOTBAL.TansMessages.ERROR_GENERIC_INTERNAL;
-                    sqlClass.LogErrorMessage(new Exception("ErrorAddingTransaction"), "", "AddGiftCard: Add Transaction");
+                    sqlClass.LogErrorMessage(ex, "", "AddGiftCard: Add Transaction");
                 }
             }
             catch (Exception ex)
             {
-                Label errorLabel = (Label)this.Master.FindControl("errorMessage");
                 errorLabel.Text += HOTBAL.TansMessages.ERROR_GENERIC_INTERNAL;
-                sqlClass.LogErrorMessage(ex, "", "AddGiftCard: Add Transaction");
+                sqlClass.LogErrorMessage(ex, "", "AddGiftCard: Add Card");
             }
         }
     }
