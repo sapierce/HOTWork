@@ -30,7 +30,7 @@ namespace HOTTropicalTans
             adminSection.NavigateUrl = HOTBAL.TansConstants.ADMIN_INTERNAL_URL;
             employeeClock.NavigateUrl = HOTBAL.TansConstants.EMP_INTERNAL_URL;
             reportProblem.NavigateUrl = HOTBAL.TansConstants.PROBLEMS_INTERNAL_URL;
-            pointOfSale.NavigateUrl = HOTBAL.TansConstants.POS_INTERNAL_URL;
+            pointOfSale.NavigateUrl = HOTBAL.POSConstants.DEFAULT_URL;
             search.NavigateUrl = HOTBAL.TansConstants.SEARCH_INTERNAL_URL;
             maPointOfSale.NavigateUrl = HOTBAL.SDAConstants.ROOT_URL + HOTBAL.SDAConstants.POS_INTERNAL_URL;
 

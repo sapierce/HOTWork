@@ -1,5 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="HOTTropicalTans.master.cs"
-    Inherits="HOTTropicalTans.InternalSite" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="HOTTropicalTans.master.cs" Inherits="HOTTropicalTans.InternalSite" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
