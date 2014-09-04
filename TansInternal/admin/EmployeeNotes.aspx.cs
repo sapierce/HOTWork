@@ -25,11 +25,13 @@ namespace HOTTropicalTans
                 {
                     employeeNotes = sqlClass.GetNotesFromEmployees();
                     employeeNoteList.Text += "<thead><tr><th colspan='5'>Notes From Employees</th></tr></thead>";
+                    addNote.Visible = false;
                 }
                 else
                 {
                     employeeNotes = sqlClass.GetNotesToEmployees();
                     employeeNoteList.Text += "<thead><tr><th colspan='5'>Notes To Employees</th></tr></thead>";
+                    addNote.Visible = true;
                 }
 
                 employeeNoteList.Text += "<tr><td class='centerAlignHeader'>Date</td>" + 
@@ -53,7 +55,7 @@ namespace HOTTropicalTans
                             employeeFrom[0].FirstName + " " + employeeFrom[0].LastName +
                             "</td><td style='vertical-align: top;'>" +
                             n.NoteText +
-                            "</td><td style='vertical-align: top;'><a href='EmployeeNotesDelete.aspx?ID=" +
+                            "</td><td style='vertical-align: top;'><a href='" + HOTBAL.TansConstants.ADMIN_DEL_EMP_NOTE_URL + "?ID=" +
                             n.NoteID + "'>Delete</a></td></tr>";
                     }
                 }
@@ -73,7 +75,7 @@ namespace HOTTropicalTans
 
         protected void addNote_Click(object sender, EventArgs e)
         {
-            Response.Redirect("EmployeeNotesAdd.aspx");
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_ADD_EMP_NOTE_URL);
         }
     }
 }
