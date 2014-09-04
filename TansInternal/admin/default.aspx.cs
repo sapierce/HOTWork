@@ -234,45 +234,45 @@ namespace HOTTropicalTans.admin
             }
         }
 
-        protected void editItem_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("ProductEdit.aspx?ID=" + editItemList.SelectedValue, false);
-        }
-
-        protected void editPackage_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("PackageEdit.aspx?ID=" + editPackageList.SelectedValue, false);
-        }
-
-        protected void editSpecial_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("SpecialsEdit.aspx?ID=" + editItemList.SelectedValue, false);
-        }
-
         protected void addProduct_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ProductAdd.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_ADD_PRODUCT_URL, false);
         }
 
         protected void addPackage_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PackageAdd.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_ADD_PACKAGE_URL, false);
         }
 
         protected void addSpecial_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SpecialsAdd.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_ADD_SPECIAL_URL, false);
+        }
+
+        protected void editItem_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_EDIT_PRODUCT_URL + "?ID=" + editItemList.SelectedValue, false);
+        }
+
+        protected void editPackage_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_EDIT_PACKAGE_URL + "?ID=" + editPackageList.SelectedValue, false);
+        }
+
+        protected void editSpecial_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_EDIT_SPECIAL_URL + "?ID=" + editItemList.SelectedValue, false);
         }
 
         protected void employeeWorked_Click(object sender, EventArgs e)
         {
             if (employeeWorkedList.SelectedValue == "All")
             {
-                Response.Redirect("Reports/EmployeeClockedHours.aspx?Admin=Yes", false);
+                Response.Redirect(HOTBAL.TansConstants.ADMIN_RPT_EMP_WORKED_URL + "?Admin=Yes", false);
             }
             else
             {
-                Response.Redirect("/Schedule/Employees/EmployeeInformation.aspx?ID=" + employeeWorkedList.SelectedValue + "&Admin=Yes", false);
+                Response.Redirect(HOTBAL.TansConstants.EMP_INFO_INTERNAL_URL + "?ID=" + employeeWorkedList.SelectedValue + "&Admin=Yes", false);
             }
         }
 
@@ -280,87 +280,87 @@ namespace HOTTropicalTans.admin
         {
             if (employeeScheduleList.SelectedValue == "All")
             {
-                Response.Redirect("Reports/EmployeeScheduledHours.aspx?Admin=Yes", false);
+                Response.Redirect(HOTBAL.TansConstants.ADMIN_RPT_EMP_SCHED_URL + "?Admin=Yes", false);
             }
             else
             {
-                Response.Redirect("/Schedule/Employees/EmployeeInformation.aspx?ID=" + employeeScheduleList.SelectedValue + "&Admin=Yes", false);
+                Response.Redirect(HOTBAL.TansConstants.EMP_INFO_INTERNAL_URL + "?ID=" + employeeScheduleList.SelectedValue + "&Admin=Yes", false);
             }
         }
 
         protected void addEmployee_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/Schedule/Admin/EmployeeAdd.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_ADD_EMP_URL, false);
         }
 
         protected void editEmployee_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/Schedule/Admin/EmployeeEdit.aspx?ID=" + editEmployeeList.SelectedValue, false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_EDIT_EMP_URL + "?ID=" + editEmployeeList.SelectedValue, false);
         }
 
         protected void notesFromEmployees_Click(object sender, EventArgs e)
         {
-            Response.Redirect("EmployeeNotes.aspx?From=F", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_EMP_NOTES_URL + "?From=F", false);
         }
 
         protected void notesToEmployees_Click(object sender, EventArgs e)
         {
-            Response.Redirect("EmployeeNotes.aspx?From=E", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_EMP_NOTES_URL + "?From=E", false);
         }
 
         protected void siteNotice_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SiteNotice.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_SITE_NOTICE_INTERNAL_URL, false);
         }
 
         protected void combineAccounts_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CustomerCombine.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_CUST_COMB_INTERNAL_URL, false);
         }
 
         protected void changePasswords_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SitePasswords.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_SITE_PWD_INTERNAL_URL, false);
         }
 
         protected void editHours_Click(object sender, EventArgs e)
         {
-            Response.Redirect("HoursEdit.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_EDIT_HOURS_URL, false);
         }
 
         protected void bedInformation_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Reports/BedInformation.aspx?Date=" + bedDate.Text, false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_RPT_BED_URL + "?Date=" + bedDate.Text, false);
         }
 
         protected void addBed_Click(object sender, EventArgs e)
         {
-            Response.Redirect("BedsAdd.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_ADD_BED_URL, false);
         }
 
         protected void editBed_Click(object sender, EventArgs e)
         {
-            Response.Redirect("BedsEdit.aspx?ID=" + editBedList.SelectedValue, false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_EDIT_BED_URL + "?ID=" + editBedList.SelectedValue, false);
         }
 
         protected void viewFullTransaction_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/HOTPOS/TransactionLog.aspx?StartDate=" + transactionStartDate.Text + "&EndDate=" + transactionEndDate.Text + "&Totals=" + totalsOnly.Checked.ToString(), false);
+            Response.Redirect(HOTBAL.POSConstants.TRANSACTION_LOG_URL + "?StartDate=" + transactionStartDate.Text + "&EndDate=" + transactionEndDate.Text + "&Totals=" + totalsOnly.Checked.ToString(), false);
         }
 
         protected void productCount_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/employees/ProductEmployeeCounts.aspx?Date=" + productCountDate.Text, false);
+            Response.Redirect(HOTBAL.TansConstants.EMP_PROD_CNTS_INTERNAL_URL + "?Date=" + productCountDate.Text, false);
         }
 
         protected void fullInventory_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Reports/ProductInventory.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_RPT_PROD_INV_URL, false);
         }
 
         protected void deletedProducts_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ProductsDeleted.aspx", false);
+            Response.Redirect(HOTBAL.TansConstants.ADMIN_DEL_PROD_URL, false);
         }
     }
 }
