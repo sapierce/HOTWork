@@ -86,9 +86,9 @@ namespace HOTBAL
 
         public const string NOTE_CHECK_TRANS = "Check customer transactions for payment.";
 
-        public const string NOTE_OWED_PROD = "Customer owed product. See <a href='" + TansConstants.TRANS_DETAILS_INTERNAL_URL + "?ID=@TransactionID'>transaction</a>.";
+        public const string NOTE_OWED_PROD = "Customer owed product. See <a href='" + POSConstants.TRANSACTION_DETAILS_URL + "?ID=@TransactionID'>transaction</a>.";
 
-        public const string NOTE_OWES = "Customer has an unpaid transaction. See <a href='" + TansConstants.TRANS_DETAILS_INTERNAL_URL + "?ID=@TransactionID'>transaction</a>.";
+        public const string NOTE_OWES = "Customer has an unpaid transaction. See <a href='" + POSConstants.TRANSACTION_DETAILS_URL + "?ID=@TransactionID'>transaction</a>.";
 
         public const string SESSION_EXPIRED_MOBILE = "Your session has expired.  Please <a href='" + TansConstants.CUSTOMER_LOGON_MOBILE_URL + "' class='center'>log in</a> again.";
 
