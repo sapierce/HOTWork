@@ -23,7 +23,61 @@ namespace HOTBAL
 
         public const string ADMIN_INTERNAL_URL = "/Schedule/Admin/Default.aspx";
 
+        public const string ADMIN_SITE_NOTICE_INTERNAL_URL = "/Schedule/Admin/SiteNotice.aspx";
+
+        public const string ADMIN_SITE_PWD_INTERNAL_URL = "/Schedule/Admin/SitePasswords.aspx";
+
+        public const string ADMIN_CUST_REPLY_INTERNAL_URL = "/Schedule/Admin/CustomerReply.aspx";
+
+        public const string ADMIN_CUST_COMB_INTERNAL_URL = "/Schedule/Admin/CustomerCombine.aspx";
+
+        public const string ADMIN_EMP_NOTES_URL = "/Schedule/Admin/EmployeeNotes.aspx";
+
+        public const string ADMIN_ADD_BED_URL = "/Schedule/Admin/BedsAdd.aspx";
+
+        public const string ADMIN_ADD_PACKAGE_URL = "/Schedule/Admin/PackageAdd.aspx";
+
         public const string ADMIN_ADD_PRODUCT_URL = "/Schedule/Admin/ProductAdd.aspx";
+
+        public const string ADMIN_ADD_SPECIAL_URL = "/Schedule/Admin/SpecialsAdd.aspx";
+
+        public const string ADMIN_ADD_EMP_URL = "/Schedule/Admin/EmployeeAdd.aspx";
+
+        public const string ADMIN_ADD_EMP_NOTE_URL = "/Schedule/Admin/EmployeeNotesAdd.aspx";
+
+        public const string ADMIN_EDIT_BED_URL = "/Schedule/Admin/BedsEdit.aspx";
+
+        public const string ADMIN_EDIT_PACKAGE_URL = "/Schedule/Admin/PackageEdit.aspx";
+
+        public const string ADMIN_EDIT_SPECIAL_URL = "/Schedule/Admin/SpecialsEdit.aspx";
+
+        public const string ADMIN_EDIT_PRODUCT_URL = "/Schedule/Admin/ProductEdit.aspx";
+
+        public const string ADMIN_EDIT_HOURS_URL = "/Schedule/Admin/HoursEdit.aspx";
+
+        public const string ADMIN_EDIT_EMP_URL = "/Schedule/Admin/EmployeeEdit.aspx";
+
+        public const string ADMIN_EDIT_EMP_NOTE_URL = "/Schedule/Admin/EmployeeNotesEdit.aspx";
+
+        public const string ADMIN_DEL_PROD_URL = "/Schedule/Admin/ProductsDeleted.aspx";
+
+        public const string ADMIN_DEL_EMP_NOTE_URL = "/Schedule/Admin/EmployeeNotesDelete.aspx";
+
+        public const string ADMIN_RPT_EMP_WORKED_URL = "/Schedule/Admin/Reports/EmployeeClockedHours.aspx";
+
+        public const string ADMIN_RPT_EMP_SCHED_URL = "/Schedule/Admin/Reports/EmployeeScheduledHours.aspx";
+
+        public const string ADMIN_RPT_BED_URL = "/Schedule/Admin/Reports/BedInformation.aspx";
+
+        public const string ADMIN_RPT_PROD_INV_URL = "/Schedule/Admin/Reports/ProductInventory.aspx";
+
+        public const string EMP_INTERNAL_URL = "/Schedule/Employees/Default.aspx";
+
+        public const string EMP_INFO_INTERNAL_URL = "/Schedule/Employees/EmployeeInformation.aspx";
+
+        public const string EMP_NOTES_INTERNAL_URL = "/Schedule/Employees/EmployeeNotes.aspx";
+
+        public const string EMP_PROD_CNTS_INTERNAL_URL = "/Schedule/Employees/ProductEmployeeCounts.aspx";
 
         public const string CUSTOMER_INFO_INTERNAL_URL = "/Schedule/CustomerInfo.aspx";
 
@@ -55,21 +109,8 @@ namespace HOTBAL
 
         public const string CUSTOMER_TRANS_INTERNAL_URL = "/Schedule/CustomerTransactions.aspx";
 
-        public const string TRANS_DETAILS_INTERNAL_URL = "/HOTPOS/TransactionDetails.aspx";
-
-        public const string POS_INTERNAL_URL = "/HOTPOS/Default.aspx";
-
-        public const string SHOPPING_INTERNAL_URL = "/HOTPOS/Cart.aspx";
-
-        public const string EMP_INTERNAL_URL = "/Schedule/Employees/Default.aspx";
-
-        public const string EMP_INFO_INTERNAL_URL = "/Schedule/Employees/EmployeeInformation.aspx";
-
-        public const string EMP_NOTES_INTERNAL_URL = "/Schedule/Employees/EmployeeNotes.aspx";
-
-        public const string CUSTOMER_REPLY_INTERNAL_URL = "/Schedule/Admin/CustomerReply.aspx";
-
         public const string PRODUCT_INFO_INTERNAL_URL = "/Schedule/ProductInformation.aspx";
+
         #endregion
 
         #region Mobile URLs
