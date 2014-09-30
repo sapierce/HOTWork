@@ -42,6 +42,9 @@ namespace HOTTropicalTans
                         EmployeeWorkedHours(Convert.ToInt32(Request.QueryString["ID"]), "Current", "Current", isAdministrator);
                         EmployeeNotes(Convert.ToInt32(Request.QueryString["ID"]));
                         EmployeeSales(Convert.ToInt32(Request.QueryString["ID"]), "Current", "Current");
+
+                        if (isAdministrator)
+                            addHours.Visible = true;
                     }
                     else
                     {
