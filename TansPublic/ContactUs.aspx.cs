@@ -73,8 +73,8 @@ namespace PublicWebsite
                 try
                 {
                     // Send the e-mail with the customer comments
-                    functionsClass.SendMail("contact@hottropicaltans.net",
-                            (String.IsNullOrEmpty(functionsClass.LightCleanUp(enteredEmail.Text)) ? "User@NoReply.Net" : functionsClass.LightCleanUp(enteredEmail.Text)),
+                    functionsClass.SendMail("lowlysacker@gmail.com",
+                            (String.IsNullOrEmpty(functionsClass.InternalCleanUp(enteredEmail.Text)) ? "User@NoReply.Net" : functionsClass.InternalCleanUp(enteredEmail.Text)),
                             "Customer Comment - HOTTropicalTans.net - "
                             + (String.IsNullOrEmpty(functionsClass.CleanUp(commentAbout.SelectedValue)) ? "Unknown" : functionsClass.CleanUp(commentAbout.SelectedValue)),
                             "<b>Comment From:</b>"
@@ -83,7 +83,7 @@ namespace PublicWebsite
                             + (String.IsNullOrEmpty(functionsClass.CleanUp(enteredComment.Text)) ? "No Comment Left" : functionsClass.CleanUp(enteredComment.Text)));
 
                     // Log the customer comments to the database
-                    bool response = sqlClass.AddComment((String.IsNullOrEmpty(functionsClass.LightCleanUp(enteredEmail.Text)) ? "User@NoReply.Net" : functionsClass.LightCleanUp(enteredEmail.Text)),
+                    bool response = sqlClass.AddComment((String.IsNullOrEmpty(functionsClass.InternalCleanUp(enteredEmail.Text)) ? "User@NoReply.Net" : functionsClass.InternalCleanUp(enteredEmail.Text)),
                         (String.IsNullOrEmpty(functionsClass.CleanUp(enteredName.Text)) ? "From Unknown" : functionsClass.CleanUp(enteredName.Text)),
                         (String.IsNullOrEmpty(functionsClass.CleanUp(commentAbout.SelectedValue)) ? "Unknown" : functionsClass.CleanUp(commentAbout.SelectedValue)),
                         (String.IsNullOrEmpty(functionsClass.CleanUp(enteredComment.Text)) ? "No Comment Left" : functionsClass.CleanUp(enteredComment.Text)));

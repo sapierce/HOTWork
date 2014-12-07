@@ -18,7 +18,7 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center;">
-                    <a href="<%= HOTBAL.TansConstants.SHOPPING_INTERNAL_URL %>?ID=<%=Request.QueryString["ID"]%>">Add A Transaction</a>
+                    <a href="<%= HOTBAL.POSConstants.CART_URL %>?ID=<%=Request.QueryString["ID"]%>">Add A Transaction</a>
                 </td>
             </tr>
         </tbody>

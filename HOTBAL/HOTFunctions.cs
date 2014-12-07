@@ -13,11 +13,9 @@ namespace HOTBAL
         public void SendErrorMail(string ErrorClass, Exception ErrorReceived, string ErrorSQL)
         {
             MailMessage objMessage = new MailMessage();
-            SmtpClient smtp = new SmtpClient("mail.hottropicaltans.com");
-
             objMessage.Subject = "Problem in:" + ErrorClass;
-            objMessage.From = new MailAddress("hotproblems@hottropicaltans.com");
-            objMessage.To.Add("HOTTans@hottropicaltans.com");
+            objMessage.From = new MailAddress("lowlysacker@gmail.com");
+            objMessage.To.Add("lowlysacker@gmail.com");
 
             objMessage.Body = "<b>SQL:</b>" + ErrorSQL + "<br /><b>Location:</b>" + ErrorClass + "<br />";
 
@@ -33,21 +31,31 @@ namespace HOTBAL
                 }
             }
             objMessage.IsBodyHtml = true;
-            smtp.Credentials = new NetworkCredential("hotproblems@hottropicaltans.com", "H0tTans.");
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+            smtp.EnableSsl = true;
+            NetworkCredential NetworkCred = new NetworkCredential("lowlysacker@gmail.com", "onhnpqjlbqmakcno"); //*wS!UE8GXZFThwC
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Port = 587;
             smtp.Send(objMessage);
         }
 
         public void SendMail(string mailTo, string mailFrom, string mailSubject, string mailBody)
         {
             MailMessage objMessage = new MailMessage();
-            SmtpClient smtp = new SmtpClient("mail.hottropicaltans.com");
-
             objMessage.Subject = mailSubject;
             objMessage.From = new MailAddress(mailFrom);
             objMessage.To.Add(mailTo);
             objMessage.Body = mailBody;
             objMessage.IsBodyHtml = true;
-            smtp.Credentials = new NetworkCredential("hotproblems@hottropicaltans.com", "H0tTans.");
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+            smtp.EnableSsl = true;
+            NetworkCredential NetworkCred = new NetworkCredential("lowlysacker@gmail.com", "onhnpqjlbqmakcno"); //*wS!UE8GXZFThwC
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Port = 587;
             smtp.Send(objMessage);
         }
 
@@ -68,14 +76,13 @@ namespace HOTBAL
             inputString = inputString.Replace("@", "");
             inputString = inputString.Replace("1=1", "");
             inputString = inputString.Replace("$", "");
-            inputString = inputString.Replace("&", "");
+            inputString = inputString.Replace("&", "and");
 
             return inputString;
         }
 
-        public string LightCleanUp(string inputString)
+        public string InternalCleanUp(string inputString)
         {
-            inputString = inputString.Replace("\\", "");
             inputString = inputString.Replace("/", "");
             inputString = inputString.Replace("*", "");
             inputString = inputString.Replace("'", "''");
@@ -87,7 +94,7 @@ namespace HOTBAL
             inputString = inputString.Replace("+", "");
             inputString = inputString.Replace("%", "");
             inputString = inputString.Replace("1=1", "");
-            inputString = inputString.Replace("&", "");
+            inputString = inputString.Replace("&", "and");
 
             return inputString;
         }

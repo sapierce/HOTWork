@@ -23,7 +23,7 @@ namespace HOTTropicalTans.admin
             if (Page.IsPostBack)
             {
                 string[] dateRangeSplit = dateRanges.SelectedValue.Split(Convert.ToChar("-"));
-                buildEmployeeHours(Convert.ToDateTime(dateRangeSplit[0]), Convert.ToDateTime(dateRangeSplit[0]));
+                buildEmployeeHours(Convert.ToDateTime(dateRangeSplit[0]), Convert.ToDateTime(dateRangeSplit[1]));
             }
             else
             {

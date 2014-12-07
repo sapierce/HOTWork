@@ -94,22 +94,27 @@ namespace HOTSelfDefense
 
             if (studentArts != null)
             {
-                if (String.IsNullOrEmpty(studentArts[0].Error))
+                if (studentArts.Count > 0)
                 {
-                    foreach (HOTBAL.StudentArt art in studentArts)
+                    if (String.IsNullOrEmpty(studentArts[0].Error))
                     {
-                        studentArtList.Text += "<tr>" + 
-                            "<td>" + art.ArtTitle + "</td>" + 
-                            "<td>" + art.BeltTitle + "</td>" + 
-                            "<td>" + art.TipTitle + "</td>" + 
-                            "<td>" + art.ClassCount.ToString() + "</td>" + 
-                            "<td valign='top'><a href='" + HOTBAL.SDAConstants.STUDENT_EDIT_ART_INTERNAL_URL + "?ID=" + 
-                            Request.QueryString["ID"].ToString().ToString() + "&XID=" + art.ID + "'>Update</a></td>" + 
-                            "</tr>";
+                        foreach (HOTBAL.StudentArt art in studentArts)
+                        {
+                            studentArtList.Text += "<tr>" +
+                                "<td>" + art.ArtTitle + "</td>" +
+                                "<td>" + art.BeltTitle + "</td>" +
+                                "<td>" + art.TipTitle + "</td>" +
+                                "<td>" + art.ClassCount.ToString() + "</td>" +
+                                "<td valign='top'><a href='" + HOTBAL.SDAConstants.STUDENT_EDIT_ART_INTERNAL_URL + "?ID=" +
+                                Request.QueryString["ID"].ToString().ToString() + "&XID=" + art.ID + "'>Update</a></td>" +
+                                "</tr>";
+                        }
                     }
+                    else
+                        errorLabel.Text = studentArts[0].Error;
                 }
                 else
-                    errorLabel.Text = studentArts[0].Error;
+                    studentArtList.Text = "<tr><td colspan='5'>No Arts Found.</td></tr>";
             }
             else
                 studentArtList.Text = "<tr><td colspan='5'>No Arts Found.</td></tr>";

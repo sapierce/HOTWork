@@ -20,9 +20,9 @@ namespace HOTPOS
             {
                 if (!String.IsNullOrEmpty(Request.QueryString["Confirm"]))
                 {
-                    fromName.Text = functionsClass.LightCleanUp(Request.QueryString["F"].ToString());
+                    fromName.Text = functionsClass.InternalCleanUp(Request.QueryString["F"].ToString());
                     giftAmount.Text = functionsClass.CleanUp(Request.QueryString["A"].ToString());
-                    giftDescription.Text = functionsClass.LightCleanUp(Request.QueryString["D"].ToString());
+                    giftDescription.Text = functionsClass.InternalCleanUp(Request.QueryString["D"].ToString());
                     employeeNumber.Text = functionsClass.CleanUp(Request.QueryString["E"].ToString());
                     paymentMethod.Items.FindByValue(Request.QueryString["P"].ToString()).Selected = true;
                     AddGiftCard(Convert.ToInt32(Request.QueryString["ID"]));
@@ -65,19 +65,19 @@ namespace HOTPOS
                     {
                         customerList.Text += "<tr><td><a href='" + HOTBAL.POSConstants.GIFT_CARDS_URL + "?Confirm=Y&ID="
                             + c.ID
-                            + "&F=" + functionsClass.LightCleanUp(fromName.Text)
+                            + "&F=" + functionsClass.InternalCleanUp(fromName.Text)
                             + "&A=" + functionsClass.CleanUp(giftAmount.Text)
-                            + "&D=" + functionsClass.LightCleanUp(giftDescription.Text)
+                            + "&D=" + functionsClass.InternalCleanUp(giftDescription.Text)
                             + "&E=" + functionsClass.CleanUp(employeeNumber.Text)
-                            + "&P=" + functionsClass.LightCleanUp(paymentMethod.SelectedValue)
+                            + "&P=" + functionsClass.InternalCleanUp(paymentMethod.SelectedValue)
                             + "'>" + c.LastName + ", " + c.FirstName + "</a></td></tr>";
                     }
                     customerList.Text = "</tbody></table>";
                 }
                 else
                 {
-                    errorLabel.Text += "No users named " + functionsClass.LightCleanUp(toFirstName.Text.Trim()) + " " + 
-                        functionsClass.LightCleanUp(toLastName.Text.Trim()) + ".  Try again or select that this is a new customer.";
+                    errorLabel.Text += "No users named " + functionsClass.InternalCleanUp(toFirstName.Text.Trim()) + " " + 
+                        functionsClass.InternalCleanUp(toLastName.Text.Trim()) + ".  Try again or select that this is a new customer.";
                 }
             }
         }
@@ -88,8 +88,8 @@ namespace HOTPOS
             
             try
             {
-                bool response = sqlClass.AddGiftCard(userID, functionsClass.LightCleanUp(fromName.Text), Convert.ToInt32(employeeNumber.Text),
-                    Convert.ToDouble(giftAmount.Text), DateTime.Now, functionsClass.LightCleanUp(giftDescription.Text));
+                bool response = sqlClass.AddGiftCard(userID, functionsClass.InternalCleanUp(fromName.Text), Convert.ToInt32(employeeNumber.Text),
+                    Convert.ToDouble(giftAmount.Text), DateTime.Now, functionsClass.InternalCleanUp(giftDescription.Text));
 
                 try
                 {
@@ -117,7 +117,7 @@ namespace HOTPOS
 
                         if (transactionId > 0)
                         {
-                            Response.Redirect(HOTBAL.POSConstants.RECEIPT_URL + "?ID=" + transactionId.ToString());
+                            Response.Redirect(HOTBAL.POSConstants.RECEIPT_URL + "?ID=" + transactionId.ToString(), false);
                         }
                         else
                         {

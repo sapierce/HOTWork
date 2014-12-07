@@ -58,16 +58,18 @@
     </div>
     <div id="memberLinks">
         <p align="center">
-            <%--<a href='MemberUpdate.aspx' class="center">Change Your Information</a><br>--%>
-            <a href='AddAppointment.aspx' class="center">Add an Appointment</a>
+            <%--<a href='MemberUpdate.aspx' class="center">Change Your Information</a><br>
+            <a href='AddAppointment.aspx' class="center">Add an Appointment</a>--%>
         </p>
     </div>
     <div id="memberTanning">
         <table border="0" width='300' class="table">
             <thead>
-                <th colspan="5" class="tableHeader">
-                    Upcoming Tans
-                </th>
+                <tr>
+                    <th colspan="5" class="tableHeader">
+                        Upcoming Tans
+                    </th>
+                </tr>
             </thead>
             <tr>
                 <td class="tableCellHeader">

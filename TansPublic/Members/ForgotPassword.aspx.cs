@@ -26,7 +26,7 @@ namespace PublicWebsite.MembersArea
                 forgotPasswordPanel.Visible = false;
                 responsePanel.Visible = true;
                 //Get the user from the e-mail
-                string response = sqlClass.ResetUserPassword(functionsClass.LightCleanUp(emailAddress.Text));
+                string response = sqlClass.ResetUserPassword(functionsClass.InternalCleanUp(emailAddress.Text));
 
                 if (response == HOTBAL.TansMessages.SUCCESS_MESSAGE)
                 {

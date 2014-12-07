@@ -32,7 +32,7 @@ namespace HOTBAL
         public string GetSchedule(DateTime ScheduleDate)
         {
             string scheduleResponse = String.Empty;
-            string scheduleDay = ScheduleDate.DayOfWeek.ToString();
+            string scheduleDay = ScheduleDate.DayOfWeek.ToString().Substring(0, 3);
 
             try
             {

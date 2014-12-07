@@ -27,9 +27,9 @@ namespace HOTTropicalTans
                     // Schedule appointment
                     string response = String.Empty;
                     response = sqlClass.ScheduleAppointment(Convert.ToInt32(Request.QueryString["ID"].ToString()),
-                        functionsClass.LightCleanUp(Request.QueryString["Bed"].ToString()),
+                        functionsClass.InternalCleanUp(Request.QueryString["Bed"].ToString()),
                         functionsClass.FormatDash(Convert.ToDateTime(Request.QueryString["Date"].ToString())),
-                        functionsClass.LightCleanUp(Request.QueryString["Time"].ToString()), "W", true, false);
+                        functionsClass.InternalCleanUp(Request.QueryString["Time"].ToString()), "W", true, false);
 
                     if (response != HOTBAL.TansMessages.SUCCESS_MESSAGE)
                     {
@@ -163,9 +163,9 @@ namespace HOTTropicalTans
                         // Only found one customer
                         // Schedule appointment
                         response = sqlClass.ScheduleAppointment(Convert.ToInt32(findCustomer[0].ID),
-                            functionsClass.LightCleanUp(appointmentBed.SelectedValue),
+                            functionsClass.InternalCleanUp(appointmentBed.SelectedValue),
                             functionsClass.FormatDash(Convert.ToDateTime(appointmentDate.Text)),
-                            functionsClass.LightCleanUp(appointmentTime.Text), "W", true, false);
+                            functionsClass.InternalCleanUp(appointmentTime.Text), "W", true, false);
 
                         if (response != HOTBAL.TansMessages.SUCCESS_MESSAGE)
                         {
@@ -182,9 +182,9 @@ namespace HOTTropicalTans
                 {
                     //Schedule appointment
                     response = sqlClass.ScheduleAppointment(Convert.ToInt32(customerID.Value),
-                        functionsClass.LightCleanUp(appointmentBed.SelectedValue),
+                        functionsClass.InternalCleanUp(appointmentBed.SelectedValue),
                         functionsClass.FormatDash(Convert.ToDateTime(appointmentDate.Text)),
-                        functionsClass.LightCleanUp(appointmentTime.Text), "W", true, false);
+                        functionsClass.InternalCleanUp(appointmentTime.Text), "W", true, false);
 
                     if (response != HOTBAL.TansMessages.SUCCESS_MESSAGE)
                     {

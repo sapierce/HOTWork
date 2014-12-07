@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="Default.aspx.cs" Inherits="HOTSelfDefense._Default" MasterPageFile="~/HOTSelfDefense.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="Default.aspx.cs" Inherits="HOTSelfDefense._Default" MasterPageFile="HOTSelfDefense.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="headerPlaceHolder" runat="server">
     <script type="text/javascript">
@@ -34,7 +34,7 @@
     </asp:Panel>
 
     <!-- Date Validation -->
-    <asp:RequiredFieldValidator ID="dateRequired" Display="None" runat="server" ControlToValidate="changeDate" ErrorMessage="Please select a schedule date." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="changeSchedule" />
+    <asp:RequiredFieldValidator ID="dateRequired" Display="None" runat="server" ControlToValidate="scheduleDate" ErrorMessage="Please select a schedule date." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="changeSchedule" />
     
     <div style="text-align: center; margin: auto;">
         <!-- Select what date we are looking at on the schedule-->

@@ -27,7 +27,7 @@ namespace PublicWebsite.MembersArea
                 else
                 {
                     appointment.Style.Remove("display");
-                    confirmation.Style.Add("display", "none");
+                    //confirmation.Style.Add("display", "none");
                     if (!Page.IsPostBack)
                     {
                         try
@@ -37,18 +37,19 @@ namespace PublicWebsite.MembersArea
 
                             if (String.IsNullOrEmpty(user.Error))
                             {
-                                functionsClass.buildAppointmentDatesList(appointmentDate);
-                                functionsClass.buildBedTypeList(bedType);
+                                //functionsClass.buildAppointmentDatesList(appointmentDate);
+                                //functionsClass.buildBedTypeList(bedType);
 
                                 customerName.Text = user.FirstName + " " + user.LastName;
+                                unavailableMessage.Text = "We're sorry, online scheduling is not available at this time. Please call the salon to schedule your appointment.";
 
-                                if (String.IsNullOrEmpty(user.Error))
-                                {
-                                    if (user.VerifiedEmail)
-                                    {
-                                        emailReminder.Visible = true;
-                                    }
-                                }
+                                //if (String.IsNullOrEmpty(user.Error))
+                                //{
+                                //    if (user.VerifiedEmail)
+                                //    {
+                                //        emailReminder.Visible = true;
+                                //    }
+                                //}
                             }
                             else
                             {
@@ -73,148 +74,148 @@ namespace PublicWebsite.MembersArea
             }
         }
 
-        /// <summary>
-        /// Bind bed based on type, package check
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void bedType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                List<HOTBAL.Bed> bedListing = new List<HOTBAL.Bed>();
-                bedListing = sqlClass.GetBedsByType(functionsClass.CleanUp(bedType.SelectedValue));
-                Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                errorLabel.Text = String.Empty;
-                bedPreference.Items.Clear();
-                bedPreference.Items.Add(new ListItem("-Choose-", "0"));
+        ///// <summary>
+        ///// Bind bed based on type, package check
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //protected void bedType_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        List<HOTBAL.Bed> bedListing = new List<HOTBAL.Bed>();
+        //        bedListing = sqlClass.GetBedsByType(functionsClass.CleanUp(bedType.SelectedValue));
+        //        Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+        //        errorLabel.Text = String.Empty;
+        //        bedPreference.Items.Clear();
+        //        bedPreference.Items.Add(new ListItem("-Choose-", "0"));
 
-                if (bedListing != null)
-                {
-                    foreach (HOTBAL.Bed x in bedListing)
-                    {
-                        bedPreference.Items.Add(new ListItem(x.BedLong, x.BedShort));
-                    }
-                }
-                else
-                {
-                    //No active beds of that type
-                    bedPreference.Items.Add(new ListItem("No beds available", "0"));
-                }
+        //        if (bedListing != null)
+        //        {
+        //            foreach (HOTBAL.Bed x in bedListing)
+        //            {
+        //                bedPreference.Items.Add(new ListItem(x.BedLong, x.BedShort));
+        //            }
+        //        }
+        //        else
+        //        {
+        //            //No active beds of that type
+        //            bedPreference.Items.Add(new ListItem("No beds available", "0"));
+        //        }
 
-                //Check the customer's package, alert if they select a bed not on their package
-                string packageCheck = sqlClass.CheckCustomerPackage(Convert.ToInt32(HttpContext.Current.Session["userID"].ToString()), bedType.SelectedValue);
+        //        //Check the customer's package, alert if they select a bed not on their package
+        //        string packageCheck = sqlClass.CheckCustomerPackage(Convert.ToInt32(HttpContext.Current.Session["userID"].ToString()), bedType.SelectedValue);
 
-                if (packageCheck != HOTBAL.TansMessages.SUCCESS_MESSAGE)
-                {
-                    errorLabel.Text = packageCheck;
-                }
-            }
-            catch (Exception ex)
-            {
-                sqlClass.LogErrorMessage(ex, "", "Site: AddAppointment: bedType_SIC");
-                Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                errorLabel.Text = HOTBAL.TansMessages.ERROR_GENERIC;
-            }
-        }
+        //        if (packageCheck != HOTBAL.TansMessages.SUCCESS_MESSAGE)
+        //        {
+        //            errorLabel.Text = packageCheck;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        sqlClass.LogErrorMessage(ex, "", "Site: AddAppointment: bedType_SIC");
+        //        Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+        //        errorLabel.Text = HOTBAL.TansMessages.ERROR_GENERIC;
+        //    }
+        //}
 
-        /// <summary>
-        /// Bind Beds drop down based on Bed Type/Date
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void bedPreference_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                ArrayList timeArray = new ArrayList();
-                string tanDay = Convert.ToDateTime(appointmentDate.SelectedValue).DayOfWeek.ToString();
+        ///// <summary>
+        ///// Bind Beds drop down based on Bed Type/Date
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //protected void bedPreference_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        ArrayList timeArray = new ArrayList();
+        //        string tanDay = Convert.ToDateTime(appointmentDate.SelectedValue).DayOfWeek.ToString();
 
-                availableTimes.Items.Clear();
-                availableTimes.Items.Insert(0, new ListItem("-Choose-", "0"));
+        //        availableTimes.Items.Clear();
+        //        availableTimes.Items.Insert(0, new ListItem("-Choose-", "0"));
 
-                //Available times
-                timeArray = sqlClass.GetAllTanTimes(tanDay, functionsClass.LightCleanUp(bedPreference.SelectedValue), "W", false);
+        //        //Available times
+        //        timeArray = sqlClass.GetAllTanTimes(tanDay, functionsClass.InternalCleanUp(bedPreference.SelectedValue), "W", false);
 
-                //See what times are already taken
-                timeArray = sqlClass.GetAvailableTanTimes(functionsClass.CleanUp(bedPreference.SelectedValue), appointmentDate.SelectedValue, timeArray);
+        //        //See what times are already taken
+        //        timeArray = sqlClass.GetAvailableTanTimes(functionsClass.CleanUp(bedPreference.SelectedValue), appointmentDate.SelectedValue, timeArray);
 
-                foreach (string i in timeArray)
-                {
-                    if (Convert.ToDateTime(appointmentDate.SelectedValue) == DateTime.Now)
-                    {
-                        if (Convert.ToDateTime(i) > DateTime.Now)
-                            availableTimes.Items.Add(new ListItem(i, i));
-                    }
-                    else
-                    {
-                        availableTimes.Items.Add(new ListItem(i, i));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                sqlClass.LogErrorMessage(ex, "", "Site: AddAppointment: bedPref_SIC");
-                Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                errorLabel.Text = HOTBAL.TansMessages.ERROR_GENERIC;
-            }
-        }
+        //        foreach (string i in timeArray)
+        //        {
+        //            if (Convert.ToDateTime(appointmentDate.SelectedValue) == DateTime.Now)
+        //            {
+        //                if (Convert.ToDateTime(i) > DateTime.Now)
+        //                    availableTimes.Items.Add(new ListItem(i, i));
+        //            }
+        //            else
+        //            {
+        //                availableTimes.Items.Add(new ListItem(i, i));
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        sqlClass.LogErrorMessage(ex, "", "Site: AddAppointment: bedPref_SIC");
+        //        Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+        //        errorLabel.Text = HOTBAL.TansMessages.ERROR_GENERIC;
+        //    }
+        //}
 
-        /// <summary>
-        /// Bind Beds drop down based on Bed Type/Date
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void scheduleAppointment_onClick(object sender, EventArgs e)
-        {
-            try
-            {
-                if (availableTimes.SelectedValue == "0")
-                {
-                    Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = "Please select a tan time.";
-                }
-                else
-                {
-                    //Schedule appointment
-                    string response = sqlClass.ScheduleAppointment(Convert.ToInt64(HttpContext.Current.Session["userID"].ToString()),
-                        bedPreference.SelectedValue,
-                        functionsClass.FormatDash(Convert.ToDateTime(appointmentDate.SelectedValue)),
-                        availableTimes.SelectedValue, "W", false, emailReminder.Checked);
+        ///// <summary>
+        ///// Bind Beds drop down based on Bed Type/Date
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //protected void scheduleAppointment_onClick(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (availableTimes.SelectedValue == "0")
+        //        {
+        //            Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+        //            errorLabel.Text = "Please select a tan time.";
+        //        }
+        //        else
+        //        {
+        //            //Schedule appointment
+        //            string response = sqlClass.ScheduleAppointment(Convert.ToInt64(HttpContext.Current.Session["userID"].ToString()),
+        //                bedPreference.SelectedValue,
+        //                functionsClass.FormatDash(Convert.ToDateTime(appointmentDate.SelectedValue)),
+        //                availableTimes.SelectedValue, "W", false, emailReminder.Checked);
 
-                    if (response != HOTBAL.TansMessages.SUCCESS_MESSAGE)
-                    {
-                        Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                        errorLabel.Text = response;
-                    }
-                    else
-                    {
-                        appointment.Style.Add("display", "none");
-                        confirmation.Style.Remove("display");
+        //            if (response != HOTBAL.TansMessages.SUCCESS_MESSAGE)
+        //            {
+        //                Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+        //                errorLabel.Text = response;
+        //            }
+        //            else
+        //            {
+        //                appointment.Style.Add("display", "none");
+        //                confirmation.Style.Remove("display");
 
-                        //Return to Member Info
-                        //Response.Redirect("MemberInfo.aspx", false);
-                        //Display confirmation
-                        DateTime savedDate = Convert.ToDateTime(appointmentDate.SelectedValue + " " + availableTimes.SelectedValue).ToUniversalTime().AddMinutes(60);
-                        DateTime leaveDate = Convert.ToDateTime(appointmentDate.SelectedValue + " " + availableTimes.SelectedValue).ToUniversalTime().AddMinutes(90);
-                        string builtDate = String.Empty;
-                        confirmationNote.Text = "<b>Your Appointment has been Scheduled: <br />"
-                            + "<b>Date:</b> " + functionsClass.FormatSlash(Convert.ToDateTime(appointmentDate.SelectedValue)) + "<br />"
-                            + "<b>Time:</b> " + functionsClass.LightCleanUp(availableTimes.SelectedValue) + "<br />"
-                            + "<b>Bed:</b> " + functionsClass.LightCleanUp(bedPreference.SelectedValue) + "<br />";
+        //                //Return to Member Info
+        //                //Response.Redirect("MemberInfo.aspx", false);
+        //                //Display confirmation
+        //                DateTime savedDate = Convert.ToDateTime(appointmentDate.SelectedValue + " " + availableTimes.SelectedValue).ToUniversalTime().AddMinutes(60);
+        //                DateTime leaveDate = Convert.ToDateTime(appointmentDate.SelectedValue + " " + availableTimes.SelectedValue).ToUniversalTime().AddMinutes(90);
+        //                string builtDate = String.Empty;
+        //                confirmationNote.Text = "<b>Your Appointment has been Scheduled: <br />"
+        //                    + "<b>Date:</b> " + functionsClass.FormatSlash(Convert.ToDateTime(appointmentDate.SelectedValue)) + "<br />"
+        //                    + "<b>Time:</b> " + functionsClass.InternalCleanUp(availableTimes.SelectedValue) + "<br />"
+        //                    + "<b>Bed:</b> " + functionsClass.InternalCleanUp(bedPreference.SelectedValue) + "<br />";
 
-                        builtDate = savedDate.ToString("yyyyMMddTHHmm00") + "Z/" + leaveDate.ToString("yyyyMMddTHHmm00") + "Z";
+        //                builtDate = savedDate.ToString("yyyyMMddTHHmm00") + "Z/" + leaveDate.ToString("yyyyMMddTHHmm00") + "Z";
 
-                        addToCalendars.Text = "<a href='http://www.google.com/calendar/event?action=TEMPLATE&text=Tanning%20Appointment&dates=" + builtDate + "&location=HOT%20Tropical%20Tans,%20Waco,%20TX&trp=true&sprop=website:www.hottropicaltans.com&sprop=name:HOT%20Tropical%20Tans'><img src='http://www.google.com/calendar/images/ext/gc_button2.gif' alt='Remind Me' height='36' width='114' /></a>";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                sqlClass.LogErrorMessage(ex, "", "Site: AddAppointment: schedAppt_onClick");
-                Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                errorLabel.Text = HOTBAL.TansMessages.ERROR_GENERIC;
-            }
-        }
+        //                addToCalendars.Text = "<a href='http://www.google.com/calendar/event?action=TEMPLATE&text=Tanning%20Appointment&dates=" + builtDate + "&location=HOT%20Tropical%20Tans,%20Waco,%20TX&trp=true&sprop=website:www.hottropicaltans.com&sprop=name:HOT%20Tropical%20Tans'><img src='http://www.google.com/calendar/images/ext/gc_button2.gif' alt='Remind Me' height='36' width='114' /></a>";
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        sqlClass.LogErrorMessage(ex, "", "Site: AddAppointment: schedAppt_onClick");
+        //        Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+        //        errorLabel.Text = HOTBAL.TansMessages.ERROR_GENERIC;
+        //    }
+        //}
     }
 }

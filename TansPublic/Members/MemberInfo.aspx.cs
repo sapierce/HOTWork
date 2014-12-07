@@ -116,12 +116,12 @@ namespace PublicWebsite.MembersArea
 
                         if (String.IsNullOrEmpty(upcomingTans.Text))
                         {
-                            upcomingTans.Text = "<tr><td colspan=5>No scheduled tans found. <a href='" + HOTBAL.TansConstants.ADD_APPT_PUBLIC_URL + "' class='center'>Schedule one today!</a></td></tr>";
+                            upcomingTans.Text = "<tr><td colspan=5>No scheduled tans found.</td></tr>";
                         }
                     }
                     else
                     {
-                        upcomingTans.Text = "<tr><td colspan=5>No scheduled tans found. <a href='" + HOTBAL.TansConstants.ADD_APPT_PUBLIC_URL + "' class='center'>Schedule one today!</a></td></tr>";
+                        upcomingTans.Text = "<tr><td colspan=5>No scheduled tans found.</td></tr>";
                     }
                 }
                 else

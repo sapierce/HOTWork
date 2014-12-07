@@ -44,7 +44,7 @@ namespace HOTTropicalTans.admin
                 try
                 {
                     bool response = sqlClass.UpdateBed(Convert.ToInt32(functionsClass.CleanUp(Request.QueryString["ID"].ToString())), 
-                        functionsClass.LightCleanUp(bedDescription.Text), 
+                        functionsClass.InternalCleanUp(bedDescription.Text), 
                         functionsClass.CleanUp(bedNumber.Text), "W", 
                         functionsClass.CleanUp(bedType.SelectedValue),
                         bedDisplayInternal.Checked,

@@ -18,7 +18,7 @@ namespace SDAFederation
 
             if (Page.IsPostBack)
             {
-                FunctionsClass.SendMail("hotproblems@hottropicaltans.com", "HOTSDA@hottropicaltans.com", "User Reported Error", "<b>From:</b>: " + txtName.Text + "<br><b>Comment:</b> " + txtComment.Text);
+                FunctionsClass.SendMail("lowlysacker@gmail.com", "HOTSDA@hottropicaltans.com", "User Reported Error", "<b>From:</b>: " + txtName.Text + "<br><b>Comment:</b> " + txtComment.Text);
                 lblResponse.Text = "Thank you!  It will be fixed/researched as soon as possible.";
             }
         }

@@ -40,15 +40,15 @@ namespace HOTTropicalTans
             if (String.IsNullOrEmpty(Request.QueryString["SID"]))
             {
                 sqlClass.AddEmployeeHours(Convert.ToInt32(Request.QueryString["ID"]),
-                    functionsClass.LightCleanUp(shiftDate.Text),
-                    Convert.ToDateTime(functionsClass.LightCleanUp(shiftStartTime.Text)),
-                    Convert.ToDateTime(functionsClass.LightCleanUp(shiftEndTime.Text)));
+                    functionsClass.InternalCleanUp(shiftDate.Text),
+                    Convert.ToDateTime(functionsClass.InternalCleanUp(shiftStartTime.Text)),
+                    Convert.ToDateTime(functionsClass.InternalCleanUp(shiftEndTime.Text)));
             }
             else
             {
                 sqlClass.EditEmployeeHours(Convert.ToInt32(Request.QueryString["SID"]),
-                    Convert.ToDateTime(functionsClass.LightCleanUp(shiftStartTime.Text)),
-                    Convert.ToDateTime(functionsClass.LightCleanUp(shiftEndTime.Text)));
+                    Convert.ToDateTime(functionsClass.InternalCleanUp(shiftStartTime.Text)),
+                    Convert.ToDateTime(functionsClass.InternalCleanUp(shiftEndTime.Text)));
             }
         }
     }

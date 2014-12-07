@@ -373,7 +373,7 @@ namespace HOTBAL
         {
             try
             {
-                return tansDataAccess.ExecuteINSERT_BED(functionsClass.LightCleanUp(bedDescription), functionsClass.CleanUp(shortDescription).Substring(0, 1),
+                return tansDataAccess.ExecuteINSERT_BED(functionsClass.InternalCleanUp(bedDescription), functionsClass.CleanUp(shortDescription).Substring(0, 1),
                     functionsClass.CleanUp(bedLocation).Substring(0, 1), functionsClass.CleanUp(bedType).Substring(0, 2), (bedDisplayInternal == true ? 1 : 0), (bedDisplayExternal == true ? 1 : 0));
             }
             catch (Exception ex)
@@ -398,7 +398,7 @@ namespace HOTBAL
         {
             try
             {
-                return tansDataAccess.ExecuteUPDATE_BED_BY_BED_ID(bedID, functionsClass.LightCleanUp(bedDescription), functionsClass.CleanUp(shortDescription).Substring(0, 2),
+                return tansDataAccess.ExecuteUPDATE_BED_BY_BED_ID(bedID, functionsClass.InternalCleanUp(bedDescription), functionsClass.CleanUp(shortDescription).Substring(0, 2),
                     functionsClass.CleanUp(bedLocation).Substring(0, 1), functionsClass.CleanUp(bedType).Substring(0, 2), (bedDisplayInternal == true ? 1 : 0), (bedDisplayExternal == true ? 1 : 0));
             }
             catch (Exception ex)
@@ -1021,7 +1021,7 @@ namespace HOTBAL
 
             try
             {
-                DataTable loginTable = tansDataAccess.ExecuteCUSTOMER_PUBLIC_LOGIN(functionsClass.LightCleanUp(userName), functionsClass.HashText(functionsClass.LightCleanUp(password)));
+                DataTable loginTable = tansDataAccess.ExecuteCUSTOMER_PUBLIC_LOGIN(functionsClass.InternalCleanUp(userName), functionsClass.HashText(functionsClass.InternalCleanUp(password)));
                 
                 // Were online account records found?
                 if (loginTable.Rows.Count > 0)
@@ -1234,8 +1234,8 @@ namespace HOTBAL
 
             try
             {
-                response = tansDataAccess.ExecuteINSERT_CUSTOMER(functionsClass.LightCleanUp(firstName), functionsClass.LightCleanUp(lastName),
-                    functionsClass.FormatDash(joinDate), fitzNumber, functionsClass.LightCleanUp(plan), functionsClass.FormatDash(renewalDate), 
+                response = tansDataAccess.ExecuteINSERT_CUSTOMER(functionsClass.InternalCleanUp(firstName), functionsClass.InternalCleanUp(lastName),
+                    functionsClass.FormatDash(joinDate), fitzNumber, functionsClass.InternalCleanUp(plan), functionsClass.FormatDash(renewalDate), 
                     functionsClass.CleanUp(remark), (onlineUser == true ? 1 : 0), (newOnline == true ? 1 :0), (specialFlag == true ? 1 :0),
                     specialId, functionsClass.FormatDash(specialDate));
             }
@@ -1282,8 +1282,8 @@ namespace HOTBAL
         {
             try
             {
-                return tansDataAccess.ExecuteINSERT_CUSTOMER_NEW(functionsClass.CleanUp(firstName), functionsClass.CleanUp(lastName), functionsClass.LightCleanUp(address), 
-                    functionsClass.CleanUp(city), functionsClass.CleanUp(state), functionsClass.CleanUp(zipCode), functionsClass.LightCleanUp(phoneNumber), 
+                return tansDataAccess.ExecuteINSERT_CUSTOMER_NEW(functionsClass.CleanUp(firstName), functionsClass.CleanUp(lastName), functionsClass.InternalCleanUp(address), 
+                    functionsClass.CleanUp(city), functionsClass.CleanUp(state), functionsClass.CleanUp(zipCode), functionsClass.InternalCleanUp(phoneNumber), 
                     functionsClass.FormatDash(dateOfBirth), fitzNumber, (familyHistory == true ? 1 : 0), (selfHistory == true ? 1 : 0), 0, "", tanID);
             }
             catch (Exception ex)
@@ -3812,7 +3812,7 @@ namespace HOTBAL
             return transactionsResponse;
         }
 
-        public Int64 InsertTransaction(List<CartItem> cart, int Seller, string CartTotal, Int64 Purchaser, string Location, string PaymentType, string Date, string Tax, string PaidIndator, string OtherInfo)
+        public long InsertTransaction(List<CartItem> cart, int Seller, string CartTotal, long Purchaser, string Location, string PaymentType, string Date, string Tax, string PaidIndator, string OtherInfo)
         {
             Int64 transactionID = 0;
             try
@@ -3849,8 +3849,8 @@ namespace HOTBAL
 
                                 if (!isSuccessful)
                                     LogErrorMessage(new Exception("InventoryNotUpdated"), item.ItemID.ToString(), "Methods: InsertTransaction: UpdateInventory");
-                                else
-                                    LogErrorMessage(new Exception("InventoryUpdated"), item.ItemID.ToString(), "Methods: InsertTransaction: UpdateInventory");
+                                //else
+                                //    LogErrorMessage(new Exception("InventoryUpdated"), item.ItemID.ToString(), "Methods: InsertTransaction: UpdateInventory");
                             }
                             else
                                 LogErrorMessage(new Exception("NoProduct"), item.ItemID.ToString(), "Methods: InsertTransaction: GetProduct");
@@ -4130,11 +4130,11 @@ namespace HOTBAL
             }
         }
 
-        public bool AddGiftCard(Int64 customerID, string from, int employeeID, double amount, DateTime boughtDate, string description)
+        public bool AddGiftCard(long customerID, string from, int employeeID, double amount, DateTime boughtDate, string description)
         {
             try
             {
-                return tansDataAccess.ExecuteINSERT_GIFT_CARD(customerID, from, employeeID, amount.ToString(), functionsClass.FormatDash(boughtDate), description);
+                return prodDataAccess.ExecuteINSERT_GIFT_CARD(customerID, from, employeeID, amount.ToString(), functionsClass.FormatDash(boughtDate), description);
             }
             catch (Exception ex)
             {

@@ -1,22 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="Search.aspx.cs" Inherits="HOTSelfDefense.Search" MasterPageFile="HOTSelfDefense.master" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="headerPlaceHolder" runat="server">
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // When the addClass button is pressed
-            $("#<%= this.addClass.ClientID %>").click(function () {
-                // Is the page valid?
-                if (!Page_IsValid) {
-                    // Display the error messages
-                    $("#<%= this.panError.ClientID %>").dialog({
-                        resizable: false,
-                        width: 420,
-                        modal: true
-                    });
-                }
-            });
-        });
-    </script>
 </asp:Content>
 <asp:Content ID="defaultMain" runat="server" ContentPlaceHolderID="placeholderMain">
     <!-- Display errors associated with validating Search information -->

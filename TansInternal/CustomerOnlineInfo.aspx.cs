@@ -68,11 +68,11 @@ namespace HOTTropicalTans
 
         protected void changeEmail_Click(object sender, EventArgs e)
         {
-            if (sqlClass.UpdateOnlineInfo(Convert.ToInt32(Request.QueryString["ID"]), functionsClass.LightCleanUp(newEmailAddress.Text), true))
+            if (sqlClass.UpdateOnlineInfo(Convert.ToInt32(Request.QueryString["ID"]), functionsClass.InternalCleanUp(newEmailAddress.Text), true))
             {
                 Label errorLabel = (Label)this.Master.FindControl("successMessage");
                 errorLabel.Text = HOTBAL.TansMessages.SUCCESS_MESSAGE;
-                emailAddress.Text = functionsClass.LightCleanUp(newEmailAddress.Text);
+                emailAddress.Text = functionsClass.InternalCleanUp(newEmailAddress.Text);
             }
         }
     }

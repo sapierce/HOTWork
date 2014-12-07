@@ -7,13 +7,13 @@
             <tr>
                 <td>
                     <div id="appt">
-                        <asp:ValidationSummary runat="server" ID="addSummary" HeaderText="The following validation errors were found..." DisplayMode="BulletList" ShowSummary="true" ValidationGroup="addAppointment" />
+                        <%--<asp:ValidationSummary runat="server" ID="addSummary" HeaderText="The following validation errors were found..." DisplayMode="BulletList" ShowSummary="true" ValidationGroup="addAppointment" />
                         <asp:RequiredFieldValidator ID="hasAppointmentDate" runat="server" ErrorMessage="Please select an appointment date." ControlToValidate="appointmentDate" ValidationGroup="addAppointment" Visible="false" />
                         <asp:RegularExpressionValidator ValidationExpression="^[A-Za-z -]$" ID="validName" runat="server" ErrorMessage="Customer name can only contain A-Z." ControlToValidate="bedType" ValidationGroup="addAppointment" Visible="false" />
                         <asp:RegularExpressionValidator ValidationExpression="^[A-Z]{1,2}$" ID="validBedType" runat="server" ErrorMessage="Bed type can only be alphanumeric characters." ControlToValidate="bedType" ValidationGroup="addAppointment" Visible="false" />
                         <asp:RegularExpressionValidator ValidationExpression="^[1-7M]{1}$" ID="validBed" runat="server" ErrorMessage="Bed preference can only be a single digit." ControlToValidate="bedPreference" ValidationGroup="addAppointment" Visible="false" />
                         <asp:RegularExpressionValidator ValidationExpression="(0*[1-9]|1[012])[- /.](0*[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" ID="validAppointmentDate" runat="server" ErrorMessage="Appointment date is invalid (MM/DD/YYYY)." ControlToValidate="appointmentDate" ValidationGroup="addAppointment" Visible="false" />
-                        <asp:RegularExpressionValidator ValidationExpression="^((([0]?[1-9]|1[0-2])(:|\.)[0-5][0-9]((:|\.)[0-5][0-9])?( )?(AM|PM))|(([0]?[0-9]|1[0-9]|2[0-3])(:|\.)[0-5][0-9]((:|\.)[0-5][0-9])?))$" ID="validTime" runat="server" ErrorMessage="Time must be in a valid time format (HH:MM AM/PM)." ControlToValidate="availableTimes" ValidationGroup="addAppointment" Visible="false" />
+                        <asp:RegularExpressionValidator ValidationExpression="^((([0]?[1-9]|1[0-2])(:|\.)[0-5][0-9]((:|\.)[0-5][0-9])?( )?(AM|PM))|(([0]?[0-9]|1[0-9]|2[0-3])(:|\.)[0-5][0-9]((:|\.)[0-5][0-9])?))$" ID="validTime" runat="server" ErrorMessage="Time must be in a valid time format (HH:MM AM/PM)." ControlToValidate="availableTimes" ValidationGroup="addAppointment" Visible="false" />--%>
 
                         <table style="text-align: center;">
                             <tr>
@@ -22,7 +22,12 @@
 											<asp:Label ID="customerName" runat="server" /></h4>
                                 </td>
                             </tr>
-                            <tr>
+                                <tr>
+                                    <td colspan='2'>
+                                        <asp:Label ID="unavailableMessage" runat="server" CssClass="errorLabel" />
+                                    </td>
+                                </tr>
+                            <%--<tr>
                                 <td style="text-align: right;">
                                     <b>Bed Type:</b>
                                 </td>
@@ -68,16 +73,16 @@
                                 <td colspan='2' style="text-align: right;">
                                     <asp:Button ID='scheduleAppointment' Text='Schedule Appointment' runat='server' OnClick="scheduleAppointment_onClick" ValidationGroup="addAppointment" />
                                 </td>
-                            </tr>
+                            </tr>--%>
                         </table>
                     </div>
                 </td>
             </tr>
         </table>
     </asp:Panel>
-    <asp:Panel ID="confirmation" runat="server">
+    <%--<asp:Panel ID="confirmation" runat="server">
         <asp:Label ID="confirmationNote" runat="server" />
         <br />
         <asp:Label ID="addToCalendars" runat="server" />
-    </asp:Panel>
+    </asp:Panel>--%>
 </asp:Content>

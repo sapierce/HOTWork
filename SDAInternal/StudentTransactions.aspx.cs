@@ -30,8 +30,8 @@ namespace HOTSelfDefense
             {
                 litTransactions.Text += "<tr><td valign='top' class='reg'>"
                     + (trans.Void ? "<b>**VOID**</b><br />" : "")
-                    + "<art href='/SDAPOS/TransactionDetails.aspx?ID=" + trans.ID + "&Date=" + Request.QueryString["Date"].ToString() + "'>" + trans.ID + "</art><br />"
-                    + "<art href='/SDAPOS/TransactionReceipt.aspx?ID=" + trans.ID + "&Date=" + Request.QueryString["Date"].ToString() + "'>Receipt</art>"
+                    + "<a href='/SDAPOS/TransactionDetails.aspx?ID=" + trans.ID + "'>" + trans.ID + "</a><br />"
+                    + "<a href='/SDAPOS/TransactionReceipt.aspx?ID=" + trans.ID + "'>Receipt</a>"
                     + "</td><td valign='top' class='reg'>" + FunctionsClass.FormatSlash(trans.Date) + "</td><td valign='top' class='reg'><table>";
 
                 //Get transaction items

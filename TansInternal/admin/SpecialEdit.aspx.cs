@@ -74,7 +74,7 @@ namespace HOTTropicalTans.admin
             {
                 // Add to Product
                 bool updateProduct = sqlClass.EditProduct(Convert.ToInt64(productID.Value), functionsClass.CleanUp(specialName.Text), functionsClass.CleanUp(specialDescription.Text), "PKG", "OT",
-                    functionsClass.CleanUp(specialBarCode.Text), functionsClass.LightCleanUp(specialPrice.Text), false, "0.00", false, false, displayOnline.Checked, displayInStore.Checked, 0);
+                    functionsClass.CleanUp(specialBarCode.Text), functionsClass.InternalCleanUp(specialPrice.Text), false, "0.00", false, false, displayOnline.Checked, displayInStore.Checked, 0);
 
                 if (updateProduct)
                 {

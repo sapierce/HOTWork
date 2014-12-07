@@ -27,7 +27,7 @@ namespace HOTTropicalTans.admin
             {
                 try
                 {
-                    bool response = sqlClass.AddNewBed(functionsClass.LightCleanUp(bedDescription.Text), 
+                    bool response = sqlClass.AddNewBed(functionsClass.InternalCleanUp(bedDescription.Text), 
                         functionsClass.CleanUp(bedNumber.Text), "W", 
                         functionsClass.CleanUp(bedType.SelectedValue), 
                         bedDisplayInternal.Checked,

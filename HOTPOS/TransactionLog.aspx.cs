@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace HOTPOS
 {
@@ -18,6 +19,8 @@ namespace HOTPOS
         private bool showBreakdown = false;
         private bool totalsOnly = false;
         private int employeeId = 0;
+        private string urlPrefixMA = ConfigurationManager.AppSettings["SDAUrl"].ToString().Trim();
+        private string urlPrefixTans = ConfigurationManager.AppSettings["TansUrl"].ToString().Trim();
 
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -60,7 +60,7 @@
     <div id="memberLinks">
         <p style="text-align:center;">
             <a href='MemberUpdate.aspx' class="center">Change Your Information</a><br>
-            <a href='AddAppointment.aspx' class="center">Add an Appointment</a>
+            <%--<a href='AddAppointment.aspx' class="center">Add an Appointment</a>--%>
         </p>
     </div>
     <div id="memberTanning">

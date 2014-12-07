@@ -39,8 +39,8 @@ namespace HOTTropicalTans.admin
                 try
                 {
                     bool response = sqlClass.EditEmployee(Convert.ToInt32(functionsClass.CleanUp(employeeNumber.Text)),
-                        functionsClass.LightCleanUp(firstName.Text),
-                        functionsClass.LightCleanUp(lastName.Text));
+                        functionsClass.InternalCleanUp(firstName.Text),
+                        functionsClass.InternalCleanUp(lastName.Text));
 
                     if (response)
                     {

@@ -107,7 +107,7 @@ namespace HOTTropicalTans
             appointmentTime.Items.Insert(0, new ListItem("-Choose-", "0"));
 
             //Available times
-            timeArray = sqlClass.GetAllTanTimes(tanDay, functionsClass.LightCleanUp(appointmentBed.SelectedValue), "W", true);
+            timeArray = sqlClass.GetAllTanTimes(tanDay, functionsClass.InternalCleanUp(appointmentBed.SelectedValue), "W", true);
 
             //See what times are already taken
             //timeArray = sqlClass.GetAvailableTanTimes(functionsClass.LightCleanUp(appointmentBed.SelectedValue), appointmentDate.Text, timeArray);

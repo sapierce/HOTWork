@@ -73,7 +73,7 @@ namespace PublicWebsite.MembersArea
         {
             try
             {
-                bool userNameCheck = sqlClass.UserNameCheck(functionsClass.LightCleanUp(userName.Text));
+                bool userNameCheck = sqlClass.UserNameCheck(functionsClass.InternalCleanUp(userName.Text));
 
                 if (!userNameCheck)
                 {

@@ -25,7 +25,7 @@ namespace HOTTropicalTans.admin
             {
                 // Add to Product
                 Int64 addProduct = sqlClass.AddProduct(functionsClass.CleanUp(specialName.Text), functionsClass.CleanUp(specialDescription.Text), "PKG", "OT", "", 
-                    functionsClass.LightCleanUp(specialPrice.Text), false, "0.00", false, false, availableOnline.Checked, availableInStore.Checked);
+                    functionsClass.InternalCleanUp(specialPrice.Text), false, "0.00", false, false, availableOnline.Checked, availableInStore.Checked);
 
                 if (addProduct > 0)
                 {

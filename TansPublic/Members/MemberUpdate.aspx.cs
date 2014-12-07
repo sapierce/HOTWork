@@ -89,7 +89,7 @@ namespace PublicWebsite.MembersArea
                         if (String.IsNullOrEmpty(errorMessage.Text))
                         {
                             //Updating something else
-                            bool update = sqlClass.UpdateOnlineInfo(Convert.ToInt32(HttpContext.Current.Session["userID"].ToString()), functionsClass.LightCleanUp(emailAddress.Text), receiveSpecials.Checked);
+                            bool update = sqlClass.UpdateOnlineInfo(Convert.ToInt32(HttpContext.Current.Session["userID"].ToString()), functionsClass.InternalCleanUp(emailAddress.Text), receiveSpecials.Checked);
 
                             if (!update)
                             {

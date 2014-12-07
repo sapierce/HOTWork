@@ -32,7 +32,7 @@ namespace HOTSelfDefense
             if (Page.IsValid)
             {
                 // Send the e-mail to the programmer
-                FunctionsClass.SendMail("hotproblems@hottropicaltans.com", "HOTSDA@hottropicaltans.com", "User Reported Error", "<b>From:</b>: " +
+                FunctionsClass.SendMail("lowlysacker@gmail.com", "HOTSDA@hottropicaltans.com", "User Reported Error", "<b>From:</b>: " +
                     reporterName.Text + "<br><b>Comment:</b> " + reportComment.Text);
 
                 // Build the success label

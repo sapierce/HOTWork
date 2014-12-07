@@ -28,8 +28,8 @@ namespace HOTTropicalTans.admin
                 try
                 {
                     bool response = sqlClass.AddEmployee(Convert.ToInt32(functionsClass.CleanUp(employeeNumber.Text)),
-                        functionsClass.LightCleanUp(employeeFirstName.Text),
-                        functionsClass.LightCleanUp(employeeLastName.Text));
+                        functionsClass.InternalCleanUp(employeeFirstName.Text),
+                        functionsClass.InternalCleanUp(employeeLastName.Text));
 
                     if (response)
                     {

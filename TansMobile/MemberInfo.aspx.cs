@@ -97,12 +97,12 @@ namespace MobileSite
 
                         if (String.IsNullOrEmpty(lblUpcomingTans.Text))
                         {
-                            lblUpcomingTans.Text = "<tr><td colspan=4 class='tableCellNoBorder'>No scheduled tans found. <a href='" + HOTBAL.TansConstants.ADD_APPT_MOBILE_URL + "' class='center'>Schedule one today!</a></td></tr>";
+                            lblUpcomingTans.Text = "<tr><td colspan=4 class='tableCellNoBorder'>No scheduled tans found.</td></tr>";
                         }
                     }
                     else
                     {
-                        lblUpcomingTans.Text = "<tr><td colspan=4 class='tableCellNoBorder'>No scheduled tans found. <a href='" + HOTBAL.TansConstants.ADD_APPT_MOBILE_URL + "' class='center'>Schedule one today!</a></td></tr>";
+                        lblUpcomingTans.Text = "<tr><td colspan=4 class='tableCellNoBorder'>No scheduled tans found.</td></tr>";
                     }
                 }
                 else

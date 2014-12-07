@@ -354,14 +354,18 @@ namespace HOTDAL
         public void SendErrorMail(string ErrorClass, string ErrorStack, string ErrorMessage, string ErrorSQL)
         {
             MailMessage objMessage = new MailMessage();
-            SmtpClient smtp = new SmtpClient("mail.hottropicaltans.com");
-
             objMessage.Subject = "Problem in:" + ErrorClass;
-            objMessage.From = new MailAddress("hotproblems@hottropicaltans.com");
-            objMessage.To.Add("HOTTans@hottropicaltans.com");
+            objMessage.From = new MailAddress("lowlysacker@gmail.com");
+            objMessage.To.Add("lowlysacker@gmail.com");
             objMessage.Body = "<b>SQL:</b>" + ErrorSQL + "<br><b>Message:</b>" + ErrorMessage + "<br><b>StackTrace:</b>" + ErrorStack;
             objMessage.IsBodyHtml = true;
-            smtp.Credentials = new NetworkCredential("hotproblems@hottropicaltans.com", "H0tTans.");
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+            smtp.EnableSsl = true;
+            NetworkCredential NetworkCred = new NetworkCredential("lowlysacker@gmail.com", "onhnpqjlbqmakcno"); //*wS!UE8GXZFThwC
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = NetworkCred;
+            smtp.Port = 587;
             smtp.Send(objMessage);
         }
     }

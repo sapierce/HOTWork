@@ -2,38 +2,52 @@
 
 <asp:Content ID="defaultMain" runat="server" ContentPlaceHolderID="placeholderMain">
     <p align='center'>
-        <asp:Label ID="lblError" class="error" runat="server" /></p>
+        <asp:Label ID="lblError" class="error" runat="server" />
+    </p>
     <a href='StudentInfo.aspx?ID=<%=Request.QueryString["UserID"]%>&Date=<%=Request.QueryString["Date"]%>'>Return to user information</a>
     <br />
     <br />
-    <table class='bcc' align='center'>
-        <tr>
-            <td class='rheader'><b>Name:</b></td>
-            <td class='reg'>
+    <table class="defense">
+        <thead>
+            <tr>
+                <th colspan="2">Student Transactions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td class="rightAlignHeader">Name:</td>
+            <td>
                 <asp:Label ID="lblCustName" runat="server" /></td>
         </tr>
         <tr>
-            <td colspan='2' class='reg' align='center'>
-                <a href='/SDAPOS/Cart.aspx?ID=M<%=Request.QueryString["ID"]%>'>Add A Transaction</a>
+            <td colspan="2" style="text-align: center;">
+                <a href='/SDAPOS/Cart.aspx?ID=<%=Request.QueryString["ID"]%>&Action='>Add A Transaction</a>
             </td>
         </tr>
+            </tbody>
     </table>
     <br />
     <br />
-    <table class='bcc' align='center'>
-        <tr>
-            <td colspan='6' class='header'>Student Transactions</td>
-        </tr>
-        <tr>
-            <td class='header'>
-                <br>
-            </td>
-            <td class='header'>Date</td>
-            <td class='header'>Items/Quantity</td>
-            <td class='header'>Method</td>
-            <td class='header'>Total</td>
-            <td class='header'>Paid?</td>
-        </tr>
+    <table class="defense">
+        <thead>
+            <tr>
+                <th colspan="6">Last 10 Transactions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="centerAlignHeader">
+                    <br>
+                </td>
+                <td class="centerAlignHeader">Date</td>
+                <td class="centerAlignHeader">Items/Quantity</td>
+                <td class="centerAlignHeader">Method</td>
+                <td class="centerAlignHeader">Total</td>
+                <td class="centerAlignHeader">Paid?</td>
+            </tr>
+        </tbody>
         <asp:Literal ID="litTransactions" runat="server" />
     </table>
 </asp:Content>

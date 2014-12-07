@@ -21,7 +21,7 @@ namespace HOTTropicalTans
                     //Schedule appointment
                     bool response = sqlClass.AddMassageAppointment(Convert.ToInt64(Request.QueryString["ID"].ToString()),
                         Convert.ToDateTime(Request.QueryString["Date"].ToString()),
-                        functionsClass.LightCleanUp(Request.QueryString["Time"].ToString()),
+                        functionsClass.InternalCleanUp(Request.QueryString["Time"].ToString()),
                         Convert.ToInt32(Request.QueryString["Length"].ToString()));
 
                     if (!response)
