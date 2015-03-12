@@ -1,43 +1,48 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Classes.aspx.cs" Inherits="HOTSelfDefense.ClassesPage" MasterPageFile="../HOTSelfDefense.master" %>
 
 <asp:Content ID="defaultMain" runat="server" ContentPlaceHolderID="placeholderMain">
-<p align='center'><asp:label id="lblError" class="error" runat="server" /></p>
-		<table align='center' border='1' bordercolor='#000000'>
-			<tr>
-				<td class='rheader'><b>Class Art</b></td>
-				<td><asp:dropdownlist id='sltArtFirst' runat='server' /></td>
-			</tr>
-			<tr>
-				<td class='rheader'><b>Secondary Class Art</b></td>
-				<td><asp:dropdownlist id="sltArtSecond" runat='server' /></td>
-			</tr>
-			<tr>
-				<td class='rheader'><b>Time:</b></td>
-				<td><asp:textbox id='txtTime' size='4' runat='server' /></td>
-			</tr>
-			<tr>
-				<td class='rheader'><b>Instructor:</b></td>
-				<td><asp:dropdownlist id='sltInstructor' runat='server' /></td>
-			</tr>
-			<tr>
-				<td colspan='2'>
-					<table class='bcc'>
-						<tr>
-							<td class='rheader'><b>Title:</b></td>
-							<td><asp:textbox runat='server' ID='txtTitle' /></td>
-						</tr>
-						<tr>
-							<td class='rheader'><b>Recurring?</b></td>
-							<td><asp:dropdownlist id='sltRecurringClass' runat='server' /></td>
-						</tr>
-						<tr>
-							<td colspan="2"><asp:button id="btnEdit" runat="server" text="Edit Class" onClick="btnEdit_onClick" /></td><br /><br /><br /><br />
-						</tr>
-						<tr>
-							<td colspan="2"><asp:button id="btnDelete" runat="server" text = "Delete Class" onClick="btnDelete_onClick" /></td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
+    <table class="defense" style="margin: auto;">
+        <tr>
+            <td class="rightAlignHeader">Class Art</td>
+            <td>
+                <asp:DropDownList ID="sltArtFirst" runat="server" /></td>
+        </tr>
+        <tr>
+            <td class="rightAlignHeader">Secondary Class Art</td>
+            <td>
+                <asp:DropDownList ID="sltArtSecond" runat="server" /></td>
+        </tr>
+        <tr>
+            <td class="rightAlignHeader">Time:</td>
+            <td>
+                <asp:TextBox ID="txtTime" size="5" runat="server" /></td>
+        </tr>
+        <tr>
+            <td class="rightAlignHeader">Instructor:</td>
+            <td>
+                <asp:DropDownList ID="sltInstructor" runat="server" /></td>
+        </tr>
+        <tr>
+            <td class="rightAlignHeader">Title:</td>
+            <td>
+                <asp:TextBox runat="server" ID="txtTitle" /></td>
+        </tr>
+        <tr>
+            <td class="rightAlignHeader">Recurring?</td>
+            <td>
+                <asp:DropDownList ID="sltRecurringClass" runat="server" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <asp:Button ID="btnEdit" runat="server" Text="Edit Class" OnClick="btnEdit_onClick" /><br />
+                <br />
+                <br />
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <asp:Button ID="btnDelete" runat="server" Text="Delete Class" OnClick="btnDelete_onClick" /></td>
+        </tr>
+    </table>
 </asp:Content>

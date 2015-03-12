@@ -76,6 +76,15 @@ namespace HOTSelfDefense {
         protected global::System.Web.UI.WebControls.TextBox firstName;
         
         /// <summary>
+        /// activeOnlyName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox activeOnlyName;
+        
+        /// <summary>
         /// searchByName control.
         /// </summary>
         /// <remarks>
@@ -317,6 +326,15 @@ namespace HOTSelfDefense {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lastNameZ;
+        
+        /// <summary>
+        /// activeOnlyLast control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox activeOnlyLast;
         
         /// <summary>
         /// searchResults control.

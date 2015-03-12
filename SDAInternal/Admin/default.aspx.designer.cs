@@ -13,300 +13,318 @@ namespace HOTSelfDefense {
     public partial class _default {
         
         /// <summary>
-        /// ddlCourse control.
+        /// courseSelection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCourse;
+        protected global::System.Web.UI.WebControls.DropDownList courseSelection;
         
         /// <summary>
-        /// btnEditCourse control.
+        /// editCourse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditCourse;
+        protected global::System.Web.UI.WebControls.Button editCourse;
         
         /// <summary>
-        /// btnAddInst control.
+        /// transactionStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddInst;
+        protected global::System.Web.UI.WebControls.TextBox transactionStartDate;
         
         /// <summary>
-        /// ddlInst control.
+        /// transactionEndDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlInst;
+        protected global::System.Web.UI.WebControls.TextBox transactionEndDate;
         
         /// <summary>
-        /// btnEditInst control.
+        /// totalsOnly control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditInst;
+        protected global::System.Web.UI.WebControls.CheckBox totalsOnly;
         
         /// <summary>
-        /// txtFullTrns control.
+        /// viewFullTransaction control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFullTrns;
+        protected global::System.Web.UI.WebControls.Button viewFullTransaction;
         
         /// <summary>
-        /// btnFullTrns control.
+        /// addInstructor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFullTrns;
+        protected global::System.Web.UI.WebControls.Button addInstructor;
         
         /// <summary>
-        /// btnAddItem control.
+        /// instructorSelection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddItem;
+        protected global::System.Web.UI.WebControls.DropDownList instructorSelection;
         
         /// <summary>
-        /// ddlItem control.
+        /// editInstructor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlItem;
+        protected global::System.Web.UI.WebControls.Button editInstructor;
         
         /// <summary>
-        /// btnEditItem control.
+        /// addItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditItem;
+        protected global::System.Web.UI.WebControls.Button addItem;
         
         /// <summary>
-        /// btnInven control.
+        /// itemSelection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnInven;
+        protected global::System.Web.UI.WebControls.DropDownList itemSelection;
         
         /// <summary>
-        /// btnAddArt control.
+        /// editItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddArt;
+        protected global::System.Web.UI.WebControls.Button editItem;
         
         /// <summary>
-        /// ddlArt control.
+        /// viewInventory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlArt;
+        protected global::System.Web.UI.WebControls.Button viewInventory;
         
         /// <summary>
-        /// btnEditArt control.
+        /// addArt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditArt;
+        protected global::System.Web.UI.WebControls.Button addArt;
         
         /// <summary>
-        /// btnAddBelt control.
+        /// artSelection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddBelt;
+        protected global::System.Web.UI.WebControls.DropDownList artSelection;
         
         /// <summary>
-        /// ddlBelt control.
+        /// editArt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBelt;
+        protected global::System.Web.UI.WebControls.Button editArt;
         
         /// <summary>
-        /// btnEditBelt control.
+        /// birthdayDays control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditBelt;
+        protected global::System.Web.UI.WebControls.TextBox birthdayDays;
         
         /// <summary>
-        /// btnAddTip control.
+        /// birthdayReport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddTip;
+        protected global::System.Web.UI.WebControls.Button birthdayReport;
         
         /// <summary>
-        /// ddlTip control.
+        /// addBelt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTip;
+        protected global::System.Web.UI.WebControls.Button addBelt;
         
         /// <summary>
-        /// btnEditTip control.
+        /// beltSelection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditTip;
+        protected global::System.Web.UI.WebControls.DropDownList beltSelection;
         
         /// <summary>
-        /// btnTerm control.
+        /// editBelt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTerm;
+        protected global::System.Web.UI.WebControls.Button editBelt;
         
         /// <summary>
-        /// ddlTerm control.
+        /// passBeginDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTerm;
+        protected global::System.Web.UI.WebControls.TextBox passBeginDate;
         
         /// <summary>
-        /// btnEditTerm control.
+        /// passEndDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditTerm;
+        protected global::System.Web.UI.WebControls.TextBox passEndDate;
         
         /// <summary>
-        /// txtBirthday control.
+        /// beltsPassed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBirthday;
+        protected global::System.Web.UI.WebControls.Button beltsPassed;
         
         /// <summary>
-        /// btnBirthday control.
+        /// addTip control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBirthday;
+        protected global::System.Web.UI.WebControls.Button addTip;
         
         /// <summary>
-        /// txtPassBeg control.
+        /// tipSelection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassBeg;
+        protected global::System.Web.UI.WebControls.DropDownList tipSelection;
         
         /// <summary>
-        /// txtPassEnd control.
+        /// editTip control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassEnd;
+        protected global::System.Web.UI.WebControls.Button editTip;
         
         /// <summary>
-        /// btnPass control.
+        /// lastTipDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPass;
+        protected global::System.Web.UI.WebControls.TextBox lastTipDate;
         
         /// <summary>
-        /// txtLastTip control.
+        /// lastTip control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLastTip;
+        protected global::System.Web.UI.WebControls.Button lastTip;
         
         /// <summary>
-        /// btnLastTip control.
+        /// addTerm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLastTip;
+        protected global::System.Web.UI.WebControls.Button addTerm;
         
         /// <summary>
-        /// txtAttend control.
+        /// termSelection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAttend;
+        protected global::System.Web.UI.WebControls.DropDownList termSelection;
         
         /// <summary>
-        /// btnAttend control.
+        /// editTerm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAttend;
+        protected global::System.Web.UI.WebControls.Button editTerm;
         
         /// <summary>
-        /// btnActive control.
+        /// attendanceDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnActive;
+        protected global::System.Web.UI.WebControls.TextBox attendanceDate;
+        
+        /// <summary>
+        /// classAttendance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button classAttendance;
+        
+        /// <summary>
+        /// activeStudents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button activeStudents;
     }
 }

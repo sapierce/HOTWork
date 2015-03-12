@@ -22,6 +22,7 @@
     <asp:RequiredFieldValidator ID="lastNameRequired" Display="None" runat="server" ControlToValidate="lastName" ErrorMessage="Please enter a last name." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="editStudent" />
     <asp:RequiredFieldValidator ID="birthdayRequired" Display="None" runat="server" ControlToValidate="birthdayDate" ErrorMessage="Please enter a birthdate." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="editStudent" />
     <asp:RequiredFieldValidator ID="planRequired" Display="None" runat="server" ControlToValidate="paymentPlan" ErrorMessage="Payment Plan is required" EnableClientScript="true" SetFocusOnError="true" ValidationGroup="editStudent" InitialValue="None" />
+    <asp:RequiredFieldValidator ID="schoolRequired" Display="None" runat="server" ControlToValidate="schoolList" ErrorMessage="Please select a school." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="editStudent" InitialValue="0" />
     <asp:RequiredFieldValidator ID="amountRequired" Display="None" runat="server" ControlToValidate="paymentAmount" ErrorMessage="Payment Amount is required" EnableClientScript="true" SetFocusOnError="true" ValidationGroup="editStudent" />
     <asp:RequiredFieldValidator ID="paymentDateRequired" Display="None" runat="server" ControlToValidate="paymentDate" ErrorMessage="Payment Date is required" EnableClientScript="true" SetFocusOnError="true" ValidationGroup="editStudent" />
     <asp:RegularExpressionValidator ID="firstNameExpression" Display="None" runat="server" ControlToValidate="firstName" ErrorMessage="Only alphabetical characters are allowed in the first name." EnableClientScript="true" SetFocusOnError="true" ValidationExpression="^([ \u00c0-\u01ffa-zA-Z'\-])+$" ValidationGroup="editStudent" />
@@ -55,7 +56,14 @@
             <td class="rightAlignHeader">Last Name:
             </td>
             <td>
-                <asp:TextBox ID="lastName" runat="server" MaxLength="250" />
+                <asp:TextBox ID="lastName" runat="server" MaxLength="250" />&nbsp;&nbsp;
+                <asp:DropDownList ID="suffixName" runat="server">
+                    <asp:ListItem Text="" Value="" />
+                    <asp:ListItem Text="Sr" Value="Sr" />
+                    <asp:ListItem Text="Jr" Value="Jr" />
+                    <asp:ListItem Text="III" Value="III" />
+                    <asp:ListItem Text="IV" Value="IV" />
+                </asp:DropDownList>
             </td>
         </tr>
         <tr>
@@ -99,6 +107,12 @@
             <td>
                 <asp:TextBox ID="emergencyContact" runat="server" MaxLength="50" />
             </td>
+        </tr>
+        <tr>
+            <td class="rightAlignHeader">School:</td>
+            <td>
+                <!-- School (required) -->
+                <asp:DropDownList ID="schoolList" runat="server" ValidationGroup="editStudent" /></td>
         </tr>
         <tr>
             <td class="rightAlignHeader">Passing:

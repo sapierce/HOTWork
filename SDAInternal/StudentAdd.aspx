@@ -36,6 +36,7 @@
     <asp:RequiredFieldValidator ID="birthdayRequired" Display="None" runat="server" ControlToValidate="birthdayDate" ErrorMessage="Please enter a birthdate." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addStudent" />
     <asp:RequiredFieldValidator ID="planIntervalRequired" Display="None" runat="server" ControlToValidate="intervalCount" ErrorMessage="Please enter a payment interval." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addStudent" />
     <asp:RequiredFieldValidator ID="planRequired" Display="None" runat="server" ControlToValidate="paymentInterval" ErrorMessage="Please select a payment plan." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addStudent" InitialValue="None" />
+    <asp:RequiredFieldValidator ID="schoolRequired" Display="None" runat="server" ControlToValidate="schoolList" ErrorMessage="Please select a school." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addStudent" InitialValue="0" />
     <asp:RequiredFieldValidator ID="artRequired" Display="None" runat="server" ControlToValidate="artList" ErrorMessage="Please select an art." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addStudent" InitialValue="0" />
     <asp:RequiredFieldValidator ID="amountRequired" Display="None" runat="server" ControlToValidate="paymentAmount" ErrorMessage="Please enter a payment amount." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="addStudent" />
     <asp:RegularExpressionValidator ID="firstNameExpression" Display="None" runat="server" ControlToValidate="firstName" ErrorMessage="Only alphabetical characters are allowed in the first name." EnableClientScript="true" SetFocusOnError="true" ValidationExpression="^([ \u00c0-\u01ffa-zA-Z'\-])+$" ValidationGroup="addStudent" />
@@ -64,7 +65,15 @@
             <td class="rightAlignHeader">Last Name:</td>
             <td>
                 <!-- Student Last Name (required) -->
-                <asp:TextBox ID="lastName" runat="server" ValidationGroup="addStudent" MaxLength="50" /></td>
+                <asp:TextBox ID="lastName" runat="server" ValidationGroup="addStudent" MaxLength="50" />&nbsp;&nbsp;
+                <asp:DropDownList ID="suffixName" runat="server">
+                    <asp:ListItem Text="" Value="" />
+                    <asp:ListItem Text="Sr" Value="Sr" />
+                    <asp:ListItem Text="Jr" Value="Jr" />
+                    <asp:ListItem Text="III" Value="III" />
+                    <asp:ListItem Text="IV" Value="IV" />
+                </asp:DropDownList>
+            </td>
         </tr>
         <tr>
             <td class="rightAlignHeader">Address:</td>
@@ -82,13 +91,13 @@
             <td class="rightAlignHeader">State:</td>
             <td>
                 <!-- Student State -->
-                <asp:TextBox ID="state" runat="server" ValidationGroup="addStudent" Text="TX" MaxLength="2" /></td>
+                <asp:TextBox ID="state" runat="server" ValidationGroup="addStudent" Text="TX" MaxLength="2" Width="20" /></td>
         </tr>
         <tr>
             <td class="rightAlignHeader">Zip:</td>
             <td>
                 <!-- Student Zip Code -->
-                <asp:TextBox ID="zipCode" runat="server" ValidationGroup="addStudent" MaxLength="5" /></td>
+                <asp:TextBox ID="zipCode" runat="server" ValidationGroup="addStudent" MaxLength="5" Width="50" /></td>
         </tr>
         <tr>
             <td class="rightAlignHeader">Birthday:</td>
@@ -103,6 +112,12 @@
                 <asp:TextBox ID="emergencyContact" runat="server" ValidationGroup="addStudent" MaxLength="50" /></td>
         </tr>
         <tr>
+            <td class="rightAlignHeader">School:</td>
+            <td>
+                <!-- School (required) -->
+                <asp:DropDownList ID="schoolList" runat="server" ValidationGroup="addStudent" /></td>
+        </tr>
+        <tr>
             <td class="rightAlignHeader">Art:</td>
             <td>
                 <!-- Student Primary Art (required) -->
@@ -112,16 +127,16 @@
             <td class="rightAlignHeader">Payment Schedule:</td>
             <td>
                 <!-- Student Payment Interval Count (required) -->
-                <asp:TextBox ID="intervalCount" runat="server" ValidationGroup="addStudent" MaxLength="3" size="2" Text="1" />
+                <asp:TextBox ID="intervalCount" runat="server" ValidationGroup="addStudent" MaxLength="3" Width="20" Text="1" />
 
                 <!-- Student Payment Interval (required) -->
                 <asp:DropDownList ID="paymentInterval" runat="server" ValidationGroup="addStudent">
-                    <asp:ListItem Value="None" Text="None" runat="server" />
-                    <asp:ListItem Value="Lesson" Text="Lesson(s)" runat="server" />
-                    <asp:ListItem Value="Week" Text="Week(s)" runat="server" />
-                    <asp:ListItem Value="Month" Text="Month(s)" runat="server" />
-                    <asp:ListItem Value="Year" Text="Year(s)" runat="server" />
-                    <asp:ListItem Value="Life" Text="Lifetime" runat="server" />
+                    <asp:ListItem Value="None" Text="None" />
+                    <asp:ListItem Value="Lesson" Text="Lesson(s)" />
+                    <asp:ListItem Value="Week" Text="Week(s)" />
+                    <asp:ListItem Value="Month" Text="Month(s)" />
+                    <asp:ListItem Value="Year" Text="Year(s)" />
+                    <asp:ListItem Value="Life" Text="Lifetime" />
                 </asp:DropDownList>
             </td>
         </tr>

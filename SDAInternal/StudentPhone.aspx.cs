@@ -15,6 +15,7 @@ namespace HOTSelfDefense
         {
             if (!Page.IsPostBack)
             {
+                Label errorLabel = (Label)this.Master.FindControl("errorMessage");
                 if (Request.QueryString["NID"] != null)
                     {
                         if (!String.IsNullOrEmpty(Request.QueryString["NID"]))
@@ -30,7 +31,7 @@ namespace HOTSelfDefense
                                 editPhoneNumber.Text = studentPhone.PhoneNumber;
                             }
                             else
-                                lblError.Text = studentPhone.Error;
+                                errorLabel.Text = studentPhone.Error;
                         }
                     }
                 else
@@ -43,26 +44,35 @@ namespace HOTSelfDefense
 
         protected void editPhone_Click(object sender, EventArgs e)
         {
+            Label errorLabel = (Label)this.Master.FindControl("errorMessage");
             bool isSuccessful = sqlClass.UpdateStudentPhoneById(Convert.ToInt32(Request.QueryString["NID"].ToString()), editRelationShip.Text, editPhoneNumber.Text);
 
             if (isSuccessful)
-                Response.Redirect(HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL + "?Date=" + Request.QueryString["Date"].ToString() + "&ID=" + Request.QueryString["ID"].ToString());
+                Response.Redirect(HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL + "?ID=" + Request.QueryString["ID"].ToString());
+            else
+                errorLabel.Text = HOTBAL.SDAMessages.ERROR_GENERIC;
         }
 
         protected void deletePhone_Click(object sender, EventArgs e)
         {
+            Label errorLabel = (Label)this.Master.FindControl("errorMessage");
             bool isSuccessful = sqlClass.DeleteStudentPhoneById(Convert.ToInt32(Request.QueryString["NID"].ToString()));
 
             if (isSuccessful)
-                Response.Redirect(HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL + "?Date=" + Request.QueryString["Date"].ToString() + "&ID=" + Request.QueryString["ID"].ToString());
+                Response.Redirect(HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL + "?ID=" + Request.QueryString["ID"].ToString());
+            else
+                errorLabel.Text = HOTBAL.SDAMessages.ERROR_GENERIC;
         }
 
         protected void addPhone_Click(object sender, EventArgs e)
         {
+            Label errorLabel = (Label)this.Master.FindControl("errorMessage");
             bool isSuccessful = sqlClass.AddStudentPhone(Convert.ToInt32(Request.QueryString["ID"].ToString()), addRelationship.Text, addPhoneNumber.Text);
 
             if (isSuccessful)
-                Response.Redirect(HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL + "?Date=" + Request.QueryString["Date"].ToString() + "&ID=" + Request.QueryString["ID"].ToString());
+                Response.Redirect(HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL + "?ID=" + Request.QueryString["ID"].ToString());
+            else
+                errorLabel.Text = HOTBAL.SDAMessages.ERROR_GENERIC;
         }
     }
 }

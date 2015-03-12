@@ -26,12 +26,17 @@ namespace HOTSelfDefense
                     studentId.Text = studentInfo.ID.ToString();
                     firstName.Text = studentInfo.FirstName;
                     lastName.Text = studentInfo.LastName;
+
+                    if (!String.IsNullOrEmpty(studentInfo.Suffix))
+                        suffixName.Items.FindByValue(studentInfo.Suffix).Selected = true;
+
                     address.Text = studentInfo.Address;
                     city.Text = studentInfo.City;
                     state.Text = studentInfo.State;
                     zipCode.Text = studentInfo.ZipCode;
                     birthdayDate.Text = studentInfo.BirthDate.ToShortDateString();
                     emergencyContact.Text = studentInfo.EmergencyContact;
+                    schoolList.Items.FindByValue(studentInfo.School.ToString()).Selected = true;
                     isPassing.Checked = studentInfo.Pass;
                     isPaid.Checked = studentInfo.Paid;
                     paymentPlan.Text = studentInfo.PaymentPlan;
@@ -74,9 +79,9 @@ namespace HOTSelfDefense
         protected void editCustomer_Click(object sender, EventArgs e)
         {
             bool updateResponse = sqlClass.UpdateStudent(Convert.ToInt32(Request.QueryString["ID"].ToString()), functionsClass.CleanUp(firstName.Text),
-                    functionsClass.CleanUp(lastName.Text), functionsClass.CleanUp(address.Text),
+                    functionsClass.CleanUp(lastName.Text), suffixName.SelectedValue, functionsClass.CleanUp(address.Text),
                     functionsClass.CleanUp(city.Text), functionsClass.CleanUp(state.Text),
-                    functionsClass.CleanUp(zipCode.Text), functionsClass.CleanUp(emergencyContact.Text),
+                    functionsClass.CleanUp(zipCode.Text), functionsClass.CleanUp(emergencyContact.Text), schoolList.SelectedValue,
                     Convert.ToDateTime(birthdayDate.Text), Convert.ToDateTime(paymentDate.Text),
                     paymentPlan.Text, Convert.ToDouble(paymentAmount.Text), functionsClass.CleanUp(studentNote.Text),
                     isActive.Checked, isPaid.Checked, isPassing.Checked);

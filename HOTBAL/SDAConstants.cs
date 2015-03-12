@@ -17,6 +17,32 @@ namespace HOTBAL
 
         public const string ADMIN_INTERNAL_URL = "/HOTSDA/Admin/Default.aspx";
 
+        public const string ADMIN_ART_INTERNAL_URL = "/HOTSDA/Admin/Arts.aspx";
+
+        public const string ADMIN_BELT_INTERNAL_URL = "/HOTSDA/Admin/Belts.aspx";
+
+        public const string ADMIN_CLASS_INTERNAL_URL = "/HOTSDA/Admin/Classes.aspx";
+
+        public const string ADMIN_TIP_INTERNAL_URL = "/HOTSDA/Admin/Tips.aspx";
+
+        public const string ADMIN_TERM_INTERNAL_URL = "/HOTSDA/Admin/Terms.aspx";
+
+        public const string ADMIN_INST_INTERNAL_URL = "/HOTSDA/Admin/Instructors.aspx";
+
+        public const string ADMIN_ITEM_INTERNAL_URL = "/HOTSDA/Admin/Items.aspx";
+
+        public const string RPT_BIRTHDAY_INTERNAL_URL = "/HOTSDA/Admin/Reports/ReportBirthdays.aspx";
+
+        public const string RPT_PASS_BELT_INTERNAL_URL = "/HOTSDA/Admin/Reports/ReportBelts.aspx";
+
+        public const string RPT_LAST_TIP_INTERNAL_URL = "/HOTSDA/Admin/Reports/ReportLastTip.aspx";
+
+        public const string RPT_ATTENDANCE_INTERNAL_URL = "/HOTSDA/Admin/Reports/ReportStudentAttendance.aspx";
+
+        public const string RPT_ACTIVE_STUDENTS_INTERNAL_URL = "/HOTSDA/Admin/Reports/ReportActiveStudents.aspx";
+
+        public const string RPT_INVENTORY_INTERNAL_URL = "/HOTSDA/Admin/Reports/ReportInventory.aspx";
+
         public const string ADD_CLASS_INTERNAL_URL = "/HOTSDA/ClassAdd.aspx";
 
         public const string DELETE_CLASS_INTERNAL_URL = "/HOTSDA/ClassDelete.aspx";
@@ -53,9 +79,9 @@ namespace HOTBAL
 
         public const string PROBLEMS_INTERAL_URL = "/HOTSDA/Problems.aspx";
 
-        public const string POS_INTERNAL_URL = "/SDAPOS/default.aspx";
-
         public const string SEARCH_INTERNAL_URL = "/HOTSDA/Search.aspx";
+
+        public const string POS_INTERNAL_URL = "/SDAPOS/default.aspx";
         #endregion
 
     }

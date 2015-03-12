@@ -31,6 +31,15 @@ namespace HOTSelfDefense {
         protected global::System.Web.UI.WebControls.Label studentName;
         
         /// <summary>
+        /// studentSchool control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label studentSchool;
+        
+        /// <summary>
         /// studentAddress control.
         /// </summary>
         /// <remarks>
@@ -146,6 +155,15 @@ namespace HOTSelfDefense {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button studentTransactions;
+        
+        /// <summary>
+        /// addTransaction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button addTransaction;
         
         /// <summary>
         /// addArt control.

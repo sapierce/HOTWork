@@ -15,7 +15,7 @@ namespace HOTTropicalTans
         protected void submitProblem_Click(object sender, EventArgs e)
         {
             string problemReport = "<b>Name:</b>" + reportName.Text + "<br><b>Message:</b>" + commentProblem.Text;
-            functionsClass.SendMail("lowlysacker@gmail.com", "hotproblems@hottropicaltans.com", "Problem from HotTans: User Reported", problemReport);
+            functionsClass.SendMail("problems@hotselfdefense.net", "problems@hotselfdefense.net", "Problem from HotTans: User Reported", problemReport);
 
             Label errorLabel = (Label)this.Master.FindControl("successMessage");
             errorLabel.Text = "Thank you!  I'll get it fixed as soon as possible.";

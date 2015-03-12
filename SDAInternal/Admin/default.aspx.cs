@@ -13,7 +13,7 @@ namespace HOTSelfDefense
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.Header.Title = "HOT Self Defense - Administration";
+            Page.Header.Title = HOTBAL.SDAConstants.INTERNAL_NAME + " - Administration";
 
             if (!Page.IsPostBack)
             {
@@ -22,260 +22,309 @@ namespace HOTSelfDefense
                 if (Request.QueryString["Date"] != null)
                     currentDate = Request.QueryString["Date"].ToString();
 
-                txtFullTrns.Text = currentDate;
-                txtBirthday.Text = "14";
-                txtPassBeg.Text = currentDate;
-                txtPassEnd.Text = currentDate;
-                txtLastTip.Text = currentDate;
-                txtAttend.Text = currentDate;
+                transactionStartDate.Text = currentDate;
+                transactionEndDate.Text = currentDate;
+                birthdayDays.Text = "14";
+                passBeginDate.Text = currentDate;
+                passEndDate.Text = currentDate;
+                lastTipDate.Text = currentDate;
+                attendanceDate.Text = currentDate;
 
                 // Load drop downs
-                PopulateArts();
-                PopulateBelts();
-                PopulateTips();
-                PopulateCourses();
-                PopulateTerms();
-                PopulateItems();
-                PopulateInstructors();
+                populateArts();
+                populateBelts();
+                populateTips();
+                populateCourses();
+                populateTerms();
+                populateItems();
+                populateInstructors();
             }
         }
 
-        private void PopulateArts()
+        #region onClicks
+        //Adds
+        public void addInstructor_Click(Object sender, EventArgs e)
         {
-            ddlArt.Items.Clear();
-            ddlArt.Items.Add(new ListItem("-Choose An Art-", "0"));
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_INST_INTERNAL_URL + "?Action=add");
+        }
 
-            List<HOTBAL.Art> artList = sqlClass.GetAllSDAArts();
+        public void addArt_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_ART_INTERNAL_URL + "?Action=add");
+        }
 
-            if (artList != null)
+        public void addBelt_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_BELT_INTERNAL_URL + "?Action=add");
+        }
+
+        public void addTip_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_TIP_INTERNAL_URL + "?Action=add");
+        }
+
+        public void addTerm_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_TERM_INTERNAL_URL + "?Action=add");
+        }
+
+        public void addItem_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_ITEM_INTERNAL_URL + "?Action=add");
+        }
+
+        //Edits
+        public void editInstructor_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_INST_INTERNAL_URL + "?Action=edit&ID=" + instructorSelection.SelectedValue.ToString());
+        }
+
+        public void editArt_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_ART_INTERNAL_URL + "?Action=edit&ID=" + artSelection.SelectedValue);
+        }
+
+        public void editBelt_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_BELT_INTERNAL_URL + "?Action=edit&ID=" + beltSelection.SelectedValue);
+        }
+
+        public void editTip_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_TIP_INTERNAL_URL + "?Action=edit&ID=" + tipSelection.SelectedValue);
+        }
+
+        public void editTerm_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_TERM_INTERNAL_URL + "?Action=edit&ID=" + termSelection.SelectedValue);
+        }
+
+        public void editItem_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_ITEM_INTERNAL_URL + "?Action=edit&ID=" + itemSelection.SelectedValue);
+        }
+
+        public void editCourse_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.ADMIN_CLASS_INTERNAL_URL + "?Action=edit&ID=" + courseSelection.SelectedValue);
+        }
+
+        //Others
+        public void viewFullTransaction_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAPOSConstants.TRANSACTION_LOG_URL + "?StartDate=" + transactionStartDate.Text + "&EndDate=" + transactionEndDate.Text + "&Totals=" + totalsOnly.Checked.ToString(), false);
+        }
+
+        public void viewInventory_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.RPT_INVENTORY_INTERNAL_URL);
+        }
+
+        public void birthdayReport_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.RPT_BIRTHDAY_INTERNAL_URL + "?d=" + birthdayDays.Text);
+        }
+
+        public void beltsPassed_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.RPT_PASS_BELT_INTERNAL_URL + "?endDate=" + passEndDate.Text + "&beginDate=" + passBeginDate.Text);
+        }
+
+        public void lastTip_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.RPT_LAST_TIP_INTERNAL_URL + "?d=" + lastTipDate.Text);
+        }
+
+        public void classAttendance_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.RPT_ATTENDANCE_INTERNAL_URL + "?d=" + attendanceDate.Text);
+        }
+
+        public void activeStudents_Click(Object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAConstants.RPT_ACTIVE_STUDENTS_INTERNAL_URL);
+        }
+        #endregion
+
+        private void populateArts()
+        {
+            artSelection.Items.Clear();
+            artSelection.Items.Add(new ListItem("-Choose An Art-", "0"));
+
+            List<HOTBAL.Art> artsList = sqlClass.GetAllSDAArts();
+
+            if (artsList != null)
             {
-                if (String.IsNullOrEmpty(artList[0].Error))
+                if (artsList.Count > 1)
                 {
-                    foreach (HOTBAL.Art a in artList)
+                    if (String.IsNullOrEmpty(artsList[0].Error))
                     {
-                        ddlArt.Items.Add(new ListItem(a.Title, a.ID.ToString()));
+                        foreach (HOTBAL.Art art in artsList)
+                        {
+                            artSelection.Items.Add(new ListItem(art.Title, art.ID.ToString()));
+                        }
                     }
+                    else
+                        buildErrorMessage(artsList[0].Error);
                 }
             }
         }
 
-        private void PopulateBelts()
+        private void populateBelts()
         {
-            ddlBelt.Items.Clear();
-            ddlBelt.Items.Add(new ListItem("-Choose A Belt-", "0"));
+            beltSelection.Items.Clear();
+            beltSelection.Items.Add(new ListItem("-Choose A Belt-", "0"));
 
-            List<HOTBAL.Belt> beltList = sqlClass.GetAllSDABelts();
+            List<HOTBAL.Belt> beltsList = sqlClass.GetAllSDABelts();
 
-            if (beltList != null)
+            if (beltsList != null)
             {
-                if (string.IsNullOrEmpty(beltList[0].Error))
+                if (beltsList.Count > 0)
                 {
-                    foreach (HOTBAL.Belt b in beltList)
+                    if (string.IsNullOrEmpty(beltsList[0].Error))
                     {
-                        ddlBelt.Items.Add(new ListItem(sqlClass.GetArtTitle(b.ArtID) + "-" + b.Title, b.ID.ToString()));
+                        foreach (HOTBAL.Belt belt in beltsList)
+                        {
+                            beltSelection.Items.Add(new ListItem(sqlClass.GetArtTitle(belt.ArtID) + "-" + belt.Title, belt.ID.ToString()));
+                        }
                     }
+                    else
+                        buildErrorMessage(beltsList[0].Error);
                 }
             }
         }
 
-        private void PopulateTips()
+        private void populateTips()
         {
-            ddlTip.Items.Clear();
-            ddlTip.Items.Add(new ListItem("-Choose art Tip-", "0"));
+            tipSelection.Items.Clear();
+            tipSelection.Items.Add(new ListItem("-Choose A Tip-", "0"));
 
-            List<HOTBAL.Tip> tipList = sqlClass.GetAllTips();
+            List<HOTBAL.Tip> tipsList = sqlClass.GetAllTips();
 
-            if (tipList != null)
+            if (tipsList != null)
             {
-                if (string.IsNullOrEmpty(tipList[0].Error))
+                if (tipsList.Count > 0)
                 {
-                    foreach (HOTBAL.Tip t in tipList)
+                    if (string.IsNullOrEmpty(tipsList[0].Error))
                     {
-                        ddlTip.Items.Add(new ListItem(t.Title, t.ID.ToString()));
+                        foreach (HOTBAL.Tip tip in tipsList)
+                        {
+                            tipSelection.Items.Add(new ListItem(tip.Title, tip.ID.ToString()));
+                        }
                     }
+                    else
+                        buildErrorMessage(tipsList[0].Error);
                 }
             }
         }
 
-        private void PopulateCourses()
+        private void populateCourses()
         {
-            ddlCourse.Items.Clear();
-            ddlCourse.Items.Add(new ListItem("-Choose A Class-", "0"));
+            courseSelection.Items.Clear();
+            courseSelection.Items.Add(new ListItem("-Choose A Class-", "0"));
 
-            List<HOTBAL.Course> courseList = sqlClass.GetAllActiveRepeatingClasses();
+            List<HOTBAL.Course> coursesList = sqlClass.GetAllActiveRepeatingClasses();
 
-            if (courseList != null)
+            if (coursesList != null)
             {
-                if (String.IsNullOrEmpty(courseList[0].Error))
+                if (coursesList.Count > 0)
                 {
-                    foreach (HOTBAL.Course c in courseList)
+                    if (String.IsNullOrEmpty(coursesList[0].Error))
                     {
-                        ddlCourse.Items.Add(new ListItem((c.Title + " (" + sqlClass.GetArtTitle(c.FirstArtID) + (c.SecondArtID == 0 ? "" : "/" + sqlClass.GetArtTitle(c.SecondArtID)) + ") - " + c.Day + " - " + c.Time), c.ID.ToString()));
+                        foreach (HOTBAL.Course course in coursesList)
+                        {
+                            courseSelection.Items.Add(new ListItem((course.Title + " (" + sqlClass.GetArtTitle(course.FirstArtID) +
+                                (course.SecondArtID == 0 ? "" : "/" + sqlClass.GetArtTitle(course.SecondArtID)) + ") - " + course.Day + " - " + course.Time), course.ID.ToString()));
+                        }
                     }
+                    else
+                        buildErrorMessage(coursesList[0].Error);
                 }
             }
         }
 
-        private void PopulateTerms()
+        private void populateTerms()
         {
-            ddlTerm.Items.Clear();
-            ddlTerm.Items.Add(new ListItem("-Choose A Term-", "0"));
+            termSelection.Items.Clear();
+            termSelection.Items.Add(new ListItem("-Choose A Term-", "0"));
 
             List<HOTBAL.Term> termsList = sqlClass.GetAllTerms();
 
             if (termsList != null)
             {
-                if (String.IsNullOrEmpty(termsList[0].Error))
+                if (termsList.Count > 0)
                 {
-                    foreach (HOTBAL.Term t in termsList)
+                    if (String.IsNullOrEmpty(termsList[0].Error))
                     {
-                        ddlTerm.Items.Add(new ListItem(t.English, t.ID.ToString()));
+                        foreach (HOTBAL.Term term in termsList)
+                        {
+                            termSelection.Items.Add(new ListItem(term.English, term.ID.ToString()));
+                        }
                     }
+                    else
+                        buildErrorMessage(termsList[0].Error);
                 }
             }
         }
 
-        private void PopulateItems()
+        private void populateItems()
         {
-            ddlItem.Items.Clear();
-            ddlItem.Items.Add(new ListItem("-Choose An Item-", "0"));
+            itemSelection.Items.Clear();
+            itemSelection.Items.Add(new ListItem("-Choose An Item-", "0"));
 
             List<HOTBAL.Product> itemsList = new List<HOTBAL.Product>();
             itemsList = sqlClass.GetAllItems();
 
             if (itemsList != null)
             {
-                if (itemsList != null)
+                if (itemsList.Count > 0)
                 {
-                    foreach (HOTBAL.Product i in itemsList)
+                    if (String.IsNullOrEmpty(itemsList[0].ErrorMessage))
                     {
-                        ddlItem.Items.Add(new ListItem(i.ProductName, i.ProductID.ToString()));
+                        foreach (HOTBAL.Product item in itemsList)
+                        {
+                            itemSelection.Items.Add(new ListItem(item.ProductName, item.ProductID.ToString()));
+                        }
                     }
+                    else
+                        buildErrorMessage(itemsList[0].ErrorMessage);
                 }
             }
         }
 
-        private void PopulateInstructors()
+        private void populateInstructors()
         {
-            ddlInst.Items.Clear();
-            ddlInst.Items.Add(new ListItem("-Choose An Instructor-", "0"));
+            instructorSelection.Items.Clear();
+            instructorSelection.Items.Add(new ListItem("-Choose An Instructor-", "0"));
 
-            List<HOTBAL.Instructor> instList = sqlClass.GetAllInstructors();
+            List<HOTBAL.Instructor> instructorList = sqlClass.GetAllInstructors();
 
-            if (instList != null)
+            if (instructorList != null)
             {
-                if (String.IsNullOrEmpty(instList[0].Error))
+                if (instructorList.Count > 0)
                 {
-                    foreach (HOTBAL.Instructor i in instList)
+                    if (String.IsNullOrEmpty(instructorList[0].Error))
                     {
-                        ddlInst.Items.Add(new ListItem(i.FirstName + " " + i.LastName, i.ID.ToString()));
+                        foreach (HOTBAL.Instructor instructor in instructorList)
+                        {
+                            instructorSelection.Items.Add(new ListItem(instructor.FirstName + " " + instructor.LastName, instructor.ID.ToString()));
+                        }
                     }
+                    else
+                        buildErrorMessage(instructorList[0].Error);
                 }
             }
         }
 
-        #region onClicks
-        //Adds
-        public void btnAddInst_onClick(Object sender, EventArgs e)
+        private void buildErrorMessage(string errorMessage)
         {
-            Response.Redirect("Instructors.aspx?Action=add");
-        }
+            // Set up the error label
+            Label errorLabel = (Label)this.Master.FindControl("errorMessage");
 
-        public void btnAddArt_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Arts.aspx?Action=add");
+            if (String.IsNullOrEmpty(errorLabel.Text))
+                errorLabel.Text = errorMessage;
+            else
+                errorLabel.Text += errorMessage;
         }
-
-        public void btnAddBelt_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Belts.aspx?Action=add");
-        }
-
-        public void btnAddTip_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Tips.aspx?Action=add");
-        }
-
-        public void btnAddTerm_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Terms.aspx?Action=add");
-        }
-
-        public void btnAddItem_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Items.aspx?Action=add");
-        }
-
-        //Edits
-        public void btnEditInst_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Instructors.aspx?Action=edit&ID=" + ddlInst.SelectedValue.ToString());
-        }
-
-        public void btnEditArt_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Arts.aspx?Action=edit&ID=" + ddlArt.SelectedValue);
-        }
-
-        public void btnEditBelt_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Belts.aspx?Action=edit&ID=" + ddlBelt.SelectedValue);
-        }
-
-        public void btnEditTip_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Tips.aspx?Action=edit&ID=" + ddlTip.SelectedValue);
-        }
-
-        public void btnEditTerm_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Terms.aspx?Action=edit&ID=" + ddlTerm.SelectedValue);
-        }
-
-        public void btnEditItem_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Items.aspx?Action=edit&ID=" + ddlItem.SelectedValue);
-        }
-
-        public void btnEditCourse_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Classes.aspx?Action=edit&ID=" + ddlCourse.SelectedValue);
-        }
-
-        //Others
-        public void btnFullTrns_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("http://www.hottropicaltans.net/schedule/admin/reports/translogfull.aspx?Date=" + txtFullTrns.Text + "&Store=B", false);
-        }
-
-        public void btnInven_onClick(Object sender, EventArgs e)
-        {
-        }
-
-        public void btnBirthday_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Reports/ReportBirthdays.aspx?d=" + txtBirthday.Text);
-        }
-
-        public void btnPass_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Reports/ReportBelts.aspx?endDate=" + txtPassEnd.Text + "&beginDate=" + txtPassBeg.Text);
-        }
-
-        public void btnLastTip_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Reports/ReportLastTip.aspx?d=" + txtLastTip.Text);
-        }
-
-        public void btnAttend_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Reports/ReportStudentAttendance.aspx?d=" + txtAttend.Text);
-        }
-
-        public void btnActive_onClick(Object sender, EventArgs e)
-        {
-            Response.Redirect("Reports/ReportActiveStudents.aspx");
-        }
-        #endregion
     }
 }

@@ -12,33 +12,21 @@ namespace HOTBAL
     {
         public void SendErrorMail(string ErrorClass, Exception ErrorReceived, string ErrorSQL)
         {
-            MailMessage objMessage = new MailMessage();
-            objMessage.Subject = "Problem in:" + ErrorClass;
-            objMessage.From = new MailAddress("lowlysacker@gmail.com");
-            objMessage.To.Add("lowlysacker@gmail.com");
-
-            objMessage.Body = "<b>SQL:</b>" + ErrorSQL + "<br /><b>Location:</b>" + ErrorClass + "<br />";
+            string errorBody = "<b>SQL:</b>" + ErrorSQL + "<br /><b>Location:</b>" + ErrorClass + "<br />";
 
             if (ErrorReceived != null)
             {
-                objMessage.Body += "<b>Message:</b>" + ErrorReceived.Message +
+                errorBody += "<b>Message:</b>" + ErrorReceived.Message +
                 "<br /><b>StackTrace:</b>" + ErrorReceived.StackTrace;
 
                 if (ErrorReceived.InnerException != null)
                 {
-                    objMessage.Body += "<br /><b>Inner Message:</b>" + ErrorReceived.InnerException.Message +
+                    errorBody += "<br /><b>Inner Message:</b>" + ErrorReceived.InnerException.Message +
                     "<br /><b>Inner Stack Trace:</b>" + ErrorReceived.InnerException.StackTrace;
                 }
             }
-            objMessage.IsBodyHtml = true;
 
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-            smtp.EnableSsl = true;
-            NetworkCredential NetworkCred = new NetworkCredential("lowlysacker@gmail.com", "onhnpqjlbqmakcno"); //*wS!UE8GXZFThwC
-            smtp.UseDefaultCredentials = true;
-            smtp.Credentials = NetworkCred;
-            smtp.Port = 587;
-            smtp.Send(objMessage);
+            SendMail("problems@hotselfdefense.net", "problems@hotselfdefense.net", "Problem in:" + ErrorClass, errorBody);
         }
 
         public void SendMail(string mailTo, string mailFrom, string mailSubject, string mailBody)
@@ -50,12 +38,14 @@ namespace HOTBAL
             objMessage.Body = mailBody;
             objMessage.IsBodyHtml = true;
 
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-            smtp.EnableSsl = true;
-            NetworkCredential NetworkCred = new NetworkCredential("lowlysacker@gmail.com", "onhnpqjlbqmakcno"); //*wS!UE8GXZFThwC
-            smtp.UseDefaultCredentials = true;
+            //SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+            SmtpClient smtp = new SmtpClient("web176.dnchosting.com");
+            //smtp.EnableSsl = true;
+            //NetworkCredential NetworkCred = new NetworkCredential("lowlysacker@gmail.com", "onhnpqjlbqmakcno"); //*wS!UE8GXZFThwC
+            NetworkCredential NetworkCred = new NetworkCredential("contact@hotselfdefense.net", "H0tT@n$.");
+            //smtp.UseDefaultCredentials = true;
             smtp.Credentials = NetworkCred;
-            smtp.Port = 587;
+            smtp.Port = 26;
             smtp.Send(objMessage);
         }
 

@@ -9,7 +9,8 @@ namespace HOTSelfDefense
     public partial class StudentInfo : System.Web.UI.Page
     {
         HOTBAL.SDAFunctionsClass functionsClass = new HOTBAL.SDAFunctionsClass();
-        HOTBAL.SDAMethods sqlClass = new HOTBAL.SDAMethods();
+        HOTBAL.SDAMethods sdaMethods = new HOTBAL.SDAMethods();
+        HOTBAL.FederationMethods federationMethods = new HOTBAL.FederationMethods();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,12 +23,13 @@ namespace HOTSelfDefense
                 if (!String.IsNullOrEmpty(Request.QueryString["ID"]))
                 {
                     int incomingStudentId = Convert.ToInt32(Request.QueryString["ID"].ToString());
-                    studentInfo = sqlClass.GetStudentInformation(incomingStudentId);
+                    studentInfo = sdaMethods.GetStudentInformation(incomingStudentId);
 
                     if (String.IsNullOrEmpty(studentInfo.Error))
                     {
                         studentId.Text = studentInfo.ID.ToString();
-                        studentName.Text = studentInfo.FirstName + " " + studentInfo.LastName;
+                        studentName.Text = studentInfo.FirstName + " " + studentInfo.LastName + (String.IsNullOrEmpty(studentInfo.Suffix) ? "" : ", " + studentInfo.Suffix);
+                        studentSchool.Text = federationMethods.GetSchoolBySchoolID(studentInfo.School).SchoolName;
                         studentBirthday.Text = functionsClass.FormatSlash(studentInfo.BirthDate);
                         emergencyContact.Text = studentInfo.EmergencyContact;
                         studentPassing.Text = (studentInfo.Pass == true ? "Yes" : "No");
@@ -59,7 +61,7 @@ namespace HOTSelfDefense
         private void studentPhoneNumbers(int ID)
         {
             Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-            List<HOTBAL.StudentPhone> studentPhones = sqlClass.GetStudentPhones(ID);
+            List<HOTBAL.StudentPhone> studentPhones = sdaMethods.GetStudentPhones(ID);
 
             if (studentPhones != null)
             {
@@ -90,7 +92,7 @@ namespace HOTSelfDefense
         private void studentArtInformation(int ID)
         {
             Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-            List<HOTBAL.StudentArt> studentArts = sqlClass.GetStudentArts(ID);
+            List<HOTBAL.StudentArt> studentArts = sdaMethods.GetStudentArts(ID);
 
             if (studentArts != null)
             {
@@ -123,7 +125,7 @@ namespace HOTSelfDefense
         private void studentRecurringClasses(int ID)
         {
             Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-            List<HOTBAL.Course> studentCourses = sqlClass.GetStudentCourses(ID, "C", 1);
+            List<HOTBAL.Course> studentCourses = sdaMethods.GetStudentCourses(ID, "C", 1);
 
             if (studentCourses != null)
             {
@@ -136,9 +138,9 @@ namespace HOTSelfDefense
                             recurringClasses.Text += "<tr>" + 
                                 "<td>" + course.Day + "</td>" + 
                                 "<td>" + course.Time + "</td>" + 
-                                "<td>" + sqlClass.GetArtTitle(course.FirstArtID) + (course.SecondArtID == 0 ? "" : "/" + sqlClass.GetArtTitle(course.SecondArtID)) + "</td>" + 
+                                "<td>" + sdaMethods.GetArtTitle(course.FirstArtID) + (course.SecondArtID == 0 ? "" : "/" + sdaMethods.GetArtTitle(course.SecondArtID)) + "</td>" + 
                                 "<td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + course.ID.ToString() + "'>" + course.Title + "</a></td>" + 
-                                "<td>" + sqlClass.GetInstructorByID(course.InstructorID).FirstName + " " + sqlClass.GetInstructorByID(course.InstructorID).LastName + "</td>" + 
+                                "<td>" + sdaMethods.GetInstructorByID(course.InstructorID).FirstName + " " + sdaMethods.GetInstructorByID(course.InstructorID).LastName + "</td>" + 
                                 "<td align='center'><a href='" + HOTBAL.SDAConstants.STUDENT_ATTENDANCE_INTERNAL_URL + "?CID=" + course.ID.ToString() + 
                                 "&ID=" + Request.QueryString["ID"].ToString().ToString() + "'>Attendance</a></td>" +
                                 "<td align='center'><a href='confirmDelete(" + course.ID.ToString() + ");return false;'>Remove</a></td>" + 
@@ -158,7 +160,7 @@ namespace HOTSelfDefense
         private void studentPrivateLessons(int ID)
         {
             Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-            List<HOTBAL.Course> studentLessons = sqlClass.GetStudentCourses(ID, "L", 1);
+            List<HOTBAL.Course> studentLessons = sdaMethods.GetStudentCourses(ID, "L", 1);
 
             if (studentLessons != null)
             {
@@ -171,9 +173,9 @@ namespace HOTSelfDefense
                             recurringLessons.Text += "<tr>" + 
                                 "<td>" + lesson.Day + "</td>" + 
                                 "<td>" + lesson.Time + "</td>" + 
-                                "<td>" + sqlClass.GetArtTitle(lesson.FirstArtID) + (lesson.SecondArtID == 0 ? "" : "/" + sqlClass.GetArtTitle(lesson.SecondArtID)) + "</td>" + 
+                                "<td>" + sdaMethods.GetArtTitle(lesson.FirstArtID) + (lesson.SecondArtID == 0 ? "" : "/" + sdaMethods.GetArtTitle(lesson.SecondArtID)) + "</td>" + 
                                 "<td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + lesson.ID.ToString() + "'>" + lesson.Title + "</a></td>" + 
-                                "<td>" + sqlClass.GetInstructorByID(lesson.InstructorID).FirstName + " " + sqlClass.GetInstructorByID(lesson.InstructorID).LastName + "</td>" + 
+                                "<td>" + sdaMethods.GetInstructorByID(lesson.InstructorID).FirstName + " " + sdaMethods.GetInstructorByID(lesson.InstructorID).LastName + "</td>" + 
                                 "<td align='center'><a href='" + HOTBAL.SDAConstants.STUDENT_ATTENDANCE_INTERNAL_URL + "?CID=" + lesson.ID.ToString() + "&ID=" + 
                                 Request.QueryString["ID"].ToString().ToString() + "'>Attendance</a></td>" +
                                 "<td align='center'><a href='confirmDelete(" + lesson.ID.ToString() + "),return false;'>Remove</a></td>" + 
@@ -195,7 +197,7 @@ namespace HOTSelfDefense
         private void studentOtherCourses(int ID)
         {
             Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-            List<HOTBAL.Course> studentCourses = sqlClass.GetStudentCourses(ID, "L", 0);
+            List<HOTBAL.Course> studentCourses = sdaMethods.GetStudentCourses(ID, "L", 0);
 
             if (studentCourses != null)
             {
@@ -208,9 +210,9 @@ namespace HOTSelfDefense
                             otherClassesLessons.Text += "<tr>" + 
                                 "<td>" + course.Day + "</td>" + 
                                 "<td>" + course.Time + "</td>" + 
-                                "<td>" + sqlClass.GetArtTitle(course.FirstArtID) + (course.SecondArtID == 0 ? "" : "/" + sqlClass.GetArtTitle(course.SecondArtID)) + "</td>" + 
+                                "<td>" + sdaMethods.GetArtTitle(course.FirstArtID) + (course.SecondArtID == 0 ? "" : "/" + sdaMethods.GetArtTitle(course.SecondArtID)) + "</td>" + 
                                 "<td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + course.ID.ToString() + "'>" + course.Title + "</a></td>" + 
-                                "<td>" + sqlClass.GetInstructorByID(course.InstructorID).FirstName + " " + sqlClass.GetInstructorByID(course.InstructorID).LastName + "</td>" + 
+                                "<td>" + sdaMethods.GetInstructorByID(course.InstructorID).FirstName + " " + sdaMethods.GetInstructorByID(course.InstructorID).LastName + "</td>" + 
                                 "<td align='center'><a href='" + HOTBAL.SDAConstants.DELETE_CLASS_INTERNAL_URL + "?CID=" + course.ID.ToString() + 
                                 "&ID=" + Request.QueryString["ID"].ToString().ToString() + "'>Delete</a></td>" + 
                                 "</tr>";
@@ -227,7 +229,7 @@ namespace HOTSelfDefense
             else
                 otherClassesLessons.Text += "<tr><td colspan='6'>No non-recurring lessons.</td></tr>";
 
-            studentCourses = sqlClass.GetStudentCourses(ID, "C", 0);
+            studentCourses = sdaMethods.GetStudentCourses(ID, "C", 0);
 
             if (studentCourses != null)
             {
@@ -238,11 +240,11 @@ namespace HOTSelfDefense
                         foreach (HOTBAL.Course c in studentCourses)
                         {
                             otherClassesLessons.Text += "<tr><td>" + c.Day + "</td><td>"
-                                + c.Time + "</td><td>" + sqlClass.GetArtTitle(c.FirstArtID)
-                                + (c.SecondArtID == 0 ? "" : "/" + sqlClass.GetArtTitle(c.SecondArtID))
+                                + c.Time + "</td><td>" + sdaMethods.GetArtTitle(c.FirstArtID)
+                                + (c.SecondArtID == 0 ? "" : "/" + sdaMethods.GetArtTitle(c.SecondArtID))
                                 + "</td><td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + c.ID.ToString() + "'>" + c.Title + "</a>"
-                                + "</td><td>" + sqlClass.GetInstructorByID(c.InstructorID).FirstName
-                                + " " + sqlClass.GetInstructorByID(c.InstructorID).LastName
+                                + "</td><td>" + sdaMethods.GetInstructorByID(c.InstructorID).FirstName
+                                + " " + sdaMethods.GetInstructorByID(c.InstructorID).LastName
                                 + "</td><td align='center'><a href='" + HOTBAL.SDAConstants.DELETE_CLASS_INTERNAL_URL + "?ID=" + c.ID.ToString()
                                 + "'>Delete</a></td></tr>";
                         }
@@ -322,6 +324,11 @@ namespace HOTSelfDefense
         protected void addLesson_Click(object sender, EventArgs e)
         {
             Response.Redirect(HOTBAL.SDAConstants.ADD_CLASS_INTERNAL_URL + "?ID=" + Request.QueryString["ID"]);
+        }
+
+        protected void addTransaction_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(HOTBAL.SDAPOSConstants.CART_URL + "?ID=" + Request.QueryString["ID"] + "&Action=");
         }
     }
 }

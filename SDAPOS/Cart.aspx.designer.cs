@@ -40,15 +40,6 @@ namespace SDAPOS {
         protected global::System.Web.UI.WebControls.ValidationSummary vsCart;
         
         /// <summary>
-        /// revDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revDate;
-        
-        /// <summary>
         /// rfvEmployee control.
         /// </summary>
         /// <remarks>

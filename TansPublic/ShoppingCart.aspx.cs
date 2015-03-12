@@ -35,9 +35,6 @@ namespace PublicWebsite
                         HOTBAL.Customer user = new HOTBAL.Customer();
                         user = sqlClass.GetCustomerInformationByID(Convert.ToInt32(HttpContext.Current.Session["userID"].ToString()));
 
-                        if (user.OnlineRestriction)
-                            btnPaypal.Visible = false;
-
                         Double taxTotal = 0, nonTaxTotal = 0, cartTotal = 0;
 
                         //errorMessage.Text += "Action:" + Request.QueryString["action"];

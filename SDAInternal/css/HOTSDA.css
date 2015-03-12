@@ -223,22 +223,24 @@ td.leftAlignHeader {
     /* comment the above 3 line if you don't want transparency*/
 }
 
-.message_success, .message_error {
-    font-weight: bold;
-    border: 1px solid;
-    margin: 10px auto 10px auto;
-    padding: 15px 10px 15px 50px;
-    background-repeat: no-repeat;
-    background-position: 10px center;
-    -moz-border-radius: .5em;
-    -webkit-border-radius: .5em;
-    border-radius: .5em;
-    width: 300px;
-}
-
 #dates {
     float: left;
     color: #FFFFFF;
     left: 20px;
     padding: 5px 10px;
+}
+
+input.error {
+    border: 1px solid red;
+}
+label.error {
+    background: url("images/unchecked.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    margin-left: 0.3em;
+    padding-left: 16px;
+}
+label.valid {
+    background: url("images/checked.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 16px;
+    width: 16px;
 }

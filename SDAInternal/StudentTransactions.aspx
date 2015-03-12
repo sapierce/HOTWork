@@ -1,9 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="StudentTransactions.aspx.cs" Inherits="HOTSelfDefense.StudentTransactionsPage" MasterPageFile="HOTSelfDefense.master" %>
 
 <asp:Content ID="defaultMain" runat="server" ContentPlaceHolderID="placeholderMain">
-    <p align='center'>
-        <asp:Label ID="lblError" class="error" runat="server" />
-    </p>
+    <asp:HyperLink ID="studentInformation" Text="Return to Student Information" runat="server" />
     <a href='StudentInfo.aspx?ID=<%=Request.QueryString["UserID"]%>&Date=<%=Request.QueryString["Date"]%>'>Return to user information</a>
     <br />
     <br />
@@ -18,11 +16,11 @@
             <tr>
             <td class="rightAlignHeader">Name:</td>
             <td>
-                <asp:Label ID="lblCustName" runat="server" /></td>
+                <asp:Label ID="studentName" runat="server" /></td>
         </tr>
         <tr>
             <td colspan="2" style="text-align: center;">
-                <a href='/SDAPOS/Cart.aspx?ID=<%=Request.QueryString["ID"]%>&Action='>Add A Transaction</a>
+                <asp:HyperLink ID="addTransaction" Text="Add A Transaction" runat="server" />
             </td>
         </tr>
             </tbody>
@@ -48,6 +46,6 @@
                 <td class="centerAlignHeader">Paid?</td>
             </tr>
         </tbody>
-        <asp:Literal ID="litTransactions" runat="server" />
+        <asp:Literal ID="transactionOutput" runat="server" />
     </table>
 </asp:Content>

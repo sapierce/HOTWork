@@ -67,7 +67,7 @@ namespace HOTSelfDefense
                     foreach (HOTBAL.Student student in allStudents)
                     {
                         // Add the student to the list
-                        studentList.Items.Add(new ListItem(student.LastName + ", " + student.FirstName, student.ID.ToString()));
+                        studentList.Items.Add(new ListItem(student.LastName + ", " + student.FirstName + (String.IsNullOrEmpty(student.Suffix) ? "" : " " + student.Suffix), student.ID.ToString()));
                     }
                 }
                 else
@@ -92,10 +92,7 @@ namespace HOTSelfDefense
         /// </summary>
         protected void addStudentLesson_Click(object sender, EventArgs e)
         {
-            // Was the page valid?
-            if (Page.IsValid)
-            {
-                // Set up the error label
+            // Set up the error label
                 Label errorLabel = (Label)this.Master.FindControl("errorMessage");
                 try
                 {
@@ -116,7 +113,6 @@ namespace HOTSelfDefense
                     functionsClass.SendErrorMail("ClassStudentAdd: addStudentLesson", ex, "");
                     errorLabel.Text = HOTBAL.SDAMessages.ERROR_GENERIC;
                 }
-            }
         }
     }
 }

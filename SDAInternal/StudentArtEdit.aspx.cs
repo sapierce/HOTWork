@@ -37,39 +37,49 @@ namespace HOTSelfDefense
                         // Get the information associated with this id
                         HOTBAL.StudentArt artResponse = methodsClass.GetStudentArt(Convert.ToInt32(Request.QueryString["XID"].ToString()));
 
-                        // Did we get an error?
-                        if (!String.IsNullOrEmpty(artResponse.Error))
+                        if (artResponse != null)
                         {
-                            // Populate the arts and select the current art
-                            populateArts(artResponse.ArtID);
-
-                            // Populate the belts and select the current belt
-                            populateBelts(artResponse.ArtID, artResponse.BeltID);
-
-                            // Is the current belt tips or classes?
-                            if (artResponse.ClassOrTip == "T")
+                            // Did we get an error?
+                            if (String.IsNullOrEmpty(artResponse.Error))
                             {
-                                // Hide the class count
-                                classCount.Visible = false;
+                                // Populate the arts and select the current art
+                                populateArts(artResponse.ArtID);
 
-                                // Show the tips drop down
-                                studentTip.Visible = true;
+                                // Populate the belts and select the current belt
+                                populateBelts(artResponse.ArtID, artResponse.BeltID);
 
-                                // Populate the tips and select the current tip
-                                populateTips(artResponse.BeltID, artResponse.TipID);
+                                // Is the current belt tips or classes?
+                                if (artResponse.ClassOrTip == "T")
+                                {
+                                    // Hide the class count
+                                    classCount.Visible = false;
+
+                                    // Show the tips drop down
+                                    studentTip.Visible = true;
+
+                                    // Populate the tips and select the current tip
+                                    populateTips(artResponse.BeltID, artResponse.TipID);
+
+                                    tipOrClass.Text = "Tip:";
+                                }
+                                else
+                                {
+                                    // Show the class count
+                                    classCount.Visible = true;
+
+                                    // Hide the tips drop down
+                                    studentTip.Visible = false;
+
+                                    tipOrClass.Text = "Class #:";
+                                }
                             }
                             else
-                            {
-                                // Show the class count
-                                classCount.Visible = true;
-
-                                // Hide the tips drop down
-                                studentTip.Visible = false;
-                            }
+                                // Output the received error
+                                errorLabel.Text = artResponse.Error;
                         }
                         else
                             // Output the received error
-                            errorLabel.Text = artResponse.Error;
+                            errorLabel.Text = HOTBAL.SDAMessages.NO_ARTS;
                     }
                     else
                         // Output the received error
@@ -105,6 +115,8 @@ namespace HOTSelfDefense
 
                     // Populate the tips associated with the new belt
                     populateTips(Convert.ToInt32(studentBelt.SelectedValue), 0);
+
+                    tipOrClass.Text = "Tip:";
                 }
                 else
                 {
@@ -113,6 +125,8 @@ namespace HOTSelfDefense
 
                     // Hide the tips drop down
                     studentTip.Visible = false;
+
+                    tipOrClass.Text = "Class #:";
                 }
             }
             else
@@ -173,6 +187,9 @@ namespace HOTSelfDefense
         /// <param name="artId"></param>
         private void populateArts(int artId)
         {
+            // Set up the error label
+            Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+
             // Clear the drop downs
             studentArt.Items.Clear();
 
@@ -197,20 +214,16 @@ namespace HOTSelfDefense
 
                     // Select the current art as the default
                     studentArt.Items.FindByValue(artId.ToString()).Selected = true;
+
+                    studentArt.Enabled = false;
                 }
                 else
-                {
-                    // Set up the error label and output the received error
-                    Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+                    // Output the received error
                     errorLabel.Text = artList[0].Error;
-                }
             }
             else
-            {
-                // Set up the error label and output the error message
-                Label errorLabel = (Label)this.Master.FindControl("errorMessage");
+                // Output the error message
                 errorLabel.Text = HOTBAL.SDAMessages.NO_ARTS;
-            }
         }
 
         /// <summary>

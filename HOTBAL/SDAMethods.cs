@@ -12,9 +12,9 @@ namespace HOTBAL
     public class SDAMethods
     {
         private static string sdaConnectionStringKey = "HOTSDA";
-        private static string prodConnectionStringKey = "HOTSDAProd";
         private SDASQL sdaDataAccess = new SDASQL(sdaConnectionStringKey);
-        private SDAProdSQL prodSDADataAccess = new SDAProdSQL(prodConnectionStringKey);
+        private SDAProdSQL prodSDADataAccess = new SDAProdSQL(sdaConnectionStringKey);
+        private FederationSQL fedDataAccess = new FederationSQL(sdaConnectionStringKey);
         HOTFunctions functionsClass = new HOTFunctions();
         int arrCount = 0, count = 0;
         
@@ -56,7 +56,7 @@ namespace HOTBAL
 
                             if (courseTable.Rows.Count > 0)
                             {
-                                //There are courses scheduled for the day and time
+                                // There are courses scheduled for the day and time
                                 foreach (DataRow row in courseTable.Rows)
                                 {
                                     //Get the actual class
@@ -66,18 +66,24 @@ namespace HOTBAL
 
                                         if (classTable.Rows.Count > 0)
                                         {
-                                            //Class already set up, get the ID
+                                            // Class already set up, get the ID
                                             if (arrCount == 0)
                                             {
                                                 scheduleResponse += "<tr><td class='rightAlignHeader'>" + cTime.ToShortTimeString() + "</td><td><a href='" + SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + classTable.Rows[0]["CLASS_ID"].ToString() + "'>";
+                                                
+                                                if (row["CLASS_OR_LESSON"].ToString() == "L")
+                                                    scheduleResponse += "Private Lesson for ";
+
+                                                scheduleResponse += row["CRSE_TITLE"].ToString();
+
                                                 if (row["CLASS_OR_LESSON"].ToString() == "L")
                                                 {
-                                                    scheduleResponse += "Private Lesson for ";
-                                                }
-                                                scheduleResponse += row["CRSE_TITLE"].ToString() + " - " + GetArtTitle(Convert.ToInt32(row["CRSE_ART_1"].ToString()));
-                                                if (row["CRSE_ART_2"].ToString() != "0")
-                                                {
-                                                    scheduleResponse += "/" + GetArtTitle(Convert.ToInt32(row["CRSE_ART_2"].ToString()));
+                                                    scheduleResponse += " - " + GetArtTitle(Convert.ToInt32(row["CRSE_ART_1"].ToString()));
+
+                                                    if (row["CRSE_ART_2"].ToString() != "0")
+                                                    {
+                                                        scheduleResponse += "/" + GetArtTitle(Convert.ToInt32(row["CRSE_ART_2"].ToString()));
+                                                    }
                                                 }
                                                 scheduleResponse += "</a></td></tr>";
                                             }
@@ -85,20 +91,25 @@ namespace HOTBAL
                                             {
                                                 scheduleResponse += "<tr><td class='rightAlignHeader'></td><td><a href='" + SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + classTable.Rows[0]["CLASS_ID"].ToString() + "'>";
                                                 if (row["CLASS_OR_LESSON"].ToString() == "L")
-                                                {
                                                     scheduleResponse += "Private Lesson for ";
-                                                }
-                                                scheduleResponse += row["CRSE_TITLE"].ToString() + " - " + GetArtTitle(Convert.ToInt32(row["CRSE_ART_1"].ToString()));
-                                                if (row["CRSE_ART_2"].ToString() != "0")
+
+                                                scheduleResponse += row["CRSE_TITLE"].ToString();
+
+                                                if (row["CLASS_OR_LESSON"].ToString() == "L")
                                                 {
-                                                    scheduleResponse += "/" + GetArtTitle(Convert.ToInt32(row["CRSE_ART_2"].ToString()));
+                                                    scheduleResponse += " - " + GetArtTitle(Convert.ToInt32(row["CRSE_ART_1"].ToString()));
+
+                                                    if (row["CRSE_ART_2"].ToString() != "0")
+                                                    {
+                                                        scheduleResponse += "/" + GetArtTitle(Convert.ToInt32(row["CRSE_ART_2"].ToString()));
+                                                    }
                                                 }
                                                 scheduleResponse += "</a></td></tr>";
                                             }
                                         }
                                         else
                                         {
-                                            //No class set up yet, add it
+                                            // No class set up yet, add it
                                             bool addResponse = AddClass(functionsClass.FormatDash(ScheduleDate), Convert.ToInt32(row["CRSE_ID"].ToString()));
                                             if (addResponse)
                                             {
@@ -111,10 +122,15 @@ namespace HOTBAL
                                                     {
                                                         scheduleResponse += "Private Lesson for ";
                                                     }
-                                                    scheduleResponse += row["CRSE_TITLE"].ToString() + " - " + GetArtTitle(Convert.ToInt32(row["CRSE_ART_1"].ToString()));
-                                                    if (row["CRSE_ART_2"].ToString() != "0")
+                                                    scheduleResponse += row["CRSE_TITLE"].ToString();
+
+                                                    if (row["CLASS_OR_LESSON"].ToString() == "L")
                                                     {
-                                                        scheduleResponse += "/" + GetArtTitle(Convert.ToInt32(row["CRSE_ART_2"].ToString()));
+                                                        scheduleResponse += " - " + GetArtTitle(Convert.ToInt32(row["CRSE_ART_1"].ToString()));
+                                                        if (row["CRSE_ART_2"].ToString() != "0")
+                                                        {
+                                                            scheduleResponse += "/" + GetArtTitle(Convert.ToInt32(row["CRSE_ART_2"].ToString()));
+                                                        }
                                                     }
                                                     scheduleResponse += "</a></td></tr>";
                                                 }
@@ -125,10 +141,15 @@ namespace HOTBAL
                                                     {
                                                         scheduleResponse += "Private Lesson for ";
                                                     }
-                                                    scheduleResponse += row["CRSE_TITLE"].ToString() + " - " + GetArtTitle(Convert.ToInt32(row["CRSE_ART_1"].ToString()));
-                                                    if (row["CRSE_ART_2"].ToString() != "0")
+                                                    scheduleResponse += row["CRSE_TITLE"].ToString();
+
+                                                    if (row["CLASS_OR_LESSON"].ToString() == "L")
                                                     {
-                                                        scheduleResponse += "/" + GetArtTitle(Convert.ToInt32(row["CRSE_ART_2"].ToString()));
+                                                        scheduleResponse += " - " + GetArtTitle(Convert.ToInt32(row["CRSE_ART_1"].ToString()));
+                                                        if (row["CRSE_ART_2"].ToString() != "0")
+                                                        {
+                                                            scheduleResponse += "/" + GetArtTitle(Convert.ToInt32(row["CRSE_ART_2"].ToString()));
+                                                        }
                                                     }
                                                     scheduleResponse += "</a></td></tr>";
                                                 }
@@ -143,12 +164,12 @@ namespace HOTBAL
 
                                     arrCount++;
                                 }
-                                //Add extra empty row
+                                // Add extra empty row
                                 scheduleResponse += "<tr><td class='rightAlignHeader'></td><td><a href='" + SDAConstants.ADD_CLASS_INTERNAL_URL + "?Time=" + cTime.ToShortTimeString() + "&Date=" + functionsClass.FormatDash(ScheduleDate) + "'>----</a></td></tr>";
                             }
                             else
                             {
-                                //Return empty row
+                                // Return empty row
                                 scheduleResponse += "<tr><td class='rightAlignHeader'>" + cTime.ToShortTimeString() + "</td><td><a href='" + SDAConstants.ADD_CLASS_INTERNAL_URL + "?Time=" + cTime.ToShortTimeString() + "&Date=" + functionsClass.FormatDash(ScheduleDate) + "'>----</a></td></tr>";
                             }
                             arrCount = 0;
@@ -168,7 +189,7 @@ namespace HOTBAL
                 }
                 else
                 {
-                    //No hours scheduled for today
+                    // No hours scheduled for today
                     scheduleResponse = "No hours";
                 }
             }
@@ -184,11 +205,11 @@ namespace HOTBAL
         public List<string> GetAvailableTimes(DateTime scheduleDate)
         {
             List<string> scheduleTimes = new List<string>();
-            string scheduleDay = scheduleDate.DayOfWeek.ToString();
+            string scheduleDay = scheduleDate.DayOfWeek.ToString().ToUpper().Substring(0,3);
 
             try
             {
-                //Get the hours for day
+                // Get the hours for day
                 DataTable scheduleTable = sdaDataAccess.ExecuteGET_SCHEDULE(scheduleDay);
 
                 if (scheduleTable.Rows.Count > 0)
@@ -208,7 +229,7 @@ namespace HOTBAL
                 }
                 else
                 {
-                    //No hours scheduled for today
+                    // No hours scheduled for today
                     scheduleTimes.Add("No Times Available");
                 }
             }
@@ -260,7 +281,7 @@ namespace HOTBAL
 
         public List<Student> GetStudentsByClass(int CourseID)
         {
-            //Get students in course
+            // Get students in course
             List<Student> responseStudents = new List<Student>();
 
             try
@@ -272,11 +293,7 @@ namespace HOTBAL
                     foreach (DataRow row in courseStudents.Rows)
                     {
                         Student studentList = new Student();
-                        studentList.ID = Convert.ToInt32(row["STDT_ID"].ToString());
-                        studentList.FirstName = row["STDT_FNAME"].ToString();
-                        studentList.LastName = row["STDT_LNAME"].ToString();
-                        studentList.Paid = (row["STDT_PAID"].ToString() == "True" ? true : false);
-                        studentList.Note = row["STDT_NOTE"].ToString();
+                        studentList = GetStudentInformation(Convert.ToInt32(row["STDT_ID"]));
                         responseStudents.Add(studentList);
                     }
                 }
@@ -407,6 +424,7 @@ namespace HOTBAL
                             responseStudent.RegistrationID = row["STDT_REG_ID"].ToString();
                         responseStudent.FirstName = row["STDT_FNAME"].ToString();
                         responseStudent.LastName = row["STDT_LNAME"].ToString();
+                        responseStudent.Suffix = row["STDT_SUFFIX"].ToString();
                         responseStudent.Address = row["STDT_ADDR"].ToString();
                         responseStudent.City = row["STDT_CITY"].ToString();
                         responseStudent.State = row["STDT_STATE"].ToString();
@@ -452,6 +470,7 @@ namespace HOTBAL
                         students.ID = Convert.ToInt32(row["STDT_ID"].ToString());
                         students.FirstName = row["STDT_FNAME"].ToString();
                         students.LastName = row["STDT_LNAME"].ToString();
+                        students.Suffix = row["STDT_SUFFIX"].ToString();
                         studentResponse.Add(students);
                     }
                 }
@@ -467,13 +486,13 @@ namespace HOTBAL
             return studentResponse;
         }
 
-        public long AddNewStudent(string FirstName, string LastName, string Address, string City, string State, string ZipCode, string EmergencyContact, DateTime BirthDate, DateTime PaymentDate, string PaymentPlan, Double PaymentAmount, Int32 ArtID)
+        public long AddNewStudent(string FirstName, string LastName, string Suffix, string Address, string City, string State, string ZipCode, string EmergencyContact, string SchoolId, DateTime BirthDate, DateTime PaymentDate, string PaymentPlan, Double PaymentAmount, Int32 ArtID)
         {
             long studentID = 0;
 
             try
             {
-                studentID = sdaDataAccess.ExecuteINSERT_STUDENT(FirstName, LastName, Address, City, State, ZipCode, EmergencyContact, functionsClass.FormatDash(BirthDate), functionsClass.FormatDash(DateTime.Now), PaymentPlan, PaymentAmount);
+                studentID = sdaDataAccess.ExecuteINSERT_STUDENT(FirstName, LastName, Suffix, Address, City, State, ZipCode, EmergencyContact, SchoolId, functionsClass.FormatDash(BirthDate), functionsClass.FormatDash(DateTime.Now), PaymentPlan, PaymentAmount);
                 
                 if (studentID > 0)
                     sdaDataAccess.ExecuteINSERT_STUDENT_ART(studentID, ArtID);
@@ -486,14 +505,14 @@ namespace HOTBAL
             return studentID;
         }
 
-        public bool UpdateStudent(int ID, string FirstName, string LastName, string Address, string City, string State, string ZipCode, string EmergencyContact, DateTime BirthDate, DateTime PaymentDate, string PaymentPlan, Double PaymentAmount, string Note, bool Active, bool Paid, bool Pass)
+        public bool UpdateStudent(int ID, string FirstName, string LastName, string Address, string Suffix, string City, string State, string ZipCode, string EmergencyContact, string SchoolId, DateTime BirthDate, DateTime PaymentDate, string PaymentPlan, Double PaymentAmount, string Note, bool Active, bool Paid, bool Pass)
         {
             bool addResponse = false;
 
             try
             {
-                addResponse = sdaDataAccess.ExecuteUPDATE_STUDENT_BY_ID(ID, FirstName, LastName, Address, City, State, ZipCode, 
-                    EmergencyContact, functionsClass.FormatDash(BirthDate), functionsClass.FormatDash(PaymentDate), PaymentPlan, 
+                addResponse = sdaDataAccess.ExecuteUPDATE_STUDENT_BY_ID(ID, FirstName, LastName, Suffix, Address, City, State, ZipCode,
+                    EmergencyContact, SchoolId, functionsClass.FormatDash(BirthDate), functionsClass.FormatDash(PaymentDate), PaymentPlan, 
                     PaymentAmount, Note, (Pass.ToString() == "True" ? 1 : 0), (Paid.ToString() == "True" ? 1 : 0));
             }
             catch (Exception ex)
@@ -569,7 +588,7 @@ namespace HOTBAL
 
             try
             {
-                DataTable studentsTable = sdaDataAccess.ExecuteGET_STUDENT_BY_NAME(FirstName, LastName, SchoolID);
+                DataTable studentsTable = sdaDataAccess.ExecuteGET_STUDENT_BY_NAME(FirstName, LastName, SchoolID, false);
 
                 if (studentsTable.Rows.Count > 0)
                 {
@@ -584,6 +603,46 @@ namespace HOTBAL
                         students.RegistrationID = row["STDT_REG_ID"].ToString();
                         students.FirstName = row["STDT_FNAME"].ToString();
                         students.LastName = row["STDT_LNAME"].ToString();
+                        students.Suffix = row["STDT_SUFFIX"].ToString();
+                        students.Active = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
+                        studentResponse.Add(students);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogErrorMessage(ex, FirstName + " " + LastName, "SDAMethods: GetStudentsByName");
+                Student students = new Student();
+                students.Error = SDAMessages.ERROR_GENERIC;
+                studentResponse.Add(students);
+            }
+
+            return studentResponse;
+        }
+
+        public List<Student> GetStudentsByName(string FirstName, string LastName, int SchoolID, bool activeOnly)
+        {
+            List<Student> studentResponse = new List<Student>();
+
+            try
+            {
+                DataTable studentsTable = sdaDataAccess.ExecuteGET_STUDENT_BY_NAME(FirstName, LastName, SchoolID, activeOnly);
+
+                if (studentsTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in studentsTable.Rows)
+                    {
+                        Student students = new Student();
+                        students.ID = Convert.ToInt32(row["STDT_ID"].ToString());
+                        if (Convert.ToInt32(row["STDT_SCHOOL_ID"].ToString().Trim()) == 1)
+                            students.RegistrationID = row["STDT_ID"].ToString().Trim();
+                        else
+                            students.RegistrationID = row["STDT_REG_ID"].ToString().Trim();
+                        students.RegistrationID = row["STDT_REG_ID"].ToString();
+                        students.FirstName = row["STDT_FNAME"].ToString();
+                        students.LastName = row["STDT_LNAME"].ToString();
+                        students.Suffix = row["STDT_SUFFIX"].ToString();
+                        students.Active = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
                         studentResponse.Add(students);
                     }
                 }
@@ -605,7 +664,7 @@ namespace HOTBAL
 
             try
             {
-                DataTable studentsTable = sdaDataAccess.ExecuteGET_STUDENT_BY_NAME("", LastLetter, SchoolID);
+                DataTable studentsTable = sdaDataAccess.ExecuteGET_STUDENT_BY_NAME("", LastLetter, SchoolID, false);
 
                 if (studentsTable.Rows.Count > 0)
                 {
@@ -615,6 +674,41 @@ namespace HOTBAL
                         students.ID = Convert.ToInt32(row["STDT_ID"].ToString());
                         students.FirstName = row["STDT_FNAME"].ToString();
                         students.LastName = row["STDT_LNAME"].ToString();
+                        students.Suffix = row["STDT_SUFFIX"].ToString();
+                        students.Active = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
+                        studentResponse.Add(students);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogErrorMessage(ex, LastLetter, "SDAMethods: GetStudentsByLastName");
+                Student students = new Student();
+                students.Error = SDAMessages.ERROR_GENERIC;
+                studentResponse.Add(students);
+            }
+
+            return studentResponse;
+        }
+
+        public List<Student> GetStudentsByLastName(string LastLetter, int SchoolID, bool activeOnly)
+        {
+            List<Student> studentResponse = new List<Student>();
+
+            try
+            {
+                DataTable studentsTable = sdaDataAccess.ExecuteGET_STUDENT_BY_NAME("", LastLetter, SchoolID, activeOnly);
+
+                if (studentsTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in studentsTable.Rows)
+                    {
+                        Student students = new Student();
+                        students.ID = Convert.ToInt32(row["STDT_ID"].ToString());
+                        students.FirstName = row["STDT_FNAME"].ToString();
+                        students.LastName = row["STDT_LNAME"].ToString();
+                        students.Suffix = row["STDT_SUFFIX"].ToString();
+                        students.Active = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
                         studentResponse.Add(students);
                     }
                 }
@@ -2162,7 +2256,7 @@ namespace HOTBAL
                     classInfo.InstructorID = Convert.ToInt32(courseTable.Rows[0]["CRSE_INST"].ToString());
                     classInfo.SecondArtID = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_2"].ToString());
                     classInfo.Title = courseTable.Rows[0]["CRSE_TITLE"].ToString();
-                    classInfo.Day = getDayOfWeek(courseTable.Rows[0]["CRSE_DAY"].ToString());
+                    classInfo.Day = courseTable.Rows[0]["CRSE_DAY"].ToString();
                     classInfo.Time = courseTable.Rows[0]["CRSE_TIME"].ToString();
                     classInfo.InstructorID = Convert.ToInt32(courseTable.Rows[0]["CRSE_INST"].ToString());
                     classInfo.ClassOrLesson = courseTable.Rows[0]["CLASS_OR_LESSON"].ToString();
@@ -2196,7 +2290,7 @@ namespace HOTBAL
                         courseList.InstructorID = Convert.ToInt32(row["CRSE_INST"].ToString());
                         courseList.FirstArtID = Convert.ToInt32(row["CRSE_ART_1"].ToString());
                         courseList.SecondArtID = Convert.ToInt32(row["CRSE_ART_2"].ToString());
-                        courseList.Day = getDayOfWeek(row["CRSE_DAY"].ToString());
+                        courseList.Day = row["CRSE_DAY"].ToString();
                         courseList.Time = row["CRSE_TIME"].ToString();
                         courseList.ClassOrLesson = row["CLASS_OR_LESSON"].ToString();
                         courseList.Repeating = (row["CRSE_RPT"].ToString() == "True" ? true : false);
@@ -2282,7 +2376,7 @@ namespace HOTBAL
                         transactionInfo.Location = row["TRNS_LOC"].ToString();
                         transactionInfo.Other = row["TRNS_OTH"].ToString();
                         transactionInfo.Paid = (row["TRNS_PAID"].ToString() == "True" ? true : false);
-                        transactionInfo.Payment = row["TRNS_PYMT"].ToString();
+                        transactionInfo.Payment = (String.IsNullOrEmpty(row["TRNS_PYMT"].ToString()) ? "Unknown" : row["TRNS_PYMT"].ToString());
                         transactionInfo.Seller = row["TRNS_SELL"].ToString();
                         transactionInfo.CustomerID = Convert.ToInt32(row["TRNS_BGHT"]);
                         transactionInfo.Tax = Convert.ToDouble(row["TRNS_TAX"].ToString());
@@ -2353,18 +2447,6 @@ namespace HOTBAL
             }
 
             return transactionsResponse;
-        }
-
-        private DayOfWeek getDayOfWeek(string inputString)
-        {
-            if (Enum.IsDefined(typeof(DayOfWeek), inputString))
-            {
-                return (DayOfWeek)Enum.Parse(typeof(DayOfWeek), inputString, true);
-            }
-            else
-            {
-                return DayOfWeek.Monday;
-            }
         }
     }
 }

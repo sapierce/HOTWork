@@ -6,41 +6,14 @@
             // Add the datepicker function to the schedule date
             $("#<%=scheduleDate.ClientID%>").datepicker();
         });
-
-        // When the changeDate button is pressed
-        $("#<%= this.changeDate.ClientID %>").click(function () {
-            // Is the page valid?
-            if (!Page_IsValid) {
-                // Display the error messages
-                $("#<%= this.panError.ClientID %>").dialog({
-                    resizable: false,
-                    width: 420,
-                    modal: true
-                });
-            }
-        });
     </script>
 </asp:Content>
 <asp:Content ID="defaultMain" runat="server" ContentPlaceHolderID="placeholderMain">
-    <!-- Display errors associated with validating Class information -->
-    <asp:Panel ID="panError" runat="server" CssClass="ui-state-error" Style="display: none">
-        <p>
-            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-            <strong>The following errors were found:</strong>
-            <asp:ValidationSummary ID="scheduleValidation" runat="server" CssClass="ui-state-error-text"
-                ShowSummary="true" ValidationGroup="changeSchedule" ShowMessageBox="false" EnableClientScript="true" Style="text-align: left" ForeColor="" />
-        </p>
-        <span></span>
-    </asp:Panel>
-
-    <!-- Date Validation -->
-    <asp:RequiredFieldValidator ID="dateRequired" Display="None" runat="server" ControlToValidate="scheduleDate" ErrorMessage="Please select a schedule date." EnableClientScript="true" SetFocusOnError="true" ValidationGroup="changeSchedule" />
-    
     <div style="text-align: center; margin: auto;">
         <!-- Select what date we are looking at on the schedule-->
-        <asp:TextBox ID="scheduleDate" runat="server" />&nbsp;
+        <asp:TextBox ID="scheduleDate" runat="server" class="scheduleDate" />&nbsp;
         <!-- Submit to change the date on the schedule -->
-        <asp:Button ID="changeDate" runat="server" Text="Go to Date" OnClick="changeDate_Click" CausesValidation="true" ValidationGroup="changeSchedule" CssClass="ui-button" />
+        <asp:Button ID="changeDate" runat="server" Text="Go to Date" OnClick="changeDate_Click" CssClass="ui-button" />
     </div>
     <br />
     <table class="defense" style="margin: auto; width: 50%;">
@@ -53,4 +26,41 @@
         <!-- Output a schedule of classes and lessons for the given date -->
         <asp:Literal ID="outputSchedule" runat="server" />
     </table>
+    <script>
+        // initialize tooltipster on text input elements
+        $('#aspnetForm input[type="text"]').tooltipster({
+            trigger: 'custom',
+            onlyOne: false,
+            position: 'right',
+            theme: 'tooltipster-light'
+        });
+
+        // initialize tooltipster on select input elements
+        $('#aspnetForm select').tooltipster({
+            trigger: 'custom',
+            onlyOne: false,
+            position: 'right',
+            theme: 'tooltipster-light'
+        });
+
+        $("#aspnetForm").validate({
+            errorPlacement: function (error, element) {
+                $(element).tooltipster('update', $(error).text());
+                $(element).tooltipster('show');
+            },
+            success: function (label, element) {
+                $(element).tooltipster('hide');
+            }
+        });
+
+        $(".scheduleDate").rules("add", {
+            required: true,
+            date: true,
+            messages: {
+                required: "Please enter in a schedule date.",
+                maxlength: 10,
+                date: "Entered information must be in date format."
+            }
+        });
+    </script>
 </asp:Content>

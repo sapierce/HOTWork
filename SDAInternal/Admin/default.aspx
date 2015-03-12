@@ -1,72 +1,130 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="HOTSelfDefense._default" MasterPageFile="../HOTSelfDefense.master" %>
 
 <asp:Content ID="defaultMain" runat="server" ContentPlaceHolderID="placeholderMain">
-<table align="center">
-			<tr>
-				<td class="header">Class Information</td>
-				<td class="header">Sales/Inventory</td>
-			</tr>
-			<tr>
-				<td valign="top">
-					<!-- Edit/Delete Classes -->
-					Edit/Delete Repeating Class: <asp:dropdownlist id="ddlCourse" runat="server" /> <asp:button id="btnEditCourse" onClick="btnEditCourse_onClick" runat="server" text="Go" /><br />
-					<br />
-                    <!-- Add/Edit/Delete Instructors -->
-					<asp:button id="btnAddInst" onClick="btnAddInst_onClick" runat="server" text="Add Instructor" /><br />
-					Edit/Delete Instructor: <asp:dropdownlist id="ddlInst" runat="server" /> <asp:button id="btnEditInst" onClick="btnEditInst_onClick" runat="server" text="Go" />
-				</td>
-				<td valign="top">
-					<!-- Full Transaction Log -->
-					Full Transaction Log for: <asp:textbox id="txtFullTrns" runat="server" /> <asp:button id="btnFullTrns" onClick="btnFullTrns_onClick" runat="server" text="Go" /><br />
-					<br />
-					<!-- Add/Edit/Delete Inventory -->
-					<asp:button id="btnAddItem" onClick="btnAddItem_onClick" runat="server" text="Add Item" /><br />
-					Edit/Delete Item: <asp:dropdownlist id="ddlItem" runat="server" /> <asp:button id="btnEditItem" onClick="btnEditItem_onClick" runat="server" text="Go" /><br />
-					
-					<!-- Current Inventory -->
-					<asp:button id="btnInven" onClick="btnInven_onClick" runat="server" text="Current Inventory" />
-				</td>
-			</tr>
-			<tr>
-				<td class="header">Art Information</td>
-				<td class="header">Reports</td>
-			</tr>
-			<tr>
-				<td valign="top">
-					<!-- Add/Edit/Delete Art -->
-					<asp:button id="btnAddArt" onClick="btnAddArt_onClick" runat="server" text="Add Art" /><br />
-					Edit/Delete Art: <asp:dropdownlist id="ddlArt" runat="server" /> <asp:button id="btnEditArt" onClick="btnEditArt_onClick" runat="server" text="Go" /><br />
-					<br />
-					<!-- Add/Edit/Delete Belt -->
-					<asp:button id="btnAddBelt" onClick="btnAddBelt_onClick" runat="server" text="Add Belt" /><br />
-					Edit/Delete Belt: <asp:dropdownlist id="ddlBelt" runat="server" /> <asp:button id="btnEditBelt" onClick="btnEditBelt_onClick" runat="server" text="Go" /><br />
-					<br />
-					<!-- Add/Edit/Delete Tip -->
-					<asp:button id="btnAddTip" onClick="btnAddTip_onClick" runat="server" text="Add Tip" /><br />
-					Edit/Delete Tip: <asp:dropdownlist id="ddlTip" runat="server" /> <asp:button id="btnEditTip" onClick="btnEditTip_onClick" runat="server" text="Go" /><br />
-					<br />
-					<!-- Add/Edit/Delete Term -->
-					<asp:button id="btnTerm" onClick="btnAddTerm_onClick" runat="server" text="Add Term" /><br />
-					Edit/Delete Term: <asp:dropdownlist id="ddlTerm" runat="server" /> <asp:button id="btnEditTerm" onClick="btnEditTerm_onClick" runat="server" text="Go" /><br />
-					<br />
-				</td>
-				<td valign="top">
-					<!-- Birthdays -->
-					Birthdays in the next <asp:textbox id="txtBirthday" runat="server" /> day(s) <asp:button id="btnBirthday" onClick="btnBirthday_onClick" runat="server" text="Go" /><br />
-					<br />
-					<!-- Belts Passed -->
-					Belts Passed Between:<br />
-					<asp:textbox id="txtPassBeg" runat="server" /> - <asp:textbox id="txtPassEnd" runat="server" /> <asp:button id="btnPass" onClick="btnPass_onClick" runat="server" text="Go" /><br />
-					<br />
-					<!-- Last Tip -->
-					Students on last tip as of: <asp:textbox id="txtLastTip" runat="server" /> <asp:button id="btnLastTip" onClick="btnLastTip_onClick" runat="server" text="Go" /><br />
-					<br />
-					<!-- Class Attendance -->
-					Class attendance for: <asp:textbox id="txtAttend" runat="server" /> <asp:button id="btnAttend" onClick="btnAttend_onClick" runat="server" text="Go" /><br />
-					<br />
-					<!-- All Active Students -->
-					<asp:button id="btnActive" onClick="btnActive_onClick" runat="server" text="All Active Students" />
-				</td>
-			</tr>
-		</table>
+    <table class="defense">
+        <thead>
+            <tr>
+                <th style="width: 50%;">Class Information</th>
+                <th style="width: 50%;">Sales/Inventory</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                <!-- Edit/Delete Classes -->
+                <b>Edit/Delete Repeating Class:</b><br />
+                <asp:DropDownList ID="courseSelection" runat="server" />
+                <asp:Button ID="editCourse" OnClick="editCourse_Click" runat="server" Text="Go" />
+            </td>
+            <td>
+                <!-- Full Transaction Log -->
+                <b>Full Transaction Log for:<br />
+                    <span class="detailInformation">(includes taxable and nontaxable)</span></b><br />
+                <asp:TextBox ID="transactionStartDate" runat="server" Width="75" MaxLength="10" />
+                To
+                <asp:TextBox ID="transactionEndDate" runat="server" Width="75" MaxLength="10" />
+                <br />
+                <b>Totals only: </b>
+                <asp:CheckBox ID="totalsOnly" runat="server" />
+                &nbsp;&nbsp;&nbsp;
+                <asp:Button ID="viewFullTransaction" Text="Go" OnClick="viewFullTransaction_Click" runat="server" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                
+                <!-- Add/Edit/Delete Instructors -->
+                <asp:Button ID="addInstructor" OnClick="addInstructor_Click" runat="server" Text="Add Instructor" /><br />
+                <br />
+                <b>Edit/Delete Instructor:</b><br />
+                <asp:DropDownList ID="instructorSelection" runat="server" />
+                <asp:Button ID="editInstructor" OnClick="editInstructor_Click" runat="server" Text="Go" />
+            </td>
+            <td>
+                <!-- Add/Edit/Delete Inventory -->
+                <asp:Button ID="addItem" OnClick="addItem_Click" runat="server" Text="Add Item" /><br />
+                <br />
+                <b>Edit/Delete Item:</b><br />
+                <asp:DropDownList ID="itemSelection" runat="server" />
+                <asp:Button ID="editItem" OnClick="editItem_Click" runat="server" Text="Go" /><br />
+                <br />
+                <!-- Current Inventory -->
+                <asp:Button ID="viewInventory" OnClick="viewInventory_Click" runat="server" Text="Current Inventory" />
+            </td>
+        </tr>
+        <tr>
+            <td class="centerAlignHeader" style="width: 50%;">Art Information</td>
+            <td class="centerAlignHeader" style="width: 50%;">Reports</td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Add/Edit/Delete Art -->
+                <asp:Button ID="addArt" OnClick="addArt_Click" runat="server" Text="Add Art" /><br />
+                <br />
+                <b>Edit/Delete Art:</b><br />
+                <asp:DropDownList ID="artSelection" runat="server" />
+                <asp:Button ID="editArt" OnClick="editArt_Click" runat="server" Text="Go" />
+            </td>
+            <td>
+                <!-- Birthdays -->
+                <b>Birthdays in the next</b>
+                <asp:TextBox ID="birthdayDays" runat="server" Width="20" MaxLength="2" />
+                day(s)
+                <asp:Button ID="birthdayReport" OnClick="birthdayReport_Click" runat="server" Text="Go" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Add/Edit/Delete Belt -->
+                <asp:Button ID="addBelt" OnClick="addBelt_Click" runat="server" Text="Add Belt" /><br />
+                <br />
+                <b>Edit/Delete Belt:</b><br />
+                <asp:DropDownList ID="beltSelection" runat="server" />
+                <asp:Button ID="editBelt" OnClick="editBelt_Click" runat="server" Text="Go" />
+            </td>
+            <td>
+                <!-- Belts Passed -->
+                <b>Belts Passed Between:</b>&nbsp;&nbsp;
+                <asp:TextBox ID="passBeginDate" runat="server" Width="75" MaxLength="10" />
+                -
+                <asp:TextBox ID="passEndDate" runat="server" Width="75" MaxLength="10" />
+                <asp:Button ID="beltsPassed" OnClick="beltsPassed_Click" runat="server" Text="Go" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Add/Edit/Delete Tip -->
+                <asp:Button ID="addTip" OnClick="addTip_Click" runat="server" Text="Add Tip" /><br />
+                <br />
+                <b>Edit/Delete Tip:</b><br />
+                <asp:DropDownList ID="tipSelection" runat="server" />
+                <asp:Button ID="editTip" OnClick="editTip_Click" runat="server" Text="Go" />
+            </td>
+            <td>
+                <!-- Last Tip -->
+                <b>Students on last tip as of:</b>
+                <asp:TextBox ID="lastTipDate" runat="server" Width="75" MaxLength="10" />
+                <asp:Button ID="lastTip" OnClick="lastTip_Click" runat="server" Text="Go" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Add/Edit/Delete Term -->
+                <asp:Button ID="addTerm" OnClick="addTerm_Click" runat="server" Text="Add Term" /><br />
+                <br />
+                <b>Edit/Delete Term:</b><br />
+                <asp:DropDownList ID="termSelection" runat="server" />
+                <asp:Button ID="editTerm" OnClick="editTerm_Click" runat="server" Text="Go" /><br />
+                <br />
+            </td>
+            <td>
+                <!-- Class Attendance -->
+                <b>Class attendance for:</b>
+                <asp:TextBox ID="attendanceDate" runat="server" Width="75" MaxLength="10" />
+                <asp:Button ID="classAttendance" OnClick="classAttendance_Click" runat="server" Text="Go" /><br />
+                <br />
+                <!-- All Active Students -->
+                <asp:Button ID="activeStudents" OnClick="activeStudents_Click" runat="server" Text="All Active Students" />
+            </td>
+        </tr>
+    </table>
 </asp:Content>

@@ -1813,17 +1813,19 @@ namespace HOTDAL
             {
                 MailMessage objMessage = new MailMessage();
                 objMessage.Subject = "Problem in:TansSQL.GetProdLastValue";
-                objMessage.From = new MailAddress("lowlysacker@gmail.com");
-                objMessage.To.Add("lowlysacker@gmail.com");
+                objMessage.From = new MailAddress("problems@hotselfdefense.net");
+                objMessage.To.Add("problems@hotselfdefense.net");
                 objMessage.Body = "<b>SQL:</b>" + valCommand.CommandText + "<br><b>Message:</b>" + ex.Message + "<br><b>StackTrace:</b>" + ex.StackTrace;
                 objMessage.IsBodyHtml = true;
 
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-                smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("lowlysacker@gmail.com", "onhnpqjlbqmakcno"); //*wS!UE8GXZFThwC
-                smtp.UseDefaultCredentials = true;
+                //SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+                SmtpClient smtp = new SmtpClient("web176.dnchosting.com");
+                //smtp.EnableSsl = true;
+                //NetworkCredential NetworkCred = new NetworkCredential("lowlysacker@gmail.com", "onhnpqjlbqmakcno"); //*wS!UE8GXZFThwC
+                NetworkCredential NetworkCred = new NetworkCredential("problems@hotselfdefense.net", "H0tT@n$.");
+                //smtp.UseDefaultCredentials = true;
                 smtp.Credentials = NetworkCred;
-                smtp.Port = 587;
+                smtp.Port = 26;
                 smtp.Send(objMessage);
             }
             finally

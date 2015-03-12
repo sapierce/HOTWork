@@ -138,7 +138,7 @@ namespace HOTDAL
 
         public DataTable ExecuteGET_COURSE_STUDENTS(int courseID)
         {
-            const string SPName = "SELECT * FROM MA_STDT_CRSE_XREF A INNER JOIN MA_STDT_INFO B ON A.STDT_ID = B.STDT_ID WHERE CRSE_ID = @P_CRSE_ID AND STDT_ACTIVE = 1  AND ACTIVE = 1";
+            const string SPName = "SELECT A.STDT_ID FROM MA_STDT_CRSE_XREF A INNER JOIN MA_STDT_INFO B ON A.STDT_ID = B.STDT_ID WHERE CRSE_ID = @P_CRSE_ID AND STDT_ACTIVE = 1  AND ACTIVE = 1 ORDER BY STDT_LNAME, STDT_FNAME";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -174,7 +174,7 @@ namespace HOTDAL
 
         public DataTable ExecuteGET_STUDENT_ATTENDANCE_BY_DATE(string courseDate)
         {
-            const string SPName = "SELECT A.CLASS_ID, B.CRSE_TITLE, A.CLASS_DATE, B.CRSE_TIME, D.ATTEND, C.STDT_LNAME, C.STDT_FNAME "
+            const string SPName = "SELECT A.CLASS_ID, B.CRSE_TITLE, A.CLASS_DATE, B.CRSE_TIME, D.ATTEND, C.STDT_LNAME, C.STDT_FNAME, C.STDT_SUFFIX "
             + "FROM ((MA_COURSE_DOMN A INNER JOIN MA_CLASS_DOMN B ON A.COURSE_ID = B.COURSE_ID) INNER JOIN MA_STDT_INFO C ON A.STDT_ID = C.STDT_ID) "
             + "INNER JOIN MA_STDT_ATTEND D ON B.CLASS_ID = D.CLASS_ID WHERE A.CLASS_DATE = @P_CRSE_DT "
             + "ORDER BY B.CRSE_TITLE ASC , A.CLASS_DATE ASC , C.STDT_LNAME ASC";
@@ -206,9 +206,13 @@ namespace HOTDAL
             return getDataSet(parameters, SPName);
         }
 
-        public DataTable ExecuteGET_STUDENT_BY_NAME(string firstName, string lastName, int schoolID)
+        public DataTable ExecuteGET_STUDENT_BY_NAME(string firstName, string lastName, int schoolID, bool activeOnly)
         {
-            const string SPName = "SELECT STDT_ID, STDT_LNAME, STDT_FNAME, STDT_REG_ID, STDT_SCHOOL_ID FROM MA_STDT_INFO WHERE STDT_LNAME LIKE @P_LAST_NAME AND STDT_FNAME LIKE @P_FIRST_NAME AND STDT_SCHOOL_ID = @P_SCHOOL_ID ORDER BY STDT_LNAME, STDT_FNAME ASC";
+            string SPName = "SELECT STDT_ID, STDT_LNAME, STDT_FNAME, STDT_SUFFIX, STDT_REG_ID, STDT_SCHOOL_ID, STDT_ACTIVE FROM MA_STDT_INFO "
+                + "WHERE STDT_LNAME LIKE @P_LAST_NAME AND STDT_FNAME LIKE @P_FIRST_NAME AND STDT_SCHOOL_ID = @P_SCHOOL_ID ";
+            if (activeOnly)
+                SPName += "AND STDT_ACTIVE = 1 ";
+            SPName += "ORDER BY STDT_LNAME, STDT_FNAME ASC";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -305,9 +309,9 @@ namespace HOTDAL
         {
             const string SPName = "SELECT * FROM MA_STDT_CRSE_XREF A INNER JOIN MA_COURSE_DOMN B ON A.CRSE_ID = B.CRSE_ID " + 
                 "WHERE STDT_ID = @P_STDT_ID AND CRSE_ACTV = 1 AND ACTIVE = 1 AND CLASS_OR_LESSON = @P_TYPE AND CRSE_RPT = @P_RPT " + 
-                "ORDER BY CASE WHEN CRSE_DAY = 'Sunday' THEN 1 WHEN CRSE_DAY = 'Monday' THEN 2 WHEN CRSE_DAY = 'Tuesday' THEN 3 " + 
-                "WHEN CRSE_DAY = 'Wednesday' THEN 4 WHEN CRSE_DAY = 'Thursday' THEN 5 WHEN CRSE_DAY = 'Friday' THEN 6 WHEN " + 
-                "CRSE_DAY = 'Saturday' THEN 7 END ASC, CRSE_TIME";
+                "ORDER BY CASE WHEN CRSE_DAY = 'SUN' THEN 1 WHEN CRSE_DAY = 'MON' THEN 2 WHEN CRSE_DAY = 'TUE' THEN 3 " + 
+                "WHEN CRSE_DAY = 'WED' THEN 4 WHEN CRSE_DAY = 'THU' THEN 5 WHEN CRSE_DAY = 'FRI' THEN 6 WHEN " + 
+                "CRSE_DAY = 'SAT' THEN 7 END ASC, CRSE_TIME";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -427,15 +431,17 @@ namespace HOTDAL
             return modifyData(parameters, SPName);
         }
 
-        public long ExecuteINSERT_STUDENT(string firstName, string lastName, string address, string city, string state, string zipCode, string emergencyContact, string birthDate, string paymentDate, string paymentPlan, Double paymentAmount)
+        public long ExecuteINSERT_STUDENT(string firstName, string lastName, string suffixName, string address, string city, string state, string zipCode, string emergencyContact, string schoolId, string birthDate, string paymentDate, string paymentPlan, Double paymentAmount)
         {
-            const string SPName = "INSERT INTO MA_STDT_INFO (STDT_LNAME, STDT_FNAME, STDT_ADDR, STDT_CITY, STDT_STATE, STDT_ZIP, STDT_EMER, STDT_BRTH_DATE, STDT_PYMT_DT, STDT_PYMT_PLAN, STDT_PYMT_AMT, STDT_NOTE, STDT_PASS, STDT_PAID, STDT_ACTIVE) " +
-            "VALUES (@P_LST_NME, @P_FRST_NME, @P_ADDR, @P_CITY, @P_STATE, @P_ZIP, @P_EMG_CNTC, @P_BRTH_DT, @P_PYMT_DT, @P_PYMT_PLN, @P_PYMT_AMT, '', '1','1','1')";
+            const string SPName = "INSERT INTO MA_STDT_INFO (STDT_LNAME, STDT_FNAME, STDT_SUFFIX, STDT_SCHOOL_ID, STDT_ADDR, STDT_CITY, STDT_STATE, STDT_ZIP, STDT_EMER, STDT_BRTH_DATE, STDT_PYMT_DT, STDT_PYMT_PLAN, STDT_PYMT_AMT, STDT_NOTE, STDT_PASS, STDT_PAID, STDT_ACTIVE) " +
+            "VALUES (@P_LST_NME, @P_FRST_NME, @P_SUFFIX_NME, @P_SCHOOL_ID, @P_ADDR, @P_CITY, @P_STATE, @P_ZIP, @P_EMG_CNTC, @P_BRTH_DT, @P_PYMT_DT, @P_PYMT_PLN, @P_PYMT_AMT, '', '1','1','1')";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
             parameters.Add(makeInputParameter("P_LST_NME", MySqlDbType.VarChar, lastName));
             parameters.Add(makeInputParameter("P_FRST_NME", MySqlDbType.VarChar, firstName));
+            parameters.Add(makeInputParameter("P_SUFFIX_NME", MySqlDbType.VarChar, suffixName));
+            parameters.Add(makeInputParameter("P_SCHOOL_ID", MySqlDbType.Int32, schoolId));
             parameters.Add(makeInputParameter("P_ADDR", MySqlDbType.VarChar, address));
             parameters.Add(makeInputParameter("P_CITY", MySqlDbType.VarChar, city));
             parameters.Add(makeInputParameter("P_STATE", MySqlDbType.VarChar, state));
@@ -595,10 +601,10 @@ namespace HOTDAL
             return modifyData(parameters, SPName);
         }
 
-        public bool ExecuteUPDATE_STUDENT_BY_ID(int studentID, string firstName, string lastName, string address, string city, string state, string zipCode, string emergencyContact, string birthDate, string paymentDate, string paymentPlan, Double paymentAmount, string studentNote, int studentPass, int studentPaid)
+        public bool ExecuteUPDATE_STUDENT_BY_ID(int studentID, string firstName, string lastName, string suffix, string address, string city, string state, string zipCode, string emergencyContact, string schoolId, string birthDate, string paymentDate, string paymentPlan, Double paymentAmount, string studentNote, int studentPass, int studentPaid)
         {
-            const string SPName = "UPDATE MA_STDT_INFO SET STDT_LNAME = @P_LST_NME, STDT_FNAME = @P_FRST_NME, STDT_ADDR = @P_ADDR, STDT_CITY = @P_CITY," +
-            "STDT_STATE = @P_STATE, STDT_ZIP = @P_ZIP, STDT_EMER = @P_EMG_CNTC, STDT_BRTH_DATE = @P_BRTH_DT, STDT_PYMT_DT = @P_PYMT_DT, " +
+            const string SPName = "UPDATE MA_STDT_INFO SET STDT_LNAME = @P_LST_NME, STDT_FNAME = @P_FRST_NME, STDT_SUFFIX = @P_SUFFIX, STDT_ADDR = @P_ADDR, STDT_CITY = @P_CITY," +
+            "STDT_STATE = @P_STATE, STDT_ZIP = @P_ZIP, STDT_EMER = @P_EMG_CNTC, STDT_SCHOOL_ID = @P_SCHOOL_ID, STDT_BRTH_DATE = @P_BRTH_DT, STDT_PYMT_DT = @P_PYMT_DT, " +
             "STDT_PYMT_PLAN = @P_PYMT_PLN, STDT_PYMT_AMT = @P_PYMT_AMT, STDT_NOTE = @P_NOTE, STDT_PASS = @P_PASS, STDT_PAID = @P_PAID WHERE STDT_ID = @P_STDT_ID";
 
             List<MySqlParameter> parameters = new List<MySqlParameter>();
@@ -606,6 +612,8 @@ namespace HOTDAL
             parameters.Add(makeInputParameter("P_STDT_ID", MySqlDbType.Int32, studentID));
             parameters.Add(makeInputParameter("P_LST_NME", MySqlDbType.VarChar, lastName));
             parameters.Add(makeInputParameter("P_FRST_NME", MySqlDbType.VarChar, firstName));
+            parameters.Add(makeInputParameter("P_SUFFIX", MySqlDbType.VarChar, suffix));
+            parameters.Add(makeInputParameter("P_SCHOOL_ID", MySqlDbType.Int32, schoolId));
             parameters.Add(makeInputParameter("P_ADDR", MySqlDbType.VarChar, address));
             parameters.Add(makeInputParameter("P_CITY", MySqlDbType.VarChar, city));
             parameters.Add(makeInputParameter("P_STATE", MySqlDbType.VarChar, state));

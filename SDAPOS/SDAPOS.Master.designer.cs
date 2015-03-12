@@ -22,94 +22,139 @@ namespace SDAPOS {
         protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
         
         /// <summary>
-        /// lnkSchedule control.
+        /// headerPlaceHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkSchedule;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder headerPlaceHolder;
         
         /// <summary>
-        /// lnkAddClass control.
+        /// dailySchedule control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkAddClass;
+        protected global::System.Web.UI.WebControls.HyperLink dailySchedule;
         
         /// <summary>
-        /// lnkAddStudent control.
+        /// addClass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkAddStudent;
+        protected global::System.Web.UI.WebControls.HyperLink addClass;
         
         /// <summary>
-        /// lnkSearch control.
+        /// addStudent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkSearch;
+        protected global::System.Web.UI.WebControls.HyperLink addStudent;
         
         /// <summary>
-        /// lnkPOS control.
+        /// searchSDA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkPOS;
+        protected global::System.Web.UI.WebControls.HyperLink searchSDA;
         
         /// <summary>
-        /// lnkAdmin control.
+        /// sdaPOS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkAdmin;
+        protected global::System.Web.UI.WebControls.HyperLink sdaPOS;
         
         /// <summary>
-        /// lnkProblem control.
+        /// sdaAdministration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkProblem;
+        protected global::System.Web.UI.WebControls.HyperLink sdaAdministration;
         
         /// <summary>
-        /// lblToday control.
+        /// reportProblem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblToday;
+        protected global::System.Web.UI.WebControls.HyperLink reportProblem;
         
         /// <summary>
-        /// lblCurrent control.
+        /// displayToday control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurrent;
+        protected global::System.Web.UI.WebControls.Label displayToday;
         
         /// <summary>
-        /// form1 control.
+        /// displayCurrent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Label displayCurrent;
+        
+        /// <summary>
+        /// sdaForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm sdaForm;
+        
+        /// <summary>
+        /// errorMessagePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel errorMessagePanel;
+        
+        /// <summary>
+        /// errorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label errorMessage;
+        
+        /// <summary>
+        /// successMessagePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel successMessagePanel;
+        
+        /// <summary>
+        /// successMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label successMessage;
         
         /// <summary>
         /// placeholderMain control.

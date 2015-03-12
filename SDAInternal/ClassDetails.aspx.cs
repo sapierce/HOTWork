@@ -98,10 +98,22 @@ namespace HOTSelfDefense
                                             // Student is already checked in
                                             classRoster.Text += "Checked In</td>";
 
+                                        string paymentStyle = "";
+                                        // How far from their payment due date is the student?
+                                        if (student.PaymentDate < DateTime.Now)
+                                            // Due now
+                                            paymentStyle = "background: #990000";
+                                        else if (student.PaymentDate < (DateTime.Now.AddDays(5)))
+                                            // Due in the next five days
+                                            paymentStyle = "background: #FF3300";
+
                                         // Output the student name with a link to their information and notes about the student
-                                        classRoster.Text += "<td><a href='" + HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL +
-                                            "?ID=" + student.ID + "'>" + student.LastName + ", " + student.FirstName +
-                                            "</a></td><td>" + student.Note + "</td></tr>";
+                                        classRoster.Text += "<td style=\"" + paymentStyle + "\"><a href=\"" + HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL +
+                                            "?ID=" + student.ID + "\" title=\"<strong>Payment Plan: </strong>" + student.PaymentPlan + "<br/>"
+                                            + "<strong>Payment Date: </strong>" + functionsClass.FormatSlash(student.PaymentDate) + "<br/>"
+                                            + "<strong>Payment Amount: </strong>" + String.Format("{0:C2}", student.PaymentAmount) + "\" class=\"student\">" 
+                                            + student.LastName + ", " + student.FirstName + (String.IsNullOrEmpty(student.Suffix) ? "" : " " + student.Suffix) 
+                                            + "</a></td><td>" + student.Note + "</td></tr>";
                                     }
                                 }
                                 else
@@ -127,7 +139,7 @@ namespace HOTSelfDefense
             catch (Exception ex)
             {
                 // Send the error and output the standard message
-                functionsClass.SendErrorMail("ClassDetails: PageLoad", ex, "");
+                functionsClass.SendErrorMail("ClassDetails: PageLoad", ex, (!String.IsNullOrEmpty(Request.QueryString["ID"]) ? Request.QueryString["ID"] : ""));
                 errorLabel.Text = HOTBAL.SDAMessages.ERROR_GENERIC;
             }
         }

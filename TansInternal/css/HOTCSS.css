@@ -314,3 +314,17 @@ td.lotion {
         float: right;
         margin: 0px 0px;
     }
+input.error {
+    border: 1px solid red;
+}
+label.error {
+    background: url("images/unchecked.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    margin-left: 0.3em;
+    padding-left: 16px;
+}
+label.valid {
+    background: url("images/checked.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    height: 16px;
+    width: 16px;
+}

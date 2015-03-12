@@ -7,10 +7,11 @@ namespace HOTBAL
 {
 	public class Student
 	{
-		private Int32 _ID;
+		private int _ID;
         private string _regID;
 		private string _firstName;
-		private string _lastName;
+        private string _lastName;
+        private string _suffix;
 		private string _address;
 		private string _city;
 		private string _state;
@@ -27,7 +28,7 @@ namespace HOTBAL
 		private bool _active;
 		private string _error;
 
-		public Int32 ID
+		public int ID
 		{
 			get
 			{
@@ -74,6 +75,18 @@ namespace HOTBAL
 				this._lastName = value;
 			}
 		}
+
+        public string Suffix
+        {
+            get
+            {
+                return this._suffix;
+            }
+            set
+            {
+                this._suffix = value;
+            }
+        }
 
 		public string Address
 		{
@@ -258,19 +271,19 @@ namespace HOTBAL
 
 	public class Course
 	{
-		private Int32 _ID;
+		private int _ID;
 		private string _Title;
-        private DayOfWeek _Day;
+        private string _Day;
 		private string _Time;
 		private string _Date;
-		private Int32 _InstructorID;
+		private int _InstructorID;
 		private bool _Repeating;
 		private string _ClassOrLesson;
-		private Int32 _FirstArtID;
-		private Int32 _SecondArtID;
+		private int _FirstArtID;
+		private int _SecondArtID;
 		private string _error;
 
-		public Int32 ID
+		public int ID
 		{
 			get
 			{
@@ -294,7 +307,7 @@ namespace HOTBAL
 			}
 		}
 
-		public DayOfWeek Day
+		public string Day
 		{
 			get
 			{
@@ -330,7 +343,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 InstructorID
+		public int InstructorID
 		{
 			get
 			{
@@ -366,7 +379,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 FirstArtID
+		public int FirstArtID
 		{
 			get
 			{
@@ -378,7 +391,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 SecondArtID
+		public int SecondArtID
 		{
 			get
 			{
@@ -405,11 +418,11 @@ namespace HOTBAL
 
 	public class ClassAttendance
 	{
-		private Int32 _StudentID;
+		private int _StudentID;
 		private bool _Attendance;
 		private string _Date;
 
-		public Int32 StudentID
+		public int StudentID
 		{
 			get
 			{
@@ -448,13 +461,13 @@ namespace HOTBAL
 
 	public class Art
 	{
-        private Int32 _ID;
-        private Int32 _schoolID;
+        private int _ID;
+        private int _schoolID;
 		private string _title;
 		private bool _active;
 		private string _error;
 
-		public Int32 ID
+		public int ID
 		{
 			get
 			{
@@ -466,7 +479,7 @@ namespace HOTBAL
 			}
 		}
 
-        public Int32 SchoolID
+        public int SchoolID
         {
             get
             {
@@ -517,16 +530,16 @@ namespace HOTBAL
 
 	public class Belt
 	{
-		private Int32 _ID;
-		private Int32 _artID;
+		private int _ID;
+		private int _artID;
 		private string _title;
 		private string _level;
 		private string _classTip;
-		private Int32 _classCount;
+		private int _classCount;
 		private bool _active;
 		private string _error;
 
-		public Int32 ID
+		public int ID
 		{
 			get
 			{
@@ -538,7 +551,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 ArtID
+		public int ArtID
 		{
 			get
 			{
@@ -586,7 +599,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 ClassCount
+		public int ClassCount
 		{
 			get
 			{
@@ -625,15 +638,15 @@ namespace HOTBAL
 
 	public class Tip
 	{
-		private Int32 _ID;
-		private Int32 _beltID;
+		private int _ID;
+		private int _beltID;
 		private string _title;
 		private string _level;
 		private bool _lastTip;
 		private bool _active;
 		private string _error;
 
-		public Int32 ID
+		public int ID
 		{
 			get
 			{
@@ -645,7 +658,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 BeltID
+		public int BeltID
 		{
 			get
 			{
@@ -720,14 +733,14 @@ namespace HOTBAL
 
 	public class Term
 	{
-		private Int32 _ID;
-		private Int32 _beltID;
+		private int _ID;
+		private int _beltID;
 		private string _english;
 		private string _chinese;
 		private bool _active;
 		private string _error;
 
-		public Int32 ID
+		public int ID
 		{
 			get
 			{
@@ -739,7 +752,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 BeltID
+		public int BeltID
 		{
 			get
 			{
@@ -802,7 +815,7 @@ namespace HOTBAL
 
 	public class Instructor
 	{
-		private Int32 _ID;
+		private int _ID;
 		private string _firstName;
 		private string _lastName;
 		private string _bio;
@@ -810,7 +823,7 @@ namespace HOTBAL
 		private bool _active;
 		private string _error;
 
-		public Int32 ID
+		public int ID
 		{
 			get
 			{
@@ -897,20 +910,20 @@ namespace HOTBAL
 
 	public class StudentArt
 	{
-		private Int32 _ID;
+		private int _ID;
 		private string _artTitle;
-		private Int32 _artID;
+		private int _artID;
 		private string _beltTitle;
-		private Int32 _beltID;
+		private int _beltID;
 		private string _tipTitle;
-		private Int32 _tipID;
+		private int _tipID;
 		private string _classOrTip;
-		private Int32 _classCount;
+		private int _classCount;
 		private string _completeDate;
 		private bool _active;
 		private string _error;
 
-		public Int32 ID
+		public int ID
 		{
 			get
 			{
@@ -934,7 +947,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 ArtID
+		public int ArtID
 		{
 			get
 			{
@@ -958,7 +971,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 BeltID
+		public int BeltID
 		{
 			get
 			{
@@ -982,7 +995,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 TipID
+		public int TipID
 		{
 			get
 			{
@@ -1006,7 +1019,7 @@ namespace HOTBAL
 			}
 		}
 
-		public Int32 ClassCount
+		public int ClassCount
 		{
 			get
 			{
@@ -1057,14 +1070,14 @@ namespace HOTBAL
 
 	public class StudentPhone
 	{
-		private Int32 _ID;
+		private int _ID;
 		private string _stdtID;
 		private string _phoneNumber;
 		private string _relationship;
 		private bool _active;
 		private string _error;
 
-		public Int32 ID
+		public int ID
 		{
 			get
 			{

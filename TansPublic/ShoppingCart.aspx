@@ -37,13 +37,6 @@
                             &nbsp;
                         </td>
                     </tr>
-                    <tr>
-                        <td align="right" colspan='6' class='reg'>
-                            <asp:Button ID='inStore' Text='Checkout In Store' runat='server' OnClick="onClick_inStore" />&nbsp;&nbsp;&nbsp;
-                            <asp:ImageButton runat="server" ID="btnPaypal" OnClick="onClick_online" AlternateText="checkout with paypal" ImageUrl="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" />
-                            <br />
-                        </td>
-                    </tr>
                 </table>
             </td>
         </tr>

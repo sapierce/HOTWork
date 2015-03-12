@@ -31,6 +31,12 @@
                             <asp:Label ID="studentName" runat="server" /></td>
                     </tr>
                     <tr>
+                        <td class="rightAlignHeader" style="width: 50%;">School:</td>
+                        <td>
+                            <asp:Label ID="studentSchool" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="rightAlignHeader" style="width: 50%;">Address:</td>
                         <td>
                             <asp:Label ID="studentAddress" runat="server" />
@@ -115,11 +121,19 @@
                         <td colspan="3">
                             <asp:Button ID="editInformation" runat="server" Text="Edit Student Information" OnClick="editInformation_Click" CssClass="ui-button" />
                             <br />
+                            <br />
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <asp:Button ID="studentTransactions" runat="server" Text="View Student transactions" OnClick="studentTransactions_Click" CssClass="ui-button" />
+                            <asp:Button ID="studentTransactions" runat="server" Text="View Student Transactions" OnClick="studentTransactions_Click" CssClass="ui-button" />
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <asp:Button ID="addTransaction" runat="server" Text="Add A Transaction" OnClick="addTransaction_Click" CssClass="ui-button" />
                             <br />
                         </td>
                     </tr>

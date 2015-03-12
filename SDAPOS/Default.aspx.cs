@@ -31,7 +31,7 @@ namespace SDAPOS
                     }
                     else
                     {
-                        List<HOTBAL.Student> studentName = sqlClass.GetStudentsByName(txtFName.Text, txtLName.Text, 1);
+                        List<HOTBAL.Student> studentName = sqlClass.GetStudentsByName(txtFName.Text, txtLName.Text, 1, false);
 
                         if (studentName != null)
                         {

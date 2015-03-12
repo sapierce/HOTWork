@@ -24,7 +24,7 @@
                 <td style="width: 50%;">
                     <table class="defense">
                         <tr>
-                            <th>Search for Student
+                            <th colspan="2">Search for Student
                             </th>
                         </tr>
                         <tr>
@@ -39,6 +39,11 @@
                             </td>
                             <td>
                                 <asp:TextBox ID="firstName" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <asp:CheckBox ID="activeOnlyName" runat="server" Text="Active Only?" />
                             </td>
                         </tr>
                         <tr>
@@ -118,6 +123,11 @@
 										<asp:LinkButton Text="Y" runat="server" OnClick="customerLetter_Click" ID="lastNameY" />
                                 |
 										<asp:LinkButton Text="Z" runat="server" OnClick="customerLetter_Click" ID="lastNameZ" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">
+                                <asp:CheckBox ID="activeOnlyLast" runat="server" Text="Active Only?" />
                             </td>
                         </tr>
                     </table>

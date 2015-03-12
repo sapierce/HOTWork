@@ -1,8 +1,18 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="ClassDetails.aspx.cs" Inherits="HOTSelfDefense.ClassDetails" MasterPageFile="HOTSelfDefense.master" %>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="headerPlaceHolder" runat="server">
+<asp:Content ID="classDetailsHeader" ContentPlaceHolderID="headerPlaceHolder" runat="server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".student").tooltipster({
+                contentAsHTML: true,
+                position: 'bottom',
+                theme: 'tooltipster-light',
+                trigger: 'hover'
+            });
+        });
+    </script>
 </asp:Content>
-<asp:Content ID="defaultMain" runat="server" ContentPlaceHolderID="placeholderMain">
+<asp:Content ID="classDetailsMain" runat="server" ContentPlaceHolderID="placeholderMain">
     <table class="defense" style="width: 30%;">
         <thead>
             <tr>

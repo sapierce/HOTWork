@@ -73,12 +73,14 @@ namespace PublicWebsite
                 try
                 {
                     // Send the e-mail with the customer comments
-                    functionsClass.SendMail("lowlysacker@gmail.com",
+                    functionsClass.SendMail("problems@hotselfdefense.net",
                             (String.IsNullOrEmpty(functionsClass.InternalCleanUp(enteredEmail.Text)) ? "User@NoReply.Net" : functionsClass.InternalCleanUp(enteredEmail.Text)),
                             "Customer Comment - HOTTropicalTans.net - "
                             + (String.IsNullOrEmpty(functionsClass.CleanUp(commentAbout.SelectedValue)) ? "Unknown" : functionsClass.CleanUp(commentAbout.SelectedValue)),
                             "<b>Comment From:</b>"
                             + (String.IsNullOrEmpty(functionsClass.CleanUp(enteredName.Text)) ? "Unknown" : functionsClass.CleanUp(enteredName.Text))
+                            + "<br /><b>Email:</b>"
+                            + (String.IsNullOrEmpty(functionsClass.InternalCleanUp(enteredEmail.Text)) ? "User@NoReply.Net" : functionsClass.InternalCleanUp(enteredEmail.Text))
                             + "<br /><b>Comment:</b>"
                             + (String.IsNullOrEmpty(functionsClass.CleanUp(enteredComment.Text)) ? "No Comment Left" : functionsClass.CleanUp(enteredComment.Text)));
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -56,7 +57,8 @@ namespace HOTSelfDefense
 
                         // If we have time from the QueryString, select it
                         if (!String.IsNullOrEmpty(Request.QueryString["Time"]))
-                            startTime.Items.FindByValue(Request.QueryString["Time"]).Selected = true;
+                            if (startTime.Items.FindByValue(Request.QueryString["Time"]) != null)
+                                startTime.Items.FindByValue(Request.QueryString["Time"]).Selected = true;
                     }
                     else
                     {
@@ -297,7 +299,7 @@ namespace HOTSelfDefense
                 {
                     // Add the lesson with the entered information
                     long courseID = methodsClass.AddCourse(studentList.SelectedItem.Text, Convert.ToInt32(artFirst.SelectedValue), Convert.ToInt32(artSecond.SelectedValue),
-                        (recurringClass.SelectedValue == "0" ? Convert.ToDateTime(beginDate.Text).DayOfWeek.ToString() : recurringClass.SelectedValue),
+                        (recurringClass.SelectedValue.ToString() == "0" ? Convert.ToDateTime(beginDate.Text).DayOfWeek.ToString().ToUpper().Substring(0, 3) : recurringClass.SelectedValue.ToString()),
                         startTime.SelectedValue, Convert.ToInt32(instructor.SelectedValue), (recurringClass.SelectedValue == "0" ? 0 : 1), "L");
 
                     // Did we get a valid course ID back?
@@ -337,8 +339,8 @@ namespace HOTSelfDefense
                 catch (Exception ex)
                 {
                     // Send the error and output the standard message
-                    functionsClass.SendErrorMail("ClassAdd: addLesson", ex, "");
-                    errorLabel.Text = HOTBAL.SDAMessages.ERROR_GENERIC;
+                    //functionsClass.SendErrorMail("ClassAdd: addLesson", ex, "");
+                    //errorLabel.Text = HOTBAL.SDAMessages.ERROR_GENERIC;
                 }
             }
         }
@@ -361,7 +363,7 @@ namespace HOTSelfDefense
                 {
                     // Add the class with the entered information
                     long courseID = methodsClass.AddCourse(classTitle.Text, Convert.ToInt32(artFirst.SelectedValue), Convert.ToInt32(artSecond.SelectedValue),
-                        (recurringClass.SelectedValue == "0" ? Convert.ToDateTime(beginDate.Text).DayOfWeek.ToString() : recurringClass.SelectedValue),
+                        (recurringClass.SelectedValue.ToString() == "0" ? Convert.ToDateTime(beginDate.Text).DayOfWeek.ToString().ToUpper().Substring(0,3) : recurringClass.SelectedValue.ToString()),
                         startTime.SelectedValue, Convert.ToInt32(instructor.SelectedValue), (recurringClass.SelectedValue == "0" ? 0 : 1), "C");
 
                     // Did we get a valid course ID back?

@@ -13,30 +13,39 @@ namespace HOTSelfDefense {
     public partial class StudentTransactionsPage {
         
         /// <summary>
-        /// lblError control.
+        /// studentInformation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblError;
+        protected global::System.Web.UI.WebControls.HyperLink studentInformation;
         
         /// <summary>
-        /// lblCustName control.
+        /// studentName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCustName;
+        protected global::System.Web.UI.WebControls.Label studentName;
         
         /// <summary>
-        /// litTransactions control.
+        /// addTransaction control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litTransactions;
+        protected global::System.Web.UI.WebControls.HyperLink addTransaction;
+        
+        /// <summary>
+        /// transactionOutput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal transactionOutput;
     }
 }

@@ -83,7 +83,8 @@ namespace HOTSelfDefense
                                             printRoster.Text += "Not Checked In</td>";
 
                                         // Output the student name and notes about the student
-                                        printRoster.Text += "<td>" + student.LastName + ", " + student.FirstName + "</td><td>" + student.Note + "</td>";
+                                        printRoster.Text += "<td>" + student.LastName + ", " + student.FirstName + 
+                                            (String.IsNullOrEmpty(student.Suffix) ? "" : " " + student.Suffix) + "</td><td>" + student.Note + "</td>";
 
                                         // Get student information for this art
                                         HOTBAL.StudentArt artResponse = methodsClass.GetStudentArtByID(courseDetails.FirstArtID, student.ID);

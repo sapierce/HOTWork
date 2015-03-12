@@ -79,10 +79,13 @@
     <Content Include="ClassDetails.aspx" />
     <Content Include="ClassPrint.aspx" />
     <Content Include="ClassStudentAdd.aspx" />
+    <Content Include="css\tooltipster-light.css" />
+    <Content Include="css\tooltipster.css" />
     <Content Include="Default.aspx" />
     <Content Include="css\HOTSDA.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="js\jquery.tooltipster.min.js" />
     <Content Include="Problems.aspx" />
     <Content Include="Search.aspx" />
     <Content Include="StudentAdd.aspx" />

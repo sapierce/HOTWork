@@ -7,44 +7,35 @@
         <asp:Label ID="errorMessage" class="error" runat="server" /></p>
     <asp:ValidationSummary CssClass="validation" ID="vsCart" HeaderText="The following validation errors were found:"
         runat="server" ValidationGroup="shoppingCart" DisplayMode="BulletList" ShowSummary="true" />
-    <asp:RegularExpressionValidator ID="revDate" ControlToValidate="transactionDate" ValidationExpression="^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$"
-        Display="None" runat="server" EnableClientScript="true" ErrorMessage="Date is not formatted correctly (MM-DD-YYYY)."
-        ValidationGroup="shoppingCart" />
     <asp:RequiredFieldValidator ID="rfvEmployee" Display="None" runat="server" ControlToValidate="employeeId"
         EnableClientScript="true" ValidationGroup="shoppingCart" ErrorMessage="Employee ID is required" />
     <asp:RequiredFieldValidator ID="rfvPayment" Display="None" runat="server" ControlToValidate="paymentMethod"
         EnableClientScript="true" ValidationGroup="shoppingCart" ErrorMessage="Payment Type is required" />
-    <table class='bcc' align='center'>
+    <table class="defense" style="margin: 0px auto;">
         <tr>
-            <td colspan='6' class='lheader'>
-                <h3>
+            <td colspan='6' class='leftAlignHeader'>
                     Order for:
-                    <asp:Label ID="customerName" runat="server" /></h3>
+                    <asp:Label ID="customerName" runat="server" />
             </td>
         </tr>
         <tr>
-            <td class='header'>
+            <td  class="centerAlignHeader">
                 &nbsp;
             </td>
-            <td class='header'>
-                <h5>
-                    Description</h5>
+            <td  class="centerAlignHeader">
+                Description
             </td>
-            <td class='header'>
-                <h5>
-                    Quantity</h5>
+            <td  class="centerAlignHeader">
+                Quantity
             </td>
-            <td class='header'>
-                <h5>
-                    Price</h5>
+            <td  class="centerAlignHeader">
+                Price
             </td>
-            <td class='header'>
-                <h5>
-                    Totals</h5>
+            <td  class="centerAlignHeader">
+                Totals
             </td>
-            <td class='header'>
-                <h5>
-                    Remove</h5>
+            <td  class="centerAlignHeader">
+                Remove
             </td>
         </tr>
         <asp:Literal ID="shoppingCartOutput" runat="server" />
@@ -54,13 +45,13 @@
             </td>
         </tr>
         <tr>
-            <td colspan='6' class='lheader'>
+            <td colspan='6' class="leftAlignHeader">
                 <b>Barcoded item:</b>
             </td>
         </tr>
         <tr>
             <td style="text-align: right;">
-                <b>Add Item:&nbsp;&nbsp;</b>
+                Add Item:&nbsp;&nbsp;
             </td>
             <td>
                 <asp:TextBox ID="barCodeText" runat="server" />
@@ -79,8 +70,8 @@
             </td>
         </tr>
         <tr>
-            <td colspan='6' class='lheader'>
-                <b>Non-barcoded item:</b>
+            <td colspan='6' class="leftAlignHeader">
+                Non-barcoded item:
             </td>
         </tr>
         <tr>
@@ -124,7 +115,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:RadioButtonList ID="paymentMethod" runat="server">
+                            <asp:RadioButtonList ID="paymentMethod" runat="server" ValidationGroup="shoppingCart">
                                 <asp:ListItem Value="CC" Text="Credit Card"/>
                                 <asp:ListItem Value="Check" Text="Check" />
                                 <asp:ListItem Value="Cash" Text="Cash" />
@@ -151,7 +142,7 @@
                             Employee ID:&nbsp;&nbsp;
                         </td>
                         <td valign='top'>
-                            <asp:TextBox ID='employeeId' Style="width: 75px;" runat="server" />
+                            <asp:TextBox ID='employeeId' Style="width: 75px;" runat="server" ValidationGroup="shoppingCart" />
                         </td>
                     </tr>
                     <tr>
@@ -159,19 +150,19 @@
                             Date:&nbsp;&nbsp;
                         </td>
                         <td valign='top'>
-                            <asp:TextBox ID='transactionDate' Style="width: 75px;" runat="server" />
+                            <asp:TextBox ID='transactionDate' Style="width: 75px;" runat="server" ValidationGroup="shoppingCart" />
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
         <tr>
-            <td align="center" colspan='5' class='reg'>
+            <td align="center" colspan='5'>
                 Note:
                 <asp:TextBox ID='otherNote' runat='server' /><br />
             </td>
             <td align="right" class='reg'>
-                <asp:Button ID='checkOut' Text='Checkout' runat='server' OnClick="checkOut_Click" /><br />
+                <asp:Button ID='checkOut' Text='Checkout' runat='server' OnClick="checkOut_Click" CausesValidation="true" ValidationGroup="shoppingCart" /><br />
             </td>
         </tr>
     </table>

@@ -123,19 +123,22 @@ namespace SDAPOS
 
         protected void checkOut_Click(object sender, EventArgs e)
         {
-            bool response = sqlClass.AddTransaction((List<CartItem>)HttpContext.Current.Session["cart"], Convert.ToInt32(employeeId.Text), HttpContext.Current.Session["cartTotal"].ToString(), Convert.ToInt32(Request.QueryString["ID"]),
-                "W", paymentMethod.SelectedValue, FunctionsClass.FormatDash(Convert.ToDateTime(transactionDate.Text)), HttpContext.Current.Session["cartTax"].ToString(), tradeNumber.Text);
+            if (Page.IsValid)
+            {
+                bool response = sqlClass.AddTransaction((List<CartItem>)HttpContext.Current.Session["cart"], Convert.ToInt32(employeeId.Text), HttpContext.Current.Session["cartTotal"].ToString(), Convert.ToInt32(Request.QueryString["ID"]),
+                    "W", paymentMethod.SelectedValue, FunctionsClass.FormatDash(Convert.ToDateTime(transactionDate.Text)), HttpContext.Current.Session["cartTax"].ToString(), tradeNumber.Text);
 
-            if (response)
-            {
-                pnlCart.Style.Add("display", "none");
-                pnlComplete.Style.Remove("display");
-                litComplete.Text = "<h3>Transaction recorded.</h3><br><a href='TransactionReceipt.aspx?Date=" + transactionDate.Text + "&ID=" + response + "'>Click here for a receipt</a>"
-                    + "<br><br><a href='default.aspx'>Back to Point of Sale</a><br><br><a href='http://www.hottropicaltans.net/HOTSDA/schedule/'>Back to Schedule</a>";
-            }
-            else
-            {
-                errorMessage.Text = SDAMessages.ERROR_GENERIC;
+                if (response)
+                {
+                    pnlCart.Style.Add("display", "none");
+                    pnlComplete.Style.Remove("display");
+                    litComplete.Text = "<h3>Transaction recorded.</h3><br><a href='" + HOTBAL.SDAPOSConstants.RECEIPT_URL + "?ID=" + response + "'>Click here for a receipt</a>"
+                        + "<br><br><a href='" + HOTBAL.SDAPOSConstants.DEFAULT_URL + "'>Back to Point of Sale</a><br><br><a href='" + HOTBAL.SDAConstants.MAIN_INTERNAL_URL + "'>Back to Schedule</a>";
+                }
+                else
+                {
+                    errorMessage.Text = SDAMessages.ERROR_GENERIC;
+                }
             }
         }
 

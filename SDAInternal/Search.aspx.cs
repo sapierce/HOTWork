@@ -54,7 +54,7 @@ namespace HOTSelfDefense
                     searchResults.Visible = true;
 
                     // Get the list of students matching the entered criteria
-                    List<HOTBAL.Student> studentList = sqlClass.GetStudentsByName(firstName.Text, lastName.Text, 1);
+                    List<HOTBAL.Student> studentList = sqlClass.GetStudentsByName(firstName.Text, lastName.Text, 1, activeOnlyName.Checked);
 
                     // Did we get any students?
                     if (studentList.Count > 0)
@@ -107,7 +107,7 @@ namespace HOTSelfDefense
                 LinkButton button = (LinkButton)sender;
 
                 // Get the list of students who match the criteria
-                List<HOTBAL.Student> studentList = sqlClass.GetStudentsByLastName(button.Text, 1);
+                List<HOTBAL.Student> studentList = sqlClass.GetStudentsByLastName(button.Text, 1, activeOnlyLast.Checked);
 
                 // Did we get any students?
                 if (studentList.Count > 0)

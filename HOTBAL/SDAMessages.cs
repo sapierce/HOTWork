@@ -8,8 +8,8 @@ namespace HOTBAL
     {
         public const string SUCCESS_MESSAGE = "Success";
 
-        public const string ERROR_GENERIC = "The system you are trying to access is currently unavailable. Please try again later. " + 
-            "If you continue to receive this error, please contact us at <a href='mailto:contact@hottropicaltans.com' class='center'>contact@hottropicaltans.net</a>.";
+        public const string ERROR_GENERIC = "The system you are trying to access is currently unavailable. Please try again later. " +
+            "If you continue to receive this error, please contact us at <a href='mailto:problems@hotselfdefense.net' class='center'>problems@hotselfdefense.net</a>.";
 
         public const string ERROR_ADD_STUDENT = "Error adding student.";
 
@@ -46,5 +46,11 @@ namespace HOTBAL
         public const string NO_TIMES = "Unable to locate available time information.";
 
         public const string NO_CLASS = "Unable to locate class or lesson information.";
+
+        public const string NO_ITEMS = "Unable to locate transaction items.";
+
+        public const string NO_TRANSACTION = "Unable to locate transaction information.";
+
+        public const string NO_TRANSACTIONS = "No transactions found.";
     }
 }

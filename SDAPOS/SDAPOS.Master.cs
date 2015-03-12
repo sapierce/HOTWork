@@ -20,28 +20,37 @@ namespace SDAPOS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            SDAFunctionsClass FunctionsClass = new SDAFunctionsClass();
-            if (String.IsNullOrEmpty(Request.QueryString["Date"]))
+            DateTime scheduleDate = DateTime.Now.AddHours(1);
+            HOTBAL.SDAFunctionsClass FunctionsClass = new HOTBAL.SDAFunctionsClass();
+
+            // Does the Date element exist?
+            if (Request.QueryString["Date"] != null)
             {
-                scheduleDate = FunctionsClass.FormatDash(DateTime.Now.AddHours(1));
-                lblToday.Text = FunctionsClass.FormatSlash(Convert.ToDateTime(scheduleDate));
-                lblCurrent.Text = FunctionsClass.FormatSlash(Convert.ToDateTime(scheduleDate));
-            }
-            else
-            {
-                scheduleDate = FunctionsClass.FormatDash(Convert.ToDateTime(Request.QueryString["Date"]));
-                lblCurrent.Text = FunctionsClass.FormatSlash(Convert.ToDateTime(scheduleDate));
-                scheduleDate = FunctionsClass.FormatDash(DateTime.Now.AddHours(1));
-                lblToday.Text = FunctionsClass.FormatSlash(Convert.ToDateTime(scheduleDate));
+                // Does the Date element have a value?
+                if (!String.IsNullOrEmpty(Request.QueryString["Date"]))
+                {
+                    // Use the Date element from the QueryString
+                    scheduleDate = Convert.ToDateTime(Request.QueryString["Date"].ToString());
+                    displayToday.Text = FunctionsClass.FormatSlash(Convert.ToDateTime(scheduleDate));
+                    displayCurrent.Text = FunctionsClass.FormatSlash(Convert.ToDateTime(scheduleDate));
+                }
             }
 
-            lnkSchedule.NavigateUrl = HOTBAL.SDAConstants.MAIN_INTERNAL_URL + "?Date=" + scheduleDate;
-            lnkAddClass.NavigateUrl = HOTBAL.SDAConstants.ADD_CLASS_INTERNAL_URL + "?Date=" + scheduleDate;
-            lnkAddStudent.NavigateUrl = HOTBAL.SDAConstants.STUDENT_ADD_INTERNAL_URL + "?Date=" + scheduleDate;
-            lnkAdmin.NavigateUrl = HOTBAL.SDAConstants.ADMIN_INTERNAL_URL + "?Date=" + scheduleDate;
-            lnkProblem.NavigateUrl = HOTBAL.SDAConstants.PROBLEMS_INTERAL_URL + "?Date=" + scheduleDate;
-            lnkPOS.NavigateUrl = HOTBAL.SDAConstants.POS_INTERNAL_URL + "?Date=" + scheduleDate;
-            lnkSearch.NavigateUrl = HOTBAL.SDAConstants.SEARCH_INTERNAL_URL + "?Date=" + scheduleDate;
+            if (String.IsNullOrEmpty(displayCurrent.Text))
+            {
+                // Use the default value
+                displayToday.Text = FunctionsClass.FormatSlash(scheduleDate);
+                displayCurrent.Text = FunctionsClass.FormatSlash(scheduleDate);
+            }
+
+            // Build the navigation URLs
+            dailySchedule.NavigateUrl = HOTBAL.SDAConstants.MAIN_INTERNAL_URL;
+            addClass.NavigateUrl = HOTBAL.SDAConstants.ADD_CLASS_INTERNAL_URL;
+            addStudent.NavigateUrl = HOTBAL.SDAConstants.STUDENT_ADD_INTERNAL_URL;
+            searchSDA.NavigateUrl = HOTBAL.SDAConstants.SEARCH_INTERNAL_URL;
+            sdaPOS.NavigateUrl = HOTBAL.SDAConstants.POS_INTERNAL_URL;
+            sdaAdministration.NavigateUrl = HOTBAL.SDAConstants.ADMIN_INTERNAL_URL;
+            reportProblem.NavigateUrl = HOTBAL.SDAConstants.PROBLEMS_INTERAL_URL;
         }
     }
 }

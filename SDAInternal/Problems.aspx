@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <td class="rightAlignHeader">To:</td>
-            <td>Stephanie (Problems@hottropicaltans.com)</td>
+            <td>Stephanie (problems@hotselfdefense.net)</td>
         </tr>
         <tr>
             <td class="rightAlignHeader">Your Name:</td>
