@@ -31,50 +31,50 @@ namespace SDAPOS
                 sltTrnsPymt.Items.Add(new ListItem("PayPal", "PAYPAL"));
                 sltTrnsPymt.Items.Add(new ListItem("Other", "Other"));
 
-                if (String.IsNullOrEmpty(transactionDetails.Error))
+                if (String.IsNullOrEmpty(transactionDetails.ErrorMessage))
                 {
-                    List<HOTBAL.TransactionItem> transactionItems = sqlClass.GetTransactionItems(transactionDetails.ID);
-                    HOTBAL.Student studentDetails = sqlClass.GetStudentInformation(transactionDetails.CustomerID);
+                    List<HOTBAL.TransactionItem> transactionItems = sqlClass.GetTransactionItems(transactionDetails.TransactionId);
+                    HOTBAL.Student studentDetails = sqlClass.GetStudentInformation(transactionDetails.CustomerId);
 
-                    lblTrnsID.Text = transactionDetails.ID.ToString();
-                    if (String.IsNullOrEmpty(studentDetails.Error))
+                    lblTrnsID.Text = transactionDetails.TransactionId.ToString();
+                    if (String.IsNullOrEmpty(studentDetails.ErrorMessage))
                     {
                         lblTrnsBuyer.Text = studentDetails.FirstName + " " + studentDetails.LastName;
                     }
                     else
                     {
-                        lblTrnsBuyer.Text = transactionDetails.CustomerID.ToString();
+                        lblTrnsBuyer.Text = transactionDetails.CustomerId.ToString();
                     }
-                    lblStudentID.Text = transactionDetails.CustomerID.ToString();
-                    txtTrnsSeller.Text = transactionDetails.Seller;
-                    txtTrnsTtl.Text = transactionDetails.Total.ToString();
-                    txtTrnsDate.Text = FunctionsClass.FormatSlash(transactionDetails.Date);
-                    chkTrnsPaid.Checked = transactionDetails.Paid;
-                    chkTrnsVoid.Checked = transactionDetails.Void;
-                    sltTrnsPymt.Items.FindByValue(transactionDetails.Payment).Selected = true;
+                    lblStudentID.Text = transactionDetails.CustomerId.ToString();
+                    txtTrnsSeller.Text = transactionDetails.SellerId;
+                    txtTrnsTtl.Text = transactionDetails.TransactionTotal.ToString();
+                    txtTrnsDate.Text = FunctionsClass.FormatSlash(transactionDetails.TransactionDate);
+                    chkTrnsPaid.Checked = transactionDetails.IsTransactionPaid;
+                    chkTrnsVoid.Checked = transactionDetails.IsTransactionVoid;
+                    sltTrnsPymt.Items.FindByValue(transactionDetails.PaymentMethod).Selected = true;
 
                     if (transactionItems != null)
                     {
-                        if (String.IsNullOrEmpty(transactionItems[0].Error))
+                        if (String.IsNullOrEmpty(transactionItems[0].ErrorMessage))
                         {
                             lblItems.Text = "<table>";
                             foreach (TransactionItem i in transactionItems)
                             {
-                                lblItems.Text += "<tr><td>" + i.ProductName + " @ " + i.Price + " each"
-                                    + "</td><td>" + i.Quantity + "</td><td><a href='TransactionItemDelete.aspx?ID="
-                                    + i.ID + "&TID=" + i.TransactionID + "&Date=" + DateTime.Now.ToShortDateString()
+                                lblItems.Text += "<tr><td>" + i.ProductName + " @ " + i.ProductPrice + " each"
+                                    + "</td><td>" + i.ItemQuantity + "</td><td><a href='TransactionItemDelete.aspx?ID="
+                                    + i.TransactionItemId + "&TID=" + i.TransactionId + "&Date=" + DateTime.Now.ToShortDateString()
                                     + "'>Delete</a></td></tr>";
                             }
                             lblItems.Text += "</table>";
                         }
                         else
                         {
-                            lblError.Text = transactionItems[0].Error;
+                            lblError.Text = transactionItems[0].ErrorMessage;
                         }
                     }
                     else
                     {
-                        lblError.Text = transactionDetails.Error;
+                        lblError.Text = transactionDetails.ErrorMessage;
                     }
                 }
             }

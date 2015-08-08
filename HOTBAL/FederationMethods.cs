@@ -155,8 +155,8 @@ namespace HOTBAL
                     foreach (DataRow row in artTable.Rows)
                     {
                         Art arts = new Art();
-                        arts.ID = Convert.ToInt32(row["ART_ID"].ToString());
-                        arts.Title = row["ART_TITLE"].ToString();
+                        arts.ArtId = Convert.ToInt32(row["ART_ID"].ToString());
+                        arts.ArtTitle = row["ART_TITLE"].ToString();
                         artResponse.Add(arts);
                     }
                 }
@@ -165,7 +165,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, "", "FederationMethods: GetArtsBySchoolID");
                 Art arts = new Art();
-                arts.Error = SDAMessages.ERROR_GENERIC;
+                arts.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 artResponse.Add(arts);
             }
 
@@ -186,14 +186,14 @@ namespace HOTBAL
                     foreach (DataRow row in studentsTable.Rows)
                     {
                         Student student = new Student();
-                        student.ID = Convert.ToInt32(row["STDT_ID"].ToString());
+                        student.StudentId = Convert.ToInt32(row["STDT_ID"].ToString());
                         if (Convert.ToInt32(row["STDT_SCHOOL_ID"].ToString().Trim()) == 1)
-                            student.RegistrationID = row["STDT_ID"].ToString().Trim();
+                            student.RegistrationId = row["STDT_ID"].ToString().Trim();
                         else
-                            student.RegistrationID = row["STDT_REG_ID"].ToString().Trim();
+                            student.RegistrationId = row["STDT_REG_ID"].ToString().Trim();
                         student.FirstName = row["STDT_FNAME"].ToString();
                         student.LastName = row["STDT_LNAME"].ToString();
-                        student.Address = row["STDT_ADDR"].ToString();
+                        student.StreetAddress = row["STDT_ADDR"].ToString();
                         student.City = row["STDT_CITY"].ToString();
                         student.State = row["STDT_STATE"].ToString();
                         student.ZipCode = row["STDT_ZIP"].ToString();
@@ -201,12 +201,12 @@ namespace HOTBAL
                         student.PaymentDate = Convert.ToDateTime(row["STDT_PYMT_DT"].ToString());
                         student.PaymentPlan = row["STDT_PYMT_PLAN"].ToString();
                         student.PaymentAmount = Convert.ToDouble(row["STDT_PYMT_AMT"].ToString());
-                        student.Paid = (row["STDT_PAID"].ToString() == "True" ? true : false);
-                        student.Pass = (row["STDT_PASS"].ToString() == "True" ? true : false);
+                        student.IsPaying = (row["STDT_PAID"].ToString() == "True" ? true : false);
+                        student.IsPassing = (row["STDT_PASS"].ToString() == "True" ? true : false);
                         student.BirthDate = Convert.ToDateTime(row["STDT_BRTH_DATE"].ToString());
                         student.Note = row["STDT_NOTE"].ToString();
-                        student.Active = (row["STDT_ACTIVE"].ToString() == "True" ? true : false);
-                        student.School = Convert.ToInt32(row["STDT_SCHOOL_ID"].ToString().Trim());
+                        student.IsActive = (row["STDT_ACTIVE"].ToString() == "True" ? true : false);
+                        student.SchoolId = Convert.ToInt32(row["STDT_SCHOOL_ID"].ToString().Trim());
                         schoolStudents.Add(student);
                     }
                 }
@@ -284,13 +284,13 @@ namespace HOTBAL
                     foreach (DataRow row in productTable.Rows)
                     {
                         Product items = new Product();
-                        items.ProductID = Convert.ToInt32(row["PROD_ID"].ToString());
+                        items.ProductId = Convert.ToInt32(row["PROD_ID"].ToString());
                         items.ProductType = row["PROD_TYPE"].ToString();
                         items.ProductCode = row["PROD_CODE"].ToString();
                         items.ProductName = row["PROD_NAME"].ToString();
                         items.ProductPrice = Convert.ToDouble(row["PROD_PRICE"].ToString());
                         items.ProductCount = 0;
-                        items.ProductTaxable = (row["PROD_TAX"].ToString() == "True" ? true : false);
+                        items.IsTaxable = (row["PROD_TAX"].ToString() == "True" ? true : false);
                         items.ProductSubType = row["PROD_SUB_TYPE"].ToString();
                         itemsResponse.Add(items);
                     }
@@ -319,15 +319,15 @@ namespace HOTBAL
                 {
                     foreach (DataRow row in productTable.Rows)
                     {
-                        itemResponse.ProductID = Convert.ToInt32(row["PROD_ID"].ToString());
+                        itemResponse.ProductId = Convert.ToInt32(row["PROD_ID"].ToString());
                         itemResponse.ProductType = row["PROD_TYPE"].ToString();
                         itemResponse.ProductCode = row["PROD_CODE"].ToString();
                         itemResponse.ProductName = row["PROD_NAME"].ToString();
                         itemResponse.ProductDescription = row["PROD_DESC"].ToString();
                         itemResponse.ProductPrice = Convert.ToDouble(row["PROD_PRICE"].ToString());
-                        itemResponse.ProductTaxable = (row["PROD_TAX"].ToString() == "True" ? true : false);
+                        itemResponse.IsTaxable = (row["PROD_TAX"].ToString() == "True" ? true : false);
                         itemResponse.ProductSubType = row["PROD_SUB_TYPE"].ToString();
-                        itemResponse.Active = (row["PROD_DISP"].ToString() == "True" ? false : true);
+                        itemResponse.IsActive = (row["PROD_DISP"].ToString() == "True" ? false : true);
                     }
                 }
             }
@@ -351,7 +351,7 @@ namespace HOTBAL
                 //Add in the items for the transaction
                 foreach (CartItem item in cartSummary)
                 {
-                    response = prodDataAccess.ExecuteINSERT_TRANSACTION_ITEM(transactionID, item.ItemID, item.ItemQuantity, item.ItemName, item.ItemPrice.ToString(), (item.ItemTaxed ? 1 : 0));
+                    response = prodDataAccess.ExecuteINSERT_TRANSACTION_ITEM(transactionID, item.ItemId, item.ItemQuantity, item.ItemName, item.ItemPrice.ToString(), (item.ItemIsTaxed ? 1 : 0));
 
                 }
             }

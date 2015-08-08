@@ -36,7 +36,7 @@ namespace HOTSelfDefense
                             HOTBAL.Student studentInformation = methodsClass.GetStudentInformation(Convert.ToInt32(Request.QueryString["ID"].ToString()));
 
                             // Did we get an error?
-                            if (String.IsNullOrEmpty(studentInformation.Error))
+                            if (String.IsNullOrEmpty(studentInformation.ErrorMessage))
                             {
                                 // Output the student name
                                 studentName.Text = studentInformation.FirstName + " " + studentInformation.LastName;
@@ -45,10 +45,10 @@ namespace HOTSelfDefense
                                 HOTBAL.Course courseInformation = methodsClass.GetCourseInformation(Convert.ToInt32(Request.QueryString["CID"].ToString()));
 
                                 // Did we get an error?
-                                if (String.IsNullOrEmpty(courseInformation.Error))
+                                if (String.IsNullOrEmpty(courseInformation.ErrorMessage))
                                 {
                                     // Output the course title
-                                    courseName.Text = courseInformation.Title;
+                                    courseName.Text = courseInformation.CourseTitle;
 
                                     // Get the student attendance
                                     List<HOTBAL.ClassAttendance> studentAttend = methodsClass.GetStudentAttendance(Convert.ToInt32(Request.QueryString["ID"].ToString()), Convert.ToInt32(Request.QueryString["CID"].ToString()));

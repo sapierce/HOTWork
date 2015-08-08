@@ -53,7 +53,7 @@ namespace MobileSite
                         productInformation.Text += "<tr><td valign='top' align='left' class='product'><b>" + productListing.ProductName + "</b></td></tr>";
                         productInformation.Text += "<tr><td valign='top' align='left' height='5' class='product'><b>Price: </b> ";
 
-                        if (productListing.ProductSaleOnline)
+                        if (productListing.IsOnSaleOnline)
                         {
                             productInformation.Text += "<font color='red'>$" + productListing.ProductSalePrice + "</font><br><font style='font-size: 9px'>Reg - $" + productListing.ProductPrice + "</font>";
                         }

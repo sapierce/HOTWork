@@ -81,7 +81,7 @@ namespace HOTPOS
 
                 foreach (HOTBAL.Transaction transaction in tanTransactions)
                 {
-                    if (transaction.ID != 0)
+                    if (transaction.TransactionId != 0)
                     {
                         if (!totalsOnly)
                             tanningSales.Text += buildTransactionLine("T", transaction);
@@ -110,7 +110,7 @@ namespace HOTPOS
 
                 foreach (HOTBAL.Transaction transaction in maTransactions)
                 {
-                    if (transaction.ID != 0)
+                    if (transaction.TransactionId != 0)
                     {
                         if (!totalsOnly)
                             martialArtSales.Text += buildTransactionLine("M", transaction);
@@ -183,21 +183,21 @@ namespace HOTPOS
         private string buildTransactionLine(string transactionType, HOTBAL.Transaction transaction)
         {
             string customerName = "Unknown";
-            string voidLine = (transaction.Void ? "<b>**VOID**</b><br />" : "");
+            string voidLine = (transaction.IsTransactionVoid ? "<b>**VOID**</b><br />" : "");
             string detailUrls = buildTransactionDetailUrls(transactionType, transaction);
             string transactionLine = "<tr><td valign='top'>" + voidLine + detailUrls;
 
             if (transactionType == "M")
             {
-                HOTBAL.Student student = sdaSqlClass.GetStudentInformation(transaction.CustomerID);
-                if (String.IsNullOrEmpty(student.Error))
+                HOTBAL.Student student = sdaSqlClass.GetStudentInformation(transaction.CustomerId);
+                if (String.IsNullOrEmpty(student.ErrorMessage))
                 {
                     customerName = student.FirstName + " " + student.LastName;
                 }
             }
             else
             {
-                HOTBAL.Customer customer = tansSqlClass.GetCustomerInformationByID(transaction.CustomerID);
+                HOTBAL.Customer customer = tansSqlClass.GetCustomerInformationByID(transaction.CustomerId);
                 if (String.IsNullOrEmpty(customer.Error))
                 {
                     customerName = customer.FirstName + " " + customer.LastName;
@@ -207,7 +207,7 @@ namespace HOTPOS
                 }
             }
 
-            transactionLine += "</td><td valign='top'>" + tansFunctionsClass.FormatSlash(transaction.Date) + "</td>";
+            transactionLine += "</td><td valign='top'>" + tansFunctionsClass.FormatSlash(transaction.TransactionDate) + "</td>";
 
             transactionLine += "<td valign='top'>" + customerName + "</td><td valign='top'>";
 
@@ -215,24 +215,24 @@ namespace HOTPOS
             List<HOTBAL.TransactionItem> transactionItems;
             if (transactionType == "M")
             {
-                transactionItems = sdaSqlClass.GetTransactionItems(transaction.ID);
+                transactionItems = sdaSqlClass.GetTransactionItems(transaction.TransactionId);
             }
             else
             {
-                transactionItems = tansSqlClass.GetTanningTransactionItems(transaction.ID);
+                transactionItems = tansSqlClass.GetTanningTransactionItems(transaction.TransactionId);
             }
             transactionLine += "<table width='100%' style='border: 0px'><tr style='border: 0px'><td style='border: 0px; width: 67%'><strong>Item</strong></td><td style='border: 0px; width: 33%'><strong>Quantity</strong></td></tr>";
 
             foreach (HOTBAL.TransactionItem item in transactionItems)
             {
                 transactionLine += "<tr style='border: 0px'><td style='border: 0px'>" + item.ProductName
-                                + "&nbsp;&nbsp;(" + String.Format("{0:C}", item.Price) + ")"
-                                + "</td><td style='border: 0px'>" + item.Quantity
+                                + "&nbsp;&nbsp;(" + String.Format("{0:C}", item.ProductPrice) + ")"
+                                + "</td><td style='border: 0px'>" + item.ItemQuantity
                                 + "</td></tr>";
             }
-            transactionLine += "</table></td><td valign='top'>" + transaction.Seller;
-            transactionLine += "</td><td valign='top'>" + String.Format("{0:C}", transaction.Payment);
-            transactionLine += "</td><td valign='top'>" + String.Format("{0:C}", transaction.Total);
+            transactionLine += "</table></td><td valign='top'>" + transaction.SellerId;
+            transactionLine += "</td><td valign='top'>" + String.Format("{0:C}", transaction.PaymentMethod);
+            transactionLine += "</td><td valign='top'>" + String.Format("{0:C}", transaction.TransactionTotal);
             transactionLine += "</td></tr>";
 
             return transactionLine;
@@ -244,22 +244,22 @@ namespace HOTPOS
 
             if (transactionType == "M")
             {
-                detailUrl = "<a href='" + HOTBAL.SDAPOSConstants.TRANSACTION_DETAILS_URL + "?ID=" + transaction.ID + "'>" + transaction.ID + "</a><br />";
-                detailUrl += "<a href='" + HOTBAL.SDAPOSConstants.TRANSACTION_VOID_URL + "?ID=" + transaction.ID + (transaction.Void ? "&Task=Unvoid'>Unvoid</a><br>" : "&Task=Void'>Void</a><br />");
+                detailUrl = "<a href='" + HOTBAL.SDAPOSConstants.TRANSACTION_DETAILS_URL + "?ID=" + transaction.TransactionId + "'>" + transaction.TransactionId + "</a><br />";
+                detailUrl += "<a href='" + HOTBAL.SDAPOSConstants.TRANSACTION_VOID_URL + "?ID=" + transaction.TransactionId + (transaction.IsTransactionVoid ? "&Task=Unvoid'>Unvoid</a><br>" : "&Task=Void'>Void</a><br />");
             }
             else
             {
-                detailUrl = "<a href='" + HOTBAL.POSConstants.TRANSACTION_DETAILS_URL + "?ID=" + transaction.ID + "'>" + transaction.ID + "</a><br />";
-                detailUrl += "<a href='" + HOTBAL.POSConstants.TRANSACTION_VOID_URL + "?ID=" + transaction.ID + (transaction.Void ? "&Task=Unvoid'>Unvoid</a><br>" : "&Task=Void'>Void</a><br />");
+                detailUrl = "<a href='" + HOTBAL.POSConstants.TRANSACTION_DETAILS_URL + "?ID=" + transaction.TransactionId + "'>" + transaction.TransactionId + "</a><br />";
+                detailUrl += "<a href='" + HOTBAL.POSConstants.TRANSACTION_VOID_URL + "?ID=" + transaction.TransactionId + (transaction.IsTransactionVoid ? "&Task=Unvoid'>Unvoid</a><br>" : "&Task=Void'>Void</a><br />");
             }
 
             if (transactionType == "M")
             {
-                detailUrl += "<a href='" + HOTBAL.POSConstants.RECEIPT_URL + "?ID=" + transaction.ID + "'>Receipt</a><br />";
+                detailUrl += "<a href='" + HOTBAL.POSConstants.RECEIPT_URL + "?ID=" + transaction.TransactionId + "'>Receipt</a><br />";
             }
             else
             {
-                detailUrl += "<a href='" + HOTBAL.SDAPOSConstants.RECEIPT_URL + "?ID=" + transaction.ID + "'>Receipt</a><br />";
+                detailUrl += "<a href='" + HOTBAL.SDAPOSConstants.RECEIPT_URL + "?ID=" + transaction.TransactionId + "'>Receipt</a><br />";
             }
 
             return detailUrl;
@@ -269,96 +269,96 @@ namespace HOTPOS
         {
             bool isMartialArts = (transactionType == "M" ? true : false);
 
-            tax = tax + transaction.Tax;
+            tax = tax + transaction.TaxTotal;
 
             if (isMartialArts)
-                martialTax = martialTax + transaction.Tax;
+                martialTax = martialTax + transaction.TaxTotal;
             else
-                tanningTax = tanningTax + transaction.Tax;
+                tanningTax = tanningTax + transaction.TaxTotal;
 
-            if (!transaction.Void)
+            if (!transaction.IsTransactionVoid)
             {
-                if (transaction.Tax > 0)
+                if (transaction.TaxTotal > 0)
                 {
-                    taxed = taxed + (transaction.Total - transaction.Tax);
+                    taxed = taxed + (transaction.TransactionTotal - transaction.TaxTotal);
                     if (isMartialArts)
-                        martialTaxed = martialTaxed + (transaction.Total - transaction.Tax);
+                        martialTaxed = martialTaxed + (transaction.TransactionTotal - transaction.TaxTotal);
                     else
-                        tanningTaxed = tanningTaxed + (transaction.Total - transaction.Tax);
+                        tanningTaxed = tanningTaxed + (transaction.TransactionTotal - transaction.TaxTotal);
                 }
                 else
                 {
-                    nonTaxed = nonTaxed + transaction.Total;
+                    nonTaxed = nonTaxed + transaction.TransactionTotal;
                     if (isMartialArts)
-                        martialNonTaxed = martialNonTaxed + transaction.Total;
+                        martialNonTaxed = martialNonTaxed + transaction.TransactionTotal;
                     else
-                        tanningNonTaxed = tanningNonTaxed + transaction.Total;
+                        tanningNonTaxed = tanningNonTaxed + transaction.TransactionTotal;
                 }
 
-                switch (transaction.Payment)
+                switch (transaction.PaymentMethod)
                 {
                     case "Cash":
-                        cash = cash + transaction.Total;
+                        cash = cash + transaction.TransactionTotal;
                         if (isMartialArts)
-                            martialCash = martialCash + transaction.Total;
+                            martialCash = martialCash + transaction.TransactionTotal;
                         else
-                            tanningCash = tanningCash + transaction.Total;
+                            tanningCash = tanningCash + transaction.TransactionTotal;
                         break;
 
                     case "CC":
-                        credit = credit + transaction.Total;
+                        credit = credit + transaction.TransactionTotal;
                         if (isMartialArts)
-                            martialCredit = martialCredit + transaction.Total;
+                            martialCredit = martialCredit + transaction.TransactionTotal;
                         else
-                            tanningCredit = tanningCredit + transaction.Total;
+                            tanningCredit = tanningCredit + transaction.TransactionTotal;
                         break;
 
                     case "Check":
-                        check = check + transaction.Total;
+                        check = check + transaction.TransactionTotal;
                         if (isMartialArts)
-                            martialCheck = martialCheck + transaction.Total;
+                            martialCheck = martialCheck + transaction.TransactionTotal;
                         else
-                            tanningCheck = tanningCheck + transaction.Total;
+                            tanningCheck = tanningCheck + transaction.TransactionTotal;
                         break;
 
                     case "Trade":
-                        trade = trade + transaction.Total;
+                        trade = trade + transaction.TransactionTotal;
                         if (isMartialArts)
-                            martialTrade = martialTrade + transaction.Total;
+                            martialTrade = martialTrade + transaction.TransactionTotal;
                         else
-                            tanningTrade = tanningTrade + transaction.Total;
+                            tanningTrade = tanningTrade + transaction.TransactionTotal;
                         break;
 
                     case "GC":
-                        giftCard = giftCard + transaction.Total;
+                        giftCard = giftCard + transaction.TransactionTotal;
                         if (isMartialArts)
-                            martialGiftCard = martialGiftCard + transaction.Total;
+                            martialGiftCard = martialGiftCard + transaction.TransactionTotal;
                         else
-                            tanningGiftCard = tanningGiftCard + transaction.Total;
+                            tanningGiftCard = tanningGiftCard + transaction.TransactionTotal;
                         break;
 
                     case "ONLINE":
-                        online = online + transaction.Total;
+                        online = online + transaction.TransactionTotal;
                         if (isMartialArts)
-                            martialOnline = martialOnline + transaction.Total;
+                            martialOnline = martialOnline + transaction.TransactionTotal;
                         else
-                            tanningOnline = tanningOnline + transaction.Total;
+                            tanningOnline = tanningOnline + transaction.TransactionTotal;
                         break;
 
                     case "PAYPAL":
-                        payPal = payPal + transaction.Total;
+                        payPal = payPal + transaction.TransactionTotal;
                         if (isMartialArts)
-                            martialPayPal = martialPayPal + transaction.Total;
+                            martialPayPal = martialPayPal + transaction.TransactionTotal;
                         else
-                            tanningPayPal = tanningPayPal + transaction.Total;
+                            tanningPayPal = tanningPayPal + transaction.TransactionTotal;
                         break;
 
                     default:
-                        other = other + transaction.Total;
+                        other = other + transaction.TransactionTotal;
                         if (isMartialArts)
-                            martialOther = martialOther + transaction.Total;
+                            martialOther = martialOther + transaction.TransactionTotal;
                         else
-                            tanningOther = tanningOther + transaction.Total;
+                            tanningOther = tanningOther + transaction.TransactionTotal;
                         break;
                 }
             }

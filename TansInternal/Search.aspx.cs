@@ -119,7 +119,7 @@ namespace HOTTropicalTans
             {
                 if (productArray.Count == 1)
                 {
-                    Response.Redirect(HOTBAL.TansConstants.PRODUCT_INFO_INTERNAL_URL + "?ID=" + productArray[0].ProductID);
+                    Response.Redirect(HOTBAL.TansConstants.PRODUCT_INFO_INTERNAL_URL + "?ID=" + productArray[0].ProductId);
                 }
                 else
                 {
@@ -128,7 +128,7 @@ namespace HOTTropicalTans
                         foreach (HOTBAL.Product p in productArray)
                         {
                             outputResults.Text += "<tr><td><a href='" + HOTBAL.TansConstants.PRODUCT_INFO_INTERNAL_URL + "?ID=" +
-                                p.ProductID + "'>" + p.ProductName + "</a></td></tr>";
+                                p.ProductId + "'>" + p.ProductName + "</a></td></tr>";
                         }
                     }
                     catch (Exception ex)

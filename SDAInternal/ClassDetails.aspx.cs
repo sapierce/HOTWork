@@ -41,44 +41,44 @@ namespace HOTSelfDefense
                         HOTBAL.Course courseDetails = methodsClass.GetClassInformation(Convert.ToInt32(Request.QueryString["ID"].ToString()));
 
                         // Did we find class detail information?
-                        if (courseDetails.ID > 0)
+                        if (courseDetails.CourseId > 0)
                         {
                             // Get and output the full art name
-                            classArt.Text = methodsClass.GetArtTitle(courseDetails.FirstArtID);
+                            classArt.Text = methodsClass.GetArtTitle(courseDetails.FirstArtId);
 
                             // Is there a secondary art?
-                            if (courseDetails.SecondArtID > 0)
+                            if (courseDetails.SecondArtId > 0)
                                 // Get and output the full secondary art name
-                                classArt.Text += "/" + methodsClass.GetArtTitle(courseDetails.SecondArtID);
+                                classArt.Text += "/" + methodsClass.GetArtTitle(courseDetails.SecondArtId);
 
                             // Get the class instructor
-                            HOTBAL.Instructor getClassInstructor = methodsClass.GetInstructorByID(courseDetails.InstructorID);
+                            HOTBAL.Instructor getClassInstructor = methodsClass.GetInstructorByID(courseDetails.InstructorId);
 
                             // Did we get an error?
-                            if (String.IsNullOrEmpty(getClassInstructor.Error))
+                            if (String.IsNullOrEmpty(getClassInstructor.ErrorMessage))
                                 // Output the instructor name
                                 classInstructor.Text = getClassInstructor.FirstName + " " + getClassInstructor.LastName;
                             else
                                 // Output the error message
-                                classInstructor.Text = getClassInstructor.Error;
+                                classInstructor.Text = getClassInstructor.ErrorMessage;
 
                             // Output the class title
-                            classTitle.Text = courseDetails.Title;
+                            classTitle.Text = courseDetails.CourseTitle;
 
                             // Create the printable roster link
                             printRoster.Text = "<a href='" + HOTBAL.SDAConstants.CLASS_PRINT_INTERNAL_URL + "?ID=" + Request.QueryString["ID"].ToString() + "'>Printable Class Roster</a>";
 
                             // Build the add student link
-                            addStudent.NavigateUrl = HOTBAL.SDAConstants.CLASS_STUDENT_ADD_INTERNAL_URL + "?ID=" + courseDetails.ID.ToString();
+                            addStudent.NavigateUrl = HOTBAL.SDAConstants.CLASS_STUDENT_ADD_INTERNAL_URL + "?ID=" + courseDetails.CourseId.ToString();
 
                             // Get students registered for this class
-                            List<HOTBAL.Student> courseStudents = methodsClass.GetStudentsByClass(courseDetails.ID);
+                            List<HOTBAL.Student> courseStudents = methodsClass.GetStudentsByClass(courseDetails.CourseId);
 
                             // Did we get the list of students back?
                             if (courseStudents.Count > 0)
                             {
                                 // Did we get an error message back?
-                                if (String.IsNullOrEmpty(courseStudents[0].Error))
+                                if (String.IsNullOrEmpty(courseStudents[0].ErrorMessage))
                                 {
                                     // Loop through the returned list of students
                                     foreach (HOTBAL.Student student in courseStudents)
@@ -87,12 +87,12 @@ namespace HOTSelfDefense
                                         classRoster.Text += "<tr><td>";
 
                                         // Is this student checked in to this class?
-                                        bool isCheckedIn = methodsClass.IsStudentCheckedIn(Convert.ToInt32(Request.QueryString["ID"].ToString()), student.ID);
+                                        bool isCheckedIn = methodsClass.IsStudentCheckedIn(Convert.ToInt32(Request.QueryString["ID"].ToString()), student.StudentId);
 
                                         if (!isCheckedIn)
                                             // Output a link to allow the student to check in
                                             classRoster.Text += "<a href='" + HOTBAL.SDAConstants.STUDENT_CHECK_IN_INTERNAL_URL +
-                                                "?ID=" + student.ID + "&CID=" + Request.QueryString["ID"].ToString() +
+                                                "?ID=" + student.StudentId + "&CID=" + Request.QueryString["ID"].ToString() +
                                                 "'>Check In</a></td>";
                                         else
                                             // Student is already checked in
@@ -109,7 +109,7 @@ namespace HOTSelfDefense
 
                                         // Output the student name with a link to their information and notes about the student
                                         classRoster.Text += "<td style=\"" + paymentStyle + "\"><a href=\"" + HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL +
-                                            "?ID=" + student.ID + "\" title=\"<strong>Payment Plan: </strong>" + student.PaymentPlan + "<br/>"
+                                            "?ID=" + student.StudentId + "\" title=\"<strong>Payment Plan: </strong>" + student.PaymentPlan + "<br/>"
                                             + "<strong>Payment Date: </strong>" + functionsClass.FormatSlash(student.PaymentDate) + "<br/>"
                                             + "<strong>Payment Amount: </strong>" + String.Format("{0:C2}", student.PaymentAmount) + "\" class=\"student\">" 
                                             + student.LastName + ", " + student.FirstName + (String.IsNullOrEmpty(student.Suffix) ? "" : " " + student.Suffix) 
@@ -118,7 +118,7 @@ namespace HOTSelfDefense
                                 }
                                 else
                                     // Output the received error message
-                                    errorLabel.Text = courseStudents[0].Error;
+                                    errorLabel.Text = courseStudents[0].ErrorMessage;
                             }
                             else
                                 // Output the no students message

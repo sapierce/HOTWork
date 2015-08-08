@@ -1,36 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Runtime.Serialization;
 
 namespace HOTBAL
 {
+    [DataContract]
     public class School
+    {
+        private int schoolID;
+        private string schoolName;
+
+        [DataMember]
+        public int SchoolID
         {
-            private Int32 schoolID;
-            private string schoolName;
-
-            public Int32 SchoolID
+            get
             {
-                get
-                {
-                    return this.schoolID;
-                }
-                set
-                {
-                    this.schoolID = value;
-                }
+                return this.schoolID;
             }
-
-            public string SchoolName
+            set
             {
-                get
-                {
-                    return this.schoolName;
-                }
-                set
-                {
-                    this.schoolName = value;
-                }
+                this.schoolID = value;
             }
         }
+
+        [DataMember]
+        public string SchoolName
+        {
+            get
+            {
+                return this.schoolName;
+            }
+            set
+            {
+                this.schoolName = value;
+            }
+        }
+    }
 }

@@ -41,11 +41,11 @@ namespace SDAFederation
 
                 if (studentName != null)
                 {
-                    if (String.IsNullOrEmpty(studentName[0].Error))
+                    if (String.IsNullOrEmpty(studentName[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Student s in studentName)
                         {
-                            List<StudentArt> studentArts = methodsClass.GetStudentArts(s.ID);
+                            List<StudentArt> studentArts = methodsClass.GetStudentArts(s.StudentId);
                             if (studentArts.Count > 0)
                             {
                                 int artCount = 0;
@@ -63,16 +63,16 @@ namespace SDAFederation
                                         artCount++;
                                     }
                                 }
-                                studentResults.Text += "<tr><td><a href='" + HOTBAL.FederationConstants.STUDENT_INFORMATION_URL + "?ID=" + s.ID + "'>" + s.RegistrationID + " - " + s.LastName + ", " + s.FirstName + " (" + artList + ")</a></td></tr>";
+                                studentResults.Text += "<tr><td><a href='" + HOTBAL.FederationConstants.STUDENT_INFORMATION_URL + "?ID=" + s.StudentId + "'>" + s.RegistrationId + " - " + s.LastName + ", " + s.FirstName + " (" + artList + ")</a></td></tr>";
                             }
                             else
-                                studentResults.Text += "<tr><td><a href='" + HOTBAL.FederationConstants.STUDENT_INFORMATION_URL + "?ID=" + s.ID + "'>" + s.RegistrationID + " - " + s.LastName + ", " + s.FirstName + "</a></td></tr>";
+                                studentResults.Text += "<tr><td><a href='" + HOTBAL.FederationConstants.STUDENT_INFORMATION_URL + "?ID=" + s.StudentId + "'>" + s.RegistrationId + " - " + s.LastName + ", " + s.FirstName + "</a></td></tr>";
                         }
                     }
                     else
                     {
                         Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                        errorLabel.Text = "&#149; " + studentName[0].Error;
+                        errorLabel.Text = "&#149; " + studentName[0].ErrorMessage;
                     }
                 }
             }

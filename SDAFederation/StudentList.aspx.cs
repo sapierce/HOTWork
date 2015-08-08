@@ -22,7 +22,7 @@ namespace SDAFederation
                 {
                     foreach (Student student in studentListBySchool)
                     {
-                        studentList.Text += "<a href='" + FederationConstants.STUDENT_INFORMATION_URL + "?ID=" + student.ID.ToString() + "'>" + student.FirstName + " " + student.LastName + "</a><br />";
+                        studentList.Text += "<a href='" + FederationConstants.STUDENT_INFORMATION_URL + "?ID=" + student.StudentId.ToString() + "'>" + student.FirstName + " " + student.LastName + "</a><br />";
                     }
                 }
                 else

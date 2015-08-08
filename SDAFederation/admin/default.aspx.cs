@@ -23,7 +23,7 @@ namespace SDAFederation.admin
                 List<Product> productList = methodsClass.GetFederationItems();
                 foreach (Product product in productList)
                 {
-                    federationProducts.Items.Add(new ListItem(product.ProductName, product.ProductID.ToString()));
+                    federationProducts.Items.Add(new ListItem(product.ProductName, product.ProductId.ToString()));
                 }
             }
         }

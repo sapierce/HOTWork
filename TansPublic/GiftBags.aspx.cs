@@ -47,7 +47,7 @@ namespace PublicWebsite
                             // Output the returned product information
                             giftBags.Text += "<tr><td rowspan='2' style='text-align:center;vertical-align:top;'><a href='" +
                                 HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
-                                p.ProductID + "&type=gift'><img src='products/";
+                                p.ProductId + "&type=gift'><img src='products/";
 
                             // Do we have an image?
                             if (String.IsNullOrEmpty(p.ProductFileName))
@@ -64,11 +64,11 @@ namespace PublicWebsite
                             // Build the product information
                             giftBags.Text += "' alt='" + p.ProductName + "' border=0></a></td><td style='vertical-align:top;'><b><a href='" +
                                 HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
-                                p.ProductID + "'>" +
+                                p.ProductId + "'>" +
                                 p.ProductName + "</a></b></td><td style='vertical-align:top;text-align:center;'>";
 
                             // Is this product on sale?
-                            if (p.ProductSaleOnline)
+                            if (p.IsOnSaleOnline)
                             {
                                 // Output the sale price with the regular price underneath
                                 giftBags.Text += "<span style='color: red;'>$" +
@@ -88,7 +88,7 @@ namespace PublicWebsite
                                 // Add a link to the shopping cart
                                 giftBags.Text += "<a href='" +
                                     HOTBAL.TansConstants.SHOPPING_PUBLIC_URL + "?action=add&ItemID=" +
-                                    p.ProductID + "'>Add to Cart</a></td></tr>";
+                                    p.ProductId + "'>Add to Cart</a></td></tr>";
                             }
                             else
                             {
@@ -103,7 +103,7 @@ namespace PublicWebsite
                                 giftBags.Text += "<tr><td colspan='3' style='vertical-align:top;height:100;'><i>" +
                                     p.ProductDescription.Substring(0, 150) + "<a href='" +
                                     HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
-                                    p.ProductID + "'>...</a></i></td></tr>";
+                                    p.ProductId + "'>...</a></i></td></tr>";
                             }
                             else
                             {

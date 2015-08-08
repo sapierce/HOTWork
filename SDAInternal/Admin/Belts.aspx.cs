@@ -45,16 +45,16 @@ namespace HOTSelfDefense
 
             if (artsResponse != null)
             {
-                if (String.IsNullOrEmpty(artsResponse[0].Error))
+                if (String.IsNullOrEmpty(artsResponse[0].ErrorMessage))
                 {
                     foreach (HOTBAL.Art a in artsResponse)
                     {
-                        sltArt.Items.Add(new ListItem(a.Title, a.ID.ToString()));
+                        sltArt.Items.Add(new ListItem(a.ArtTitle, a.ArtId.ToString()));
                     }
                 }
                 else
                 {
-                    lblError.Text = artsResponse[0].Error;
+                    lblError.Text = artsResponse[0].ErrorMessage;
                 }
             }
         }
@@ -65,10 +65,10 @@ namespace HOTSelfDefense
 
             beltResponse = sqlClass.GetBeltByID(ID);
 
-            txtBelt.Text = beltResponse.Title;
-            txtBeltLevel.Text = beltResponse.Level;
+            txtBelt.Text = beltResponse.BeltTitle;
+            txtBeltLevel.Text = beltResponse.BeltLevel;
             txtClass.Text = beltResponse.ClassCount.ToString();
-            sltArt.Items.FindByValue(beltResponse.ArtID.ToString()).Selected = true;
+            sltArt.Items.FindByValue(beltResponse.ArtId.ToString()).Selected = true;
             sltClassOrTip.Items.FindByValue(beltResponse.ClassOrTip).Selected = true;
         }
 

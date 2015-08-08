@@ -47,14 +47,14 @@ namespace SDAFederationPOS
                 {
                     Student studentInfo = sqlClass.GetStudentInformation(Convert.ToInt32(Request.QueryString["ID"].ToString()));
 
-                    if (String.IsNullOrEmpty(studentInfo.Error))
+                    if (String.IsNullOrEmpty(studentInfo.ErrorMessage))
                     {
                         customerName.Text = studentInfo.FirstName + " " + studentInfo.LastName;
                     }
                     else
                     {
                         Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                        errorLabel.Text = "&#149; " + studentInfo.Error;
+                        errorLabel.Text = "&#149; " + studentInfo.ErrorMessage;
 
                         outputCartList();
                         clearFields();
@@ -80,9 +80,9 @@ namespace SDAFederationPOS
 
                 if (barcodeItem != null)
                 {
-                    AddItem(barcodeItem.ProductID.ToString(), barcodeItem.ProductType + "-" + barcodeItem.ProductSubType + "-" + barcodeItem.ProductName,
-                        (barcodeItem.ProductSaleInStore ? barcodeItem.ProductSalePrice : barcodeItem.ProductPrice).ToString(),
-                        "1", barcodeItem.ProductType, barcodeItem.ProductTaxable);
+                    AddItem(barcodeItem.ProductId.ToString(), barcodeItem.ProductType + "-" + barcodeItem.ProductSubType + "-" + barcodeItem.ProductName,
+                        (barcodeItem.IsOnSaleInStore ? barcodeItem.ProductSalePrice : barcodeItem.ProductPrice).ToString(),
+                        "1", barcodeItem.ProductType, barcodeItem.IsTaxable);
 
                     outputCartList();
                     clearFields();
@@ -130,17 +130,17 @@ namespace SDAFederationPOS
                     {
                         foreach (CartItem item in shoppingCart)
                         {
-                            if (item.ItemID.ToString() == itemID)
+                            if (item.ItemId.ToString() == itemID)
                             {
                                 if (item.ItemName.ToString() == itemName)
                                 {
                                     //Item we're looking for, add it to the cart + 1
                                     CartItem cartItem = new CartItem();
-                                    cartItem.ItemID = item.ItemID;
+                                    cartItem.ItemId = item.ItemId;
                                     cartItem.ItemName = item.ItemName;
                                     cartItem.ItemPrice = item.ItemPrice;
                                     cartItem.ItemQuantity = item.ItemQuantity + 1;
-                                    cartItem.ItemTaxed = item.ItemTaxed;
+                                    cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                     cartItem.ItemType = item.ItemType;
                                     shoppingCartRefresh.Add(cartItem);
                                     flag = true;
@@ -149,11 +149,11 @@ namespace SDAFederationPOS
                                 {
                                     //Not the item, add it back
                                     CartItem cartItem = new CartItem();
-                                    cartItem.ItemID = item.ItemID;
+                                    cartItem.ItemId = item.ItemId;
                                     cartItem.ItemName = item.ItemName;
                                     cartItem.ItemPrice = item.ItemPrice;
                                     cartItem.ItemQuantity = item.ItemQuantity;
-                                    cartItem.ItemTaxed = item.ItemTaxed;
+                                    cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                     cartItem.ItemType = item.ItemType;
                                     shoppingCartRefresh.Add(cartItem);
                                 }
@@ -162,11 +162,11 @@ namespace SDAFederationPOS
                             {
                                 //Not the item, add it back
                                 CartItem cartItem = new CartItem();
-                                cartItem.ItemID = item.ItemID;
+                                cartItem.ItemId = item.ItemId;
                                 cartItem.ItemName = item.ItemName;
                                 cartItem.ItemPrice = item.ItemPrice;
                                 cartItem.ItemQuantity = item.ItemQuantity;
-                                cartItem.ItemTaxed = item.ItemTaxed;
+                                cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                 cartItem.ItemType = item.ItemType;
                                 shoppingCartRefresh.Add(cartItem);
                             }
@@ -177,12 +177,12 @@ namespace SDAFederationPOS
                         {
                             //Item not already in the cart, add it
                             CartItem cartItem = new CartItem();
-                            cartItem.ItemID = Convert.ToInt32(itemID);
+                            cartItem.ItemId = Convert.ToInt32(itemID);
                             cartItem.ItemName = itemName;
                             cartItem.ItemPrice = Convert.ToDouble(itemPrice);
                             cartItem.ItemType = itemType;
                             cartItem.ItemQuantity = Convert.ToInt32(itemQuantity);
-                            cartItem.ItemTaxed = itemTax;
+                            cartItem.ItemIsTaxed = itemTax;
                             shoppingCartRefresh.Add(cartItem);
                         }
 
@@ -200,12 +200,12 @@ namespace SDAFederationPOS
                     //Cart was empty
                     List<CartItem> shoppingCart = new List<CartItem>();
                     CartItem cartItem = new CartItem();
-                    cartItem.ItemID = Convert.ToInt32(itemID);
+                    cartItem.ItemId = Convert.ToInt32(itemID);
                     cartItem.ItemName = itemName;
                     cartItem.ItemPrice = Convert.ToDouble(itemPrice);
                     cartItem.ItemType = itemType;
                     cartItem.ItemQuantity = Convert.ToInt32(itemQuantity);
-                    cartItem.ItemTaxed = itemTax;
+                    cartItem.ItemIsTaxed = itemTax;
                     shoppingCart.Add(cartItem);
 
                     HttpContext.Current.Session["Cart"] = shoppingCart;
@@ -234,7 +234,7 @@ namespace SDAFederationPOS
                     {
                         foreach (CartItem item in shoppingCart)
                         {
-                            if (item.ItemID.ToString() == itemID)
+                            if (item.ItemId.ToString() == itemID)
                             {
                                 if (item.ItemName.ToString() == itemName)
                                 {
@@ -242,11 +242,11 @@ namespace SDAFederationPOS
                                     if (item.ItemQuantity > 1)
                                     {
                                         CartItem cartItem = new CartItem();
-                                        cartItem.ItemID = item.ItemID;
+                                        cartItem.ItemId = item.ItemId;
                                         cartItem.ItemName = item.ItemName;
                                         cartItem.ItemPrice = item.ItemPrice;
                                         cartItem.ItemQuantity = item.ItemQuantity - 1;
-                                        cartItem.ItemTaxed = item.ItemTaxed;
+                                        cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                         cartItem.ItemType = item.ItemType;
                                         shoppingCartRefresh.Add(cartItem);
                                     }
@@ -255,11 +255,11 @@ namespace SDAFederationPOS
                                 {
                                     //Not the item, add it back
                                     CartItem cartItem = new CartItem();
-                                    cartItem.ItemID = item.ItemID;
+                                    cartItem.ItemId = item.ItemId;
                                     cartItem.ItemName = item.ItemName;
                                     cartItem.ItemPrice = item.ItemPrice;
                                     cartItem.ItemQuantity = item.ItemQuantity;
-                                    cartItem.ItemTaxed = item.ItemTaxed;
+                                    cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                     cartItem.ItemType = item.ItemType;
                                     shoppingCartRefresh.Add(cartItem);
                                 }
@@ -268,11 +268,11 @@ namespace SDAFederationPOS
                             {
                                 //Not the item, add it back
                                 CartItem cartItem = new CartItem();
-                                cartItem.ItemID = item.ItemID;
+                                cartItem.ItemId = item.ItemId;
                                 cartItem.ItemName = item.ItemName;
                                 cartItem.ItemPrice = item.ItemPrice;
                                 cartItem.ItemQuantity = item.ItemQuantity;
-                                cartItem.ItemTaxed = item.ItemTaxed;
+                                cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                 cartItem.ItemType = item.ItemType;
                                 shoppingCartRefresh.Add(cartItem);
                             }
@@ -306,14 +306,14 @@ namespace SDAFederationPOS
                 shoppingCartOutput.Text = "";
                 foreach (HOTBAL.CartItem item in shoppingCart)
                 {
-                    shoppingCartOutput.Text += "<tr><td class='standardField'>" + item.ItemID
+                    shoppingCartOutput.Text += "<tr><td class='standardField'>" + item.ItemId
                         + "</td><td class='standardField'>" + item.ItemName
                         + "</td><td class='standardField'>" + item.ItemQuantity
                         + "</td><td class='standardField'>" + String.Format("{0:C2}", item.ItemPrice)
                         + "</td><td class='standardField'>" + String.Format("{0:C2}", (item.ItemPrice * item.ItemQuantity))
-                        + "</td><td class='standardField'><a href='Cart.aspx?Action=Remove&ID=" + Request.QueryString["ID"].ToString() + "&ItemID=" + item.ItemID + "&ItemName=" + item.ItemName + "'>Remove</a>"
+                        + "</td><td class='standardField'><a href='Cart.aspx?Action=Remove&ID=" + Request.QueryString["ID"].ToString() + "&ItemID=" + item.ItemId + "&ItemName=" + item.ItemName + "'>Remove</a>"
                         + "</td></tr>";
-                    if (item.ItemTaxed)
+                    if (item.ItemIsTaxed)
                     {
                         taxTotal = (taxTotal + (item.ItemPrice * item.ItemQuantity));
                     }

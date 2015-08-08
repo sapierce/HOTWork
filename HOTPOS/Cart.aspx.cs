@@ -205,12 +205,12 @@ namespace HOTPOS
                     {
                         double itemPrice = 0.00;
                         if (isMember.Checked)
-                            itemPrice = (barcodeItem.ProductSaleInStore ? barcodeItem.ProductSalePrice : barcodeItem.ProductPrice);
+                            itemPrice = (barcodeItem.IsOnSaleInStore ? barcodeItem.ProductSalePrice : barcodeItem.ProductPrice);
                         else
                             itemPrice = barcodeItem.ProductPrice;
 
-                        AddItem(barcodeItem.ProductID.ToString(), barcodeItem.ProductType + "-" + barcodeItem.ProductSubType + "-" + barcodeItem.ProductName,
-                            itemPrice.ToString(), barCodeQuantity.Text, barcodeItem.ProductType, barcodeItem.ProductTaxable);
+                        AddItem(barcodeItem.ProductId.ToString(), barcodeItem.ProductType + "-" + barcodeItem.ProductSubType + "-" + barcodeItem.ProductName,
+                            itemPrice.ToString(), barCodeQuantity.Text, barcodeItem.ProductType, barcodeItem.IsTaxable);
                     }
                     else
                     {
@@ -254,17 +254,17 @@ namespace HOTPOS
                     {
                         foreach (HOTBAL.CartItem item in shoppingCart)
                         {
-                            if (item.ItemID.ToString() == itemID)
+                            if (item.ItemId.ToString() == itemID)
                             {
                                 if (item.ItemName.ToString() == itemName)
                                 {
                                     //Item we're looking for, add it to the cart + 1
                                     HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                    cartItem.ItemID = item.ItemID;
+                                    cartItem.ItemId = item.ItemId;
                                     cartItem.ItemName = item.ItemName;
                                     cartItem.ItemPrice = item.ItemPrice;
                                     cartItem.ItemQuantity = item.ItemQuantity + 1;
-                                    cartItem.ItemTaxed = item.ItemTaxed;
+                                    cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                     cartItem.ItemType = item.ItemType;
                                     shoppingCartRefresh.Add(cartItem);
                                     flag = true;
@@ -273,11 +273,11 @@ namespace HOTPOS
                                 {
                                     //Not the item, add it back
                                     HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                    cartItem.ItemID = item.ItemID;
+                                    cartItem.ItemId = item.ItemId;
                                     cartItem.ItemName = item.ItemName;
                                     cartItem.ItemPrice = item.ItemPrice;
                                     cartItem.ItemQuantity = item.ItemQuantity;
-                                    cartItem.ItemTaxed = item.ItemTaxed;
+                                    cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                     cartItem.ItemType = item.ItemType;
                                     shoppingCartRefresh.Add(cartItem);
                                 }
@@ -286,11 +286,11 @@ namespace HOTPOS
                             {
                                 //Not the item, add it back
                                 HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                cartItem.ItemID = item.ItemID;
+                                cartItem.ItemId = item.ItemId;
                                 cartItem.ItemName = item.ItemName;
                                 cartItem.ItemPrice = item.ItemPrice;
                                 cartItem.ItemQuantity = item.ItemQuantity;
-                                cartItem.ItemTaxed = item.ItemTaxed;
+                                cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                 cartItem.ItemType = item.ItemType;
                                 shoppingCartRefresh.Add(cartItem);
                             }
@@ -300,12 +300,12 @@ namespace HOTPOS
                         {
                             //Item not already in the cart, add it
                             HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                            cartItem.ItemID = Convert.ToInt32(itemID);
+                            cartItem.ItemId = Convert.ToInt32(itemID);
                             cartItem.ItemName = itemName;
                             cartItem.ItemPrice = Convert.ToDouble(itemPrice);
                             cartItem.ItemType = itemType;
                             cartItem.ItemQuantity = Convert.ToInt32(itemQuantity);
-                            cartItem.ItemTaxed = itemTax;
+                            cartItem.ItemIsTaxed = itemTax;
                             shoppingCartRefresh.Add(cartItem);
                         }
 
@@ -323,12 +323,12 @@ namespace HOTPOS
                     //Cart was empty
                     List<HOTBAL.CartItem> shoppingCart = new List<HOTBAL.CartItem>();
                     HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                    cartItem.ItemID = Convert.ToInt32(itemID);
+                    cartItem.ItemId = Convert.ToInt32(itemID);
                     cartItem.ItemName = itemName;
                     cartItem.ItemPrice = Convert.ToDouble(itemPrice);
                     cartItem.ItemType = itemType;
                     cartItem.ItemQuantity = Convert.ToInt32(itemQuantity);
-                    cartItem.ItemTaxed = itemTax;
+                    cartItem.ItemIsTaxed = itemTax;
                     shoppingCart.Add(cartItem);
 
                     HttpContext.Current.Session["Cart"] = shoppingCart;
@@ -357,7 +357,7 @@ namespace HOTPOS
                     {
                         foreach (HOTBAL.CartItem item in shoppingCart)
                         {
-                            if (item.ItemID.ToString() == itemID)
+                            if (item.ItemId.ToString() == itemID)
                             {
                                 if (item.ItemName.ToString() == itemName)
                                 {
@@ -366,11 +366,11 @@ namespace HOTPOS
                                     if (item.ItemQuantity > 1)
                                     {
                                         HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                        cartItem.ItemID = item.ItemID;
+                                        cartItem.ItemId = item.ItemId;
                                         cartItem.ItemName = item.ItemName;
                                         cartItem.ItemPrice = item.ItemPrice;
                                         cartItem.ItemQuantity = item.ItemQuantity - 1;
-                                        cartItem.ItemTaxed = item.ItemTaxed;
+                                        cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                         cartItem.ItemType = item.ItemType;
                                         shoppingCartRefresh.Add(cartItem);
                                     }
@@ -379,11 +379,11 @@ namespace HOTPOS
                                 {
                                     //Not the item, add it back
                                     HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                    cartItem.ItemID = item.ItemID;
+                                    cartItem.ItemId = item.ItemId;
                                     cartItem.ItemName = item.ItemName;
                                     cartItem.ItemPrice = item.ItemPrice;
                                     cartItem.ItemQuantity = item.ItemQuantity;
-                                    cartItem.ItemTaxed = item.ItemTaxed;
+                                    cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                     cartItem.ItemType = item.ItemType;
                                     shoppingCartRefresh.Add(cartItem);
                                 }
@@ -392,11 +392,11 @@ namespace HOTPOS
                             {
                                 //Not the item, add it back
                                 HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                cartItem.ItemID = item.ItemID;
+                                cartItem.ItemId = item.ItemId;
                                 cartItem.ItemName = item.ItemName;
                                 cartItem.ItemPrice = item.ItemPrice;
                                 cartItem.ItemQuantity = item.ItemQuantity;
-                                cartItem.ItemTaxed = item.ItemTaxed;
+                                cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                 cartItem.ItemType = item.ItemType;
                                 shoppingCartRefresh.Add(cartItem);
                             }
@@ -432,7 +432,7 @@ namespace HOTPOS
                     shoppingCartOutput.Text = "";
                     foreach (HOTBAL.CartItem item in shoppingCart)
                     {
-                        shoppingCartOutput.Text += "<tr><td>" + item.ItemID
+                        shoppingCartOutput.Text += "<tr><td>" + item.ItemId
                             + "</td><td>" + item.ItemName
                             + "</td><td>" + item.ItemQuantity
                             + "</td><td>" + String.Format("{0:C2}", item.ItemPrice)
@@ -440,11 +440,11 @@ namespace HOTPOS
                             + "</td><td><a href='" + HOTBAL.POSConstants.CART_URL + "?Action=Remove&ID=" +
                                 Request.QueryString["ID"].ToString() +
                                 (Request.QueryString["FN"] != null ? "&FN=" + Request.QueryString["FN"] + "&LN=" + Request.QueryString["LN"] : "") +
-                                "&ItemID=" + item.ItemID +
+                                "&ItemID=" + item.ItemId +
                                 "&ItemName=" + item.ItemName +
                                 "'>Remove</a>"
                             + "</td></tr>";
-                        if (item.ItemTaxed)
+                        if (item.ItemIsTaxed)
                         {
                             taxTotal = (taxTotal + (item.ItemPrice * item.ItemQuantity));
                         }

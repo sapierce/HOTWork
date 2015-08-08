@@ -32,7 +32,7 @@ namespace SDAFederationPOS
 
                 if (studentName != null)
                 {
-                    if (String.IsNullOrEmpty(studentName[0].Error))
+                    if (String.IsNullOrEmpty(studentName[0].ErrorMessage))
                     {
                         if (studentName.Count > 1)
                         {
@@ -40,19 +40,19 @@ namespace SDAFederationPOS
                             customersList.Text = "<table>";
                             foreach (Student s in studentName)
                             {
-                                customersList.Text += "<tr><td class='standardField'><a href='" + FederationConstants.CART_URL + "?ID=" + s.ID.ToString() + "&Action='>" + s.LastName + ", " + s.FirstName + "</a></td></tr>";
+                                customersList.Text += "<tr><td class='standardField'><a href='" + FederationConstants.CART_URL + "?ID=" + s.StudentId.ToString() + "&Action='>" + s.LastName + ", " + s.FirstName + "</a></td></tr>";
                             }
                             customersList.Text += "</table>";
                         }
                         else
                         {
-                            Response.Redirect(FederationConstants.CART_URL + "?ID=" + studentName[0].ID.ToString() + "&Action=");
+                            Response.Redirect(FederationConstants.CART_URL + "?ID=" + studentName[0].StudentId.ToString() + "&Action=");
                         }
                     }
                     else
                     {
                         Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                        errorLabel.Text = "&#149; " + studentName[0].Error;
+                        errorLabel.Text = "&#149; " + studentName[0].ErrorMessage;
                     }
                 }
                 else

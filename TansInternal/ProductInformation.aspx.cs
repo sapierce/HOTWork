@@ -112,10 +112,10 @@ namespace HOTTropicalTans
                             productImage.Text = "<img src='/products/" + fileName + "' alt='" + productListing.ProductName + "' border=0 />";
                             productName.Text = productListing.ProductName;
 
-                            if (!productListing.Active)
+                            if (!productListing.IsActive)
                                 productName.Text += "-INACTIVE";
 
-                            if ((productListing.ProductSaleInStore) || (productListing.ProductSaleOnline))
+                            if ((productListing.IsOnSaleInStore) || (productListing.IsOnSaleOnline))
                             {
                                 productPrice.Text = String.Format("{0:C}", productListing.ProductPrice);
                                 productSalePrice.Text = String.Format("{0:C}", productListing.ProductSalePrice);

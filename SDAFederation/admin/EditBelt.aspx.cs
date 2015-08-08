@@ -17,18 +17,18 @@ namespace SDAFederation.admin
             if (!Page.IsPostBack)
             {
                 Belt beltInformation = methodsClass.GetBeltByID(Convert.ToInt32(Request.QueryString["ID"]));
-                if (beltInformation.ID != 0)
+                if (beltInformation.BeltId != 0)
                 {
-                    beltTitle.Text = beltInformation.Title;
-                    beltLevel.Text = beltInformation.Level;
+                    beltTitle.Text = beltInformation.BeltTitle;
+                    beltLevel.Text = beltInformation.BeltLevel;
 
-                    Art artInformation = methodsClass.GetArtByID(beltInformation.ArtID);
-                    if (artInformation.ID != 0)
+                    Art artInformation = methodsClass.GetArtByID(beltInformation.ArtId);
+                    if (artInformation.ArtId != 0)
                     {
-                        artTitle.Text = artInformation.Title;
-                        artID.Value = artInformation.ID.ToString();
+                        artTitle.Text = artInformation.ArtTitle;
+                        artID.Value = artInformation.ArtId.ToString();
 
-                        School schoolInformation = methodsClass.GetSchoolBySchoolID(artInformation.SchoolID);
+                        School schoolInformation = methodsClass.GetSchoolBySchoolID(artInformation.SchoolId);
                         if (schoolInformation.SchoolID != 0)
                         {
                             beltSchool.Text = schoolInformation.SchoolName;

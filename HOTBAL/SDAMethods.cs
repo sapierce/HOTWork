@@ -302,7 +302,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, CourseID.ToString(), "SDAMethods: GetStudentsByClass");
                 Student studentList = new Student();
-                studentList.Error = SDAMessages.ERROR_GENERIC;
+                studentList.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 responseStudents.Add(studentList);
             }
 
@@ -417,15 +417,15 @@ namespace HOTBAL
                 {
                     foreach (DataRow row in studentTable.Rows)
                     {
-                        responseStudent.ID = Convert.ToInt32(row["STDT_ID"].ToString().Trim());
+                        responseStudent.StudentId = Convert.ToInt32(row["STDT_ID"].ToString().Trim());
                         if (Convert.ToInt32(row["STDT_SCHOOL_ID"].ToString().Trim()) == 1)
-                            responseStudent.RegistrationID = row["STDT_ID"].ToString().Trim();
+                            responseStudent.RegistrationId = row["STDT_ID"].ToString().Trim();
                         else
-                            responseStudent.RegistrationID = row["STDT_REG_ID"].ToString();
+                            responseStudent.RegistrationId = row["STDT_REG_ID"].ToString();
                         responseStudent.FirstName = row["STDT_FNAME"].ToString();
                         responseStudent.LastName = row["STDT_LNAME"].ToString();
                         responseStudent.Suffix = row["STDT_SUFFIX"].ToString();
-                        responseStudent.Address = row["STDT_ADDR"].ToString();
+                        responseStudent.StreetAddress = row["STDT_ADDR"].ToString();
                         responseStudent.City = row["STDT_CITY"].ToString();
                         responseStudent.State = row["STDT_STATE"].ToString();
                         responseStudent.ZipCode = (row["STDT_ZIP"].ToString() == "0" ? "" : row["STDT_ZIP"].ToString());
@@ -433,17 +433,17 @@ namespace HOTBAL
                         responseStudent.PaymentDate = Convert.ToDateTime(row["STDT_PYMT_DT"].ToString());
                         responseStudent.PaymentPlan = row["STDT_PYMT_PLAN"].ToString();
                         responseStudent.PaymentAmount = Convert.ToDouble(row["STDT_PYMT_AMT"].ToString());
-                        responseStudent.Paid = (row["STDT_PAID"].ToString() == "True" ? true : false);
-                        responseStudent.Pass = (row["STDT_PASS"].ToString() == "True" ? true : false);
+                        responseStudent.IsPaying = (row["STDT_PAID"].ToString() == "True" ? true : false);
+                        responseStudent.IsPassing = (row["STDT_PASS"].ToString() == "True" ? true : false);
                         responseStudent.BirthDate = Convert.ToDateTime(row["STDT_BRTH_DATE"].ToString());
                         responseStudent.Note = row["STDT_NOTE"].ToString();
-                        responseStudent.Active = (row["STDT_ACTIVE"].ToString() == "True" ? true : false);
-                        responseStudent.School = Convert.ToInt32(row["STDT_SCHOOL_ID"].ToString().Trim());
+                        responseStudent.IsActive = (row["STDT_ACTIVE"].ToString() == "True" ? true : false);
+                        responseStudent.SchoolId = Convert.ToInt32(row["STDT_SCHOOL_ID"].ToString().Trim());
                     }
                 }
                 else
                 {
-                    responseStudent.Error = SDAMessages.NO_STUDENTS_CLASS;
+                    responseStudent.ErrorMessage = SDAMessages.NO_STUDENTS_CLASS;
                 }
             }
             catch (Exception ex)
@@ -467,7 +467,7 @@ namespace HOTBAL
                     foreach (DataRow row in studentTable.Rows)
                     {
                         Student students = new Student();
-                        students.ID = Convert.ToInt32(row["STDT_ID"].ToString());
+                        students.StudentId = Convert.ToInt32(row["STDT_ID"].ToString());
                         students.FirstName = row["STDT_FNAME"].ToString();
                         students.LastName = row["STDT_LNAME"].ToString();
                         students.Suffix = row["STDT_SUFFIX"].ToString();
@@ -479,7 +479,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, "", "SDAMethods: GetAllStudents");
                 Student students = new Student();
-                students.Error = SDAMessages.ERROR_GENERIC;
+                students.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 studentResponse.Add(students);
             }
 
@@ -595,16 +595,16 @@ namespace HOTBAL
                     foreach (DataRow row in studentsTable.Rows)
                     {
                         Student students = new Student();
-                        students.ID = Convert.ToInt32(row["STDT_ID"].ToString());
+                        students.StudentId = Convert.ToInt32(row["STDT_ID"].ToString());
                         if (Convert.ToInt32(row["STDT_SCHOOL_ID"].ToString().Trim()) == 1)
-                            students.RegistrationID = row["STDT_ID"].ToString().Trim();
+                            students.RegistrationId = row["STDT_ID"].ToString().Trim();
                         else
-                            students.RegistrationID = row["STDT_REG_ID"].ToString().Trim();
-                        students.RegistrationID = row["STDT_REG_ID"].ToString();
+                            students.RegistrationId = row["STDT_REG_ID"].ToString().Trim();
+                        students.RegistrationId = row["STDT_REG_ID"].ToString();
                         students.FirstName = row["STDT_FNAME"].ToString();
                         students.LastName = row["STDT_LNAME"].ToString();
                         students.Suffix = row["STDT_SUFFIX"].ToString();
-                        students.Active = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
+                        students.IsActive = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
                         studentResponse.Add(students);
                     }
                 }
@@ -613,7 +613,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, FirstName + " " + LastName, "SDAMethods: GetStudentsByName");
                 Student students = new Student();
-                students.Error = SDAMessages.ERROR_GENERIC;
+                students.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 studentResponse.Add(students);
             }
 
@@ -633,16 +633,16 @@ namespace HOTBAL
                     foreach (DataRow row in studentsTable.Rows)
                     {
                         Student students = new Student();
-                        students.ID = Convert.ToInt32(row["STDT_ID"].ToString());
+                        students.StudentId = Convert.ToInt32(row["STDT_ID"].ToString());
                         if (Convert.ToInt32(row["STDT_SCHOOL_ID"].ToString().Trim()) == 1)
-                            students.RegistrationID = row["STDT_ID"].ToString().Trim();
+                            students.RegistrationId = row["STDT_ID"].ToString().Trim();
                         else
-                            students.RegistrationID = row["STDT_REG_ID"].ToString().Trim();
-                        students.RegistrationID = row["STDT_REG_ID"].ToString();
+                            students.RegistrationId = row["STDT_REG_ID"].ToString().Trim();
+                        students.RegistrationId = row["STDT_REG_ID"].ToString();
                         students.FirstName = row["STDT_FNAME"].ToString();
                         students.LastName = row["STDT_LNAME"].ToString();
                         students.Suffix = row["STDT_SUFFIX"].ToString();
-                        students.Active = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
+                        students.IsActive = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
                         studentResponse.Add(students);
                     }
                 }
@@ -651,7 +651,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, FirstName + " " + LastName, "SDAMethods: GetStudentsByName");
                 Student students = new Student();
-                students.Error = SDAMessages.ERROR_GENERIC;
+                students.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 studentResponse.Add(students);
             }
 
@@ -671,11 +671,11 @@ namespace HOTBAL
                     foreach (DataRow row in studentsTable.Rows)
                     {
                         Student students = new Student();
-                        students.ID = Convert.ToInt32(row["STDT_ID"].ToString());
+                        students.StudentId = Convert.ToInt32(row["STDT_ID"].ToString());
                         students.FirstName = row["STDT_FNAME"].ToString();
                         students.LastName = row["STDT_LNAME"].ToString();
                         students.Suffix = row["STDT_SUFFIX"].ToString();
-                        students.Active = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
+                        students.IsActive = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
                         studentResponse.Add(students);
                     }
                 }
@@ -684,7 +684,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, LastLetter, "SDAMethods: GetStudentsByLastName");
                 Student students = new Student();
-                students.Error = SDAMessages.ERROR_GENERIC;
+                students.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 studentResponse.Add(students);
             }
 
@@ -704,11 +704,11 @@ namespace HOTBAL
                     foreach (DataRow row in studentsTable.Rows)
                     {
                         Student students = new Student();
-                        students.ID = Convert.ToInt32(row["STDT_ID"].ToString());
+                        students.StudentId = Convert.ToInt32(row["STDT_ID"].ToString());
                         students.FirstName = row["STDT_FNAME"].ToString();
                         students.LastName = row["STDT_LNAME"].ToString();
                         students.Suffix = row["STDT_SUFFIX"].ToString();
-                        students.Active = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
+                        students.IsActive = (row["STDT_ACTIVE"].ToString() == "1" ? true : false);
                         studentResponse.Add(students);
                     }
                 }
@@ -717,7 +717,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, LastLetter, "SDAMethods: GetStudentsByLastName");
                 Student students = new Student();
-                students.Error = SDAMessages.ERROR_GENERIC;
+                students.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 studentResponse.Add(students);
             }
 
@@ -738,29 +738,29 @@ namespace HOTBAL
                     foreach (DataRow row in studentTable.Rows)
                     {
                         StudentArt artInfo = new StudentArt();
-                        artInfo.ArtID = Convert.ToInt32(row["ART_ID"].ToString());
+                        artInfo.ArtId = Convert.ToInt32(row["ART_ID"].ToString());
                         artInfo.ArtTitle = row["ART_TITLE"].ToString();
                         if (String.IsNullOrEmpty(row["BELT_TITLE"].ToString()))
                         {
-                            artInfo.BeltID = 0;
+                            artInfo.BeltId = 0;
                             artInfo.BeltTitle = "No belt found";
                         }
                         else
                         {
-                            artInfo.BeltID = Convert.ToInt32(row["BELT_ID"].ToString());
+                            artInfo.BeltId = Convert.ToInt32(row["BELT_ID"].ToString());
                             artInfo.BeltTitle = row["BELT_TITLE"].ToString();
                         }
-                        artInfo.ID = Convert.ToInt32(row["XREF_ID"].ToString());
+                        artInfo.StudentArtId = Convert.ToInt32(row["XREF_ID"].ToString());
                         artInfo.ClassOrTip = row["CLASS_TIP"].ToString();
                         artInfo.ClassCount = Convert.ToInt32((String.IsNullOrEmpty(row["CLASS_COUNT"].ToString()) ? "0" : row["CLASS_COUNT"].ToString()));
                         if (String.IsNullOrEmpty(row["TIP_TITLE"].ToString()))
                         {
-                            artInfo.TipID = 0;
+                            artInfo.TipId = 0;
                             artInfo.TipTitle = "No tip found";
                         }
                         else
                         {
-                            artInfo.TipID = Convert.ToInt32(row["TIP_ID"].ToString());
+                            artInfo.TipId = Convert.ToInt32(row["TIP_ID"].ToString());
                             artInfo.TipTitle = row["TIP_TITLE"].ToString();
                         }
 
@@ -782,7 +782,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, studentID.ToString(), "SDAMethods: GetStudentArts");
                 StudentArt artInfo = new StudentArt();
-                artInfo.Error = SDAMessages.ERROR_GENERIC;
+                artInfo.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 studentArts.Add(artInfo);
             }
 
@@ -802,29 +802,29 @@ namespace HOTBAL
                 {
                     foreach (DataRow row in studentTable.Rows)
                     {
-                        studentArt.ArtID = Convert.ToInt32(row["ART_ID"].ToString());
+                        studentArt.ArtId = Convert.ToInt32(row["ART_ID"].ToString());
                         studentArt.ArtTitle = row["ART_TITLE"].ToString();
                         if (String.IsNullOrEmpty(row["BELT_TITLE"].ToString()))
                         {
-                            studentArt.BeltID = 0;
+                            studentArt.BeltId = 0;
                             studentArt.BeltTitle = "No belt found";
                         }
                         else
                         {
-                            studentArt.BeltID = Convert.ToInt32(row["BELT_ID"].ToString());
+                            studentArt.BeltId = Convert.ToInt32(row["BELT_ID"].ToString());
                             studentArt.BeltTitle = row["BELT_TITLE"].ToString();
                         }
-                        studentArt.ID = Convert.ToInt32(row["XREF_ID"].ToString());
+                        studentArt.StudentArtId = Convert.ToInt32(row["XREF_ID"].ToString());
                         studentArt.ClassOrTip = row["CLASS_TIP"].ToString();
                         studentArt.ClassCount = Convert.ToInt32((String.IsNullOrEmpty(row["CLASS_COUNT"].ToString()) ? "0" : row["CLASS_COUNT"].ToString()));
                         if (String.IsNullOrEmpty(row["TIP_TITLE"].ToString()))
                         {
-                            studentArt.TipID = 0;
+                            studentArt.TipId = 0;
                             studentArt.TipTitle = "No tip found";
                         }
                         else
                         {
-                            studentArt.TipID = Convert.ToInt32(row["TIP_ID"].ToString());
+                            studentArt.TipId = Convert.ToInt32(row["TIP_ID"].ToString());
                             studentArt.TipTitle = row["TIP_TITLE"].ToString();
                         }
                     }
@@ -833,7 +833,7 @@ namespace HOTBAL
             catch (Exception ex)
             {
                 LogErrorMessage(ex, XrefID.ToString(), "SDAMethods: GetStudentArt");
-                studentArt.Error = SDAMessages.ERROR_GENERIC;
+                studentArt.ErrorMessage = SDAMessages.ERROR_GENERIC;
             }
 
             return studentArt;
@@ -852,29 +852,29 @@ namespace HOTBAL
                 {
                     foreach (DataRow row in artTable.Rows)
                     {
-                        studentArt.ArtID = Convert.ToInt32(row["ART_ID"].ToString());
+                        studentArt.ArtId = Convert.ToInt32(row["ART_ID"].ToString());
                         studentArt.ArtTitle = row["ART_TITLE"].ToString();
                         if (String.IsNullOrEmpty(row["BELT_TITLE"].ToString()))
                         {
-                            studentArt.BeltID = 0;
+                            studentArt.BeltId = 0;
                             studentArt.BeltTitle = "No belt found";
                         }
                         else
                         {
-                            studentArt.BeltID = Convert.ToInt32(row["BELT_ID"].ToString());
+                            studentArt.BeltId = Convert.ToInt32(row["BELT_ID"].ToString());
                             studentArt.BeltTitle = row["BELT_TITLE"].ToString();
                         }
-                        studentArt.ID = Convert.ToInt32(row["XREF_ID"].ToString());
+                        studentArt.StudentArtId = Convert.ToInt32(row["XREF_ID"].ToString());
                         studentArt.ClassOrTip = row["CLASS_TIP"].ToString();
                         studentArt.ClassCount = Convert.ToInt32((String.IsNullOrEmpty(row["CLASS_COUNT"].ToString()) ? "0" : row["CLASS_COUNT"].ToString()));
                         if (String.IsNullOrEmpty(row["TIP_TITLE"].ToString()))
                         {
-                            studentArt.TipID = 0;
+                            studentArt.TipId = 0;
                             studentArt.TipTitle = "No tip found";
                         }
                         else
                         {
-                            studentArt.TipID = Convert.ToInt32(row["TIP_ID"].ToString());
+                            studentArt.TipId = Convert.ToInt32(row["TIP_ID"].ToString());
                             studentArt.TipTitle = row["TIP_TITLE"].ToString();
                         }
                     }
@@ -883,7 +883,7 @@ namespace HOTBAL
             catch (Exception ex)
             {
                 LogErrorMessage(ex, ArtID.ToString(), "SDAMethods: GetStudentArtByID");
-                studentArt.Error = SDAMessages.ERROR_GENERIC;
+                studentArt.ErrorMessage = SDAMessages.ERROR_GENERIC;
             }
 
             return studentArt;
@@ -902,31 +902,31 @@ namespace HOTBAL
                     foreach (DataRow row in artTable.Rows)
                     {
                         StudentArt artInfo = new StudentArt();
-                        artInfo.ArtID = Convert.ToInt32(row["ART_ID"].ToString());
+                        artInfo.ArtId = Convert.ToInt32(row["ART_ID"].ToString());
                         artInfo.ArtTitle = row["ART_TITLE"].ToString();
                         if (String.IsNullOrEmpty(row["BELT_TITLE"].ToString()))
                         {
-                            artInfo.BeltID = 0;
+                            artInfo.BeltId = 0;
                             artInfo.BeltTitle = "No belt found";
                         }
                         else
                         {
-                            artInfo.BeltID = Convert.ToInt32(row["BELT_ID"].ToString());
+                            artInfo.BeltId = Convert.ToInt32(row["BELT_ID"].ToString());
                             artInfo.BeltTitle = row["BELT_TITLE"].ToString();
                         }
 
                         if (String.IsNullOrEmpty(row["TIP_TITLE"].ToString()))
                         {
-                            artInfo.TipID = 0;
+                            artInfo.TipId = 0;
                             artInfo.TipTitle = "No tip found";
                         }
                         else
                         {
-                            artInfo.TipID = Convert.ToInt32(row["TIP_ID"].ToString());
+                            artInfo.TipId = Convert.ToInt32(row["TIP_ID"].ToString());
                             artInfo.TipTitle = row["TIP_TITLE"].ToString();
                         }
 
-                        artInfo.CompleteDate = row["COMP_DT"].ToString();
+                        artInfo.CompletionDate = row["COMP_DT"].ToString();
 
                         studentArts.Add(artInfo);
                     }
@@ -936,7 +936,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, studentID.ToString(), "SDAMethods: GetStudentCompletedArts");
                 StudentArt artInfo = new StudentArt();
-                artInfo.Error = SDAMessages.ERROR_GENERIC;
+                artInfo.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 studentArts.Add(artInfo);
             }
 
@@ -956,30 +956,30 @@ namespace HOTBAL
                     foreach (DataRow row in artTable.Rows)
                     {
                         StudentArt artInfo = new StudentArt();
-                        artInfo.ArtID = Convert.ToInt32(row["ART_ID"].ToString());
+                        artInfo.ArtId = Convert.ToInt32(row["ART_ID"].ToString());
                         artInfo.ArtTitle = row["ART_TITLE"].ToString();
                         if (String.IsNullOrEmpty(row["BELT_TITLE"].ToString()))
                         {
-                            artInfo.BeltID = 0;
+                            artInfo.BeltId = 0;
                             artInfo.BeltTitle = "No belt found";
                         }
                         else
                         {
-                            artInfo.BeltID = Convert.ToInt32(row["BELT_ID"].ToString());
+                            artInfo.BeltId = Convert.ToInt32(row["BELT_ID"].ToString());
                             artInfo.BeltTitle = row["BELT_TITLE"].ToString();
                         }
                         if (String.IsNullOrEmpty(row["TIP_TITLE"].ToString()))
                         {
-                            artInfo.TipID = 0;
+                            artInfo.TipId = 0;
                             artInfo.TipTitle = "No tip found";
                         }
                         else
                         {
-                            artInfo.TipID = Convert.ToInt32(row["TIP_ID"].ToString());
+                            artInfo.TipId = Convert.ToInt32(row["TIP_ID"].ToString());
                             artInfo.TipTitle = row["TIP_TITLE"].ToString();
                         }
 
-                        artInfo.CompleteDate = row["STDT_DATE"].ToString();
+                        artInfo.CompletionDate = row["STDT_DATE"].ToString();
 
                         studentArts.Add(artInfo);
                     }
@@ -989,7 +989,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, studentID.ToString(), "SDAMethods: GetStudentCompletedArtsPrevious");
                 StudentArt artInfo = new StudentArt();
-                artInfo.Error = SDAMessages.ERROR_GENERIC;
+                artInfo.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 studentArts.Add(artInfo);
             }
 
@@ -1009,10 +1009,10 @@ namespace HOTBAL
                     foreach (DataRow row in phoneTable.Rows)
                     {
                         StudentPhone phoneInfo = new StudentPhone();
-                        phoneInfo.ID = Convert.ToInt32(row["NBR_ID"].ToString());
+                        phoneInfo.PhoneId = Convert.ToInt32(row["NBR_ID"].ToString());
                         phoneInfo.PhoneNumber = row["STDT_NUM"].ToString();
-                        phoneInfo.Relationship = row["STDT_RELT"].ToString();
-                        phoneInfo.StudentID = row["STDT_ID"].ToString();
+                        phoneInfo.RelationshipToStudent = row["STDT_RELT"].ToString();
+                        phoneInfo.StudentId = row["STDT_ID"].ToString();
                         //phoneInfo.Active = (row["ACTIVE"].ToString() == "True" ? true : false);
 
                         responsePhones.Add(phoneInfo);
@@ -1023,7 +1023,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, studentID.ToString(), "SDAMethods: GetStudentPhones");
                 StudentPhone phoneInfo = new StudentPhone();
-                phoneInfo.Error = SDAMessages.ERROR_GENERIC;
+                phoneInfo.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 responsePhones.Add(phoneInfo);
             }
 
@@ -1042,25 +1042,25 @@ namespace HOTBAL
                 {
                     foreach (DataRow row in phoneTable.Rows)
                     {
-                        responsePhone.ID = Convert.ToInt32(row["NBR_ID"].ToString());
+                        responsePhone.PhoneId = Convert.ToInt32(row["NBR_ID"].ToString());
                         responsePhone.PhoneNumber = row["STDT_NUM"].ToString();
-                        responsePhone.Relationship = row["STDT_RELT"].ToString();
-                        responsePhone.StudentID = row["STDT_ID"].ToString();
+                        responsePhone.RelationshipToStudent = row["STDT_RELT"].ToString();
+                        responsePhone.StudentId = row["STDT_ID"].ToString();
                         //responsePhone.Active = (row["ACTIVE"].ToString() == "True" ? true : false);
                     }
                 }
                 else
                 {
-                    responsePhone.ID = phoneId;
+                    responsePhone.PhoneId = phoneId;
                     responsePhone.PhoneNumber = "";
-                    responsePhone.Relationship = "";
-                    responsePhone.StudentID = "";
+                    responsePhone.RelationshipToStudent = "";
+                    responsePhone.StudentId = "";
                 }
             }
             catch (Exception ex)
             {
                 LogErrorMessage(ex, phoneId.ToString(), "SDAMethods: GetStudentPhoneById");
-                responsePhone.Error = SDAMessages.ERROR_GENERIC;
+                responsePhone.ErrorMessage = SDAMessages.ERROR_GENERIC;
             }
 
             return responsePhone;
@@ -1127,7 +1127,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, StudentID.ToString(), "SDAMethods: GetStudentCourses");
                 Course courseInfo = new Course();
-                courseInfo.Error = SDAMessages.ERROR_GENERIC;
+                courseInfo.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 responseCourses.Add(courseInfo);
             }
 
@@ -1148,9 +1148,9 @@ namespace HOTBAL
                     foreach (DataRow row in studentTable.Rows)
                     {
                         ClassAttendance classAttend = new ClassAttendance();
-                        classAttend.Attendance = (row["ATTEND"].ToString() == "True" ? true : false);
-                        classAttend.Date = row["CLASS_DATE"].ToString();
-                        classAttend.StudentID = Convert.ToInt32(StudentID);
+                        classAttend.DidAttend = (row["ATTEND"].ToString() == "True" ? true : false);
+                        classAttend.ClassDate = row["CLASS_DATE"].ToString();
+                        classAttend.StudentId = Convert.ToInt32(StudentID);
                         studentAttend.Add(classAttend);
                     }
                 }
@@ -1177,9 +1177,9 @@ namespace HOTBAL
                     foreach (DataRow row in studentTable.Rows)
                     {
                         ClassAttendance classAttend = new ClassAttendance();
-                        classAttend.Attendance = (row["ATTEND"].ToString() == "True" ? true : false);
-                        classAttend.Date = row["CLASS_DATE"].ToString();
-                        classAttend.StudentID = Convert.ToInt32(row["STDT_ID"].ToString());
+                        classAttend.DidAttend = (row["ATTEND"].ToString() == "True" ? true : false);
+                        classAttend.ClassDate = row["CLASS_DATE"].ToString();
+                        classAttend.StudentId = Convert.ToInt32(row["STDT_ID"].ToString());
                         studentAttend.Add(classAttend);
                     }
                 }
@@ -1206,24 +1206,24 @@ namespace HOTBAL
                     foreach (DataRow row in transactionTable.Rows)
                     {
                         Transaction transactionInfo = new Transaction();
-                        transactionInfo.Date = Convert.ToDateTime(row["TRNS_DATE"].ToString());
-                        transactionInfo.ID = Convert.ToInt32(row["TRNS_ID"].ToString());
-                        transactionInfo.Location = row["TRNS_LOC"].ToString();
-                        transactionInfo.Other = row["TRNS_OTH"].ToString();
-                        transactionInfo.Paid = (row["TRNS_PAID"].ToString() == "True" ? true : false);
-                        transactionInfo.Payment = row["TRNS_PYMT"].ToString();
-                        transactionInfo.Seller = row["TRNS_SELL"].ToString();
-                        transactionInfo.CustomerID = Convert.ToInt32(StudentID);
-                        transactionInfo.Tax = Convert.ToDouble(row["TRNS_TAX"].ToString());
-                        transactionInfo.Total = Convert.ToDouble(row["TRNS_TTL"].ToString());
-                        transactionInfo.Void = (row["TRNS_VOID"].ToString() == "True" ? true : false);
+                        transactionInfo.TransactionDate = Convert.ToDateTime(row["TRNS_DATE"].ToString());
+                        transactionInfo.TransactionId = Convert.ToInt32(row["TRNS_ID"].ToString());
+                        transactionInfo.TransactionLocation = row["TRNS_LOC"].ToString();
+                        transactionInfo.OtherInformation = row["TRNS_OTH"].ToString();
+                        transactionInfo.IsTransactionPaid = (row["TRNS_PAID"].ToString() == "True" ? true : false);
+                        transactionInfo.PaymentMethod = row["TRNS_PYMT"].ToString();
+                        transactionInfo.SellerId = row["TRNS_SELL"].ToString();
+                        transactionInfo.CustomerId = Convert.ToInt32(StudentID);
+                        transactionInfo.TaxTotal = Convert.ToDouble(row["TRNS_TAX"].ToString());
+                        transactionInfo.TransactionTotal = Convert.ToDouble(row["TRNS_TTL"].ToString());
+                        transactionInfo.IsTransactionVoid = (row["TRNS_VOID"].ToString() == "True" ? true : false);
                         transactionsResponse.Add(transactionInfo);
                     }
                 }
                 else
                 {
                     Transaction transactionInfo = new Transaction();
-                    transactionInfo.ID = 0;
+                    transactionInfo.TransactionId = 0;
                     transactionsResponse.Add(transactionInfo);
                 }
             }
@@ -1231,7 +1231,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, StudentID.ToString(), "SDAMethods: GetAllStudentTransactions");
                 Transaction transactionInfo = new Transaction();
-                transactionInfo.Error = SDAMessages.ERROR_GENERIC;
+                transactionInfo.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 transactionsResponse.Add(transactionInfo);
             }
 
@@ -1251,28 +1251,28 @@ namespace HOTBAL
                 {
                     foreach (DataRow row in transactionTable.Rows)
                     {
-                        transactionResponse.Date = Convert.ToDateTime(row["TRNS_DATE"].ToString());
-                        transactionResponse.ID = Convert.ToInt32(row["TRNS_ID"].ToString());
-                        transactionResponse.Location = row["TRNS_LOC"].ToString();
-                        transactionResponse.Other = row["TRNS_OTH"].ToString();
-                        transactionResponse.Paid = (row["TRNS_PAID"].ToString() == "True" ? true : false);
-                        transactionResponse.Payment = row["TRNS_PYMT"].ToString();
-                        transactionResponse.Seller = row["TRNS_SELL"].ToString();
-                        transactionResponse.CustomerID = Convert.ToInt32(row["TRNS_BGHT"].ToString());
-                        transactionResponse.Tax = Convert.ToDouble(row["TRNS_TAX"].ToString());
-                        transactionResponse.Total = Convert.ToDouble(row["TRNS_TTL"].ToString());
-                        transactionResponse.Void = (row["TRNS_VOID"].ToString() == "True" ? true : false);
+                        transactionResponse.TransactionDate = Convert.ToDateTime(row["TRNS_DATE"].ToString());
+                        transactionResponse.TransactionId = Convert.ToInt32(row["TRNS_ID"].ToString());
+                        transactionResponse.TransactionLocation = row["TRNS_LOC"].ToString();
+                        transactionResponse.OtherInformation = row["TRNS_OTH"].ToString();
+                        transactionResponse.IsTransactionPaid = (row["TRNS_PAID"].ToString() == "True" ? true : false);
+                        transactionResponse.PaymentMethod = row["TRNS_PYMT"].ToString();
+                        transactionResponse.SellerId = row["TRNS_SELL"].ToString();
+                        transactionResponse.CustomerId = Convert.ToInt32(row["TRNS_BGHT"].ToString());
+                        transactionResponse.TaxTotal = Convert.ToDouble(row["TRNS_TAX"].ToString());
+                        transactionResponse.TransactionTotal = Convert.ToDouble(row["TRNS_TTL"].ToString());
+                        transactionResponse.IsTransactionVoid = (row["TRNS_VOID"].ToString() == "True" ? true : false);
                     }
                 }
                 else
                 {
-                    transactionResponse.Error = SDAMessages.ERROR_GENERIC;
+                    transactionResponse.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 }
             }
             catch (Exception ex)
             {
                 LogErrorMessage(ex, TransactionID.ToString(), "SDAMethods: GetStudentTransaction");
-                transactionResponse.Error = SDAMessages.ERROR_GENERIC;
+                transactionResponse.ErrorMessage = SDAMessages.ERROR_GENERIC;
             }
 
             return transactionResponse;
@@ -1292,13 +1292,13 @@ namespace HOTBAL
                     foreach (DataRow row in transactionTable.Rows)
                     {
                         TransactionItem transactionInfo = new TransactionItem();
-                        transactionInfo.ID = Convert.ToInt32(row["XREF_ID"].ToString());
-                        transactionInfo.Price = Convert.ToDouble(row["PROD_PRICE"].ToString());
-                        transactionInfo.ProductID = Convert.ToInt32(row["PROD_ID"].ToString());
+                        transactionInfo.TransactionItemId = Convert.ToInt32(row["XREF_ID"].ToString());
+                        transactionInfo.ProductPrice = Convert.ToDouble(row["PROD_PRICE"].ToString());
+                        transactionInfo.ProductId = Convert.ToInt32(row["PROD_ID"].ToString());
                         transactionInfo.ProductName = row["PROD_NME"].ToString();
-                        transactionInfo.Quantity = Convert.ToInt32(row["PROD_QTY"].ToString());
-                        transactionInfo.Tax = (row["PROD_TAX"].ToString() == "True" ? true : false);
-                        transactionInfo.TransactionID = Convert.ToInt32(TransactionID);
+                        transactionInfo.ItemQuantity = Convert.ToInt32(row["PROD_QTY"].ToString());
+                        transactionInfo.IsTaxed = (row["PROD_TAX"].ToString() == "True" ? true : false);
+                        transactionInfo.TransactionId = Convert.ToInt32(TransactionID);
 
                         transactionItemsResponse.Add(transactionInfo);
                     }
@@ -1306,7 +1306,7 @@ namespace HOTBAL
                 else
                 {
                     TransactionItem transactionInfo = new TransactionItem();
-                    transactionInfo.ID = 0;
+                    transactionInfo.TransactionItemId = 0;
                     transactionItemsResponse.Add(transactionInfo);
                 }
             }
@@ -1314,7 +1314,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, TransactionID.ToString(), "SDAMethods: GetTransactionItems");
                 TransactionItem transactionInfo = new TransactionItem();
-                transactionInfo.Error = SDAMessages.ERROR_GENERIC;
+                transactionInfo.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 transactionItemsResponse.Add(transactionInfo);
             }
 
@@ -1350,7 +1350,7 @@ namespace HOTBAL
                 //Add in the items for the transaction
                 foreach (CartItem item in cartSummary)
                 {
-                    response = prodSDADataAccess.ExecuteINSERT_TRANSACTION_ITEM(transactionID, item.ItemID, item.ItemQuantity, item.ItemName, item.ItemPrice.ToString(), (item.ItemTaxed ? 1 : 0));
+                    response = prodSDADataAccess.ExecuteINSERT_TRANSACTION_ITEM(transactionID, item.ItemId, item.ItemQuantity, item.ItemName, item.ItemPrice.ToString(), (item.ItemIsTaxed ? 1 : 0));
 
                     if (response)
                     {
@@ -1377,14 +1377,14 @@ namespace HOTBAL
                         else
                         {
                             //Get current product count
-                            DataTable itemTable = prodSDADataAccess.ExecuteGET_ITEM_BY_ITEM_ID(item.ItemID);
+                            DataTable itemTable = prodSDADataAccess.ExecuteGET_ITEM_BY_ITEM_ID(item.ItemId);
 
                             if (itemTable.Rows.Count > 0)
                             {
                                 string itemCount = itemTable.Rows[0]["PROD_CNT"].ToString();
 
                                 //UpdateInventory
-                                response = prodSDADataAccess.ExecuteUPDATE_ITEM_INVENTORY(item.ItemID, (Convert.ToInt32(itemCount) - 1));
+                                response = prodSDADataAccess.ExecuteUPDATE_ITEM_INVENTORY(item.ItemId, (Convert.ToInt32(itemCount) - 1));
                             }
                         }
                     }
@@ -1433,10 +1433,10 @@ namespace HOTBAL
                     foreach (DataRow row in termTable.Rows)
                     {
                         Term terms = new Term();
-                        terms.ID = Convert.ToInt32(row["TERM_ID"].ToString());
-                        terms.English = row["TERM_TXT_ENG"].ToString();
-                        terms.Chinese = row["TERM_TXT_CHN"].ToString();
-                        terms.BeltID = Convert.ToInt32(row["BELT_ID"].ToString());
+                        terms.TermId = Convert.ToInt32(row["TERM_ID"].ToString());
+                        terms.EnglishTerm = row["TERM_TXT_ENG"].ToString();
+                        terms.ChineseTerm = row["TERM_TXT_CHN"].ToString();
+                        terms.BeltId = Convert.ToInt32(row["BELT_ID"].ToString());
                         termsResponse.Add(terms);
                     }
                 }
@@ -1445,7 +1445,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, "", "SDAMethods: GetAllTerms");
                 Term terms = new Term();
-                terms.Error = SDAMessages.ERROR_GENERIC;
+                terms.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 termsResponse.Add(terms);
             }
 
@@ -1462,16 +1462,16 @@ namespace HOTBAL
 
                 if (termTable.Rows.Count > 0)
                 {
-                    termResponse.English = termTable.Rows[0]["TERM_TXT_ENG"].ToString();
-                    termResponse.ID = Convert.ToInt32(termTable.Rows[0]["TERM_ID"].ToString());
-                    termResponse.Chinese = termTable.Rows[0]["TERM_TXT_CHN"].ToString();
-                    termResponse.BeltID = Convert.ToInt32(termTable.Rows[0]["BELT_ID"].ToString());
+                    termResponse.EnglishTerm = termTable.Rows[0]["TERM_TXT_ENG"].ToString();
+                    termResponse.TermId = Convert.ToInt32(termTable.Rows[0]["TERM_ID"].ToString());
+                    termResponse.ChineseTerm = termTable.Rows[0]["TERM_TXT_CHN"].ToString();
+                    termResponse.BeltId = Convert.ToInt32(termTable.Rows[0]["BELT_ID"].ToString());
                 }
             }
             catch (Exception ex)
             {
                 LogErrorMessage(ex, TermID.ToString(), "SDAMethods: GetTermByID");
-                termResponse.Error = SDAMessages.ERROR_GENERIC;
+                termResponse.ErrorMessage = SDAMessages.ERROR_GENERIC;
             }
 
             return termResponse;
@@ -1539,17 +1539,17 @@ namespace HOTBAL
                     foreach (DataRow row in productTable.Rows)
                     {
                         Product items = new Product();
-                        items.ProductID = Convert.ToInt32(row["PROD_ID"].ToString());
+                        items.ProductId = Convert.ToInt32(row["PROD_ID"].ToString());
                         items.ProductType = row["PROD_TYPE"].ToString();
                         items.ProductCode = row["PROD_CODE"].ToString();
                         items.ProductName = row["PROD_NAME"].ToString();
-                        items.ProductAvailableOnline = (row["PROD_DISP_ONLINE"].ToString() == "True" ? true : false);
-                        items.ProductAvailableInStore = (row["PROD_DISP_STORE"].ToString() == "True" ? true : false);
+                        items.IsAvailableOnline = (row["PROD_DISP_ONLINE"].ToString() == "True" ? true : false);
+                        items.IsAvailableInStore = (row["PROD_DISP_STORE"].ToString() == "True" ? true : false);
                         items.ProductPrice = Convert.ToDouble(row["PROD_PRICE"].ToString());
                         items.ProductCount = Convert.ToInt32(row["PROD_CNT"].ToString());
-                        items.ProductSaleOnline = (row["PROD_SALE_ONLINE"].ToString() == "True" ? true : false);
+                        items.IsOnSaleOnline = (row["PROD_SALE_ONLINE"].ToString() == "True" ? true : false);
                         items.ProductSalePrice = Convert.ToDouble(row["PROD_SALE_PRICE"].ToString());
-                        items.ProductTaxable = (row["PROD_TAX"].ToString() == "True" ? true : false);
+                        items.IsTaxable = (row["PROD_TAX"].ToString() == "True" ? true : false);
                         items.ProductSubType = row["PROD_SUB_TYPE"].ToString();
                         itemsResponse.Add(items);
                     }
@@ -1579,22 +1579,22 @@ namespace HOTBAL
                 {
                     foreach (DataRow row in productTable.Rows)
                     {
-                        itemResponse.ProductID = Convert.ToInt32(row["PROD_ID"].ToString());
+                        itemResponse.ProductId = Convert.ToInt32(row["PROD_ID"].ToString());
                         itemResponse.ProductType = row["PROD_TYPE"].ToString();
                         itemResponse.ProductCode = row["PROD_CODE"].ToString();
                         itemResponse.ProductName = row["PROD_NAME"].ToString();
                         itemResponse.ProductFileName = row["PROD_FILE_NAME"].ToString();
                         itemResponse.ProductDescription = row["PROD_DESC"].ToString();
-                        itemResponse.ProductAvailableOnline = (row["PROD_DISP_ONLINE"].ToString() == "True" ? true : false);
-                        itemResponse.ProductAvailableInStore = (row["PROD_DISP_STORE"].ToString() == "True" ? true : false);
+                        itemResponse.IsAvailableOnline = (row["PROD_DISP_ONLINE"].ToString() == "True" ? true : false);
+                        itemResponse.IsAvailableInStore = (row["PROD_DISP_STORE"].ToString() == "True" ? true : false);
                         itemResponse.ProductPrice = Convert.ToDouble(row["PROD_PRICE"].ToString());
                         itemResponse.ProductCount = Convert.ToInt32(row["PROD_CNT"].ToString());
-                        itemResponse.ProductSaleOnline = (row["PROD_SALE_ONLINE"].ToString() == "True" ? true : false);
-                        itemResponse.ProductSaleInStore = (row["PROD_SALE_STORE"].ToString() == "True" ? true : false);
+                        itemResponse.IsOnSaleOnline = (row["PROD_SALE_ONLINE"].ToString() == "True" ? true : false);
+                        itemResponse.IsOnSaleInStore = (row["PROD_SALE_STORE"].ToString() == "True" ? true : false);
                         itemResponse.ProductSalePrice = Convert.ToDouble(row["PROD_SALE_PRICE"].ToString());
-                        itemResponse.ProductTaxable = (row["PROD_TAX"].ToString() == "True" ? true : false);
+                        itemResponse.IsTaxable = (row["PROD_TAX"].ToString() == "True" ? true : false);
                         itemResponse.ProductSubType = row["PROD_SUB_TYPE"].ToString();
-                        itemResponse.Active = (row["PROD_DISP"].ToString() == "True" ? false : true);
+                        itemResponse.IsActive = (row["PROD_DISP"].ToString() == "True" ? false : true);
                     }
                 }
             }
@@ -1619,22 +1619,22 @@ namespace HOTBAL
                 {
                     foreach (DataRow row in productTable.Rows)
                     {
-                        itemResponse.ProductID = Convert.ToInt32(row["PROD_ID"].ToString());
+                        itemResponse.ProductId = Convert.ToInt32(row["PROD_ID"].ToString());
                         itemResponse.ProductType = row["PROD_TYPE"].ToString();
                         itemResponse.ProductCode = row["PROD_CODE"].ToString();
                         itemResponse.ProductName = row["PROD_NAME"].ToString();
                         itemResponse.ProductFileName = row["PROD_FILE_NAME"].ToString();
                         itemResponse.ProductDescription = row["PROD_DESC"].ToString();
-                        itemResponse.ProductAvailableOnline = (row["PROD_DISP_ONLINE"].ToString() == "True" ? true : false);
-                        itemResponse.ProductAvailableInStore = (row["PROD_DISP_STORE"].ToString() == "True" ? true : false);
+                        itemResponse.IsAvailableOnline = (row["PROD_DISP_ONLINE"].ToString() == "True" ? true : false);
+                        itemResponse.IsAvailableInStore = (row["PROD_DISP_STORE"].ToString() == "True" ? true : false);
                         itemResponse.ProductPrice = Convert.ToDouble(row["PROD_PRICE"].ToString());
                         itemResponse.ProductCount = Convert.ToInt32(row["PROD_CNT"].ToString());
-                        itemResponse.ProductSaleOnline = (row["PROD_SALE_ONLINE"].ToString() == "True" ? true : false);
-                        itemResponse.ProductSaleInStore = (row["PROD_SALE_STORE"].ToString() == "True" ? true : false);
+                        itemResponse.IsOnSaleOnline = (row["PROD_SALE_ONLINE"].ToString() == "True" ? true : false);
+                        itemResponse.IsOnSaleInStore = (row["PROD_SALE_STORE"].ToString() == "True" ? true : false);
                         itemResponse.ProductSalePrice = Convert.ToDouble(row["PROD_SALE_PRICE"].ToString());
-                        itemResponse.ProductTaxable = (row["PROD_TAX"].ToString() == "True" ? true : false);
+                        itemResponse.IsTaxable = (row["PROD_TAX"].ToString() == "True" ? true : false);
                         itemResponse.ProductSubType = row["PROD_SUB_TYPE"].ToString();
-                        itemResponse.Active = (row["PROD_DISP"].ToString() == "True" ? false : true);
+                        itemResponse.IsActive = (row["PROD_DISP"].ToString() == "True" ? false : true);
                     }
                 }
             }
@@ -1721,11 +1721,11 @@ namespace HOTBAL
                     foreach (DataRow row in instructorsTable.Rows)
                     {
                         Instructor insts = new Instructor();
-                        insts.ID = Convert.ToInt32(row["INST_ID"].ToString());
+                        insts.InstructorId = Convert.ToInt32(row["INST_ID"].ToString());
                         insts.FirstName = row["INST_FNAME"].ToString();
                         insts.LastName = row["INST_LNAME"].ToString();
-                        insts.Type = row["INST_STAT"].ToString();
-                        insts.Bio = row["INST_BIO"].ToString();
+                        insts.InstructorType = row["INST_STAT"].ToString();
+                        insts.InstructorBiography = row["INST_BIO"].ToString();
                         instResponse.Add(insts);
                     }
                 }
@@ -1734,7 +1734,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, "", "SDAMethods: GetAllInstructors");
                 Instructor insts = new Instructor();
-                insts.Error = SDAMessages.ERROR_GENERIC;
+                insts.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 instResponse.Add(insts);
             }
 
@@ -1753,14 +1753,14 @@ namespace HOTBAL
                 {
                     instructorInformation.FirstName = instructorTable.Rows[0]["INST_FNAME"].ToString();
                     instructorInformation.LastName = instructorTable.Rows[0]["INST_LNAME"].ToString();
-                    instructorInformation.Bio = instructorTable.Rows[0]["INST_BIO"].ToString();
-                    instructorInformation.Type = instructorTable.Rows[0]["INST_STAT"].ToString();
-                    instructorInformation.ID = Convert.ToInt32(instructorTable.Rows[0]["INST_ID"].ToString());
+                    instructorInformation.InstructorBiography = instructorTable.Rows[0]["INST_BIO"].ToString();
+                    instructorInformation.InstructorType = instructorTable.Rows[0]["INST_STAT"].ToString();
+                    instructorInformation.InstructorId = Convert.ToInt32(instructorTable.Rows[0]["INST_ID"].ToString());
                 }
             }
             catch (Exception ex)
             {
-                instructorInformation.Error = HOTBAL.SDAMessages.NO_INSTRUCTORS;
+                instructorInformation.ErrorMessage = HOTBAL.SDAMessages.NO_INSTRUCTORS;
                 LogErrorMessage(ex, InstructorID.ToString(), "SDAMethods: GetInstructorByID");
             }
 
@@ -1828,8 +1828,8 @@ namespace HOTBAL
                     foreach (DataRow row in artTable.Rows)
                     {
                         Art arts = new Art();
-                        arts.ID = Convert.ToInt32(row["ART_ID"].ToString());
-                        arts.Title = row["ART_TITLE"].ToString();
+                        arts.ArtId = Convert.ToInt32(row["ART_ID"].ToString());
+                        arts.ArtTitle = row["ART_TITLE"].ToString();
                         artResponse.Add(arts);
                     }
                 }
@@ -1838,7 +1838,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, "", "SDAMethods: GetAllArts");
                 Art arts = new Art();
-                arts.Error = SDAMessages.ERROR_GENERIC;
+                arts.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 artResponse.Add(arts);
             }
 
@@ -1871,9 +1871,9 @@ namespace HOTBAL
 
                 if (artTable.Rows.Count > 0)
                 {
-                    artResponse.Title = artTable.Rows[0]["ART_TITLE"].ToString();
-                    artResponse.ID = Convert.ToInt32(artTable.Rows[0]["ART_ID"].ToString());
-                    artResponse.SchoolID = Convert.ToInt32(artTable.Rows[0]["ART_SCHOOL_ID"].ToString());
+                    artResponse.ArtTitle = artTable.Rows[0]["ART_TITLE"].ToString();
+                    artResponse.ArtId = Convert.ToInt32(artTable.Rows[0]["ART_ID"].ToString());
+                    artResponse.SchoolId = Convert.ToInt32(artTable.Rows[0]["ART_SCHOOL_ID"].ToString());
                 }
             }
             catch (Exception ex)
@@ -1928,12 +1928,12 @@ namespace HOTBAL
                 foreach (DataRow row in beltTable.Rows)
                     {
                         Belt belts = new Belt();
-                        belts.ID = Convert.ToInt32(row["BELT_ID"].ToString());
-                        belts.Title = row["BELT_TITLE"].ToString();
-                        belts.ArtID = Convert.ToInt32(row["ART_ID"].ToString());
+                        belts.BeltId = Convert.ToInt32(row["BELT_ID"].ToString());
+                        belts.BeltTitle = row["BELT_TITLE"].ToString();
+                        belts.ArtId = Convert.ToInt32(row["ART_ID"].ToString());
                         belts.ClassCount = Convert.ToInt32(row["CLASS_CNT"].ToString());
                         belts.ClassOrTip = row["CLASS_TIP"].ToString();
-                        belts.Level = row["BELT_LEVEL"].ToString();
+                        belts.BeltLevel = row["BELT_LEVEL"].ToString();
                         beltResponse.Add(belts);
                     }
             }
@@ -1941,7 +1941,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, "", "SDAMethods: GetAllBelts");
                 Belt belts = new Belt();
-                belts.Error = SDAMessages.ERROR_GENERIC;
+                belts.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 beltResponse.Add(belts);
             }
 
@@ -1958,18 +1958,18 @@ namespace HOTBAL
 
                 if (beltTable.Rows.Count > 0)
                 {
-                    beltResponse.Title = beltTable.Rows[0]["BELT_TITLE"].ToString();
-                    beltResponse.ID = Convert.ToInt32(beltTable.Rows[0]["BELT_ID"].ToString());
-                    beltResponse.ArtID = Convert.ToInt32(beltTable.Rows[0]["ART_ID"].ToString());
+                    beltResponse.BeltTitle = beltTable.Rows[0]["BELT_TITLE"].ToString();
+                    beltResponse.BeltId = Convert.ToInt32(beltTable.Rows[0]["BELT_ID"].ToString());
+                    beltResponse.ArtId = Convert.ToInt32(beltTable.Rows[0]["ART_ID"].ToString());
                     beltResponse.ClassCount = Convert.ToInt32(beltTable.Rows[0]["CLASS_CNT"].ToString());
                     beltResponse.ClassOrTip = beltTable.Rows[0]["CLASS_TIP"].ToString();
-                    beltResponse.Level = beltTable.Rows[0]["BELT_LEVEL"].ToString();
+                    beltResponse.BeltLevel = beltTable.Rows[0]["BELT_LEVEL"].ToString();
                 }
             }
             catch (Exception ex)
             {
                 LogErrorMessage(ex, BeltID.ToString(), "SDAMethods: GetBeltByID");
-                beltResponse.Error = SDAMessages.ERROR_GENERIC;
+                beltResponse.ErrorMessage = SDAMessages.ERROR_GENERIC;
             }
 
             return beltResponse;
@@ -1987,12 +1987,12 @@ namespace HOTBAL
                 foreach (DataRow row in beltTable.Rows)
                     {
                         Belt belts = new Belt();
-                        belts.ID = Convert.ToInt32(row["BELT_ID"].ToString());
-                        belts.Title = row["BELT_TITLE"].ToString();
-                        belts.ArtID = Convert.ToInt32(row["ART_ID"].ToString());
+                        belts.BeltId = Convert.ToInt32(row["BELT_ID"].ToString());
+                        belts.BeltTitle = row["BELT_TITLE"].ToString();
+                        belts.ArtId = Convert.ToInt32(row["ART_ID"].ToString());
                         belts.ClassCount = Convert.ToInt32(row["CLASS_CNT"].ToString());
                         belts.ClassOrTip = row["CLASS_TIP"].ToString();
-                        belts.Level = row["BELT_LEVEL"].ToString();
+                        belts.BeltLevel = row["BELT_LEVEL"].ToString();
                         beltResponse.Add(belts);
                     }
             }
@@ -2000,8 +2000,8 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, ArtID.ToString(), "SDAMethods: GetArtBelts");
                 Belt belts = new Belt();
-                belts.ID = 0;
-                belts.Error = SDAMessages.ERROR_GENERIC;
+                belts.BeltId = 0;
+                belts.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 beltResponse.Add(belts);
             }
 
@@ -2070,11 +2070,11 @@ namespace HOTBAL
                     foreach (DataRow row in tipsTable.Rows)
                     {
                         Tip tips = new Tip();
-                        tips.ID = Convert.ToInt32(row["TIP_ID"].ToString());
-                        tips.Title = row["TIP_TITLE"].ToString();
-                        tips.BeltID = Convert.ToInt32(row["BELT_ID"].ToString());
-                        tips.LastTipIndicator = (row["LAST_TIP"].ToString() == "True" ? true : false);
-                        tips.Level = row["TIP_LEVEL"].ToString();
+                        tips.TipId = Convert.ToInt32(row["TIP_ID"].ToString());
+                        tips.TipTitle = row["TIP_TITLE"].ToString();
+                        tips.BeltId = Convert.ToInt32(row["BELT_ID"].ToString());
+                        tips.IsLastTip = (row["LAST_TIP"].ToString() == "True" ? true : false);
+                        tips.TipLevel = row["TIP_LEVEL"].ToString();
                         tipResponse.Add(tips);
                     }
                 }
@@ -2083,7 +2083,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, "", "SDAMethods: GetAllTips");
                 Tip tips = new Tip();
-                tips.Error = SDAMessages.ERROR_GENERIC;
+                tips.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 tipResponse.Add(tips);
             }
 
@@ -2100,17 +2100,17 @@ namespace HOTBAL
 
                 if (tipTable.Rows.Count > 0)
                 {
-                    tipResponse.Title = tipTable.Rows[0]["TIP_TITLE"].ToString();
-                    tipResponse.ID = Convert.ToInt32(tipTable.Rows[0]["TIP_ID"].ToString());
-                    tipResponse.BeltID = Convert.ToInt32(tipTable.Rows[0]["BELT_ID"].ToString());
-                    tipResponse.Level = tipTable.Rows[0]["TIP_LEVEL"].ToString();
-                    tipResponse.LastTipIndicator = (tipTable.Rows[0]["LAST_TIP"].ToString() == "True" ? true : false);
+                    tipResponse.TipTitle = tipTable.Rows[0]["TIP_TITLE"].ToString();
+                    tipResponse.TipId = Convert.ToInt32(tipTable.Rows[0]["TIP_ID"].ToString());
+                    tipResponse.BeltId = Convert.ToInt32(tipTable.Rows[0]["BELT_ID"].ToString());
+                    tipResponse.TipLevel = tipTable.Rows[0]["TIP_LEVEL"].ToString();
+                    tipResponse.IsLastTip = (tipTable.Rows[0]["LAST_TIP"].ToString() == "True" ? true : false);
                 }
             }
             catch (Exception ex)
             {
                 LogErrorMessage(ex, TipID.ToString(), "SDAMethods: GetTipByID");
-                tipResponse.Error = SDAMessages.ERROR_GENERIC;
+                tipResponse.ErrorMessage = SDAMessages.ERROR_GENERIC;
             }
 
             return tipResponse;
@@ -2128,11 +2128,11 @@ namespace HOTBAL
                 foreach (DataRow row in tipTable.Rows)
                     {
                         Tip tips = new Tip();
-                        tips.ID = Convert.ToInt32(row["TIP_ID"].ToString());
-                        tips.Title = row["TIP_TITLE"].ToString();
-                        tips.BeltID = Convert.ToInt32(row["BELT_ID"].ToString());
-                        tips.LastTipIndicator = (row["LAST_TIP"].ToString() == "True" ? true : false);
-                        tips.Level = row["TIP_LEVEL"].ToString();
+                        tips.TipId = Convert.ToInt32(row["TIP_ID"].ToString());
+                        tips.TipTitle = row["TIP_TITLE"].ToString();
+                        tips.BeltId = Convert.ToInt32(row["BELT_ID"].ToString());
+                        tips.IsLastTip = (row["LAST_TIP"].ToString() == "True" ? true : false);
+                        tips.TipLevel = row["TIP_LEVEL"].ToString();
                         tipResponse.Add(tips);
                     }
             }
@@ -2140,7 +2140,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, BeltID.ToString(), "SDAMethods: GetBeltTips");
                 Tip tips = new Tip();
-                tips.Error = SDAMessages.ERROR_GENERIC;
+                tips.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 tipResponse.Add(tips);
             }
 
@@ -2212,11 +2212,11 @@ namespace HOTBAL
 
                     if (courseTable.Rows.Count > 0)
                     {
-                        classInfo.FirstArtID = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_1"].ToString());
-                        classInfo.InstructorID = Convert.ToInt32(courseTable.Rows[0]["CRSE_INST"].ToString());
-                        classInfo.SecondArtID = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_2"].ToString());
-                        classInfo.Title = courseTable.Rows[0]["CRSE_TITLE"].ToString();
-                        classInfo.ID = Convert.ToInt32(classID);
+                        classInfo.FirstArtId = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_1"].ToString());
+                        classInfo.InstructorId = Convert.ToInt32(courseTable.Rows[0]["CRSE_INST"].ToString());
+                        classInfo.SecondArtId = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_2"].ToString());
+                        classInfo.CourseTitle = courseTable.Rows[0]["CRSE_TITLE"].ToString();
+                        classInfo.CourseId = Convert.ToInt32(classID);
                     }
                 }
                 else
@@ -2226,11 +2226,11 @@ namespace HOTBAL
 
                     if (courseTable.Rows.Count > 0)
                     {
-                        classInfo.FirstArtID = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_1"].ToString());
-                        classInfo.InstructorID = Convert.ToInt32(courseTable.Rows[0]["CRSE_INST"].ToString());
-                        classInfo.SecondArtID = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_2"].ToString());
-                        classInfo.Title = courseTable.Rows[0]["CRSE_TITLE"].ToString();
-                        classInfo.ID = Convert.ToInt32(ClassID);
+                        classInfo.FirstArtId = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_1"].ToString());
+                        classInfo.InstructorId = Convert.ToInt32(courseTable.Rows[0]["CRSE_INST"].ToString());
+                        classInfo.SecondArtId = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_2"].ToString());
+                        classInfo.CourseTitle = courseTable.Rows[0]["CRSE_TITLE"].ToString();
+                        classInfo.CourseId = Convert.ToInt32(ClassID);
                     }
                 }
             }
@@ -2252,16 +2252,16 @@ namespace HOTBAL
 
                 if (courseTable.Rows.Count > 0)
                 {
-                    classInfo.FirstArtID = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_1"].ToString());
-                    classInfo.InstructorID = Convert.ToInt32(courseTable.Rows[0]["CRSE_INST"].ToString());
-                    classInfo.SecondArtID = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_2"].ToString());
-                    classInfo.Title = courseTable.Rows[0]["CRSE_TITLE"].ToString();
+                    classInfo.FirstArtId = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_1"].ToString());
+                    classInfo.InstructorId = Convert.ToInt32(courseTable.Rows[0]["CRSE_INST"].ToString());
+                    classInfo.SecondArtId = Convert.ToInt32(courseTable.Rows[0]["CRSE_ART_2"].ToString());
+                    classInfo.CourseTitle = courseTable.Rows[0]["CRSE_TITLE"].ToString();
                     classInfo.Day = courseTable.Rows[0]["CRSE_DAY"].ToString();
                     classInfo.Time = courseTable.Rows[0]["CRSE_TIME"].ToString();
-                    classInfo.InstructorID = Convert.ToInt32(courseTable.Rows[0]["CRSE_INST"].ToString());
+                    classInfo.InstructorId = Convert.ToInt32(courseTable.Rows[0]["CRSE_INST"].ToString());
                     classInfo.ClassOrLesson = courseTable.Rows[0]["CLASS_OR_LESSON"].ToString();
-                    classInfo.Repeating = (courseTable.Rows[0]["CRSE_RPT"].ToString() == "True" ? true : false);
-                    classInfo.ID = Convert.ToInt32(CourseID);
+                    classInfo.IsRepeating = (courseTable.Rows[0]["CRSE_RPT"].ToString() == "True" ? true : false);
+                    classInfo.CourseId = Convert.ToInt32(CourseID);
                 }
             }
             catch (Exception ex)
@@ -2285,15 +2285,15 @@ namespace HOTBAL
                     foreach (DataRow row in courseTable.Rows)
                     {
                         Course courseList = new Course();
-                        courseList.ID = Convert.ToInt32(row["CRSE_ID"].ToString());
-                        courseList.Title = row["CRSE_TITLE"].ToString();
-                        courseList.InstructorID = Convert.ToInt32(row["CRSE_INST"].ToString());
-                        courseList.FirstArtID = Convert.ToInt32(row["CRSE_ART_1"].ToString());
-                        courseList.SecondArtID = Convert.ToInt32(row["CRSE_ART_2"].ToString());
+                        courseList.CourseId = Convert.ToInt32(row["CRSE_ID"].ToString());
+                        courseList.CourseTitle = row["CRSE_TITLE"].ToString();
+                        courseList.InstructorId = Convert.ToInt32(row["CRSE_INST"].ToString());
+                        courseList.FirstArtId = Convert.ToInt32(row["CRSE_ART_1"].ToString());
+                        courseList.SecondArtId = Convert.ToInt32(row["CRSE_ART_2"].ToString());
                         courseList.Day = row["CRSE_DAY"].ToString();
                         courseList.Time = row["CRSE_TIME"].ToString();
                         courseList.ClassOrLesson = row["CLASS_OR_LESSON"].ToString();
-                        courseList.Repeating = (row["CRSE_RPT"].ToString() == "True" ? true : false);
+                        courseList.IsRepeating = (row["CRSE_RPT"].ToString() == "True" ? true : false);
                         courseInfo.Add(courseList);
                     }
                 }
@@ -2302,7 +2302,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, "", "SDAMethods: GetAllActiveRepeatingClasses");
                 Course courseList = new Course();
-                courseList.Error = SDAMessages.ERROR_GENERIC;
+                courseList.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 courseInfo.Add(courseList);
             }
 
@@ -2371,24 +2371,24 @@ namespace HOTBAL
                     foreach (DataRow row in transactionTable.Rows)
                     {
                         Transaction transactionInfo = new Transaction();
-                        transactionInfo.Date = Convert.ToDateTime(row["TRNS_DATE"].ToString());
-                        transactionInfo.ID = Convert.ToInt32(row["TRNS_ID"].ToString());
-                        transactionInfo.Location = row["TRNS_LOC"].ToString();
-                        transactionInfo.Other = row["TRNS_OTH"].ToString();
-                        transactionInfo.Paid = (row["TRNS_PAID"].ToString() == "True" ? true : false);
-                        transactionInfo.Payment = (String.IsNullOrEmpty(row["TRNS_PYMT"].ToString()) ? "Unknown" : row["TRNS_PYMT"].ToString());
-                        transactionInfo.Seller = row["TRNS_SELL"].ToString();
-                        transactionInfo.CustomerID = Convert.ToInt32(row["TRNS_BGHT"]);
-                        transactionInfo.Tax = Convert.ToDouble(row["TRNS_TAX"].ToString());
-                        transactionInfo.Total = Convert.ToDouble(row["TRNS_TTL"].ToString());
-                        transactionInfo.Void = (row["TRNS_VOID"].ToString() == "True" ? true : false);
+                        transactionInfo.TransactionDate = Convert.ToDateTime(row["TRNS_DATE"].ToString());
+                        transactionInfo.TransactionId = Convert.ToInt32(row["TRNS_ID"].ToString());
+                        transactionInfo.TransactionLocation = row["TRNS_LOC"].ToString();
+                        transactionInfo.OtherInformation = row["TRNS_OTH"].ToString();
+                        transactionInfo.IsTransactionPaid = (row["TRNS_PAID"].ToString() == "True" ? true : false);
+                        transactionInfo.PaymentMethod = (String.IsNullOrEmpty(row["TRNS_PYMT"].ToString()) ? "Unknown" : row["TRNS_PYMT"].ToString());
+                        transactionInfo.SellerId = row["TRNS_SELL"].ToString();
+                        transactionInfo.CustomerId = Convert.ToInt32(row["TRNS_BGHT"]);
+                        transactionInfo.TaxTotal = Convert.ToDouble(row["TRNS_TAX"].ToString());
+                        transactionInfo.TransactionTotal = Convert.ToDouble(row["TRNS_TTL"].ToString());
+                        transactionInfo.IsTransactionVoid = (row["TRNS_VOID"].ToString() == "True" ? true : false);
                         transactionsResponse.Add(transactionInfo);
                     }
                 }
                 else
                 {
                     Transaction transactionInfo = new Transaction();
-                    transactionInfo.ID = 0;
+                    transactionInfo.TransactionId = 0;
                     transactionsResponse.Add(transactionInfo);
                 }
             }
@@ -2396,7 +2396,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, TransactionDate, "SDAMethods: GetAllMartialArtTransactions");
                 Transaction transactionInfo = new Transaction();
-                transactionInfo.Error = SDAMessages.ERROR_GENERIC;
+                transactionInfo.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 transactionsResponse.Add(transactionInfo);
             }
 
@@ -2417,24 +2417,24 @@ namespace HOTBAL
                     foreach (DataRow row in transactionTable.Rows)
                     {
                         Transaction transactionInfo = new Transaction();
-                        transactionInfo.Date = Convert.ToDateTime(row["TRNS_DATE"].ToString());
-                        transactionInfo.ID = Convert.ToInt32(row["TRNS_ID"].ToString());
-                        transactionInfo.Location = row["TRNS_LOC"].ToString();
-                        transactionInfo.Other = row["TRNS_OTH"].ToString();
-                        transactionInfo.Paid = (row["TRNS_PAID"].ToString() == "True" ? true : false);
-                        transactionInfo.Payment = row["TRNS_PYMT"].ToString();
-                        transactionInfo.Seller = row["TRNS_SELL"].ToString();
-                        transactionInfo.CustomerID = Convert.ToInt32(row["TRNS_BGHT"]);
-                        transactionInfo.Tax = Convert.ToDouble(row["TRNS_TAX"].ToString());
-                        transactionInfo.Total = Convert.ToDouble(row["TRNS_TTL"].ToString());
-                        transactionInfo.Void = (row["TRNS_VOID"].ToString() == "True" ? true : false);
+                        transactionInfo.TransactionDate = Convert.ToDateTime(row["TRNS_DATE"].ToString());
+                        transactionInfo.TransactionId = Convert.ToInt32(row["TRNS_ID"].ToString());
+                        transactionInfo.TransactionLocation = row["TRNS_LOC"].ToString();
+                        transactionInfo.OtherInformation = row["TRNS_OTH"].ToString();
+                        transactionInfo.IsTransactionPaid = (row["TRNS_PAID"].ToString() == "True" ? true : false);
+                        transactionInfo.PaymentMethod = row["TRNS_PYMT"].ToString();
+                        transactionInfo.SellerId = row["TRNS_SELL"].ToString();
+                        transactionInfo.CustomerId = Convert.ToInt32(row["TRNS_BGHT"]);
+                        transactionInfo.TaxTotal = Convert.ToDouble(row["TRNS_TAX"].ToString());
+                        transactionInfo.TransactionTotal = Convert.ToDouble(row["TRNS_TTL"].ToString());
+                        transactionInfo.IsTransactionVoid = (row["TRNS_VOID"].ToString() == "True" ? true : false);
                         transactionsResponse.Add(transactionInfo);
                     }
                 }
                 else
                 {
                     Transaction transactionInfo = new Transaction();
-                    transactionInfo.ID = 0;
+                    transactionInfo.TransactionId = 0;
                     transactionsResponse.Add(transactionInfo);
                 }
             }
@@ -2442,7 +2442,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, Date, "SDAMethods: GetEmployeeMaritalArtTransactions");
                 Transaction transactionInfo = new Transaction();
-                transactionInfo.Error = SDAMessages.ERROR_GENERIC;
+                transactionInfo.ErrorMessage = SDAMessages.ERROR_GENERIC;
                 transactionsResponse.Add(transactionInfo);
             }
 

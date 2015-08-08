@@ -40,13 +40,13 @@ namespace HOTSelfDefense
                         if (artResponse != null)
                         {
                             // Did we get an error?
-                            if (String.IsNullOrEmpty(artResponse.Error))
+                            if (String.IsNullOrEmpty(artResponse.ErrorMessage))
                             {
                                 // Populate the arts and select the current art
-                                populateArts(artResponse.ArtID);
+                                populateArts(artResponse.ArtId);
 
                                 // Populate the belts and select the current belt
-                                populateBelts(artResponse.ArtID, artResponse.BeltID);
+                                populateBelts(artResponse.ArtId, artResponse.BeltId);
 
                                 // Is the current belt tips or classes?
                                 if (artResponse.ClassOrTip == "T")
@@ -58,7 +58,7 @@ namespace HOTSelfDefense
                                     studentTip.Visible = true;
 
                                     // Populate the tips and select the current tip
-                                    populateTips(artResponse.BeltID, artResponse.TipID);
+                                    populateTips(artResponse.BeltId, artResponse.TipId);
 
                                     tipOrClass.Text = "Tip:";
                                 }
@@ -75,7 +75,7 @@ namespace HOTSelfDefense
                             }
                             else
                                 // Output the received error
-                                errorLabel.Text = artResponse.Error;
+                                errorLabel.Text = artResponse.ErrorMessage;
                         }
                         else
                             // Output the received error
@@ -102,7 +102,7 @@ namespace HOTSelfDefense
             HOTBAL.Belt beltDetail = methodsClass.GetBeltByID(Convert.ToInt32(studentBelt.SelectedValue.ToString()));
 
             // Did we get an error message?
-            if (String.IsNullOrEmpty(beltDetail.Error))
+            if (String.IsNullOrEmpty(beltDetail.ErrorMessage))
             {
                 // Does this belt use tips of classes?
                 if (beltDetail.ClassOrTip == "T")
@@ -133,7 +133,7 @@ namespace HOTSelfDefense
             {
                 // Set up the error label and output the received error
                 Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                errorLabel.Text = beltDetail.Error;
+                errorLabel.Text = beltDetail.ErrorMessage;
             }
         }
 
@@ -153,7 +153,7 @@ namespace HOTSelfDefense
             HOTBAL.StudentArt artResponse = methodsClass.GetStudentArt(Convert.ToInt32(Request.QueryString["XID"].ToString()));
 
             // Did the belt change? Did the tip change?
-            if ((studentBelt.SelectedValue != artResponse.BeltID.ToString()) || (studentTip.SelectedValue != artResponse.TipID.ToString()))
+            if ((studentBelt.SelectedValue != artResponse.BeltId.ToString()) || (studentTip.SelectedValue != artResponse.TipId.ToString()))
             {
                 // Automatically mark current record complete and generate a new row
                 response = methodsClass.UpdateStudentArt(Convert.ToInt32(Request.QueryString["ID"].ToString()), Convert.ToInt32(Request.QueryString["XID"].ToString()),
@@ -203,13 +203,13 @@ namespace HOTSelfDefense
             if (artList.Count > 0)
             {
                 // Did we get an error when getting the arts?
-                if (String.IsNullOrEmpty(artList[0].Error))
+                if (String.IsNullOrEmpty(artList[0].ErrorMessage))
                 {
                     // Loop through the list of returned arts
                     foreach (HOTBAL.Art art in artList)
                     {
                         // Add the art to the first and second art lists
-                        studentArt.Items.Add(new ListItem(art.Title, art.ID.ToString()));
+                        studentArt.Items.Add(new ListItem(art.ArtTitle, art.ArtId.ToString()));
                     }
 
                     // Select the current art as the default
@@ -219,7 +219,7 @@ namespace HOTSelfDefense
                 }
                 else
                     // Output the received error
-                    errorLabel.Text = artList[0].Error;
+                    errorLabel.Text = artList[0].ErrorMessage;
             }
             else
                 // Output the error message
@@ -248,13 +248,13 @@ namespace HOTSelfDefense
             if (beltList.Count > 0)
             {
                 // Did we get an error when getting the belts?
-                if (String.IsNullOrEmpty(beltList[0].Error))
+                if (String.IsNullOrEmpty(beltList[0].ErrorMessage))
                 {
                     // Loop through the list of returned belts
                     foreach (HOTBAL.Belt belt in beltList)
                     {
                         // Add each belt to the drop down list
-                        studentBelt.Items.Add(new ListItem(belt.Title, belt.ID.ToString()));
+                        studentBelt.Items.Add(new ListItem(belt.BeltTitle, belt.BeltId.ToString()));
                     }
 
                     // Select the current belt as the default
@@ -264,7 +264,7 @@ namespace HOTSelfDefense
                 {
                     // Set up the error label and output the received error
                     Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = beltList[0].Error;
+                    errorLabel.Text = beltList[0].ErrorMessage;
                 }
             }
             else
@@ -298,13 +298,13 @@ namespace HOTSelfDefense
             if (tipList.Count > 0)
             {
                 // Did we get an error?
-                if (String.IsNullOrEmpty(tipList[0].Error))
+                if (String.IsNullOrEmpty(tipList[0].ErrorMessage))
                 {
                     // Loop through the returned tips
                     foreach (HOTBAL.Tip tip in tipList)
                     {
                         // Add the tip to the drop down list
-                        studentTip.Items.Add(new ListItem(tip.Title, tip.ID.ToString()));
+                        studentTip.Items.Add(new ListItem(tip.TipTitle, tip.TipId.ToString()));
                     }
 
                     // Set the existing tip as the default
@@ -314,7 +314,7 @@ namespace HOTSelfDefense
                 {
                     // Set up the error label and output the received error
                     Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = tipList[0].Error;
+                    errorLabel.Text = tipList[0].ErrorMessage;
                 }
             }
         }

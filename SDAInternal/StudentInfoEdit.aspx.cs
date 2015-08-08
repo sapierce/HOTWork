@@ -21,34 +21,34 @@ namespace HOTSelfDefense
                 
                 studentInfo = sqlClass.GetStudentInformation(Convert.ToInt32(Request.QueryString["ID"].ToString()));
 
-                if (String.IsNullOrEmpty(studentInfo.Error))
+                if (String.IsNullOrEmpty(studentInfo.ErrorMessage))
                 {
-                    studentId.Text = studentInfo.ID.ToString();
+                    studentId.Text = studentInfo.StudentId.ToString();
                     firstName.Text = studentInfo.FirstName;
                     lastName.Text = studentInfo.LastName;
 
                     if (!String.IsNullOrEmpty(studentInfo.Suffix))
                         suffixName.Items.FindByValue(studentInfo.Suffix).Selected = true;
 
-                    address.Text = studentInfo.Address;
+                    address.Text = studentInfo.StreetAddress;
                     city.Text = studentInfo.City;
                     state.Text = studentInfo.State;
                     zipCode.Text = studentInfo.ZipCode;
                     birthdayDate.Text = studentInfo.BirthDate.ToShortDateString();
                     emergencyContact.Text = studentInfo.EmergencyContact;
-                    schoolList.Items.FindByValue(studentInfo.School.ToString()).Selected = true;
-                    isPassing.Checked = studentInfo.Pass;
-                    isPaid.Checked = studentInfo.Paid;
+                    schoolList.Items.FindByValue(studentInfo.SchoolId.ToString()).Selected = true;
+                    isPassing.Checked = studentInfo.IsPassing;
+                    isPaid.Checked = studentInfo.IsPaying;
                     paymentPlan.Text = studentInfo.PaymentPlan;
                     paymentAmount.Text = studentInfo.PaymentAmount.ToString();
                     paymentDate.Text = studentInfo.PaymentDate.ToShortDateString();
                     studentNote.Text = studentInfo.Note;
-                    isActive.Checked = studentInfo.Active;
+                    isActive.Checked = studentInfo.IsActive;
                 }
                 else
                 {
                     Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = studentInfo.Error;
+                    errorLabel.Text = studentInfo.ErrorMessage;
                 }
             }
         }

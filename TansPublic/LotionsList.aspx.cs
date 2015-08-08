@@ -99,13 +99,13 @@ namespace PublicWebsite
                             }
                             lotionsList.Text += "<tr><td rowspan='2' style='text-align: center;'><a href='" +
                                 HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
-                                p.ProductID + "'><img src='products/" +
+                                p.ProductId + "'><img src='products/" +
                                 fileName + "' alt='" +
                                 p.ProductName + "' border=0></a></td><td valign='top' align='left'><b><a href='" +
                                 HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
-                                p.ProductID + "'>" +
+                                p.ProductId + "'>" +
                                 p.ProductName + "</a></b></td><td valign='top' align='center'>";
-                            if (p.ProductSaleOnline)
+                            if (p.IsOnSaleOnline)
                             {
                                 lotionsList.Text += "<span style='color:red;'>$" +
                                     p.ProductSalePrice + "</span><br /><span style='font-size: 9px'>Reg - $" +
@@ -120,7 +120,7 @@ namespace PublicWebsite
                             if (p.ProductCount > 1)
                             {
                                 lotionsList.Text += "<a href='" + HOTBAL.TansConstants.SHOPPING_PUBLIC_URL + "?action=add&ItemID=" +
-                                    p.ProductID + "'>Add to Cart</a></td></tr>";
+                                    p.ProductId + "'>Add to Cart</a></td></tr>";
                             }
                             else
                             {
@@ -131,7 +131,7 @@ namespace PublicWebsite
                             if (p.ProductDescription.Length > 150)
                             {
                                 prodDesc = p.ProductDescription.Substring(0, 150) + "<a href='" +
-                                    HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" + p.ProductID + "'>...</a>";
+                                    HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" + p.ProductId + "'>...</a>";
                             }
                             else
                             {

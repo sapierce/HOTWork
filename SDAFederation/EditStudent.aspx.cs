@@ -17,15 +17,15 @@ namespace SDAFederation
 
                 if (studentInformation != null)
                 {
-                    if (functionsClass.SchoolID() == studentInformation.School)
+                    if (functionsClass.SchoolID() == studentInformation.SchoolId)
                     {
                         firstName.Text = studentInformation.FirstName;
                         lastName.Text = studentInformation.LastName;
-                        address.Text = studentInformation.Address;
+                        address.Text = studentInformation.StreetAddress;
                         birthDate.Text = functionsClass.FormatSlash(studentInformation.BirthDate);
                         city.Text = studentInformation.City;
                         emergencyContact.Text = studentInformation.EmergencyContact;
-                        studentID.Text = studentInformation.ID.ToString();
+                        studentID.Text = studentInformation.StudentId.ToString();
                         notes.Text = studentInformation.Note;
                         state.Text = studentInformation.State;
                         zipCode.Text = studentInformation.ZipCode;

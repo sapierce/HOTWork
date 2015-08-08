@@ -157,15 +157,15 @@ namespace HOTSelfDefense
             {
                 if (artsList.Count > 1)
                 {
-                    if (String.IsNullOrEmpty(artsList[0].Error))
+                    if (String.IsNullOrEmpty(artsList[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Art art in artsList)
                         {
-                            artSelection.Items.Add(new ListItem(art.Title, art.ID.ToString()));
+                            artSelection.Items.Add(new ListItem(art.ArtTitle, art.ArtId.ToString()));
                         }
                     }
                     else
-                        buildErrorMessage(artsList[0].Error);
+                        buildErrorMessage(artsList[0].ErrorMessage);
                 }
             }
         }
@@ -181,15 +181,15 @@ namespace HOTSelfDefense
             {
                 if (beltsList.Count > 0)
                 {
-                    if (string.IsNullOrEmpty(beltsList[0].Error))
+                    if (string.IsNullOrEmpty(beltsList[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Belt belt in beltsList)
                         {
-                            beltSelection.Items.Add(new ListItem(sqlClass.GetArtTitle(belt.ArtID) + "-" + belt.Title, belt.ID.ToString()));
+                            beltSelection.Items.Add(new ListItem(sqlClass.GetArtTitle(belt.ArtId) + "-" + belt.BeltTitle, belt.BeltId.ToString()));
                         }
                     }
                     else
-                        buildErrorMessage(beltsList[0].Error);
+                        buildErrorMessage(beltsList[0].ErrorMessage);
                 }
             }
         }
@@ -205,15 +205,15 @@ namespace HOTSelfDefense
             {
                 if (tipsList.Count > 0)
                 {
-                    if (string.IsNullOrEmpty(tipsList[0].Error))
+                    if (string.IsNullOrEmpty(tipsList[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Tip tip in tipsList)
                         {
-                            tipSelection.Items.Add(new ListItem(tip.Title, tip.ID.ToString()));
+                            tipSelection.Items.Add(new ListItem(tip.TipTitle, tip.TipId.ToString()));
                         }
                     }
                     else
-                        buildErrorMessage(tipsList[0].Error);
+                        buildErrorMessage(tipsList[0].ErrorMessage);
                 }
             }
         }
@@ -229,16 +229,16 @@ namespace HOTSelfDefense
             {
                 if (coursesList.Count > 0)
                 {
-                    if (String.IsNullOrEmpty(coursesList[0].Error))
+                    if (String.IsNullOrEmpty(coursesList[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Course course in coursesList)
                         {
-                            courseSelection.Items.Add(new ListItem((course.Title + " (" + sqlClass.GetArtTitle(course.FirstArtID) +
-                                (course.SecondArtID == 0 ? "" : "/" + sqlClass.GetArtTitle(course.SecondArtID)) + ") - " + course.Day + " - " + course.Time), course.ID.ToString()));
+                            courseSelection.Items.Add(new ListItem((course.CourseTitle + " (" + sqlClass.GetArtTitle(course.FirstArtId) +
+                                (course.SecondArtId == 0 ? "" : "/" + sqlClass.GetArtTitle(course.SecondArtId)) + ") - " + course.Day + " - " + course.Time), course.CourseId.ToString()));
                         }
                     }
                     else
-                        buildErrorMessage(coursesList[0].Error);
+                        buildErrorMessage(coursesList[0].ErrorMessage);
                 }
             }
         }
@@ -254,15 +254,15 @@ namespace HOTSelfDefense
             {
                 if (termsList.Count > 0)
                 {
-                    if (String.IsNullOrEmpty(termsList[0].Error))
+                    if (String.IsNullOrEmpty(termsList[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Term term in termsList)
                         {
-                            termSelection.Items.Add(new ListItem(term.English, term.ID.ToString()));
+                            termSelection.Items.Add(new ListItem(term.EnglishTerm, term.TermId.ToString()));
                         }
                     }
                     else
-                        buildErrorMessage(termsList[0].Error);
+                        buildErrorMessage(termsList[0].ErrorMessage);
                 }
             }
         }
@@ -283,7 +283,7 @@ namespace HOTSelfDefense
                     {
                         foreach (HOTBAL.Product item in itemsList)
                         {
-                            itemSelection.Items.Add(new ListItem(item.ProductName, item.ProductID.ToString()));
+                            itemSelection.Items.Add(new ListItem(item.ProductName, item.ProductId.ToString()));
                         }
                     }
                     else
@@ -303,15 +303,15 @@ namespace HOTSelfDefense
             {
                 if (instructorList.Count > 0)
                 {
-                    if (String.IsNullOrEmpty(instructorList[0].Error))
+                    if (String.IsNullOrEmpty(instructorList[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Instructor instructor in instructorList)
                         {
-                            instructorSelection.Items.Add(new ListItem(instructor.FirstName + " " + instructor.LastName, instructor.ID.ToString()));
+                            instructorSelection.Items.Add(new ListItem(instructor.FirstName + " " + instructor.LastName, instructor.InstructorId.ToString()));
                         }
                     }
                     else
-                        buildErrorMessage(instructorList[0].Error);
+                        buildErrorMessage(instructorList[0].ErrorMessage);
                 }
             }
         }

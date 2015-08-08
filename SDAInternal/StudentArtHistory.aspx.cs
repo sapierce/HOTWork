@@ -43,20 +43,20 @@ namespace HOTSelfDefense
                     if (studentNewArts.Count > 0)
                     {
                         // Did we get an error?
-                        if (String.IsNullOrEmpty(studentNewArts[0].Error))
+                        if (String.IsNullOrEmpty(studentNewArts[0].ErrorMessage))
                         {
                             // Loop through the returned records
                             foreach (HOTBAL.StudentArt a in studentNewArts)
                             {
                                 // Output each history records
                                 currentHistory.Text += "<tr><td>"
-                                    + a.CompleteDate + "</td><td>" + a.ArtTitle + "</td><td>"
+                                    + a.CompletionDate + "</td><td>" + a.ArtTitle + "</td><td>"
                                     + a.BeltTitle + "</td><td>" + a.TipTitle + "</td></tr>";
                             }
                         }
                         else
                             // Output the error message
-                            errorLabel.Text = studentNewArts[0].Error;
+                            errorLabel.Text = studentNewArts[0].ErrorMessage;
                     }
                     else
                         // Output that no history is available
@@ -69,20 +69,20 @@ namespace HOTSelfDefense
                     if (studentOldArts.Count > 0)
                     {
                         // Did we get an error?
-                        if (String.IsNullOrEmpty(studentOldArts[0].Error))
+                        if (String.IsNullOrEmpty(studentOldArts[0].ErrorMessage))
                         {
                             // Loop through the returned records
                             foreach (HOTBAL.StudentArt a in studentOldArts)
                             {
                                 // Output each history records
                                 previousHistory.Text += "<tr><td>"
-                                    + a.CompleteDate + "</td><td>" + a.ArtTitle + "</td><td>"
+                                    + a.CompletionDate + "</td><td>" + a.ArtTitle + "</td><td>"
                                     + a.BeltTitle + "</td><td>" + a.TipTitle + "</td></tr>";
                             }
                         }
                         else
                             // Output the error message
-                            errorLabel.Text = studentOldArts[0].Error;
+                            errorLabel.Text = studentOldArts[0].ErrorMessage;
                     }
                     else
                         // Output that no history is available

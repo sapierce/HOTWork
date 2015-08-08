@@ -25,7 +25,7 @@ namespace HOTTropicalTans.admin
 
                     if (editProduct != null)
                     {
-                        if (editProduct.ProductID != 0)
+                        if (editProduct.ProductId != 0)
                         {
                             productType.Items.FindByValue(editProduct.ProductType).Selected = true;
                             productSubType.Items.FindByValue(editProduct.ProductSubType).Selected = true;
@@ -37,11 +37,11 @@ namespace HOTTropicalTans.admin
                             salePrice.Text = String.Format("{0:F2}", editProduct.ProductSalePrice);
                             wacoInventory.Text = editProduct.ProductCount.ToString();
 
-                            productTaxed.Checked = editProduct.ProductTaxable;
-                            availableInStore.Checked = editProduct.ProductAvailableInStore;
-                            availableOnline.Checked = editProduct.ProductAvailableOnline;
-                            saleOnline.Checked = editProduct.ProductSaleOnline;
-                            saleInStore.Checked = editProduct.ProductSaleInStore;
+                            productTaxed.Checked = editProduct.IsTaxable;
+                            availableInStore.Checked = editProduct.IsAvailableInStore;
+                            availableOnline.Checked = editProduct.IsAvailableOnline;
+                            saleOnline.Checked = editProduct.IsOnSaleOnline;
+                            saleInStore.Checked = editProduct.IsOnSaleInStore;
                         }
                         else
                             errorLabel.Text += HOTBAL.TansMessages.ERROR_NO_PRODUCT_INFO;

@@ -17,7 +17,7 @@ namespace SDAFederation.admin
         {
             Product productInformation = methodsClass.GetItemByID(Convert.ToInt32(Request.QueryString["ID"]));
 
-            if (productInformation.ProductID != 0)
+            if (productInformation.ProductId != 0)
             {
                 productType.Items.FindByValue(productInformation.ProductType).Selected = true;
                 productDescription.Text = productInformation.ProductDescription;
@@ -26,8 +26,8 @@ namespace SDAFederation.admin
                 productPrice.Text = productInformation.ProductPrice.ToString();
                 productSubType.Items.FindByValue(productInformation.ProductSubType).Selected = true;
                 barCode.Text = productInformation.ProductCode;
-                isTaxable.Checked = productInformation.ProductTaxable;
-                onSaleInStore.Checked = productInformation.ProductSaleInStore;
+                isTaxable.Checked = productInformation.IsTaxable;
+                onSaleInStore.Checked = productInformation.IsOnSaleInStore;
                 salePrice.Text = productInformation.ProductSalePrice.ToString();
             }
             else

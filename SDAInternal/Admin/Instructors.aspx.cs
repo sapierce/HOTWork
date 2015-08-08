@@ -40,10 +40,10 @@ namespace HOTSelfDefense
 
             instructorResponse = sqlClass.GetInstructorByID(ID);
 
-            txtBio.Text = instructorResponse.Bio;
+            txtBio.Text = instructorResponse.InstructorBiography;
             txtFName.Text = instructorResponse.FirstName;
             txtLName.Text = instructorResponse.LastName;
-            ddlType.Items.FindByValue(instructorResponse.Type).Selected = true;
+            ddlType.Items.FindByValue(instructorResponse.InstructorType).Selected = true;
         }
 
         public void btnAdd_onClick(Object sender, EventArgs e)

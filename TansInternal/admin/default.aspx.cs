@@ -170,7 +170,7 @@ namespace HOTTropicalTans.admin
 
                     if ((prodCategory != "Packages") && (prodCategory != "Specials"))
                     {
-                        editItemList.Items.Add(new ListItem(prodCategory + " - " + prodType + " - " + p.ProductName, p.ProductID.ToString()));
+                        editItemList.Items.Add(new ListItem(prodCategory + " - " + prodType + " - " + p.ProductName, p.ProductId.ToString()));
                     }
                 }
             }

@@ -46,17 +46,17 @@ namespace HOTSelfDefense
 
             if (artsResponse != null)
             {
-                if (String.IsNullOrEmpty(artsResponse[0].Error))
+                if (String.IsNullOrEmpty(artsResponse[0].ErrorMessage))
                 {
                     foreach (HOTBAL.Art a in artsResponse)
                     {
-                        sltArtFirst.Items.Add(new ListItem(a.Title, a.ID.ToString()));
-                        sltArtSecond.Items.Add(new ListItem(a.Title, a.ID.ToString()));
+                        sltArtFirst.Items.Add(new ListItem(a.ArtTitle, a.ArtId.ToString()));
+                        sltArtSecond.Items.Add(new ListItem(a.ArtTitle, a.ArtId.ToString()));
                     }
                 }
                 else
                 {
-                    errorLabel.Text = artsResponse[0].Error;
+                    errorLabel.Text = artsResponse[0].ErrorMessage;
                 }
             }
         }
@@ -70,11 +70,11 @@ namespace HOTSelfDefense
 
             if (instList != null)
             {
-                if (String.IsNullOrEmpty(instList[0].Error))
+                if (String.IsNullOrEmpty(instList[0].ErrorMessage))
                 {
                     foreach (HOTBAL.Instructor i in instList)
                     {
-                        sltInstructor.Items.Add(new ListItem(i.FirstName + " " + i.LastName, i.ID.ToString()));
+                        sltInstructor.Items.Add(new ListItem(i.FirstName + " " + i.LastName, i.InstructorId.ToString()));
                     }
                 }
             }
@@ -104,18 +104,18 @@ namespace HOTSelfDefense
 
                 if (courseResponse != null)
                 {
-                    if (String.IsNullOrEmpty(courseResponse.Error))
+                    if (String.IsNullOrEmpty(courseResponse.ErrorMessage))
                     {
                         txtTime.Text = courseResponse.Time;
-                        txtTitle.Text = courseResponse.Title;
-                        sltArtFirst.Items.FindByValue(courseResponse.FirstArtID.ToString()).Selected = true;
-                        sltArtSecond.Items.FindByValue(courseResponse.SecondArtID.ToString()).Selected = true;
-                        sltInstructor.Items.FindByValue(courseResponse.InstructorID.ToString()).Selected = true;
+                        txtTitle.Text = courseResponse.CourseTitle;
+                        sltArtFirst.Items.FindByValue(courseResponse.FirstArtId.ToString()).Selected = true;
+                        sltArtSecond.Items.FindByValue(courseResponse.SecondArtId.ToString()).Selected = true;
+                        sltInstructor.Items.FindByValue(courseResponse.InstructorId.ToString()).Selected = true;
                         sltRecurringClass.Items.FindByValue(courseResponse.Day.ToString()).Selected = true;
                     }
                     else
                     {
-                        errorLabel.Text = courseResponse.Error;
+                        errorLabel.Text = courseResponse.ErrorMessage;
                     }
                 }
             }

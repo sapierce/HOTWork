@@ -51,17 +51,17 @@ namespace PublicWebsite
                                     //errorMessage.Text += "Getting product:" + Convert.ToInt32(functionsClass.CleanUp(Request.QueryString["ItemID"])).ToString();
                                     HOTBAL.Product getProduct = sqlClass.GetProductByID(Convert.ToInt32(functionsClass.CleanUp(Request.QueryString["ItemID"])));
 
-                                    if (getProduct.ProductID > 0)
+                                    if (getProduct.ProductId > 0)
                                     {
                                         //errorMessage.Text += "Adding product";
-                                        AddItem(getProduct.ProductID, getProduct.ProductType + "-" + getProduct.ProductSubType + "-" + getProduct.ProductName,
-                                                    (getProduct.ProductSaleOnline ? getProduct.ProductSalePrice : getProduct.ProductPrice).ToString(),
-                                                    "1", getProduct.ProductType, getProduct.ProductTaxable);
+                                        AddItem(getProduct.ProductId, getProduct.ProductType + "-" + getProduct.ProductSubType + "-" + getProduct.ProductName,
+                                                    (getProduct.IsOnSaleOnline ? getProduct.ProductSalePrice : getProduct.ProductPrice).ToString(),
+                                                    "1", getProduct.ProductType, getProduct.IsTaxable);
                                     }
                                     else
                                     {
                                         Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                                        errorLabel.Text += "Unable to find product:" + getProduct.ProductID.ToString();
+                                        errorLabel.Text += "Unable to find product:" + getProduct.ProductId.ToString();
                                     }
                                 }
                             }
@@ -80,15 +80,15 @@ namespace PublicWebsite
                             {
                                 foreach (HOTBAL.CartItem item in shoppingCart)
                                 {
-                                    shoppingCartOutput.Text += "<tr><td>" + item.ItemID + "</td><td class='reg'>" + item.ItemName.Replace("-", " ").ToUpper() 
+                                    shoppingCartOutput.Text += "<tr><td>" + item.ItemId + "</td><td class='reg'>" + item.ItemName.Replace("-", " ").ToUpper() 
                                         + "</td><td class='reg'>" + item.ItemQuantity
                                         + "</td><td class='reg'>" + String.Format("{0:C}", item.ItemPrice)
                                         + "</td><td class='reg'>" + String.Format("{0:C}", (item.ItemPrice * item.ItemQuantity))
                                         + "</td><td class='reg'><a href='" + HOTBAL.TansConstants.SHOPPING_PUBLIC_URL + "?Action=remove&ItemID=" + 
-                                        item.ItemID + "&count=1'>Remove</a>"
+                                        item.ItemId + "&count=1'>Remove</a>"
                                         + "</td></tr>";
 
-                                    if (item.ItemTaxed)
+                                    if (item.ItemIsTaxed)
                                     {
                                         taxTotal = (taxTotal + (item.ItemPrice * item.ItemQuantity));
                                     }
@@ -141,17 +141,17 @@ namespace PublicWebsite
                     {
                         foreach (HOTBAL.CartItem item in shoppingCart)
                         {
-                            if (item.ItemID == itemID)
+                            if (item.ItemId == itemID)
                             {
                                 if (item.ItemName.ToString() == itemName)
                                 {
                                     //Item we're looking for, add it to the cart + 1
                                     HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                    cartItem.ItemID = item.ItemID;
+                                    cartItem.ItemId = item.ItemId;
                                     cartItem.ItemName = item.ItemName;
                                     cartItem.ItemPrice = item.ItemPrice;
                                     cartItem.ItemQuantity = item.ItemQuantity + 1;
-                                    cartItem.ItemTaxed = item.ItemTaxed;
+                                    cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                     cartItem.ItemType = item.ItemType;
                                     shoppingCartRefresh.Add(cartItem);
                                     flag = true;
@@ -162,11 +162,11 @@ namespace PublicWebsite
                                 {
                                     //Not the item, add it back
                                     HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                    cartItem.ItemID = item.ItemID;
+                                    cartItem.ItemId = item.ItemId;
                                     cartItem.ItemName = item.ItemName;
                                     cartItem.ItemPrice = item.ItemPrice;
                                     cartItem.ItemQuantity = item.ItemQuantity;
-                                    cartItem.ItemTaxed = item.ItemTaxed;
+                                    cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                     cartItem.ItemType = item.ItemType;
                                     shoppingCartRefresh.Add(cartItem);
                                     if (item.ItemType != "PKG")
@@ -177,11 +177,11 @@ namespace PublicWebsite
                             {
                                 //Not the item, add it back
                                 HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                cartItem.ItemID = item.ItemID;
+                                cartItem.ItemId = item.ItemId;
                                 cartItem.ItemName = item.ItemName;
                                 cartItem.ItemPrice = item.ItemPrice;
                                 cartItem.ItemQuantity = item.ItemQuantity;
-                                cartItem.ItemTaxed = item.ItemTaxed;
+                                cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                 cartItem.ItemType = item.ItemType;
                                 shoppingCartRefresh.Add(cartItem);
                                 if (item.ItemType != "PKG")
@@ -192,7 +192,7 @@ namespace PublicWebsite
                         {
                             //Item not already in the cart, add it
                             HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                            cartItem.ItemID = Convert.ToInt32(itemID);
+                            cartItem.ItemId = Convert.ToInt32(itemID);
                             cartItem.ItemName = itemName;
                             if (itemType == "LTN")
                             {
@@ -204,7 +204,7 @@ namespace PublicWebsite
                             }
                             cartItem.ItemType = itemType;
                             cartItem.ItemQuantity = Convert.ToInt32(itemQuantity);
-                            cartItem.ItemTaxed = itemTax;
+                            cartItem.ItemIsTaxed = itemTax;
                             shoppingCartRefresh.Add(cartItem);
 
                             if (itemType != "PKG")
@@ -225,7 +225,7 @@ namespace PublicWebsite
                     //Cart was empty
                     List<HOTBAL.CartItem> shoppingCartRefresh = new List<HOTBAL.CartItem>();
                     HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                    cartItem.ItemID = Convert.ToInt32(itemID);
+                    cartItem.ItemId = Convert.ToInt32(itemID);
                     cartItem.ItemName = itemName;
                     if (itemType == "LTN")
                     {
@@ -237,7 +237,7 @@ namespace PublicWebsite
                     }
                     cartItem.ItemType = itemType;
                     cartItem.ItemQuantity = Convert.ToInt32(itemQuantity);
-                    cartItem.ItemTaxed = itemTax;
+                    cartItem.ItemIsTaxed = itemTax;
                     shoppingCartRefresh.Add(cartItem);
 
                     if (itemType != "PKG")
@@ -270,17 +270,17 @@ namespace PublicWebsite
                     {
                         foreach (HOTBAL.CartItem item in shoppingCart)
                         {
-                            if (item.ItemID == itemID)
+                            if (item.ItemId == itemID)
                             {
                                 //Item we're looking for, remove it from the cart
                                 if (item.ItemQuantity > 1)
                                 {
                                     HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                    cartItem.ItemID = item.ItemID;
+                                    cartItem.ItemId = item.ItemId;
                                     cartItem.ItemName = item.ItemName;
                                     cartItem.ItemPrice = item.ItemPrice;
                                     cartItem.ItemQuantity = item.ItemQuantity - 1;
-                                    cartItem.ItemTaxed = item.ItemTaxed;
+                                    cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                     cartItem.ItemType = item.ItemType;
                                     shoppingCartRefresh.Add(cartItem);
                                 }
@@ -289,11 +289,11 @@ namespace PublicWebsite
                             {
                                 //Not the item, add it back
                                 HOTBAL.CartItem cartItem = new HOTBAL.CartItem();
-                                cartItem.ItemID = item.ItemID;
+                                cartItem.ItemId = item.ItemId;
                                 cartItem.ItemName = item.ItemName;
                                 cartItem.ItemPrice = item.ItemPrice;
                                 cartItem.ItemQuantity = item.ItemQuantity;
-                                cartItem.ItemTaxed = item.ItemTaxed;
+                                cartItem.ItemIsTaxed = item.ItemIsTaxed;
                                 cartItem.ItemType = item.ItemType;
                                 shoppingCartRefresh.Add(cartItem);
                             }
@@ -494,7 +494,7 @@ namespace PublicWebsite
                     itemDetails.ItemCategory = (ItemCategoryType)
                         Enum.Parse(typeof(ItemCategoryType), "PHYSICAL");
                     itemTotal += Double.Parse(itemDetails.Amount.value) * itemDetails.Quantity.Value;
-                    if (c.ItemTaxed)
+                    if (c.ItemIsTaxed)
                     {
                         itemDetails.Tax = new BasicAmountType(currency, (c.ItemPrice * .0825).ToString());
                         orderTotal += Double.Parse((c.ItemPrice * .0825).ToString());

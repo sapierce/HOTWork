@@ -31,7 +31,7 @@ namespace PublicWebsite
                         {
                             miscAccessories.Text += "<tr><td rowspan='2' align='center' align='top'><a href='" + 
                                 HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" + 
-                                p.ProductID + "'><img src='products/";
+                                p.ProductId + "'><img src='products/";
 
                             if (String.IsNullOrEmpty(p.ProductFileName))
                             {
@@ -44,10 +44,10 @@ namespace PublicWebsite
 
                             miscAccessories.Text += "' alt='" + p.ProductName + "' border=0></a></td><td valign='top'><b><a href='" + 
                                 HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID="
-                                + p.ProductID + "'>" + 
+                                + p.ProductId + "'>" + 
                                 p.ProductName + "</a></b></td><td valign='top'><center>";
 
-                            if (p.ProductSaleOnline)
+                            if (p.IsOnSaleOnline)
                             {
                                 miscAccessories.Text += "<span style='color:red;'>$" + 
                                     p.ProductSalePrice + "</span><br><span style='font-size: 9px'>Reg - $" + 
@@ -63,7 +63,7 @@ namespace PublicWebsite
                             if (p.ProductCount > 1)
                             {
                                 miscAccessories.Text += "<a href='" + HOTBAL.TansConstants.SHOPPING_PUBLIC_URL + "?action=add&ItemID=" + 
-                                    p.ProductID + "'>Add to Cart</a></td></tr>";
+                                    p.ProductId + "'>Add to Cart</a></td></tr>";
                             }
                             else
                             {
@@ -75,7 +75,7 @@ namespace PublicWebsite
                                 miscAccessories.Text += "<tr><td colspan='3' valign='top' height='100'><i>" +
                                     p.ProductDescription.Substring(0, 150) + "<a href='" + 
                                     HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" + 
-                                    p.ProductID + "'>...</a></i></td></tr>";
+                                    p.ProductId + "'>...</a></i></td></tr>";
                             }
                             else
                             {

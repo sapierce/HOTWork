@@ -2647,17 +2647,17 @@ namespace HOTBAL
                     foreach (DataRow productReader in productTable.Rows)
                     {
                         Product productResponse = new Product();
-                        productResponse.ProductID = Convert.ToInt32(productReader["PROD_ID"].ToString().Trim());
+                        productResponse.ProductId = Convert.ToInt32(productReader["PROD_ID"].ToString().Trim());
                         productResponse.ProductName = productReader["PROD_NAME"].ToString().Trim();
                         productResponse.ProductDescription = productReader["PROD_DESC"].ToString().Trim();
-                        productResponse.ProductAvailableOnline = (productReader["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
-                        productResponse.ProductAvailableInStore = (productReader["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsAvailableOnline = (productReader["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsAvailableInStore = (productReader["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductPrice = Convert.ToDouble(productReader["PROD_PRICE"].ToString().Trim());
-                        productResponse.ProductSaleOnline = (productReader["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsOnSaleOnline = (productReader["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductSalePrice = Convert.ToDouble(productReader["PROD_SALE_PRICE"].ToString().Trim());
                         productResponse.ProductSubType = productReader["PROD_SUB_TYPE"].ToString().Trim();
                         productResponse.ProductCode = productReader["PROD_CODE"].ToString().Trim();
-                        productResponse.ProductTaxable = (productReader["PROD_TAX"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsTaxable = (productReader["PROD_TAX"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductType = productReader["PROD_TYPE"].ToString().Trim();
                         productResponse.ProductFileName = productReader["PROD_FILE_NAME"].ToString().Trim();
                         productResponse.ProductCount = Convert.ToInt32(productReader["PROD_COUNT"].ToString().Trim());
@@ -2682,18 +2682,18 @@ namespace HOTBAL
                 DataTable productTable = prodDataAccess.ExecutePRODUCT_BY_PRODUCT_ID(productID);
                 if (productTable.Rows.Count > 0)
                 {
-                    productResponse.ProductID = Convert.ToInt32(productTable.Rows[0]["PROD_ID"].ToString().Trim());
+                    productResponse.ProductId = Convert.ToInt32(productTable.Rows[0]["PROD_ID"].ToString().Trim());
                         productResponse.ProductName = productTable.Rows[0]["PROD_NAME"].ToString().Trim();
                         productResponse.ProductDescription = productTable.Rows[0]["PROD_DESC"].ToString().Trim();
-                        productResponse.ProductAvailableOnline = (productTable.Rows[0]["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
-                        productResponse.ProductAvailableInStore = (productTable.Rows[0]["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsAvailableOnline = (productTable.Rows[0]["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsAvailableInStore = (productTable.Rows[0]["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductPrice = Convert.ToDouble(productTable.Rows[0]["PROD_PRICE"].ToString().Trim());
-                        productResponse.ProductSaleInStore = (productTable.Rows[0]["PROD_SALE_STORE"].ToString().Trim() == "True" ? true : false);
-                        productResponse.ProductSaleOnline = (productTable.Rows[0]["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsOnSaleInStore = (productTable.Rows[0]["PROD_SALE_STORE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsOnSaleOnline = (productTable.Rows[0]["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductSalePrice = Convert.ToDouble(productTable.Rows[0]["PROD_SALE_PRICE"].ToString().Trim());
                         productResponse.ProductSubType = productTable.Rows[0]["PROD_SUB_TYPE"].ToString().Trim();
                         productResponse.ProductCode = productTable.Rows[0]["PROD_CODE"].ToString().Trim();
-                        productResponse.ProductTaxable = (productTable.Rows[0]["PROD_TAX"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsTaxable = (productTable.Rows[0]["PROD_TAX"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductType = productTable.Rows[0]["PROD_TYPE"].ToString().Trim();
                         productResponse.ProductFileName = productTable.Rows[0]["PROD_FILE_NAME"].ToString().Trim();
                         productResponse.ProductCount = Convert.ToInt32(productTable.Rows[0]["PROD_COUNT"].ToString().Trim());
@@ -2701,7 +2701,7 @@ namespace HOTBAL
                 else
                 {
                     // No product of that ID
-                    productResponse.ProductID = 0;
+                    productResponse.ProductId = 0;
                     productResponse.ProductName = TansMessages.ERROR_PRODUCT_NO_INFO;
                     LogErrorMessage(new Exception("No product"), productID.ToString(), "Methods: GetProductByID");
                 }
@@ -2709,7 +2709,7 @@ namespace HOTBAL
             catch (Exception ex)
             {
                 LogErrorMessage(ex, productID.ToString(), "Methods: GetProductByID");
-                productResponse.ProductID = 0;
+                productResponse.ProductId = 0;
                 productResponse.ProductName = TansMessages.ERROR_PRODUCT_NO_INFO;
             }
 
@@ -2728,18 +2728,18 @@ namespace HOTBAL
                     foreach (DataRow dr in productTable.Rows)
                     {
                         Product productResponse = new Product();
-                        productResponse.ProductID = Convert.ToInt32(dr["PROD_ID"].ToString().Trim());
+                        productResponse.ProductId = Convert.ToInt32(dr["PROD_ID"].ToString().Trim());
                         productResponse.ProductName = dr["PROD_NAME"].ToString().Trim();
                         productResponse.ProductDescription = dr["PROD_DESC"].ToString().Trim();
-                        productResponse.ProductAvailableOnline = (dr["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
-                        productResponse.ProductAvailableInStore = (dr["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsAvailableOnline = (dr["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsAvailableInStore = (dr["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductPrice = Convert.ToDouble(dr["PROD_PRICE"].ToString().Trim());
-                        productResponse.ProductSaleInStore = (dr["PROD_SALE_STORE"].ToString().Trim() == "True" ? true : false);
-                        productResponse.ProductSaleOnline = (dr["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsOnSaleInStore = (dr["PROD_SALE_STORE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsOnSaleOnline = (dr["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductSalePrice = Convert.ToDouble(dr["PROD_SALE_PRICE"].ToString().Trim());
                         productResponse.ProductSubType = dr["PROD_SUB_TYPE"].ToString().Trim();
                         productResponse.ProductCode = dr["PROD_CODE"].ToString().Trim();
-                        productResponse.ProductTaxable = (dr["PROD_TAX"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsTaxable = (dr["PROD_TAX"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductType = dr["PROD_TYPE"].ToString().Trim();
                         productResponse.ProductFileName = dr["PROD_FILE_NAME"].ToString().Trim();
                         productResponse.ProductCount = Convert.ToInt32(dr["PROD_COUNT"].ToString().Trim());
@@ -2853,17 +2853,17 @@ namespace HOTBAL
                     foreach (DataRow productReader in productTable.Rows)
                     {
                         Product productResponse = new Product();
-                        productResponse.ProductID = Convert.ToInt32(productReader["PROD_ID"].ToString().Trim());
+                        productResponse.ProductId = Convert.ToInt32(productReader["PROD_ID"].ToString().Trim());
                         productResponse.ProductName = productReader["PROD_NAME"].ToString().Trim();
                         productResponse.ProductDescription = productReader["PROD_DESC"].ToString().Trim();
-                        productResponse.ProductAvailableOnline = (productReader["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
-                        productResponse.ProductAvailableInStore = (productReader["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsAvailableOnline = (productReader["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsAvailableInStore = (productReader["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductPrice = Convert.ToDouble(productReader["PROD_PRICE"].ToString().Trim());
-                        productResponse.ProductSaleOnline = (productReader["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsOnSaleOnline = (productReader["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductSalePrice = Convert.ToDouble(productReader["PROD_SALE_PRICE"].ToString().Trim());
                         productResponse.ProductSubType = productReader["PROD_SUB_TYPE"].ToString().Trim();
                         productResponse.ProductCode = productReader["PROD_CODE"].ToString().Trim();
-                        productResponse.ProductTaxable = (productReader["PROD_TAX"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsTaxable = (productReader["PROD_TAX"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductType = productReader["PROD_TYPE"].ToString().Trim();
                         productResponse.ProductFileName = productReader["PROD_FILE_NAME"].ToString().Trim();
                         productResponse.ProductCount = Convert.ToInt32(productReader["PROD_COUNT"].ToString().Trim());
@@ -2901,17 +2901,17 @@ namespace HOTBAL
                     foreach (DataRow productReader in productTable.Rows)
                     {
                         Product productResponse = new Product();
-                        productResponse.ProductID = Convert.ToInt32(productReader["PROD_ID"].ToString().Trim());
+                        productResponse.ProductId = Convert.ToInt32(productReader["PROD_ID"].ToString().Trim());
                         productResponse.ProductName = productReader["PROD_NAME"].ToString().Trim();
                         productResponse.ProductDescription = productReader["PROD_DESC"].ToString().Trim();
-                        productResponse.ProductAvailableOnline = (productReader["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
-                        productResponse.ProductAvailableInStore = (productReader["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsAvailableOnline = (productReader["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsAvailableInStore = (productReader["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductPrice = Convert.ToDouble(productReader["PROD_PRICE"].ToString().Trim());
-                        productResponse.ProductSaleOnline = (productReader["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsOnSaleOnline = (productReader["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductSalePrice = Convert.ToDouble(productReader["PROD_SALE_PRICE"].ToString().Trim());
                         productResponse.ProductSubType = productReader["PROD_SUB_TYPE"].ToString().Trim();
                         productResponse.ProductCode = productReader["PROD_CODE"].ToString().Trim();
-                        productResponse.ProductTaxable = (productReader["PROD_TAX"].ToString().Trim() == "True" ? true : false);
+                        productResponse.IsTaxable = (productReader["PROD_TAX"].ToString().Trim() == "True" ? true : false);
                         productResponse.ProductType = productReader["PROD_TYPE"].ToString().Trim();
                         productResponse.ProductFileName = productReader["PROD_FILE_NAME"].ToString().Trim();
                         productResponse.ProductCount = Convert.ToInt32(productReader["PROD_COUNT"].ToString().Trim());
@@ -2953,22 +2953,22 @@ namespace HOTBAL
                     }
                     else
                     {
-                        itemResponse.ProductID = Convert.ToInt32(itemTable.Rows[0]["PROD_ID"].ToString().Trim());
+                        itemResponse.ProductId = Convert.ToInt32(itemTable.Rows[0]["PROD_ID"].ToString().Trim());
                         itemResponse.ProductSubType = itemTable.Rows[0]["PROD_SUB_TYPE"].ToString().Trim();
                         itemResponse.ProductCode = itemTable.Rows[0]["PROD_CODE"].ToString().Trim();
                         itemResponse.ProductName = itemTable.Rows[0]["PROD_NAME"].ToString().Trim();
                         itemResponse.ProductFileName = itemTable.Rows[0]["PROD_FILE_NAME"].ToString().Trim();
                         itemResponse.ProductDescription = itemTable.Rows[0]["PROD_DESC"].ToString().Trim();
-                        itemResponse.ProductAvailableOnline = (itemTable.Rows[0]["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
-                        itemResponse.ProductAvailableInStore = (itemTable.Rows[0]["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
+                        itemResponse.IsAvailableOnline = (itemTable.Rows[0]["PROD_DISP_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        itemResponse.IsAvailableInStore = (itemTable.Rows[0]["PROD_DISP_STORE"].ToString().Trim() == "True" ? true : false);
                         itemResponse.ProductPrice = Convert.ToDouble(itemTable.Rows[0]["PROD_PRICE"].ToString().Trim());
                         itemResponse.ProductCount = Convert.ToInt32(itemTable.Rows[0]["PROD_COUNT"].ToString().Trim());
-                        itemResponse.ProductSaleOnline = (itemTable.Rows[0]["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
-                        itemResponse.ProductSaleInStore = (itemTable.Rows[0]["PROD_SALE_STORE"].ToString().Trim() == "True" ? true : false);
+                        itemResponse.IsOnSaleOnline = (itemTable.Rows[0]["PROD_SALE_ONLINE"].ToString().Trim() == "True" ? true : false);
+                        itemResponse.IsOnSaleInStore = (itemTable.Rows[0]["PROD_SALE_STORE"].ToString().Trim() == "True" ? true : false);
                         itemResponse.ProductSalePrice = Convert.ToDouble(itemTable.Rows[0]["PROD_SALE_PRICE"].ToString().Trim());
-                        itemResponse.ProductTaxable = (itemTable.Rows[0]["PROD_TAX"].ToString().Trim() == "True" ? true : false);
+                        itemResponse.IsTaxable = (itemTable.Rows[0]["PROD_TAX"].ToString().Trim() == "True" ? true : false);
                         itemResponse.ProductType = itemTable.Rows[0]["PROD_TYPE"].ToString().Trim();
-                        itemResponse.Active = (itemTable.Rows[0]["PROD_DISP"].ToString().Trim() == "True" ? false : true);
+                        itemResponse.IsActive = (itemTable.Rows[0]["PROD_DISP"].ToString().Trim() == "True" ? false : true);
                     }
                 }
                 else
@@ -3568,17 +3568,17 @@ namespace HOTBAL
                     foreach (DataRow row in salesTable.Rows)
                     {
                         Transaction employeeSales = new Transaction();
-                        employeeSales.Date = Convert.ToDateTime(row["TRNS_DATE"].ToString().Trim());
-                        employeeSales.ID = Convert.ToInt32(row["TRNS_ID"].ToString().Trim());
-                        employeeSales.Location = row["TRNS_LOC"].ToString().Trim();
-                        employeeSales.Other = row["TRNS_OTH"].ToString().Trim();
-                        employeeSales.Paid = (row["TRNS_PAID"].ToString().Trim() == "True" ? true : false);
-                        employeeSales.Payment = row["TRNS_PYMT"].ToString().Trim();
-                        employeeSales.Seller = row["TRNS_SELL"].ToString().Trim();
-                        employeeSales.CustomerID = Convert.ToInt32(row["TRNS_BGHT"].ToString().Trim());
-                        employeeSales.Tax = Convert.ToDouble(row["TRNS_TAX"].ToString().Trim());
-                        employeeSales.Total = Convert.ToDouble(row["TRNS_TTL"].ToString().Trim());
-                        employeeSales.Void = (row["TRNS_VOID"].ToString().Trim() == "True" ? true : false);
+                        employeeSales.TransactionDate = Convert.ToDateTime(row["TRNS_DATE"].ToString().Trim());
+                        employeeSales.TransactionId = Convert.ToInt32(row["TRNS_ID"].ToString().Trim());
+                        employeeSales.TransactionLocation = row["TRNS_LOC"].ToString().Trim();
+                        employeeSales.OtherInformation = row["TRNS_OTH"].ToString().Trim();
+                        employeeSales.IsTransactionPaid = (row["TRNS_PAID"].ToString().Trim() == "True" ? true : false);
+                        employeeSales.PaymentMethod = row["TRNS_PYMT"].ToString().Trim();
+                        employeeSales.SellerId = row["TRNS_SELL"].ToString().Trim();
+                        employeeSales.CustomerId = Convert.ToInt32(row["TRNS_BGHT"].ToString().Trim());
+                        employeeSales.TaxTotal = Convert.ToDouble(row["TRNS_TAX"].ToString().Trim());
+                        employeeSales.TransactionTotal = Convert.ToDouble(row["TRNS_TTL"].ToString().Trim());
+                        employeeSales.IsTransactionVoid = (row["TRNS_VOID"].ToString().Trim() == "True" ? true : false);
                         returnTransactions.Add(employeeSales);
                     }
                 }
@@ -3705,28 +3705,28 @@ namespace HOTBAL
                 {
                     foreach (DataRow transactionReader in transactionTable.Rows)
                     {
-                        transactionResponse.Date = Convert.ToDateTime(transactionReader["TRNS_DATE"].ToString().Trim());
-                        transactionResponse.ID = Convert.ToInt32(transactionReader["TRNS_ID"].ToString().Trim());
-                        transactionResponse.Location = transactionReader["TRNS_LOC"].ToString().Trim();
-                        transactionResponse.Other = transactionReader["TRNS_OTH"].ToString().Trim();
-                        transactionResponse.Paid = (transactionReader["TRNS_PAID"].ToString().Trim() == "True" ? true : false);
-                        transactionResponse.Payment = transactionReader["TRNS_PYMT"].ToString().Trim();
-                        transactionResponse.Seller = transactionReader["TRNS_SELL"].ToString().Trim();
-                        transactionResponse.CustomerID = Convert.ToInt32(transactionReader["TRNS_BGHT"].ToString().Trim());
-                        transactionResponse.Tax = Convert.ToDouble(transactionReader["TRNS_TAX"].ToString().Trim());
-                        transactionResponse.Total = Convert.ToDouble(transactionReader["TRNS_TTL"].ToString().Trim());
-                        transactionResponse.Void = (transactionReader["TRNS_VOID"].ToString().Trim() == "True" ? true : false);
+                        transactionResponse.TransactionDate = Convert.ToDateTime(transactionReader["TRNS_DATE"].ToString().Trim());
+                        transactionResponse.TransactionId = Convert.ToInt32(transactionReader["TRNS_ID"].ToString().Trim());
+                        transactionResponse.TransactionLocation = transactionReader["TRNS_LOC"].ToString().Trim();
+                        transactionResponse.OtherInformation = transactionReader["TRNS_OTH"].ToString().Trim();
+                        transactionResponse.IsTransactionPaid = (transactionReader["TRNS_PAID"].ToString().Trim() == "True" ? true : false);
+                        transactionResponse.PaymentMethod = transactionReader["TRNS_PYMT"].ToString().Trim();
+                        transactionResponse.SellerId = transactionReader["TRNS_SELL"].ToString().Trim();
+                        transactionResponse.CustomerId = Convert.ToInt32(transactionReader["TRNS_BGHT"].ToString().Trim());
+                        transactionResponse.TaxTotal = Convert.ToDouble(transactionReader["TRNS_TAX"].ToString().Trim());
+                        transactionResponse.TransactionTotal = Convert.ToDouble(transactionReader["TRNS_TTL"].ToString().Trim());
+                        transactionResponse.IsTransactionVoid = (transactionReader["TRNS_VOID"].ToString().Trim() == "True" ? true : false);
                     }
                 }
                 else
                 {
-                    transactionResponse.Error = TansMessages.ERROR_GENERIC;
+                    transactionResponse.ErrorMessage = TansMessages.ERROR_GENERIC;
                 }
             }
             catch (Exception ex)
             {
                 LogErrorMessage(ex, TransactionID.ToString(), "Methods: GetCustomerTransaction");
-                transactionResponse.Error = TansMessages.ERROR_GENERIC;
+                transactionResponse.ErrorMessage = TansMessages.ERROR_GENERIC;
             }
 
             return transactionResponse;
@@ -3744,20 +3744,20 @@ namespace HOTBAL
                     foreach (DataRow transactionReader in transactionTable.Rows)
                     {
                         TransactionItem transactionInfo = new TransactionItem();
-                        transactionInfo.ID = Convert.ToInt32(transactionReader["XREF_ID"].ToString().Trim());
-                        transactionInfo.Price = Convert.ToDouble(transactionReader["PROD_PRICE"].ToString().Trim());
-                        transactionInfo.ProductID = Convert.ToInt32(transactionReader["PROD_ID"].ToString().Trim());
+                        transactionInfo.TransactionItemId = Convert.ToInt32(transactionReader["XREF_ID"].ToString().Trim());
+                        transactionInfo.ProductPrice = Convert.ToDouble(transactionReader["PROD_PRICE"].ToString().Trim());
+                        transactionInfo.ProductId = Convert.ToInt32(transactionReader["PROD_ID"].ToString().Trim());
                         transactionInfo.ProductName = transactionReader["PROD_NME"].ToString().Trim();
-                        transactionInfo.Quantity = Convert.ToInt32(transactionReader["PROD_QTY"].ToString().Trim());
-                        transactionInfo.Tax = (transactionReader["PROD_TAX"].ToString().Trim() == "True" ? true : false);
-                        transactionInfo.TransactionID = Convert.ToInt32(TransactionID);
+                        transactionInfo.ItemQuantity = Convert.ToInt32(transactionReader["PROD_QTY"].ToString().Trim());
+                        transactionInfo.IsTaxed = (transactionReader["PROD_TAX"].ToString().Trim() == "True" ? true : false);
+                        transactionInfo.TransactionId = Convert.ToInt32(TransactionID);
                         transactionItemsResponse.Add(transactionInfo);
                     }
                 }
                 else
                 {
                     TransactionItem transactionInfo = new TransactionItem();
-                    transactionInfo.ID = 0;
+                    transactionInfo.TransactionItemId = 0;
                     transactionItemsResponse.Add(transactionInfo);
                 }
             }
@@ -3765,8 +3765,8 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, TransactionID.ToString(), "Methods: GetCustomerTransactionItems");
                 TransactionItem transactionInfo = new TransactionItem();
-                transactionInfo.ID = 0;
-                transactionInfo.Error = TansMessages.ERROR_GENERIC;
+                transactionInfo.TransactionItemId = 0;
+                transactionInfo.ErrorMessage = TansMessages.ERROR_GENERIC;
                 transactionItemsResponse.Add(transactionInfo);
             }
 
@@ -3785,17 +3785,17 @@ namespace HOTBAL
                     foreach (DataRow transactionReader in transactionTable.Rows)
                     {
                         Transaction transactionInfo = new Transaction();
-                        transactionInfo.Date = Convert.ToDateTime(transactionReader["TRNS_DATE"].ToString().Trim());
-                        transactionInfo.ID = Convert.ToInt32(transactionReader["TRNS_ID"].ToString().Trim());
-                        transactionInfo.Location = transactionReader["TRNS_LOC"].ToString().Trim();
-                        transactionInfo.Other = transactionReader["TRNS_OTH"].ToString().Trim();
-                        transactionInfo.Paid = (transactionReader["TRNS_PAID"].ToString().Trim() == "True" ? true : false);
-                        transactionInfo.Payment = transactionReader["TRNS_PYMT"].ToString().Trim();
-                        transactionInfo.Seller = transactionReader["TRNS_SELL"].ToString().Trim();
-                        transactionInfo.CustomerID = Convert.ToInt32(transactionReader["TRNS_BGHT"].ToString().Trim());
-                        transactionInfo.Tax = Convert.ToDouble(transactionReader["TRNS_TAX"].ToString().Trim());
-                        transactionInfo.Total = Convert.ToDouble(transactionReader["TRNS_TTL"].ToString().Trim());
-                        transactionInfo.Void = (transactionReader["TRNS_VOID"].ToString().Trim() == "True" ? true : false);
+                        transactionInfo.TransactionDate = Convert.ToDateTime(transactionReader["TRNS_DATE"].ToString().Trim());
+                        transactionInfo.TransactionId = Convert.ToInt32(transactionReader["TRNS_ID"].ToString().Trim());
+                        transactionInfo.TransactionLocation = transactionReader["TRNS_LOC"].ToString().Trim();
+                        transactionInfo.OtherInformation = transactionReader["TRNS_OTH"].ToString().Trim();
+                        transactionInfo.IsTransactionPaid = (transactionReader["TRNS_PAID"].ToString().Trim() == "True" ? true : false);
+                        transactionInfo.PaymentMethod = transactionReader["TRNS_PYMT"].ToString().Trim();
+                        transactionInfo.SellerId = transactionReader["TRNS_SELL"].ToString().Trim();
+                        transactionInfo.CustomerId = Convert.ToInt32(transactionReader["TRNS_BGHT"].ToString().Trim());
+                        transactionInfo.TaxTotal = Convert.ToDouble(transactionReader["TRNS_TAX"].ToString().Trim());
+                        transactionInfo.TransactionTotal = Convert.ToDouble(transactionReader["TRNS_TTL"].ToString().Trim());
+                        transactionInfo.IsTransactionVoid = (transactionReader["TRNS_VOID"].ToString().Trim() == "True" ? true : false);
                         transactionsResponse.Add(transactionInfo);
                     }
                 }
@@ -3804,8 +3804,8 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, customerID.ToString(), "Methods: GetAllCustomerTransactions");
                 Transaction transactionInfo = new Transaction();
-                transactionInfo.ID = 0;
-                transactionInfo.Error = TansMessages.ERROR_GENERIC;
+                transactionInfo.TransactionId = 0;
+                transactionInfo.ErrorMessage = TansMessages.ERROR_GENERIC;
                 transactionsResponse.Add(transactionInfo);
             }
 
@@ -3831,12 +3831,12 @@ namespace HOTBAL
                     //Add in the items for the transaction
                     foreach (CartItem item in cart)
                     {
-                        bool addResponse = prodDataAccess.ExecuteINSERT_TRANSACTION_ITEM(transactionID, item.ItemID, item.ItemQuantity, item.ItemName, item.ItemPrice, (item.ItemTaxed == true ? 1 : 0));
+                        bool addResponse = prodDataAccess.ExecuteINSERT_TRANSACTION_ITEM(transactionID, item.ItemId, item.ItemQuantity, item.ItemName, item.ItemPrice, (item.ItemIsTaxed == true ? 1 : 0));
 
                         if (addResponse)
                         {
                             //Get current product count
-                            DataTable transactionTable = prodDataAccess.ExecutePRODUCT_BY_PRODUCT_ID(item.ItemID);
+                            DataTable transactionTable = prodDataAccess.ExecutePRODUCT_BY_PRODUCT_ID(item.ItemId);
 
                             if (transactionTable.Rows.Count > 0)
                             {
@@ -3845,15 +3845,15 @@ namespace HOTBAL
                                 itemCount = Convert.ToInt32(transactionTable.Rows[0]["PROD_COUNT"].ToString());
 
                                 //UpdateInventory
-                                bool isSuccessful = prodDataAccess.ExecuteUPDATE_PRODUCT_INVENTORY(item.ItemID, (itemCount - 1), "W");
+                                bool isSuccessful = prodDataAccess.ExecuteUPDATE_PRODUCT_INVENTORY(item.ItemId, (itemCount - 1), "W");
 
                                 if (!isSuccessful)
-                                    LogErrorMessage(new Exception("InventoryNotUpdated"), item.ItemID.ToString(), "Methods: InsertTransaction: UpdateInventory");
+                                    LogErrorMessage(new Exception("InventoryNotUpdated"), item.ItemId.ToString(), "Methods: InsertTransaction: UpdateInventory");
                                 //else
                                 //    LogErrorMessage(new Exception("InventoryUpdated"), item.ItemID.ToString(), "Methods: InsertTransaction: UpdateInventory");
                             }
                             else
-                                LogErrorMessage(new Exception("NoProduct"), item.ItemID.ToString(), "Methods: InsertTransaction: GetProduct");
+                                LogErrorMessage(new Exception("NoProduct"), item.ItemId.ToString(), "Methods: InsertTransaction: GetProduct");
 
                             if ((item.ItemType == "PKG") && (Purchaser != 0) && (!item.ItemName.ToLower().Contains("upgrade")))
                             {
@@ -3866,7 +3866,7 @@ namespace HOTBAL
                                 bool updateRenewal = false;
                                 bool isSpecial = false;
 
-                                transactionTable = tansDataAccess.ExecutePLAN_BY_PRODUCT_ID(item.ItemID);
+                                transactionTable = tansDataAccess.ExecutePLAN_BY_PRODUCT_ID(item.ItemId);
 
                                 if (transactionTable.Rows.Count > 0)
                                 {
@@ -3878,7 +3878,7 @@ namespace HOTBAL
                                 else
                                 {
                                     // Is this a special?
-                                    transactionTable = tansDataAccess.ExecuteSPECIAL_BY_PRODUCT_ID(item.ItemID);
+                                    transactionTable = tansDataAccess.ExecuteSPECIAL_BY_PRODUCT_ID(item.ItemId);
                                     if (transactionTable.Rows.Count > 0)
                                     {
                                         isSpecial = true;
@@ -3890,7 +3890,7 @@ namespace HOTBAL
                                         updateRenewal = true;
                                     }
                                     else
-                                        LogErrorMessage(new Exception("No Plan/Special Found"), item.ItemID.ToString(), item.ItemName);
+                                        LogErrorMessage(new Exception("No Plan/Special Found"), item.ItemId.ToString(), item.ItemName);
                                 }
 
                                 if ((packageLength > 0) && (!String.IsNullOrEmpty(packageName)))
@@ -3944,7 +3944,7 @@ namespace HOTBAL
                                             transactionBuyer.LotionWarning, transactionBuyer.OnlineRestriction, Convert.ToInt32(Purchaser));
 
                                         if (!customerUpdate)
-                                            LogErrorMessage(new Exception("CustomerNotUpdated"), Purchaser.ToString() + "-" + transactionID.ToString() + "-" + item.ItemID.ToString(), "Methods: InsertTransaction: UpdateExpiration");
+                                            LogErrorMessage(new Exception("CustomerNotUpdated"), Purchaser.ToString() + "-" + transactionID.ToString() + "-" + item.ItemId.ToString(), "Methods: InsertTransaction: UpdateExpiration");
                                         //else
                                         //    LogErrorMessage(new Exception("CustomerUpdated"), Purchaser.ToString(), "Methods: InsertTransaction: UpdateExpiration");
 
@@ -3952,7 +3952,7 @@ namespace HOTBAL
                                             functionsClass.FormatDash(newPlanRenewalDate), packageLongName);
 
                                         if (!customerUpdate)
-                                            LogErrorMessage(new Exception("CustomerHistoryNotUpdated"), Purchaser.ToString() + "-" + transactionID.ToString() + "-" + item.ItemID.ToString(), "Methods: InsertTransaction: UpdateHistory");
+                                            LogErrorMessage(new Exception("CustomerHistoryNotUpdated"), Purchaser.ToString() + "-" + transactionID.ToString() + "-" + item.ItemId.ToString(), "Methods: InsertTransaction: UpdateHistory");
                                         //else
                                         //    LogErrorMessage(new Exception("CustomerHistoryUpdated"), Purchaser.ToString(), "Methods: InsertTransaction: UpdateHistory");
                                     }
@@ -3962,7 +3962,7 @@ namespace HOTBAL
                             //    LogErrorMessage(new Exception("TransactionNotPackage"), item.ItemType, "Methods: InsertTransaction: UpdateExpiration");
                         }
                         else
-                            LogErrorMessage(new Exception("TransactionItemNotSaved"), transactionID.ToString() + "-" + item.ItemID.ToString(), "Methods: InsertTransaction: InsertTransactionItem");
+                            LogErrorMessage(new Exception("TransactionItemNotSaved"), transactionID.ToString() + "-" + item.ItemId.ToString(), "Methods: InsertTransaction: InsertTransactionItem");
                     }
                 }
                 else
@@ -4012,26 +4012,26 @@ namespace HOTBAL
                     foreach (DataRow transactionReader in transactionTable.Rows)
                     {
                         TransactionItem transactionInfo = new TransactionItem();
-                        transactionInfo.ID = Convert.ToInt32(transactionReader["XREF_ID"].ToString().Trim());
-                        transactionInfo.Price = Convert.ToDouble(transactionReader["PROD_PRICE"].ToString().Trim());
-                        transactionInfo.ProductID = Convert.ToInt32(transactionReader["PROD_ID"].ToString().Trim());
+                        transactionInfo.TransactionItemId = Convert.ToInt32(transactionReader["XREF_ID"].ToString().Trim());
+                        transactionInfo.ProductPrice = Convert.ToDouble(transactionReader["PROD_PRICE"].ToString().Trim());
+                        transactionInfo.ProductId = Convert.ToInt32(transactionReader["PROD_ID"].ToString().Trim());
                         transactionInfo.ProductName = transactionReader["PROD_NME"].ToString().Trim();
-                        transactionInfo.Quantity = Convert.ToInt32(transactionReader["PROD_QTY"].ToString().Trim());
-                        transactionInfo.Tax = (transactionReader["PROD_TAX"].ToString().Trim() == "True" ? true : false);
-                        transactionInfo.TransactionID = Convert.ToInt32(TransactionID);
+                        transactionInfo.ItemQuantity = Convert.ToInt32(transactionReader["PROD_QTY"].ToString().Trim());
+                        transactionInfo.IsTaxed = (transactionReader["PROD_TAX"].ToString().Trim() == "True" ? true : false);
+                        transactionInfo.TransactionId = Convert.ToInt32(TransactionID);
                         transactionItemsResponse.Add(transactionInfo);
                     }
                 }
                 else
                 {
                     TransactionItem transactionInfo = new TransactionItem();
-                    transactionInfo.ID = 0;
-                    transactionInfo.Price = 0.00;
-                    transactionInfo.ProductID = 0;
+                    transactionInfo.TransactionItemId = 0;
+                    transactionInfo.ProductPrice = 0.00;
+                    transactionInfo.ProductId = 0;
                     transactionInfo.ProductName = "Unknown";
-                    transactionInfo.Quantity = 0;
-                    transactionInfo.Tax = false;
-                    transactionInfo.TransactionID = Convert.ToInt32(TransactionID);
+                    transactionInfo.ItemQuantity = 0;
+                    transactionInfo.IsTaxed = false;
+                    transactionInfo.TransactionId = Convert.ToInt32(TransactionID);
                     transactionItemsResponse.Add(transactionInfo);
                 }
             }
@@ -4039,7 +4039,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, TransactionID.ToString(), "Methods: GetTanningTransactionItems");
                 TransactionItem transactionInfo = new TransactionItem();
-                transactionInfo.Error = TansMessages.ERROR_GENERIC;
+                transactionInfo.ErrorMessage = TansMessages.ERROR_GENERIC;
                 transactionItemsResponse.Add(transactionInfo);
             }
 
@@ -4085,24 +4085,24 @@ namespace HOTBAL
                     foreach (DataRow transactionReader in transactionTable.Rows)
                     {
                         Transaction transactionInfo = new Transaction();
-                        transactionInfo.Date = Convert.ToDateTime(transactionReader["TRNS_DATE"].ToString().Trim());
-                        transactionInfo.ID = Convert.ToInt32(transactionReader["TRNS_ID"].ToString().Trim());
-                        transactionInfo.Location = transactionReader["TRNS_LOC"].ToString().Trim();
-                        transactionInfo.Other = transactionReader["TRNS_OTH"].ToString().Trim();
-                        transactionInfo.Paid = (transactionReader["TRNS_PAID"].ToString().Trim() == "True" ? true : false);
-                        transactionInfo.Payment = transactionReader["TRNS_PYMT"].ToString().Trim();
-                        transactionInfo.Seller = transactionReader["TRNS_SELL"].ToString().Trim();
-                        transactionInfo.CustomerID = Convert.ToInt32(transactionReader["TRNS_BGHT"].ToString().Trim());
-                        transactionInfo.Tax = Convert.ToDouble(transactionReader["TRNS_TAX"].ToString().Trim());
-                        transactionInfo.Total = Convert.ToDouble(transactionReader["TRNS_TTL"].ToString().Trim());
-                        transactionInfo.Void = (transactionReader["TRNS_VOID"].ToString().Trim() == "True" ? true : false);
+                        transactionInfo.TransactionDate = Convert.ToDateTime(transactionReader["TRNS_DATE"].ToString().Trim());
+                        transactionInfo.TransactionId = Convert.ToInt32(transactionReader["TRNS_ID"].ToString().Trim());
+                        transactionInfo.TransactionLocation = transactionReader["TRNS_LOC"].ToString().Trim();
+                        transactionInfo.OtherInformation = transactionReader["TRNS_OTH"].ToString().Trim();
+                        transactionInfo.IsTransactionPaid = (transactionReader["TRNS_PAID"].ToString().Trim() == "True" ? true : false);
+                        transactionInfo.PaymentMethod = transactionReader["TRNS_PYMT"].ToString().Trim();
+                        transactionInfo.SellerId = transactionReader["TRNS_SELL"].ToString().Trim();
+                        transactionInfo.CustomerId = Convert.ToInt32(transactionReader["TRNS_BGHT"].ToString().Trim());
+                        transactionInfo.TaxTotal = Convert.ToDouble(transactionReader["TRNS_TAX"].ToString().Trim());
+                        transactionInfo.TransactionTotal = Convert.ToDouble(transactionReader["TRNS_TTL"].ToString().Trim());
+                        transactionInfo.IsTransactionVoid = (transactionReader["TRNS_VOID"].ToString().Trim() == "True" ? true : false);
                         transactionsResponse.Add(transactionInfo);
                     }
                 }
                 else
                 {
                     Transaction transactionInfo = new Transaction();
-                    transactionInfo.ID = 0;
+                    transactionInfo.TransactionId = 0;
                     transactionsResponse.Add(transactionInfo);
                 }
             }
@@ -4110,7 +4110,7 @@ namespace HOTBAL
             {
                 LogErrorMessage(ex, TransactionDate, "Methods: GetAllTanningTransactions");
                 Transaction transactionInfo = new Transaction();
-                transactionInfo.Error = TansMessages.ERROR_GENERIC;
+                transactionInfo.ErrorMessage = TansMessages.ERROR_GENERIC;
                 transactionsResponse.Add(transactionInfo);
             }
 

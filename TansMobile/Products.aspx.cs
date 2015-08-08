@@ -28,7 +28,7 @@ namespace MobileSite
                         lipBalmList.Text = "<table style='width: 300px;'><tr><td><br /></td><td><b>Item</b></td><td><b>Price</b></td><td><br /></td></tr>";
                         foreach (HOTBAL.Product p in productListing)
                         {
-                            lipBalmList.Text += "<tr><td rowspan='2' style='vertical-align:top;'><a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductID + "'><img src='/products/";
+                            lipBalmList.Text += "<tr><td rowspan='2' style='vertical-align:top;'><a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductId + "'><img src='/products/";
 
                             if (String.IsNullOrEmpty(p.ProductFileName))
                             {
@@ -40,9 +40,9 @@ namespace MobileSite
                             }
 
                             lipBalmList.Text += "' alt='" + p.ProductName + "' border=0 style='vertical-align:top;'></a></td><td style='vertical-align:top;'><b><a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID="
-                                + p.ProductID + "'>" + p.ProductName + "</a></b></td><td style='vertical-align:top;'>";
+                                + p.ProductId + "'>" + p.ProductName + "</a></b></td><td style='vertical-align:top;'>";
 
-                            if (p.ProductSaleOnline)
+                            if (p.IsOnSaleOnline)
                             {
                                 lipBalmList.Text += "<span style='color:red;'>$" + p.ProductSalePrice + "</span><br><span style='font-size: 9px'>Reg - $" + p.ProductPrice + "</span>";
                             }
@@ -65,7 +65,7 @@ namespace MobileSite
 
                             if (p.ProductDescription.Length > 150)
                             {
-                                lipBalmList.Text += "<tr><td colspan='3' style='vertical-align:top;'><em>" + p.ProductDescription.Substring(0, 150) + "<a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductID + "&type=lip'>...</a></em></td></tr>";
+                                lipBalmList.Text += "<tr><td colspan='3' style='vertical-align:top;'><em>" + p.ProductDescription.Substring(0, 150) + "<a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductId + "&type=lip'>...</a></em></td></tr>";
                             }
                             else
                             {
@@ -94,7 +94,7 @@ namespace MobileSite
                         giftBagList.Text = "<table style='width: 300px;'><tr><td><br /></td><td><b>Item</b></td><td><b>Price</b></td><td><br /></td></tr>";
                         foreach (HOTBAL.Product p in productListing)
                         {
-                            giftBagList.Text += "<tr><td rowspan='2' style='vertical-align:top;'><a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductID + "'><img src='/products/";
+                            giftBagList.Text += "<tr><td rowspan='2' style='vertical-align:top;'><a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductId + "'><img src='/products/";
 
                             if (String.IsNullOrEmpty(p.ProductFileName))
                             {
@@ -106,9 +106,9 @@ namespace MobileSite
                             }
 
                             giftBagList.Text += "' alt='" + p.ProductName + "' border=0 style='height: 100px;'></a></td><td style='vertical-align:top;'><b><a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID="
-                                + p.ProductID + "'>" + p.ProductName + "</a></b></td><td style='vertical-align:top;'>";
+                                + p.ProductId + "'>" + p.ProductName + "</a></b></td><td style='vertical-align:top;'>";
 
-                            if (p.ProductSaleOnline)
+                            if (p.IsOnSaleOnline)
                             {
                                 giftBagList.Text += "<span style='color: red;'>$" + p.ProductSalePrice + "</span><br><span style='font-size: 9px'>Reg - $" + p.ProductPrice + "</span>";
                             }
@@ -131,7 +131,7 @@ namespace MobileSite
 
                             if (p.ProductDescription.Length > 150)
                             {
-                                giftBagList.Text += "<tr><td colspan='3' style='vertical-align:top;'><em>" + p.ProductDescription.Substring(0, 150) + "<a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductID + "'>...</a></em></td></tr>";
+                                giftBagList.Text += "<tr><td colspan='3' style='vertical-align:top;'><em>" + p.ProductDescription.Substring(0, 150) + "<a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductId + "'>...</a></em></td></tr>";
                             }
                             else
                             {
@@ -160,7 +160,7 @@ namespace MobileSite
                         otherAccessories.Text = "<table style='width: 300px;'><tr><td><br /></td><td><b>Item</b></td><td><b>Price</b></td><td><br /></td></tr>";
                         foreach (HOTBAL.Product p in productListing)
                         {
-                            otherAccessories.Text += "<tr><td rowspan='2' align='center' style='vertical-align:top;'><a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductID + "&Type=oth'><img src='/products/";
+                            otherAccessories.Text += "<tr><td rowspan='2' align='center' style='vertical-align:top;'><a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductId + "&Type=oth'><img src='/products/";
 
                             if (String.IsNullOrEmpty(p.ProductFileName))
                             {
@@ -172,9 +172,9 @@ namespace MobileSite
                             }
 
                             otherAccessories.Text += "' alt='" + p.ProductName + "' border=0 style='vertical-align:top;'></a></td><td valign='top'><b><a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID="
-                                + p.ProductID + "'>" + p.ProductName + "</a></b></td><td valign='top'><center>";
+                                + p.ProductId + "'>" + p.ProductName + "</a></b></td><td valign='top'><center>";
 
-                            if (p.ProductSaleOnline)
+                            if (p.IsOnSaleOnline)
                             {
                                 otherAccessories.Text += "<span style='color:red;'>$" + p.ProductSalePrice + "</span><br><span style='font-size: 9px'>Reg - $" + p.ProductPrice + "</span>";
                             }
@@ -197,7 +197,7 @@ namespace MobileSite
 
                             if (p.ProductDescription.Length > 150)
                             {
-                                otherAccessories.Text += "<tr><td colspan='3' style='vertical-align:top;'><em>" + p.ProductDescription.Substring(0, 150) + "<a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductID + "'>...</a></em></td></tr>";
+                                otherAccessories.Text += "<tr><td colspan='3' style='vertical-align:top;'><em>" + p.ProductDescription.Substring(0, 150) + "<a href='" + HOTBAL.TansConstants.PRODUCTS_DETAILS_MOBILE_URL + "?ID=" + p.ProductId + "'>...</a></em></td></tr>";
                             }
                             else
                             {

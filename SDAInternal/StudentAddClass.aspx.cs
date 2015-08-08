@@ -40,7 +40,7 @@ namespace HOTSelfDefense
                         if (coursesResponse.Count > 0)
                         {
                             // Did we get an error message?
-                            if (String.IsNullOrEmpty(coursesResponse[0].Error))
+                            if (String.IsNullOrEmpty(coursesResponse[0].ErrorMessage))
                             {
                                 // Clear the drop down
                                 classList.Items.Clear();
@@ -52,12 +52,12 @@ namespace HOTSelfDefense
                                 foreach (HOTBAL.Course course in coursesResponse)
                                 {
                                     // Add each class to the list
-                                    classList.Items.Add(new ListItem(course.Title + "-" + course.Day + "-" + course.Time, course.ID.ToString()));
+                                    classList.Items.Add(new ListItem(course.CourseTitle + "-" + course.Day + "-" + course.Time, course.CourseId.ToString()));
                                 }
                             }
                             else
                                 // Output the error message
-                                errorLabel.Text = coursesResponse[0].Error;
+                                errorLabel.Text = coursesResponse[0].ErrorMessage;
                         }
                         else
                             // Output the error message

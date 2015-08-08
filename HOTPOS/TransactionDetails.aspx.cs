@@ -32,31 +32,31 @@ namespace HOTPOS
 
                     HOTBAL.Transaction transactionDetails = TansSqlClass.GetCustomerTransaction(transactionNumber);
 
-                    if (String.IsNullOrEmpty(transactionDetails.Error))
+                    if (String.IsNullOrEmpty(transactionDetails.ErrorMessage))
                     {
-                        List<HOTBAL.TransactionItem> transactionItems = TansSqlClass.GetCustomerTransactionItems(transactionDetails.ID);
-                        HOTBAL.Customer customerDetails = TansSqlClass.GetCustomerInformationByID(transactionDetails.CustomerID);
+                        List<HOTBAL.TransactionItem> transactionItems = TansSqlClass.GetCustomerTransactionItems(transactionDetails.TransactionId);
+                        HOTBAL.Customer customerDetails = TansSqlClass.GetCustomerInformationByID(transactionDetails.CustomerId);
 
-                        transactionID.Text = transactionDetails.ID.ToString();
+                        transactionID.Text = transactionDetails.TransactionId.ToString();
                         if (String.IsNullOrEmpty(customerDetails.Error))
                         {
                             transactionBuyer.Text = customerDetails.FirstName + " " + customerDetails.LastName;
                         }
                         else
                         {
-                            transactionBuyer.Text = transactionDetails.CustomerID.ToString();
+                            transactionBuyer.Text = transactionDetails.CustomerId.ToString();
                         }
-                        buyerID.Text = transactionDetails.CustomerID.ToString();
-                        transactionSeller.Text = transactionDetails.Seller;
-                        transactionTotal.Text = String.Format("{0:C}", transactionDetails.Total).Replace("$", "");
-                        transactionDate.Text = TansFunctionsClass.FormatSlash(transactionDetails.Date);
-                        isPaid.Checked = transactionDetails.Paid;
-                        isVoid.Checked = transactionDetails.Void;
-                        transactionPayment.Items.FindByValue(transactionDetails.Payment).Selected = true;
+                        buyerID.Text = transactionDetails.CustomerId.ToString();
+                        transactionSeller.Text = transactionDetails.SellerId;
+                        transactionTotal.Text = String.Format("{0:C}", transactionDetails.TransactionTotal).Replace("$", "");
+                        transactionDate.Text = TansFunctionsClass.FormatSlash(transactionDetails.TransactionDate);
+                        isPaid.Checked = transactionDetails.IsTransactionPaid;
+                        isVoid.Checked = transactionDetails.IsTransactionVoid;
+                        transactionPayment.Items.FindByValue(transactionDetails.PaymentMethod).Selected = true;
 
                         if (transactionItems != null)
                         {
-                            if (String.IsNullOrEmpty(transactionItems[0].Error))
+                            if (String.IsNullOrEmpty(transactionItems[0].ErrorMessage))
                             {
                                 transactionItemsList.Text = "<table width='100%' style='border: 0px'><tr style='border: 0px'><td style='border: 0px; width: 67%'>" +
                                     "<strong>Item</strong></td><td style='border: 0px; width: 33%'><strong>Quantity</strong></td>" +
@@ -64,23 +64,23 @@ namespace HOTPOS
                                 foreach (HOTBAL.TransactionItem i in transactionItems)
                                 {
                                     transactionItemsList.Text += "<tr style='border: 0px'><td style='border: 0px'>" + 
-                                        i.ProductName + " @ " + String.Format("{0:C}", i.Price) + " each"
-                                        + "</td><td style='border: 0px'>" + i.Quantity +
+                                        i.ProductName + " @ " + String.Format("{0:C}", i.ProductPrice) + " each"
+                                        + "</td><td style='border: 0px'>" + i.ItemQuantity +
                                         "</td><td style='border: 0px'><a href='" + HOTBAL.POSConstants.TRANSACTION_ITEM_DELETE_URL + "?ID="
-                                        + i.ID + "&TID=" + i.TransactionID + "'>Delete</a></td></tr>";
+                                        + i.TransactionItemId + "&TID=" + i.TransactionId + "'>Delete</a></td></tr>";
                                 }
                                 transactionItemsList.Text += "</table>";
                             }
                             else
                             {
                                 Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                                errorLabel.Text = "&#149; " + transactionItems[0].Error;
+                                errorLabel.Text = "&#149; " + transactionItems[0].ErrorMessage;
                             }
                         }
                         else
                         {
                             Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                            errorLabel.Text = "&#149; " + transactionDetails.Error;
+                            errorLabel.Text = "&#149; " + transactionDetails.ErrorMessage;
                         }
                     }
                 }

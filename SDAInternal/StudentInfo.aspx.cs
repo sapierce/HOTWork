@@ -25,22 +25,22 @@ namespace HOTSelfDefense
                     int incomingStudentId = Convert.ToInt32(Request.QueryString["ID"].ToString());
                     studentInfo = sdaMethods.GetStudentInformation(incomingStudentId);
 
-                    if (String.IsNullOrEmpty(studentInfo.Error))
+                    if (String.IsNullOrEmpty(studentInfo.ErrorMessage))
                     {
-                        studentId.Text = studentInfo.ID.ToString();
+                        studentId.Text = studentInfo.StudentId.ToString();
                         studentName.Text = studentInfo.FirstName + " " + studentInfo.LastName + (String.IsNullOrEmpty(studentInfo.Suffix) ? "" : ", " + studentInfo.Suffix);
-                        studentSchool.Text = federationMethods.GetSchoolBySchoolID(studentInfo.School).SchoolName;
+                        studentSchool.Text = federationMethods.GetSchoolBySchoolID(studentInfo.SchoolId).SchoolName;
                         studentBirthday.Text = functionsClass.FormatSlash(studentInfo.BirthDate);
                         emergencyContact.Text = studentInfo.EmergencyContact;
-                        studentPassing.Text = (studentInfo.Pass == true ? "Yes" : "No");
-                        studentPaying.Text = (studentInfo.Paid == true ? "Yes" : "No");
+                        studentPassing.Text = (studentInfo.IsPassing == true ? "Yes" : "No");
+                        studentPaying.Text = (studentInfo.IsPaying == true ? "Yes" : "No");
                         paymentAmount.Text = studentInfo.PaymentAmount.ToString("C");
                         paymentPlan.Text = studentInfo.PaymentPlan;
                         paymentDate.Text = functionsClass.FormatSlash(studentInfo.PaymentDate);
                         studentNotes.Text = studentInfo.Note;
-                        studentActive.Text = (studentInfo.Active == true ? "Yes" : "No");
+                        studentActive.Text = (studentInfo.IsActive == true ? "Yes" : "No");
 
-                        buildStudentAddress(studentInfo.Address, studentInfo.City, studentInfo.State, studentInfo.ZipCode);
+                        buildStudentAddress(studentInfo.StreetAddress, studentInfo.City, studentInfo.State, studentInfo.ZipCode);
 
                         studentArtInformation(incomingStudentId);
                         studentPhoneNumbers(incomingStudentId);
@@ -49,7 +49,7 @@ namespace HOTSelfDefense
                         studentOtherCourses(incomingStudentId);
                     }
                     else
-                        errorLabel.Text = studentInfo.Error;
+                        errorLabel.Text = studentInfo.ErrorMessage;
                 }
                 else
                     errorLabel.Text = HOTBAL.SDAMessages.NO_STUDENT_FOUND;
@@ -67,20 +67,20 @@ namespace HOTSelfDefense
             {
                 if (studentPhones.Count > 0)
                 {
-                    if (String.IsNullOrEmpty(studentPhones[0].Error))
+                    if (String.IsNullOrEmpty(studentPhones[0].ErrorMessage))
                     {
                         foreach (HOTBAL.StudentPhone phone in studentPhones)
                         {
                             phoneList.Text += "<tr>" + 
-                                "<td style='color: #000000;'>" + phone.Relationship + "</td>" +
+                                "<td style='color: #000000;'>" + phone.RelationshipToStudent + "</td>" +
                                 "<td style='color: #000000;'>" + phone.PhoneNumber + "</td>" +
                                 "<td style='color: #000000;'><a href='" + HOTBAL.SDAConstants.STUDENT_INFO_PHONES_INTERNAL_URL + 
-                                "?ID=" + Request.QueryString["ID"].ToString() + "&NID=" + phone.ID.ToString() + "'>Update</a></td>" + 
+                                "?ID=" + Request.QueryString["ID"].ToString() + "&NID=" + phone.PhoneId.ToString() + "'>Update</a></td>" + 
                                 "</tr>";
                         }
                     }
                     else
-                        errorLabel.Text = studentPhones[0].Error;
+                        errorLabel.Text = studentPhones[0].ErrorMessage;
                 }
                 else
                     phoneList.Text = "<tr><td colspan='3'>No Phone Numbers Found.</td></tr>";
@@ -98,7 +98,7 @@ namespace HOTSelfDefense
             {
                 if (studentArts.Count > 0)
                 {
-                    if (String.IsNullOrEmpty(studentArts[0].Error))
+                    if (String.IsNullOrEmpty(studentArts[0].ErrorMessage))
                     {
                         foreach (HOTBAL.StudentArt art in studentArts)
                         {
@@ -108,12 +108,12 @@ namespace HOTSelfDefense
                                 "<td>" + art.TipTitle + "</td>" +
                                 "<td>" + art.ClassCount.ToString() + "</td>" +
                                 "<td valign='top'><a href='" + HOTBAL.SDAConstants.STUDENT_EDIT_ART_INTERNAL_URL + "?ID=" +
-                                Request.QueryString["ID"].ToString().ToString() + "&XID=" + art.ID + "'>Update</a></td>" +
+                                Request.QueryString["ID"].ToString().ToString() + "&XID=" + art.StudentArtId + "'>Update</a></td>" +
                                 "</tr>";
                         }
                     }
                     else
-                        errorLabel.Text = studentArts[0].Error;
+                        errorLabel.Text = studentArts[0].ErrorMessage;
                 }
                 else
                     studentArtList.Text = "<tr><td colspan='5'>No Arts Found.</td></tr>";
@@ -131,24 +131,24 @@ namespace HOTSelfDefense
             {
                 if (studentCourses.Count > 0)
                 {
-                    if (String.IsNullOrEmpty(studentCourses[0].Error))
+                    if (String.IsNullOrEmpty(studentCourses[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Course course in studentCourses)
                         {
                             recurringClasses.Text += "<tr>" + 
                                 "<td>" + course.Day + "</td>" + 
                                 "<td>" + course.Time + "</td>" + 
-                                "<td>" + sdaMethods.GetArtTitle(course.FirstArtID) + (course.SecondArtID == 0 ? "" : "/" + sdaMethods.GetArtTitle(course.SecondArtID)) + "</td>" + 
-                                "<td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + course.ID.ToString() + "'>" + course.Title + "</a></td>" + 
-                                "<td>" + sdaMethods.GetInstructorByID(course.InstructorID).FirstName + " " + sdaMethods.GetInstructorByID(course.InstructorID).LastName + "</td>" + 
-                                "<td align='center'><a href='" + HOTBAL.SDAConstants.STUDENT_ATTENDANCE_INTERNAL_URL + "?CID=" + course.ID.ToString() + 
+                                "<td>" + sdaMethods.GetArtTitle(course.FirstArtId) + (course.SecondArtId == 0 ? "" : "/" + sdaMethods.GetArtTitle(course.SecondArtId)) + "</td>" + 
+                                "<td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + course.CourseId.ToString() + "'>" + course.CourseTitle + "</a></td>" + 
+                                "<td>" + sdaMethods.GetInstructorByID(course.InstructorId).FirstName + " " + sdaMethods.GetInstructorByID(course.InstructorId).LastName + "</td>" + 
+                                "<td align='center'><a href='" + HOTBAL.SDAConstants.STUDENT_ATTENDANCE_INTERNAL_URL + "?CID=" + course.CourseId.ToString() + 
                                 "&ID=" + Request.QueryString["ID"].ToString().ToString() + "'>Attendance</a></td>" +
-                                "<td align='center'><a href='confirmDelete(" + course.ID.ToString() + ");return false;'>Remove</a></td>" + 
+                                "<td align='center'><a href='confirmDelete(" + course.CourseId.ToString() + ");return false;'>Remove</a></td>" + 
                                 "</tr>";
                         }
                     }
                     else
-                        errorLabel.Text = studentCourses[0].Error;
+                        errorLabel.Text = studentCourses[0].ErrorMessage;
                 }
                 else
                     recurringClasses.Text += "<tr><td colspan='6'>No recurring classes.</td></tr>";
@@ -166,25 +166,25 @@ namespace HOTSelfDefense
             {
                 if (studentLessons.Count > 0)
                 {
-                    if (String.IsNullOrEmpty(studentLessons[0].Error))
+                    if (String.IsNullOrEmpty(studentLessons[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Course lesson in studentLessons)
                         {
                             recurringLessons.Text += "<tr>" + 
                                 "<td>" + lesson.Day + "</td>" + 
                                 "<td>" + lesson.Time + "</td>" + 
-                                "<td>" + sdaMethods.GetArtTitle(lesson.FirstArtID) + (lesson.SecondArtID == 0 ? "" : "/" + sdaMethods.GetArtTitle(lesson.SecondArtID)) + "</td>" + 
-                                "<td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + lesson.ID.ToString() + "'>" + lesson.Title + "</a></td>" + 
-                                "<td>" + sdaMethods.GetInstructorByID(lesson.InstructorID).FirstName + " " + sdaMethods.GetInstructorByID(lesson.InstructorID).LastName + "</td>" + 
-                                "<td align='center'><a href='" + HOTBAL.SDAConstants.STUDENT_ATTENDANCE_INTERNAL_URL + "?CID=" + lesson.ID.ToString() + "&ID=" + 
+                                "<td>" + sdaMethods.GetArtTitle(lesson.FirstArtId) + (lesson.SecondArtId == 0 ? "" : "/" + sdaMethods.GetArtTitle(lesson.SecondArtId)) + "</td>" + 
+                                "<td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + lesson.CourseId.ToString() + "'>" + lesson.CourseTitle + "</a></td>" + 
+                                "<td>" + sdaMethods.GetInstructorByID(lesson.InstructorId).FirstName + " " + sdaMethods.GetInstructorByID(lesson.InstructorId).LastName + "</td>" + 
+                                "<td align='center'><a href='" + HOTBAL.SDAConstants.STUDENT_ATTENDANCE_INTERNAL_URL + "?CID=" + lesson.CourseId.ToString() + "&ID=" + 
                                 Request.QueryString["ID"].ToString().ToString() + "'>Attendance</a></td>" +
-                                "<td align='center'><a href='confirmDelete(" + lesson.ID.ToString() + "),return false;'>Remove</a></td>" + 
+                                "<td align='center'><a href='confirmDelete(" + lesson.CourseId.ToString() + "),return false;'>Remove</a></td>" + 
                                 "</tr>";
                         }
                     }
                     else
                     {
-                        errorLabel.Text = studentLessons[0].Error;
+                        errorLabel.Text = studentLessons[0].ErrorMessage;
                     }
                 }
                 else
@@ -203,24 +203,24 @@ namespace HOTSelfDefense
             {
                 if (studentCourses.Count > 0)
                 {
-                    if (String.IsNullOrEmpty(studentCourses[0].Error))
+                    if (String.IsNullOrEmpty(studentCourses[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Course course in studentCourses)
                         {
                             otherClassesLessons.Text += "<tr>" + 
                                 "<td>" + course.Day + "</td>" + 
                                 "<td>" + course.Time + "</td>" + 
-                                "<td>" + sdaMethods.GetArtTitle(course.FirstArtID) + (course.SecondArtID == 0 ? "" : "/" + sdaMethods.GetArtTitle(course.SecondArtID)) + "</td>" + 
-                                "<td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + course.ID.ToString() + "'>" + course.Title + "</a></td>" + 
-                                "<td>" + sdaMethods.GetInstructorByID(course.InstructorID).FirstName + " " + sdaMethods.GetInstructorByID(course.InstructorID).LastName + "</td>" + 
-                                "<td align='center'><a href='" + HOTBAL.SDAConstants.DELETE_CLASS_INTERNAL_URL + "?CID=" + course.ID.ToString() + 
+                                "<td>" + sdaMethods.GetArtTitle(course.FirstArtId) + (course.SecondArtId == 0 ? "" : "/" + sdaMethods.GetArtTitle(course.SecondArtId)) + "</td>" + 
+                                "<td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + course.CourseId.ToString() + "'>" + course.CourseTitle + "</a></td>" + 
+                                "<td>" + sdaMethods.GetInstructorByID(course.InstructorId).FirstName + " " + sdaMethods.GetInstructorByID(course.InstructorId).LastName + "</td>" + 
+                                "<td align='center'><a href='" + HOTBAL.SDAConstants.DELETE_CLASS_INTERNAL_URL + "?CID=" + course.CourseId.ToString() + 
                                 "&ID=" + Request.QueryString["ID"].ToString().ToString() + "'>Delete</a></td>" + 
                                 "</tr>";
                         }
                     }
                     else
                     {
-                        errorLabel.Text = studentCourses[0].Error;
+                        errorLabel.Text = studentCourses[0].ErrorMessage;
                     }
                 }
                 else
@@ -235,23 +235,23 @@ namespace HOTSelfDefense
             {
                 if (studentCourses.Count > 0)
                 {
-                    if (String.IsNullOrEmpty(studentCourses[0].Error))
+                    if (String.IsNullOrEmpty(studentCourses[0].ErrorMessage))
                     {
                         foreach (HOTBAL.Course c in studentCourses)
                         {
                             otherClassesLessons.Text += "<tr><td>" + c.Day + "</td><td>"
-                                + c.Time + "</td><td>" + sdaMethods.GetArtTitle(c.FirstArtID)
-                                + (c.SecondArtID == 0 ? "" : "/" + sdaMethods.GetArtTitle(c.SecondArtID))
-                                + "</td><td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + c.ID.ToString() + "'>" + c.Title + "</a>"
-                                + "</td><td>" + sdaMethods.GetInstructorByID(c.InstructorID).FirstName
-                                + " " + sdaMethods.GetInstructorByID(c.InstructorID).LastName
-                                + "</td><td align='center'><a href='" + HOTBAL.SDAConstants.DELETE_CLASS_INTERNAL_URL + "?ID=" + c.ID.ToString()
+                                + c.Time + "</td><td>" + sdaMethods.GetArtTitle(c.FirstArtId)
+                                + (c.SecondArtId == 0 ? "" : "/" + sdaMethods.GetArtTitle(c.SecondArtId))
+                                + "</td><td><a href='" + HOTBAL.SDAConstants.CLASS_DETAIL_INTERNAL_URL + "?ID=" + c.CourseId.ToString() + "'>" + c.CourseTitle + "</a>"
+                                + "</td><td>" + sdaMethods.GetInstructorByID(c.InstructorId).FirstName
+                                + " " + sdaMethods.GetInstructorByID(c.InstructorId).LastName
+                                + "</td><td align='center'><a href='" + HOTBAL.SDAConstants.DELETE_CLASS_INTERNAL_URL + "?ID=" + c.CourseId.ToString()
                                 + "'>Delete</a></td></tr>";
                         }
                     }
                     else
                     {
-                        errorLabel.Text = studentCourses[0].Error;
+                        errorLabel.Text = studentCourses[0].ErrorMessage;
                     }
                 }
                 else

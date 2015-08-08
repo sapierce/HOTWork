@@ -37,7 +37,7 @@ namespace SDAPOS
                         {
                             if (studentName.Count > 0)
                             {
-                                if (String.IsNullOrEmpty(studentName[0].Error))
+                                if (String.IsNullOrEmpty(studentName[0].ErrorMessage))
                                 {
                                     if (studentName.Count > 1)
                                     {
@@ -45,18 +45,18 @@ namespace SDAPOS
                                         lblCustomers.Text = "<table>";
                                         foreach (Student s in studentName)
                                         {
-                                            lblCustomers.Text += "<tr><td class='reg'><a href='" + HOTBAL.SDAPOSConstants.CART_URL + "?ID=" + s.ID.ToString() + "&Action='>" + s.LastName + ", " + s.FirstName + "</a></td></tr>";
+                                            lblCustomers.Text += "<tr><td class='reg'><a href='" + HOTBAL.SDAPOSConstants.CART_URL + "?ID=" + s.StudentId.ToString() + "&Action='>" + s.LastName + ", " + s.FirstName + "</a></td></tr>";
                                         }
                                         lblCustomers.Text += "</table>";
                                     }
                                     else
                                     {
-                                        Response.Redirect(HOTBAL.SDAPOSConstants.CART_URL + "?ID=" + studentName[0].ID.ToString() + "&Action=");
+                                        Response.Redirect(HOTBAL.SDAPOSConstants.CART_URL + "?ID=" + studentName[0].StudentId.ToString() + "&Action=");
                                     }
                                 }
                                 else
                                 {
-                                    lblError.Text = studentName[0].Error;
+                                    lblError.Text = studentName[0].ErrorMessage;
                                 }
                             }
                             else

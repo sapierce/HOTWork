@@ -40,12 +40,12 @@ namespace HOTPOS
                         HOTBAL.Transaction customerTransaction = TansSqlClass.GetCustomerTransaction(transactionNumber);
                         List<HOTBAL.TransactionItem> transactionItems = TansSqlClass.GetCustomerTransactionItems(transactionNumber);
 
-                        if (String.IsNullOrEmpty(customerTransaction.Error) && String.IsNullOrEmpty(transactionItems[0].Error))
+                        if (String.IsNullOrEmpty(customerTransaction.ErrorMessage) && String.IsNullOrEmpty(transactionItems[0].ErrorMessage))
                         {
                             HOTBAL.Customer customerInfo = new HOTBAL.Customer();
-                            if (customerTransaction.CustomerID != 0)
+                            if (customerTransaction.CustomerId != 0)
                             {
-                                customerInfo = TansSqlClass.GetCustomerInformationByID(customerTransaction.CustomerID);
+                                customerInfo = TansSqlClass.GetCustomerInformationByID(customerTransaction.CustomerId);
                             }
                             else
                             {
@@ -57,7 +57,7 @@ namespace HOTPOS
                                 customerName.Text = customerInfo.FirstName + " " + customerInfo.LastName;
                             }
 
-                            if (customerTransaction.Void)
+                            if (customerTransaction.IsTransactionVoid)
                             {
                                 voidIndicator.Text = "<b>**VOID**</b>";
                             }
@@ -66,24 +66,24 @@ namespace HOTPOS
                             foreach (HOTBAL.TransactionItem item in transactionItems)
                             {
                                 itemsList.Text += "<tr><td>" + item.ProductName
-                                    + "</td><td style='text-align: center;'>" + item.Quantity
-                                    + "</td><td style='text-align: center;'>" + String.Format("{0:c}", item.Price)
-                                    + "</td><td style='text-align: center;'>" + String.Format("{0:c}", (item.Price * item.Quantity))
+                                    + "</td><td style='text-align: center;'>" + item.ItemQuantity
+                                    + "</td><td style='text-align: center;'>" + String.Format("{0:c}", item.ProductPrice)
+                                    + "</td><td style='text-align: center;'>" + String.Format("{0:c}", (item.ProductPrice * item.ItemQuantity))
                                     + "</td></tr>";
-                                if (item.Tax)
+                                if (item.IsTaxed)
                                 {
-                                    taxTotal = (taxTotal + (item.Price * item.Quantity));
+                                    taxTotal = (taxTotal + (item.ProductPrice * item.ItemQuantity));
                                 }
                                 else
                                 {
-                                    nonTaxTotal = (nonTaxTotal + (item.Price * item.Quantity));
+                                    nonTaxTotal = (nonTaxTotal + (item.ProductPrice * item.ItemQuantity));
                                 }
                             }
                             subTotal.Text = String.Format("{0:c}", (nonTaxTotal + taxTotal));
-                            tax.Text = String.Format("{0:c}", customerTransaction.Tax);
-                            total.Text = String.Format("{0:c}", customerTransaction.Total);
-                            paymentMethod.Text = customerTransaction.Payment;
-                            transactionDate.Text = TansFunctionsClass.FormatSlash(customerTransaction.Date);
+                            tax.Text = String.Format("{0:c}", customerTransaction.TaxTotal);
+                            total.Text = String.Format("{0:c}", customerTransaction.TransactionTotal);
+                            paymentMethod.Text = customerTransaction.PaymentMethod;
+                            transactionDate.Text = TansFunctionsClass.FormatSlash(customerTransaction.TransactionDate);
                         }
                 }
                 else

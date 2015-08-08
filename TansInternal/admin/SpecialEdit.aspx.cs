@@ -32,8 +32,8 @@ namespace HOTTropicalTans.admin
                         specialAbbrName.Text = specialDetail.SpecialShortName;
                         specialPrice.Text = specialProductInfo.ProductPrice.ToString();
                         specialBarCode.Text = specialProductInfo.ProductCode;
-                        displayInStore.Checked = specialProductInfo.ProductAvailableInStore;
-                        displayOnline.Checked = specialProductInfo.ProductAvailableOnline;
+                        displayInStore.Checked = specialProductInfo.IsAvailableInStore;
+                        displayOnline.Checked = specialProductInfo.IsAvailableOnline;
 
                         List<HOTBAL.SpecialLevel> specialLevels = sqlClass.GetLevelsBySpecialID(specialDetail.SpecialID);
                         

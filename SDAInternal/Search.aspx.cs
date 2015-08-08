@@ -60,19 +60,19 @@ namespace HOTSelfDefense
                     if (studentList.Count > 0)
                     {
                         // Did we get any error message?
-                        if (String.IsNullOrEmpty(studentList[0].Error))
+                        if (String.IsNullOrEmpty(studentList[0].ErrorMessage))
                         {
                             // Loop through the returned students
                             foreach (HOTBAL.Student student in studentList)
                             {
                                 // Output a new table for each student with a link to their information
                                 searchResultsOutput.Text += "<tr><td><a href='" + HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL +
-                                    "?ID=" + student.ID.ToString() + "'>" + student.LastName + ", " + student.FirstName + "</a></td></tr>";
+                                    "?ID=" + student.StudentId.ToString() + "'>" + student.LastName + ", " + student.FirstName + "</a></td></tr>";
                             }
                         }
                         else
                             // Output the received error
-                            errorLabel.Text = studentList[0].Error;
+                            errorLabel.Text = studentList[0].ErrorMessage;
                     }
                     else
                         // Output the error message
@@ -113,19 +113,19 @@ namespace HOTSelfDefense
                 if (studentList.Count > 0)
                 {
                     // Did we get an error?
-                    if (String.IsNullOrEmpty(studentList[0].Error))
+                    if (String.IsNullOrEmpty(studentList[0].ErrorMessage))
                     {
                         // Loop through the list of returned students
                         foreach (HOTBAL.Student student in studentList)
                         {
                             // Output a new table for each student with a link to their information
                             searchResultsOutput.Text += "<tr><td><a href='" + HOTBAL.SDAConstants.STUDENT_INFO_INTERNAL_URL +
-                                "?ID=" + student.ID.ToString() + "'>" + student.LastName + ", " + student.FirstName + "</a></td></tr>";
+                                "?ID=" + student.StudentId.ToString() + "'>" + student.LastName + ", " + student.FirstName + "</a></td></tr>";
                         }
                     }
                     else
                         // Output the received error
-                        errorLabel.Text = studentList[0].Error;
+                        errorLabel.Text = studentList[0].ErrorMessage;
                 }
                 else
                     // Output the error message

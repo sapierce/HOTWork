@@ -23,7 +23,7 @@ namespace SDAFederation
                     artSelection.Items.Add(new ListItem("-SELECT-", "0"));
                     foreach (Art artList in artInformation)
                     {
-                        artSelection.Items.Add(new ListItem(artList.Title, artList.ID.ToString()));
+                        artSelection.Items.Add(new ListItem(artList.ArtTitle, artList.ArtId.ToString()));
                     }
                 }
             }
@@ -74,7 +74,7 @@ namespace SDAFederation
 
             foreach (Belt belt in beltList)
             {
-                beltSelection.Items.Add(new ListItem(belt.Title, belt.ID.ToString()));
+                beltSelection.Items.Add(new ListItem(belt.BeltTitle, belt.BeltId.ToString()));
             }
         }
     }

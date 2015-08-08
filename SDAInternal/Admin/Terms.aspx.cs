@@ -47,16 +47,16 @@ namespace HOTSelfDefense
 
             if (beltsResponse != null)
             {
-                if (String.IsNullOrEmpty(beltsResponse[0].Error))
+                if (String.IsNullOrEmpty(beltsResponse[0].ErrorMessage))
                 {
                     foreach (HOTBAL.Belt b in beltsResponse)
                     {
-                        ddlBeltName.Items.Add(new ListItem(b.Title, b.ID.ToString()));
+                        ddlBeltName.Items.Add(new ListItem(b.BeltTitle, b.BeltId.ToString()));
                     }
                 }
                 else
                 {
-                    lblError.Text = beltsResponse[0].Error;
+                    lblError.Text = beltsResponse[0].ErrorMessage;
                 }
             }
         }
@@ -69,15 +69,15 @@ namespace HOTSelfDefense
 
             if (termResponse != null)
             {
-                if (String.IsNullOrEmpty(termResponse.Error))
+                if (String.IsNullOrEmpty(termResponse.ErrorMessage))
                 {
-                    txtEnglish.Text = termResponse.English;
-                    txtChinese.Text = termResponse.Chinese;
-                    ddlBeltName.Items.FindByValue(termResponse.BeltID.ToString()).Selected = true;
+                    txtEnglish.Text = termResponse.EnglishTerm;
+                    txtChinese.Text = termResponse.ChineseTerm;
+                    ddlBeltName.Items.FindByValue(termResponse.BeltId.ToString()).Selected = true;
                 }
                 else
                 {
-                    lblError.Text = termResponse.Error;
+                    lblError.Text = termResponse.ErrorMessage;
                 }
             }
         }

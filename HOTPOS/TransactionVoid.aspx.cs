@@ -27,10 +27,10 @@ namespace HOTPOS
                         {
                             if (Request.QueryString["Task"].ToString().Trim() == "Void")
                                 // Voiding this transaction
-                                tansSqlClass.UpdateTransaction(transactionID, transactionInformation.Seller, transactionInformation.Total.ToString(), tansFunctionsClass.FormatDash(transactionInformation.Date), transactionInformation.Payment, true, transactionInformation.Paid);
+                                tansSqlClass.UpdateTransaction(transactionID, transactionInformation.SellerId, transactionInformation.TransactionTotal.ToString(), tansFunctionsClass.FormatDash(transactionInformation.TransactionDate), transactionInformation.PaymentMethod, true, transactionInformation.IsTransactionPaid);
                             else if (Request.QueryString["Task"].ToString().Trim() == "Unvoid")
                                 // Unvoiding this transaction
-                                tansSqlClass.UpdateTransaction(transactionID, transactionInformation.Seller, transactionInformation.Total.ToString(), tansFunctionsClass.FormatDash(transactionInformation.Date), transactionInformation.Payment, false, transactionInformation.Paid);
+                                tansSqlClass.UpdateTransaction(transactionID, transactionInformation.SellerId, transactionInformation.TransactionTotal.ToString(), tansFunctionsClass.FormatDash(transactionInformation.TransactionDate), transactionInformation.PaymentMethod, false, transactionInformation.IsTransactionPaid);
                         }
                     }
                 }

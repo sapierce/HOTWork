@@ -39,7 +39,7 @@ namespace HOTSelfDefense
 
             artResponse = sqlClass.GetArtByID(ID);
 
-            txtArtName.Text = artResponse.Title;
+            txtArtName.Text = artResponse.ArtTitle;
         }
 
         public void btnAdd_onClick(Object sender, EventArgs e)

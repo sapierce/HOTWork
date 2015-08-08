@@ -21,25 +21,25 @@ namespace SDAFederation
 
                 if (studentInformation != null)
                 {
-                    if (functionsClass.SchoolID().ToString().Trim() == studentInformation.School.ToString().Trim())
+                    if (functionsClass.SchoolID().ToString().Trim() == studentInformation.SchoolId.ToString().Trim())
                     {
                         studentName.Text = studentInformation.FirstName + " " + studentInformation.LastName;
-                        studentAddress.Text = studentInformation.Address;
+                        studentAddress.Text = studentInformation.StreetAddress;
                         studentBirthDate.Text = functionsClass.FormatSlash(studentInformation.BirthDate);
                         studentCity.Text = studentInformation.City;
                         studentEmergencyContact.Text = studentInformation.EmergencyContact;
-                        studentID.Text = studentInformation.RegistrationID.ToString();
+                        studentID.Text = studentInformation.RegistrationId.ToString();
                         studentNotes.Text = studentInformation.Note;
                         studentState.Text = studentInformation.State;
                         studentZip.Text = studentInformation.ZipCode;
 
-                        editStudent.NavigateUrl = FederationConstants.EDIT_STUDENT_INFORMATION_URL + "?ID=" + studentInformation.ID.ToString();
+                        editStudent.NavigateUrl = FederationConstants.EDIT_STUDENT_INFORMATION_URL + "?ID=" + studentInformation.StudentId.ToString();
 
-                        List<StudentArt> studentArts = methodsClass.GetStudentArts(studentInformation.ID);
+                        List<StudentArt> studentArts = methodsClass.GetStudentArts(studentInformation.StudentId);
 
                         foreach (StudentArt art in studentArts)
                         {
-                            studentArtInformation.Text += art.ArtTitle + "-" + art.BeltTitle + "&nbsp;&nbsp;<a href='" + FederationConstants.EDIT_STUDENT_ART_INFORMATION_URL + "?ID=" + art.ID + "'>Edit</a><br />";
+                            studentArtInformation.Text += art.ArtTitle + "-" + art.BeltTitle + "&nbsp;&nbsp;<a href='" + FederationConstants.EDIT_STUDENT_ART_INFORMATION_URL + "?ID=" + art.StudentArtId + "'>Edit</a><br />";
                         }
                     }
                     else

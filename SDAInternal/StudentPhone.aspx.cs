@@ -25,13 +25,13 @@ namespace HOTSelfDefense
                             addPhonePanel.Visible = false;
                             HOTBAL.StudentPhone studentPhone = sqlClass.GetStudentPhoneById(phoneId);
 
-                            if (String.IsNullOrEmpty(studentPhone.Error))
+                            if (String.IsNullOrEmpty(studentPhone.ErrorMessage))
                             {
-                                editRelationShip.Text = studentPhone.Relationship;
+                                editRelationShip.Text = studentPhone.RelationshipToStudent;
                                 editPhoneNumber.Text = studentPhone.PhoneNumber;
                             }
                             else
-                                errorLabel.Text = studentPhone.Error;
+                                errorLabel.Text = studentPhone.ErrorMessage;
                         }
                     }
                 else

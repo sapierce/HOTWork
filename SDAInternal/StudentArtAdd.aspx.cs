@@ -62,20 +62,20 @@ namespace HOTSelfDefense
             if (artList.Count > 0)
             {
                 // Did we get an error when getting the arts?
-                if (String.IsNullOrEmpty(artList[0].Error))
+                if (String.IsNullOrEmpty(artList[0].ErrorMessage))
                 {
                     // Loop through the list of returned arts
                     foreach (HOTBAL.Art art in artList)
                     {
                         // Add the art to the first and second art lists
-                        studentArt.Items.Add(new ListItem(art.Title, art.ID.ToString()));
+                        studentArt.Items.Add(new ListItem(art.ArtTitle, art.ArtId.ToString()));
                     }
                 }
                 else
                 {
                     // Set up the error label and output the received error
                     Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = artList[0].Error;
+                    errorLabel.Text = artList[0].ErrorMessage;
                 }
             }
             else
@@ -106,20 +106,20 @@ namespace HOTSelfDefense
             if (beltList.Count > 0)
             {
                 // Did we get an error when getting the belts?
-                if (String.IsNullOrEmpty(beltList[0].Error))
+                if (String.IsNullOrEmpty(beltList[0].ErrorMessage))
                 {
                     // Loop through the list of returned belts
                     foreach (HOTBAL.Belt belt in beltList)
                     {
                         // Add each belt to the drop down list
-                        studentBelt.Items.Add(new ListItem(belt.Title, belt.ID.ToString()));
+                        studentBelt.Items.Add(new ListItem(belt.BeltTitle, belt.BeltId.ToString()));
                     }
                 }
                 else
                 {
                     // Set up the error label and output the received error
                     Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = beltList[0].Error;
+                    errorLabel.Text = beltList[0].ErrorMessage;
                 }
             }
             else
@@ -141,10 +141,10 @@ namespace HOTSelfDefense
             HOTBAL.Belt beltList = methodsClass.GetBeltByID(Convert.ToInt32(studentBelt.SelectedValue.ToString()));
 
             // Did we get an error getting the belt information?
-            if (String.IsNullOrEmpty(beltList.Error))
+            if (String.IsNullOrEmpty(beltList.ErrorMessage))
             {
                 // Did we get a valid belt?
-                if (beltList.ID > 0)
+                if (beltList.BeltId > 0)
                 {
                     // Does this belt use tips or class counts?
                     if (beltList.ClassOrTip == "T")
@@ -171,20 +171,20 @@ namespace HOTSelfDefense
                         if (tipList.Count > 0)
                         {
                             // Did we get an error getting the tips?
-                            if (String.IsNullOrEmpty(tipList[0].Error))
+                            if (String.IsNullOrEmpty(tipList[0].ErrorMessage))
                             {
                                 // Loop through the returned tips
                                 foreach (HOTBAL.Tip tip in tipList)
                                 {
                                     // Output the tips to the drop down
-                                    studentTip.Items.Add(new ListItem(tip.Title, tip.ID.ToString()));
+                                    studentTip.Items.Add(new ListItem(tip.TipTitle, tip.TipId.ToString()));
                                 }
                             }
                             else
                             {
                                 // Set up the error label and output the error message
                                 Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                                errorLabel.Text = tipList[0].Error;
+                                errorLabel.Text = tipList[0].ErrorMessage;
                             }
                         }
                     }
@@ -211,7 +211,7 @@ namespace HOTSelfDefense
             {
                 // Set up the error label and output the error message
                 Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                errorLabel.Text = beltList.Error;
+                errorLabel.Text = beltList.ErrorMessage;
             }
         }
 

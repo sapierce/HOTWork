@@ -61,20 +61,20 @@ namespace HOTSelfDefense
             if (allStudents.Count > 0)
             {
                 // Did we get an error when getting the students?
-                if (String.IsNullOrEmpty(allStudents[0].Error))
+                if (String.IsNullOrEmpty(allStudents[0].ErrorMessage))
                 {
                     // Loop through the list of returned students
                     foreach (HOTBAL.Student student in allStudents)
                     {
                         // Add the student to the list
-                        studentList.Items.Add(new ListItem(student.LastName + ", " + student.FirstName + (String.IsNullOrEmpty(student.Suffix) ? "" : " " + student.Suffix), student.ID.ToString()));
+                        studentList.Items.Add(new ListItem(student.LastName + ", " + student.FirstName + (String.IsNullOrEmpty(student.Suffix) ? "" : " " + student.Suffix), student.StudentId.ToString()));
                     }
                 }
                 else
                 {
                     // Set up the error label and output the received error
                     Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = allStudents[0].Error;
+                    errorLabel.Text = allStudents[0].ErrorMessage;
                 }
             }
             else

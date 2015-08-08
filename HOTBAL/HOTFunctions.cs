@@ -185,7 +185,7 @@ namespace HOTBAL
                 artList[0] = new ListItem("-SELECT-", "0");
                 foreach (Art art in studentArts)
                 {
-                    artList[count] = new ListItem(art.Title, art.ID.ToString());
+                    artList[count] = new ListItem(art.ArtTitle, art.ArtId.ToString());
                     count++;
                 }
                 return artList;
@@ -208,7 +208,7 @@ namespace HOTBAL
                 beltList[0] = new ListItem("-SELECT-", "0");
                 foreach (Belt belt in studentBelts)
                 {
-                    beltList[count] = new ListItem(belt.Title, belt.ID.ToString());
+                    beltList[count] = new ListItem(belt.BeltTitle, belt.BeltId.ToString());
                     count++;
                 }
                 return beltList;

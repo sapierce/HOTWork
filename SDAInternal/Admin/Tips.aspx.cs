@@ -73,16 +73,16 @@ namespace HOTSelfDefense
 
             if (beltsResponse != null)
             {
-                if (String.IsNullOrEmpty(beltsResponse[0].Error))
+                if (String.IsNullOrEmpty(beltsResponse[0].ErrorMessage))
                 {
                     foreach (HOTBAL.Belt b in beltsResponse)
                     {
-                        ddlBeltName.Items.Add(new ListItem(b.Title, b.ID.ToString()));
+                        ddlBeltName.Items.Add(new ListItem(b.BeltTitle, b.BeltId.ToString()));
                     }
                 }
                 else
                 {
-                    lblError.Text = beltsResponse[0].Error;
+                    lblError.Text = beltsResponse[0].ErrorMessage;
                 }
             }
         }
@@ -95,19 +95,19 @@ namespace HOTSelfDefense
 
             if (tipResponse != null)
             {
-                if (String.IsNullOrEmpty(tipResponse.Error))
+                if (String.IsNullOrEmpty(tipResponse.ErrorMessage))
                 {
-                    txtTipName.Text = tipResponse.Title;
-                    txtTipLevel.Text = tipResponse.Level;
+                    txtTipName.Text = tipResponse.TipTitle;
+                    txtTipLevel.Text = tipResponse.TipLevel;
                     //ddlArtName.Items.FindByValue(tipResponse.BeltID.ToString()).Selected = true;
-                    ddlBeltName.Items.FindByValue(tipResponse.BeltID.ToString()).Selected = true;
-                    if (tipResponse.LastTipIndicator)
+                    ddlBeltName.Items.FindByValue(tipResponse.BeltId.ToString()).Selected = true;
+                    if (tipResponse.IsLastTip)
                     {
                         chkLastTip.Checked = true;
                     }
                 }
                 else
-                    lblError.Text = tipResponse.Error;
+                    lblError.Text = tipResponse.ErrorMessage;
             }
         }
 

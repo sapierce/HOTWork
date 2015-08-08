@@ -92,20 +92,20 @@ namespace HOTSelfDefense
             if (allArts.Count > 0)
             {
                 // Did we get an error when getting the arts?
-                if (String.IsNullOrEmpty(allArts[0].Error))
+                if (String.IsNullOrEmpty(allArts[0].ErrorMessage))
                 {
                     // Loop through the list of returned arts
                     foreach (HOTBAL.Art art in allArts)
                     {
                         // Add the art to the art list
-                        artList.Items.Add(new ListItem(art.Title, art.ID.ToString()));
+                        artList.Items.Add(new ListItem(art.ArtTitle, art.ArtId.ToString()));
                     }
                 }
                 else
                 {
                     // Set up the error label and output the received error
                     Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = allArts[0].Error;
+                    errorLabel.Text = allArts[0].ErrorMessage;
                 }
             }
             else

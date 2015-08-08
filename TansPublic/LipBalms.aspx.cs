@@ -47,7 +47,7 @@ namespace PublicWebsite
                             // Output the returned product information
                             lipBalms.Text += "<tr><td rowspan='2' class='productImage'><a href='" +
                                 HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
-                                p.ProductID + "'><img src='products/";
+                                p.ProductId + "'><img src='products/";
 
                             // Do we have an image?
                             if (String.IsNullOrEmpty(p.ProductFileName))
@@ -64,11 +64,11 @@ namespace PublicWebsite
                             // Build the product information
                             lipBalms.Text += "' alt='" + p.ProductName + "' border='0'></a></td><td class='productInformation'><b><a href='" +
                                 HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
-                                p.ProductID + "'>" +
+                                p.ProductId + "'>" +
                                 p.ProductName + "</a></b></td><td class='productInformation' style='text-align:center !important;'>";
 
                             // Is this product on sale?
-                            if (p.ProductSaleOnline)
+                            if (p.IsOnSaleOnline)
                             {
                                 // Output the sale price with the regular price underneath
                                 lipBalms.Text += "<span style='color:red;'>" +
@@ -88,7 +88,7 @@ namespace PublicWebsite
                                 // Add a link to the shopping cart
                                 lipBalms.Text += "<a href='" +
                                     HOTBAL.TansConstants.SHOPPING_PUBLIC_URL + "?action=add&ItemID=" +
-                                    p.ProductID + "'>Add to Cart</a></td></tr>";
+                                    p.ProductId + "'>Add to Cart</a></td></tr>";
                             }
                             else
                             {
@@ -103,7 +103,7 @@ namespace PublicWebsite
                                 lipBalms.Text += "<tr><td colspan='3' class='productDetail' style='height:100px;'><i>" +
                                     p.ProductDescription.Substring(0, 150) + "<a href='" +
                                     HOTBAL.TansConstants.PRODUCT_PUBLIC_URL + "?ID=" +
-                                    p.ProductID + "'>...</a></i></td></tr>";
+                                    p.ProductId + "'>...</a></i></td></tr>";
                             }
                             else
                             {

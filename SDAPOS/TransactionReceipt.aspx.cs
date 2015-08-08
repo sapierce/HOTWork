@@ -39,16 +39,16 @@ namespace SDAPOS
                 Transaction studentTransaction = sqlClass.GetStudentTransaction(Convert.ToInt32(Request.QueryString["ID"].ToString()));
                 List<TransactionItem> transactionItems = sqlClass.GetTransactionItems(Convert.ToInt32(Request.QueryString["ID"].ToString()));
 
-                if (String.IsNullOrEmpty(studentTransaction.Error) && String.IsNullOrEmpty(transactionItems[0].Error))
+                if (String.IsNullOrEmpty(studentTransaction.ErrorMessage) && String.IsNullOrEmpty(transactionItems[0].ErrorMessage))
                 {
-                    Student studentInfo = sqlClass.GetStudentInformation(studentTransaction.CustomerID);
+                    Student studentInfo = sqlClass.GetStudentInformation(studentTransaction.CustomerId);
 
-                    if (String.IsNullOrEmpty(studentInfo.Error))
+                    if (String.IsNullOrEmpty(studentInfo.ErrorMessage))
                     {
                         lblName.Text = studentInfo.FirstName + " " + studentInfo.LastName;
                     }
 
-                    if (studentTransaction.Void)
+                    if (studentTransaction.IsTransactionVoid)
                     {
                         lblVoid.Text = "<b>**VOID**</b>";
                     }
@@ -57,23 +57,23 @@ namespace SDAPOS
                     foreach (TransactionItem item in transactionItems)
                     {
                         litItems.Text += "<tr><td>" + item.ProductName
-                            + "</td><td>" + item.Quantity
-                            + "</td><td>" + item.Price
-                            + "</td><td>" + (item.Price * item.Quantity)
+                            + "</td><td>" + item.ItemQuantity
+                            + "</td><td>" + item.ProductPrice
+                            + "</td><td>" + (item.ProductPrice * item.ItemQuantity)
                             + "</td></tr>";
-                        if (item.Tax)
+                        if (item.IsTaxed)
                         {
-                            taxTotal = (taxTotal + (item.Price * item.Quantity));
+                            taxTotal = (taxTotal + (item.ProductPrice * item.ItemQuantity));
                         }
                         else
                         {
-                            nonTaxTotal = (nonTaxTotal + (item.Price * item.Quantity));
+                            nonTaxTotal = (nonTaxTotal + (item.ProductPrice * item.ItemQuantity));
                         }
                     }
                     lblSubTotal.Text = (nonTaxTotal + taxTotal).ToString();
-                    lblTax.Text = studentTransaction.Tax.ToString();
-                    lblTotal.Text = studentTransaction.Total.ToString();
-                    lblPayment.Text = studentTransaction.Payment;
+                    lblTax.Text = studentTransaction.TaxTotal.ToString();
+                    lblTotal.Text = studentTransaction.TransactionTotal.ToString();
+                    lblPayment.Text = studentTransaction.PaymentMethod;
                 }
             }
         }

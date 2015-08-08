@@ -98,11 +98,11 @@ namespace HOTPOS
                         List<HOTBAL.CartItem> giftCardCart = new List<HOTBAL.CartItem>();
                         HOTBAL.CartItem giftCardItem = new HOTBAL.CartItem();
                         giftCardItem = new HOTBAL.CartItem();
-                        giftCardItem.ItemID = 69;
+                        giftCardItem.ItemId = 69;
                         giftCardItem.ItemName = "Gift Card";
                         giftCardItem.ItemPrice = Convert.ToDouble(giftAmount.Text);
                         giftCardItem.ItemQuantity = 1;
-                        giftCardItem.ItemTaxed = false;
+                        giftCardItem.ItemIsTaxed = false;
                         giftCardItem.ItemType = "";
                         giftCardCart.Add(giftCardItem);
 

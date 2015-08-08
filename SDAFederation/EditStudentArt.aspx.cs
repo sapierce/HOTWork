@@ -21,18 +21,18 @@ namespace SDAFederation
                 {
                     StudentArt studentArtInformation = methodsClass.GetStudentArt(Convert.ToInt32(Request.QueryString["ID"].ToString()));
 
-                    if (String.IsNullOrEmpty(studentArtInformation.Error))
+                    if (String.IsNullOrEmpty(studentArtInformation.ErrorMessage))
                     {
                         editArt.Items.AddRange(functionsClass.GetArtList(functionsClass.SchoolID()));
-                        editArt.Items.FindByValue(studentArtInformation.ArtID.ToString()).Selected = true;
+                        editArt.Items.FindByValue(studentArtInformation.ArtId.ToString()).Selected = true;
 
-                        editBelt.Items.AddRange(functionsClass.GetBeltList(studentArtInformation.ArtID));
-                        editBelt.Items.FindByValue(studentArtInformation.BeltID.ToString()).Selected = true;
+                        editBelt.Items.AddRange(functionsClass.GetBeltList(studentArtInformation.ArtId));
+                        editBelt.Items.FindByValue(studentArtInformation.BeltId.ToString()).Selected = true;
                     }
                     else
                     {
                         Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                        errorLabel.Text = "&#149; " + studentArtInformation.Error;
+                        errorLabel.Text = "&#149; " + studentArtInformation.ErrorMessage;
                     }
                 }
             }

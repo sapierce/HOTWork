@@ -38,7 +38,7 @@ namespace HOTSelfDefense
 
             HOTBAL.Student studentInfo = sqlClass.GetStudentInformation(studentId);
 
-            if (String.IsNullOrEmpty(studentInfo.Error))
+            if (String.IsNullOrEmpty(studentInfo.ErrorMessage))
             {
                 studentName.Text = studentInfo.FirstName + " " + studentInfo.LastName + (String.IsNullOrEmpty(studentInfo.Suffix) ? "" : ", " + studentInfo.Suffix);
                 addTransaction.NavigateUrl = HOTBAL.SDAPOSConstants.CART_URL + "?ID=" + studentId.ToString() + "&Action=";
@@ -46,7 +46,7 @@ namespace HOTSelfDefense
             }
             else
             {
-                errorLabel.Text = studentInfo.Error;
+                errorLabel.Text = studentInfo.ErrorMessage;
             }
         }
 
@@ -59,25 +59,25 @@ namespace HOTSelfDefense
                 foreach (HOTBAL.Transaction transaction in transactionList)
                 {
                     transactionOutput.Text += "<tr><td valign='top'>"
-                        + (transaction.Void ? "<b>**VOID**</b><br />" : "")
-                        + "<a href='" + HOTBAL.SDAPOSConstants.MA_TRANSACTION_DETAILS_URL + "?ID=" + transaction.ID + "'>" + transaction.ID + "</a><br />"
-                        + "<a href='" + HOTBAL.SDAPOSConstants.RECEIPT_URL + "?ID=" + transaction.ID + "'>Receipt</a>"
-                        + "</td><td valign='top'>" + FunctionsClass.FormatSlash(transaction.Date) + "</td><td valign='top'><table>";
+                        + (transaction.IsTransactionVoid ? "<b>**VOID**</b><br />" : "")
+                        + "<a href='" + HOTBAL.SDAPOSConstants.MA_TRANSACTION_DETAILS_URL + "?ID=" + transaction.TransactionId + "'>" + transaction.TransactionId + "</a><br />"
+                        + "<a href='" + HOTBAL.SDAPOSConstants.RECEIPT_URL + "?ID=" + transaction.TransactionId + "'>Receipt</a>"
+                        + "</td><td valign='top'>" + FunctionsClass.FormatSlash(transaction.TransactionDate) + "</td><td valign='top'><table>";
 
                     // Get transaction items
-                    List<HOTBAL.TransactionItem> transactionItems = sqlClass.GetTransactionItems(transaction.ID);
+                    List<HOTBAL.TransactionItem> transactionItems = sqlClass.GetTransactionItems(transaction.TransactionId);
 
                     foreach (HOTBAL.TransactionItem item in transactionItems)
                     {
                         transactionOutput.Text += "<tr><td>" + item.ProductName
-                                        + "&nbsp;&nbsp;(" + item.Price + ")"
-                                        + "</td><td>" + item.Quantity
+                                        + "&nbsp;&nbsp;(" + item.ProductPrice + ")"
+                                        + "</td><td>" + item.ItemQuantity
                                         + "</td></tr>";
                     }
 
-                    transactionOutput.Text += "</table></td><td valign='top'>" + transaction.Payment
-                        + "</td><td valign='top'>" + transaction.Total
-                        + "</td><td valign='top'>" + (transaction.Paid ? "Yes" : "No")
+                    transactionOutput.Text += "</table></td><td valign='top'>" + transaction.PaymentMethod
+                        + "</td><td valign='top'>" + transaction.TransactionTotal
+                        + "</td><td valign='top'>" + (transaction.IsTransactionPaid ? "Yes" : "No")
                         + "</td></tr>";
                 }
             }

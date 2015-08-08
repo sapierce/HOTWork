@@ -18,10 +18,10 @@ namespace SDAFederation.admin
             if (!Page.IsPostBack)
             {
                 Art artInformation = methodsClass.GetArtByID(Convert.ToInt32(Request.QueryString["ID"]));
-                if (artInformation.Title != null)
+                if (artInformation.ArtTitle != null)
                 {
-                    School schoolInformation = methodsClass.GetSchoolBySchoolID(artInformation.SchoolID);
-                    artTitle.Text = artInformation.Title;
+                    School schoolInformation = methodsClass.GetSchoolBySchoolID(artInformation.SchoolId);
+                    artTitle.Text = artInformation.ArtTitle;
                     artSchool.Text = schoolInformation.SchoolName;
                 }
             }

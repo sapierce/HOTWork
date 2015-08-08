@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HOTDAL", "HOTDAL\HOTDAL.csproj", "{EAF329CE-61D5-467A-A3CD-4184D7965591}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TansPOS", "HOTPOS\TansPOS.csproj", "{D4B73468-E8FC-40E7-8C7D-CD1712908363}"
@@ -22,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDAPOS", "SDAPOS\SDAPOS.csproj", "{EF4AF2F5-7483-495D-B4B9-6142A4449767}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDAFederationPOS", "SDAFederationPOS\SDAFederationPOS.csproj", "{D6A05F38-9A35-4A59-8F76-BEAAA4171988}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HOTService", "HOTService\HOTService.csproj", "{C529064C-ABC6-4D81-81A5-A8DB52504939}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +77,10 @@ Global
 		{D6A05F38-9A35-4A59-8F76-BEAAA4171988}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6A05F38-9A35-4A59-8F76-BEAAA4171988}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6A05F38-9A35-4A59-8F76-BEAAA4171988}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C529064C-ABC6-4D81-81A5-A8DB52504939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C529064C-ABC6-4D81-81A5-A8DB52504939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C529064C-ABC6-4D81-81A5-A8DB52504939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C529064C-ABC6-4D81-81A5-A8DB52504939}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

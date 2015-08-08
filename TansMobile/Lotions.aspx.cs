@@ -35,8 +35,8 @@ namespace MobileSite
                         {
                             fileName = "noltn-sm.gif";
                         }
-                        lotionsList.Text += "<tr><td rowspan='2' style='text-align: center;'><a href='ProductDetails.aspx?ID=" + p.ProductID + "&type=lotion'><img src='/products/" + fileName + "' alt='" + p.ProductName + "' border=0></a></td><td valign='top' align='left'><b><a href='productdetails.aspx?ID=" + p.ProductID + "&type=lotion'>" + p.ProductName + "</a></b></td><td valign='top' align='center'>";
-                        if (p.ProductSaleOnline)
+                        lotionsList.Text += "<tr><td rowspan='2' style='text-align: center;'><a href='ProductDetails.aspx?ID=" + p.ProductId + "&type=lotion'><img src='/products/" + fileName + "' alt='" + p.ProductName + "' border=0></a></td><td valign='top' align='left'><b><a href='productdetails.aspx?ID=" + p.ProductId + "&type=lotion'>" + p.ProductName + "</a></b></td><td valign='top' align='center'>";
+                        if (p.IsOnSaleOnline)
                         {
                             lotionsList.Text += "<span style='color:red;'>$" + p.ProductSalePrice + "</span><br /><span style='font-size: 9px'>Reg - $" + p.ProductPrice + "</span>";
                         }
@@ -59,7 +59,7 @@ namespace MobileSite
 
                         if (p.ProductDescription.Length > 150)
                         {
-                            prodDesc = p.ProductDescription.Substring(0, 150) + "<a href='ProductDetails.aspx?ID=" + p.ProductID + "&type=lotion'>...</a>";
+                            prodDesc = p.ProductDescription.Substring(0, 150) + "<a href='ProductDetails.aspx?ID=" + p.ProductId + "&type=lotion'>...</a>";
                         }
                         else
                         {

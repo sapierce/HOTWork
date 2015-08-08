@@ -33,38 +33,38 @@ namespace HOTSelfDefense
                         HOTBAL.Course courseDetails = methodsClass.GetClassInformation(Convert.ToInt32(Request.QueryString["ID"].ToString()));
 
                         // Did we find class detail information?
-                        if (courseDetails.ID > 0)
+                        if (courseDetails.CourseId > 0)
                         {
                             // Get and output the full art name
-                            classArt.Text = methodsClass.GetArtTitle(courseDetails.FirstArtID);
+                            classArt.Text = methodsClass.GetArtTitle(courseDetails.FirstArtId);
 
                             // Is there a secondary art?
-                            if (courseDetails.SecondArtID > 0)
+                            if (courseDetails.SecondArtId > 0)
                                 // Get and output the full secondary art name
-                                classArt.Text += "/" + methodsClass.GetArtTitle(courseDetails.SecondArtID);
+                                classArt.Text += "/" + methodsClass.GetArtTitle(courseDetails.SecondArtId);
 
                             // Get the class instructor
-                            HOTBAL.Instructor getClassInstructor = methodsClass.GetInstructorByID(courseDetails.InstructorID);
+                            HOTBAL.Instructor getClassInstructor = methodsClass.GetInstructorByID(courseDetails.InstructorId);
 
                             // Did we get an error?
-                            if (String.IsNullOrEmpty(getClassInstructor.Error))
+                            if (String.IsNullOrEmpty(getClassInstructor.ErrorMessage))
                                 // Output the instructor name
                                 classInstructor.Text = getClassInstructor.FirstName + " " + getClassInstructor.LastName;
                             else
                                 // Output the error message
-                                classInstructor.Text = getClassInstructor.Error;
+                                classInstructor.Text = getClassInstructor.ErrorMessage;
 
                             // Output the class title
-                            classTitle.Text = courseDetails.Title;
+                            classTitle.Text = courseDetails.CourseTitle;
 
                             // Get students registered for this class
-                            List<HOTBAL.Student> courseStudents = methodsClass.GetStudentsByClass(courseDetails.ID);
+                            List<HOTBAL.Student> courseStudents = methodsClass.GetStudentsByClass(courseDetails.CourseId);
 
                             // Did we get the list of students back?
                             if (courseStudents.Count > 0)
                             {
                                 // Did we get an error message back?
-                                if (String.IsNullOrEmpty(courseStudents[0].Error))
+                                if (String.IsNullOrEmpty(courseStudents[0].ErrorMessage))
                                 {
                                     // Loop through the returned list of students
                                     foreach (HOTBAL.Student student in courseStudents)
@@ -73,7 +73,7 @@ namespace HOTSelfDefense
                                         printRoster.Text += "<tr><td>";
 
                                         // Is this student checked in to this class?
-                                        bool isCheckedIn = methodsClass.IsStudentCheckedIn(Convert.ToInt32(Request.QueryString["ID"].ToString()), student.ID);
+                                        bool isCheckedIn = methodsClass.IsStudentCheckedIn(Convert.ToInt32(Request.QueryString["ID"].ToString()), student.StudentId);
 
                                         if (isCheckedIn)
                                             // Student is already checked in
@@ -87,31 +87,31 @@ namespace HOTSelfDefense
                                             (String.IsNullOrEmpty(student.Suffix) ? "" : " " + student.Suffix) + "</td><td>" + student.Note + "</td>";
 
                                         // Get student information for this art
-                                        HOTBAL.StudentArt artResponse = methodsClass.GetStudentArtByID(courseDetails.FirstArtID, student.ID);
+                                        HOTBAL.StudentArt artResponse = methodsClass.GetStudentArtByID(courseDetails.FirstArtId, student.StudentId);
 
                                         // Did we get an error message?
-                                        if (String.IsNullOrEmpty(artResponse.Error))
+                                        if (String.IsNullOrEmpty(artResponse.ErrorMessage))
                                             // Output the student's current belt and tip/class count
                                             printRoster.Text += "<td>" + artResponse.BeltTitle + "</td><td>" +
                                                 (artResponse.ClassOrTip == "T" ? artResponse.TipTitle : artResponse.ClassCount.ToString()) + "</td>";
                                         else
                                             // Output the received error message
-                                            errorMessage.Text = artResponse.Error;
+                                            errorMessage.Text = artResponse.ErrorMessage;
 
                                         // Is there a second art>
-                                        if (courseDetails.SecondArtID != 0)
+                                        if (courseDetails.SecondArtId != 0)
                                         {
                                             // Get student information for this art
-                                            HOTBAL.StudentArt art2Response = methodsClass.GetStudentArtByID(courseDetails.SecondArtID, student.ID);
+                                            HOTBAL.StudentArt art2Response = methodsClass.GetStudentArtByID(courseDetails.SecondArtId, student.StudentId);
 
                                             // Did we get an error message?
-                                            if (String.IsNullOrEmpty(art2Response.Error))
+                                            if (String.IsNullOrEmpty(art2Response.ErrorMessage))
                                                 // Output the student's current belt and tip/class count
                                                 printRoster.Text += "<td>" + art2Response.BeltTitle + "</td><td>" +
                                                     (art2Response.ClassOrTip == "T" ? art2Response.TipTitle : art2Response.ClassCount.ToString()) + "</td>";
                                             else
                                                 // Output the received error message
-                                                errorMessage.Text = art2Response.Error;
+                                                errorMessage.Text = art2Response.ErrorMessage;
                                         }
                                         else
                                             // Output empty cells
@@ -123,7 +123,7 @@ namespace HOTSelfDefense
                                 }
                                 else
                                     // Output the received error message
-                                    errorMessage.Text = courseStudents[0].Error;
+                                    errorMessage.Text = courseStudents[0].ErrorMessage;
                             }
                             else
                                 // Output the no students message

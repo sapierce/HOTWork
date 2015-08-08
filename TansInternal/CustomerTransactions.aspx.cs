@@ -33,7 +33,7 @@ namespace HOTTropicalTans
                     {
                         if (allCustomerTransactions.Count > 0)
                         {
-                            if (String.IsNullOrEmpty(allCustomerTransactions[0].Error))
+                            if (String.IsNullOrEmpty(allCustomerTransactions[0].ErrorMessage))
                             {
                                 foreach (HOTBAL.Transaction t in allCustomerTransactions)
                                 {
@@ -41,37 +41,37 @@ namespace HOTTropicalTans
                                     {
                                         transactionLog.Text += "<tr><td>";
 
-                                        if (t.Void)
+                                        if (t.IsTransactionVoid)
                                         {
                                             transactionLog.Text += "<b>**VOID**</b><br />";
                                         }
 
-                                        transactionLog.Text += "<a href='" + HOTBAL.POSConstants.TRANSACTION_DETAILS_URL + "?ID=" + t.ID.ToString() + "'>" + t.ID.ToString() + "</a><br />";
-                                        transactionLog.Text += "<a href='" + HOTBAL.POSConstants.RECEIPT_URL + "?ID=" + t.ID.ToString() + "'>Receipt</a><br />";
-                                        transactionLog.Text += "</td><td>" + functionsClass.FormatSlash(t.Date);
+                                        transactionLog.Text += "<a href='" + HOTBAL.POSConstants.TRANSACTION_DETAILS_URL + "?ID=" + t.TransactionId.ToString() + "'>" + t.TransactionId.ToString() + "</a><br />";
+                                        transactionLog.Text += "<a href='" + HOTBAL.POSConstants.RECEIPT_URL + "?ID=" + t.TransactionId.ToString() + "'>Receipt</a><br />";
+                                        transactionLog.Text += "</td><td>" + functionsClass.FormatSlash(t.TransactionDate);
                                         transactionLog.Text += "</td><td>";
 
                                         List<HOTBAL.TransactionItem> itemList = new List<HOTBAL.TransactionItem>();
-                                        itemList = sqlClass.GetTanningTransactionItems(t.ID);
+                                        itemList = sqlClass.GetTanningTransactionItems(t.TransactionId);
                                         if (itemList != null)
                                         {
-                                            if (String.IsNullOrEmpty(itemList[0].Error))
+                                            if (String.IsNullOrEmpty(itemList[0].ErrorMessage))
                                             {
                                                 string transactionItems = "<table style='width: 100%;'>";
                                                 foreach (HOTBAL.TransactionItem i in itemList)
                                                 {
-                                                    transactionItems += "<tr><td>" + i.ProductName + " (" + String.Format("{0:C}", i.Price) + ")";
-                                                    transactionItems += "</td><td>" + i.Quantity + "</td></tr>";
+                                                    transactionItems += "<tr><td>" + i.ProductName + " (" + String.Format("{0:C}", i.ProductPrice) + ")";
+                                                    transactionItems += "</td><td>" + i.ItemQuantity + "</td></tr>";
                                                 }
                                                 transactionItems += "</table>";
                                                 transactionLog.Text += transactionItems;
                                             }
                                         }
 
-                                        transactionLog.Text += "</td><td>" + t.Location;
-                                        transactionLog.Text += "</td><td>" + t.Payment;
-                                        transactionLog.Text += "</td><td>" + String.Format("{0:C}", t.Total);
-                                        transactionLog.Text += "</td><td>" + t.Paid.ToString();
+                                        transactionLog.Text += "</td><td>" + t.TransactionLocation;
+                                        transactionLog.Text += "</td><td>" + t.PaymentMethod;
+                                        transactionLog.Text += "</td><td>" + String.Format("{0:C}", t.TransactionTotal);
+                                        transactionLog.Text += "</td><td>" + t.IsTransactionPaid.ToString();
                                         transactionLog.Text += "</td></tr>";
 
                                         transactionCount++;
@@ -81,7 +81,7 @@ namespace HOTTropicalTans
                             else
                             {
                                 Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                                errorLabel.Text = allCustomerTransactions[0].Error;
+                                errorLabel.Text = allCustomerTransactions[0].ErrorMessage;
                             }
                         }
                         else

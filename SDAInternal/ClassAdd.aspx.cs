@@ -109,21 +109,21 @@ namespace HOTSelfDefense
             if (artList.Count > 0)
             {
                 // Did we get an error when getting the arts?
-                if (String.IsNullOrEmpty(artList[0].Error))
+                if (String.IsNullOrEmpty(artList[0].ErrorMessage))
                 {
                     // Loop through the list of returned arts
                     foreach (HOTBAL.Art art in artList)
                     {
                         // Add the art to the first and second art lists
-                        artFirst.Items.Add(new ListItem(art.Title, art.ID.ToString()));
-                        artSecond.Items.Add(new ListItem(art.Title, art.ID.ToString()));
+                        artFirst.Items.Add(new ListItem(art.ArtTitle, art.ArtId.ToString()));
+                        artSecond.Items.Add(new ListItem(art.ArtTitle, art.ArtId.ToString()));
                     }
                 }
                 else
                 {
                     // Set up the error label and output the received error
                     Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = artList[0].Error;
+                    errorLabel.Text = artList[0].ErrorMessage;
                 }
             }
             else
@@ -152,20 +152,20 @@ namespace HOTSelfDefense
             if (instructorList.Count > 0)
             {
                 // Did we get an error when getting the instructors?
-                if (String.IsNullOrEmpty(instructorList[0].Error))
+                if (String.IsNullOrEmpty(instructorList[0].ErrorMessage))
                 {
                     // Loop through the list of returned instructors
                     foreach (HOTBAL.Instructor person in instructorList)
                     {
                         // Add the instructor to the list
-                        instructor.Items.Add(new ListItem(person.FirstName + " " + person.LastName, person.ID.ToString()));
+                        instructor.Items.Add(new ListItem(person.FirstName + " " + person.LastName, person.InstructorId.ToString()));
                     }
                 }
                 else
                 {
                     // Set up the error label and output the received error
                     Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = instructorList[0].Error;
+                    errorLabel.Text = instructorList[0].ErrorMessage;
                 }
             }
             else
@@ -194,13 +194,13 @@ namespace HOTSelfDefense
             if (allStudents.Count > 0)
             {
                 // Did we get an error when getting the students?
-                if (String.IsNullOrEmpty(allStudents[0].Error))
+                if (String.IsNullOrEmpty(allStudents[0].ErrorMessage))
                 {
                     // Loop through the list of returned students
                     foreach (HOTBAL.Student student in allStudents)
                     {
                         // Add the student to the list
-                        studentList.Items.Add(new ListItem(student.LastName + ", " + student.FirstName, student.ID.ToString()));
+                        studentList.Items.Add(new ListItem(student.LastName + ", " + student.FirstName, student.StudentId.ToString()));
                     }
 
                     // Was a student ID element passed in?
@@ -214,7 +214,7 @@ namespace HOTSelfDefense
                 {
                     // Set up the error label and output the received error
                     Label errorLabel = (Label)this.Master.FindControl("errorMessage");
-                    errorLabel.Text = allStudents[0].Error;
+                    errorLabel.Text = allStudents[0].ErrorMessage;
                 }
             }
             else

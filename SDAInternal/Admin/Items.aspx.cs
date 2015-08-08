@@ -41,15 +41,15 @@ namespace HOTSelfDefense.Admin
             sltProdType.Items.FindByValue(itemResponse.ProductType).Selected = true;
             sltProdSubType.Items.FindByValue(itemResponse.ProductSubType).Selected = true;
             txtProdPrice.Text = itemResponse.ProductPrice.ToString();
-            chkProdTax.Checked = itemResponse.ProductTaxable;
+            chkProdTax.Checked = itemResponse.IsTaxable;
             txtProdCode.Text = itemResponse.ProductCode;
             txtProdDesc.Text = itemResponse.ProductDescription;
-            chkOnOn.Checked = itemResponse.ProductAvailableOnline;
-            chkInOn.Checked = itemResponse.ProductAvailableInStore;
-            chkNone.Checked = itemResponse.Active;
+            chkOnOn.Checked = itemResponse.IsAvailableOnline;
+            chkInOn.Checked = itemResponse.IsAvailableInStore;
+            chkNone.Checked = itemResponse.IsActive;
             txtWacoInv.Text = itemResponse.ProductCount.ToString();
-            chkSlOn.Checked = itemResponse.ProductSaleOnline;
-            chkSlIn.Checked = itemResponse.ProductSaleInStore;
+            chkSlOn.Checked = itemResponse.IsOnSaleOnline;
+            chkSlIn.Checked = itemResponse.IsOnSaleInStore;
             txtProdSale.Text = itemResponse.ProductSalePrice.ToString();
         }
 
