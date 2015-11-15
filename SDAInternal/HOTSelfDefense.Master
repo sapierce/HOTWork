@@ -4,112 +4,83 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="masterHeader" runat="server">
     <title>HOT Self Defense</title>
-    <!-- Get the needed JavaScript/jQuery -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="/HOTSDA/js/jquery.tooltipster.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(function () {
-            // Does the errorMessage have a value?
-            if ($("#<%=errorMessage.ClientID%>").text() != "") {
-                // Display the error panel
-                $("#<%=errorMessagePanel.ClientID%>").css("display", "block");
-            }
-            else {
-                // Hide the error panel
-                $("#<%=errorMessagePanel.ClientID%>").css("display", "none");
-            }
-
-            // Does the successMessage have a value?
-            if ($("#<%=successMessage.ClientID%>").text() != "") {
-                // Display the success panel
-                $("#<%=successMessagePanel.ClientID%>").css("display", "block");
-            }
-            else {
-                // Hide the success panel
-                $("#<%=successMessagePanel.ClientID%>").css("display", "none");
-            }
-        });
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Get the needed CSS files -->
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" type="text/css" />
-    <link rel="stylesheet" href="/HOTSDA/css/tooltipster.css" type="text/css" />
-    <link rel="stylesheet" href="/HOTSDA/css/tooltipster-light.css" type="text/css" />
-    <link href="/HOTSDA/css/HOTSDA.css" rel="stylesheet" type="text/css" />
-    <asp:ContentPlaceHolder ID="headerPlaceHolder" runat="server" />
+    <link rel="stylesheet" href="/HOTSDA/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/HOTSDA/css/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="/HOTSDA/css/HOTSDA.css" type="text/css" />
+    <asp:ContentPlaceHolder ID="placeholderHeader" runat="server" />
 </head>
 <body class="jquery-ui page">
-    <div id="container">
+    <div id="container" class="container-fluid">
         <!-- Build the header -->
-        <div id="header">
-            <img src="http://www.hotselfdefense.net/HOTSDA/images/InternalKickLogo.gif" alt="HOT Self Defense" />
-        </div>
-        <!-- Build the default navigation -->
-        <div id="navigation">
-            <ul>
-                <li>
-                    <!-- Build the link to the given day's schedule -->
-                    <asp:HyperLink Text="Schedule" runat="server" ID="dailySchedule" /></li>
-                <li>
-                    <!-- Build the link to add a new class/lesson -->
-                    <asp:HyperLink Text="Add A Class" runat="server" ID="addClass" /></li>
-                <li>
-                    <!-- Build the link to add a new student -->
-                    <asp:HyperLink Text="Add A Student" runat="server" ID="addStudent" /></li>
-                <li>
-                    <!-- Build the link to search -->
-                    <asp:HyperLink Text="Search" runat="server" ID="searchSDA" /></li>
-                <li>
-                    <!-- Build the link to the SDA Point of Sale -->
-                    <asp:HyperLink Text="Point of Sale" runat="server" ID="sdaPOS" /></li>
-                <li>
-                    <!-- Build the link to the Administration section -->
-                    <asp:HyperLink Text="Admin" runat="server" ID="sdaAdministration" /></li>
-                <li>
-                    <!-- Build the link to report a problem -->
-                    <asp:HyperLink Text="Report A Problem" runat="server" ID="reportProblem" /></li>
-            </ul>
-            <!-- Output the schedule date and current date -->
-            <div id="dates">
-                <b>Today's Date:</b>
-                <asp:Label ID="displayToday" runat="server" />
-                <b>Currently On:</b>
-                <asp:Label ID="displayCurrent" runat="server" />
+        <div id="header" class="row">
+            <div class="col-xs-12">
+                <img src="http://www.hotselfdefense.net/HOTSDA/images/InternalKickLogo.gif" alt="HOT Self Defense" class="img-responsive" />
             </div>
         </div>
+        <!-- Build the default navigation -->
+        <nav class="navbar navbar-default">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sdaNavbarCollapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="sdaNavbarCollapse">
+                <ul class="nav navbar-nav">
+                    <!-- Build the link to the given day's schedule -->
+                    <li><a href="/HOTSDA/Default.aspx" id="dailySchedule">Schedule</a></li>
+                    <!-- Build the link to add a new class/lesson -->
+                    <li><a href="/HOTSDA/ClassAdd.aspx" id="addClass">Add A Class</a></li>
+                    <!-- Build the link to add a new student -->
+                    <li><a href="/HOTSDA/StudentAdd.aspx" id="addStudent">Add A Student</a></li>
+                    <!-- Build the link to search -->
+                    <li><a href="/HOTSDA/Search.aspx" id="searchSDA">Search</a></li>
+                    <!-- Build the link to the SDA Point of Sale -->
+                    <li><a href="/SDAPOS/default.aspx" id="sdaPOS">Point of Sale</a></li>
+                    <!-- Build the link to the Administration section -->
+                    <li><a href="/HOTSDA/Admin/Default.aspx" id="sdaAdministration">Admin</a></li>
+                    <!-- Build the link to report a problem -->
+                    <li><a href="/HOTSDA/Problems.aspx" id="reportProblem">Report A Problem</a></li>
+                </ul>
+                <!-- Output the schedule date and current date -->
+                <div id="dates" class="navbar-text navbar-right">
+                    <b>Today's Date:</b>
+                    <span id="displayToday"></span>
+                    <b>Currently On:</b>
+                    <span id="displayCurrent"></span>
+                </div>
+            </div>
+        </nav>
         <!-- Build the main content -->
-        <div id="content-container">
+        <div id="content-container" class="row">
             <!-- Build the main content details -->
-            <div id="content">
+            <div id="content" class="col-lg-12">
                 <form id="sdaForm" runat="server">
-                    <div style="margin: 10px auto 10px auto; width: 400px;">
-                        <!-- Build the error message panel -->
-                        <asp:Panel ID="errorMessagePanel" CssClass="ui-state-error ui-corner-all" runat="server">
-                            <p style="padding: 0px 10px 0px 10px;"><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-                            <!-- Output the error message -->
-                            <strong>Error:&nbsp;&nbsp;</strong>
-                            <asp:Label ID="errorMessage" runat="server" /></p>
-                        </asp:Panel>
-                        <!-- Build the success message panel -->
-                        <asp:Panel ID="successMessagePanel" CssClass="ui-state-highlight ui-corner-all" runat="server">
-                            <p style="padding: 0px 10px 0px 10px;"><span class="ui-icon ui-icon-circle-check" style="float: left; margin-right: .3em;"></span>
-                            <!-- Output the success message -->
-                            <asp:Label ID="successMessage" runat="server" /></p>
-                        </asp:Panel>
-                    </div>
-                    <div>
+                    <div style="margin: 10px auto 10px auto; min-width: 400px;">
                         <!-- Output the main content -->
                         <asp:ContentPlaceHolder ID="placeholderMain" runat="server" />
                     </div>
                 </form>
             </div>
-            <!-- Build the footer -->
-            <div id="footer">
-                <!-- Copyright © HOT Self Defense, 2011-2014 -->
-            </div>
+        </div>
+        <!-- Build the footer -->
+        <div id="footer" class="row">
+            <!-- Copyright © HOT Self Defense, 2011-2015 -->
         </div>
     </div>
+    <!-- Get the needed JavaScript/jQuery -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script type="text/javascript" src="/HOTSDA/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/HOTSDA/js/jquery.tooltipster.min.js"></script>
+    <script type="text/javascript" src="/HOTSDA/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/HOTSDA/js/hotsda.js"></script>
+    <asp:ContentPlaceHolder ID="placeholderScripts" runat="server" />
 </body>
 </html>

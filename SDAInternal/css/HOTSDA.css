@@ -17,37 +17,6 @@
         margin: 0;
     }
 
-#navigation {
-    float: left;
-    width: 100%;
-    background: #000000;
-    color: #FFFFFF;
-    font-size: 13px;
-}
-
-    #navigation ul {
-        margin: 0;
-        padding: 0;
-    }
-
-        #navigation ul li {
-            list-style-type: none;
-            display: inline;
-        }
-
-    #navigation li a {
-        display: block;
-        float: left;
-        padding: 5px 10px;
-        color: #fff;
-        text-decoration: none;
-        border-right: 1px solid #fff;
-    }
-
-        #navigation li a:hover {
-            background: #5f5964;
-        }
-
 a.link {
     color: #000099 !important;
 }
@@ -223,12 +192,12 @@ td.leftAlignHeader {
     /* comment the above 3 line if you don't want transparency*/
 }
 
-#dates {
+/*#dates {
     float: left;
     color: #FFFFFF;
     left: 20px;
     padding: 5px 10px;
-}
+}*/
 
 input.error {
     border: 1px solid red;

@@ -1,32 +1,50 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="Default.aspx.cs" Inherits="HOTSelfDefense._Default" MasterPageFile="HOTSelfDefense.Master" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="headerPlaceHolder" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="placeholderHeader" runat="server">
+    
+</asp:Content>
+<asp:Content ID="defaultMain" runat="server" ContentPlaceHolderID="placeholderMain">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 text-center center-block">
+                <!-- Select what date we are looking at on the schedule-->
+                <div class="form-group">
+                    <div class="input-group">
+                    <label for="scheduleDate">Go to Date: </label>
+                    <asp:TextBox id="scheduleDate" runat="server" type="date" CssClass="scheduleDate form-control input-sm" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-calendar">
+                            </span>
+                        </button>
+                    </span>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="defense" style="margin: auto; width: 50%;">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">Time</th>
+                            <th>Class Name</th>
+                        </tr>
+                    </thead>
+                    <!-- Output a schedule of classes and lessons for the given date -->
+                    <asp:Literal id="outputSchedule" runat="server" />
+                </table>
+            </div>
+        </div>
+    </div>
+</asp:Content>
+<asp:Content ContentPlaceHolderID="placeholderScripts" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
             // Add the datepicker function to the schedule date
-            $("#<%=scheduleDate.ClientID%>").datepicker();
+            $(".scheduleDate").datepicker();
         });
-    </script>
-</asp:Content>
-<asp:Content ID="defaultMain" runat="server" ContentPlaceHolderID="placeholderMain">
-    <div style="text-align: center; margin: auto;">
-        <!-- Select what date we are looking at on the schedule-->
-        <asp:TextBox ID="scheduleDate" runat="server" class="scheduleDate" />&nbsp;
-        <!-- Submit to change the date on the schedule -->
-        <asp:Button ID="changeDate" runat="server" Text="Go to Date" OnClick="changeDate_Click" CssClass="ui-button" />
-    </div>
-    <br />
-    <table class="defense" style="margin: auto; width: 50%;">
-        <thead>
-            <tr>
-                <th style="width: 30%;">Time</th>
-                <th>Class Name</th>
-            </tr>
-        </thead>
-        <!-- Output a schedule of classes and lessons for the given date -->
-        <asp:Literal ID="outputSchedule" runat="server" />
-    </table>
-    <script>
         // initialize tooltipster on text input elements
         $('#aspnetForm input[type="text"]').tooltipster({
             trigger: 'custom',

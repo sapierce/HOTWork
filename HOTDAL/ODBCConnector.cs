@@ -247,7 +247,7 @@ namespace HOTDAL
                 command.ExecuteNonQuery();
                 command = new OdbcCommand(sqlString);
                 command.ExecuteReader();
-                returnValue = command..LastInsertedId;
+                //returnValue = command.LastInsertedId;
             }
             catch (Exception ex)
             {

@@ -13,33 +13,6 @@ namespace HOTSelfDefense {
     public partial class _Default {
         
         /// <summary>
-        /// panError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panError;
-        
-        /// <summary>
-        /// scheduleValidation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary scheduleValidation;
-        
-        /// <summary>
-        /// dateRequired control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator dateRequired;
-        
-        /// <summary>
         /// scheduleDate control.
         /// </summary>
         /// <remarks>
@@ -47,15 +20,6 @@ namespace HOTSelfDefense {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox scheduleDate;
-        
-        /// <summary>
-        /// changeDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button changeDate;
         
         /// <summary>
         /// outputSchedule control.

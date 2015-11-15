@@ -46,10 +46,7 @@ namespace HOTSelfDefense
         /// </summary>
         protected void changeDate_Click(object sender, EventArgs e)
         {
-            // Was the page valid?
-            if (Page.IsValid)
-            {
-                // Get the value in the scheduleDate text box
+            // Get the value in the scheduleDate text box
                 string goToDate = scheduleDate.Text.Trim();
 
                 // Was there a value in the schedule date text box?
@@ -59,7 +56,6 @@ namespace HOTSelfDefense
 
                 // Repopulate the schedule with the given date
                 outputSchedule.Text = methodClass.GetSchedule(Convert.ToDateTime(goToDate));
-            }
         }
     }
 }
